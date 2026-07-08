@@ -4,11 +4,11 @@ import { Eye, Layers, Compass, Flame, Leaf, Sparkles, X, ChevronLeft, ChevronRig
 
 // Import our real student and campus photos
 import baristaSmoothies from '../assets/images/barista_smoothies_1783338078505.jpg';
-import latteArtTable from '../assets/images/latte_art_table_1783338092054.jpg';
+import latteArtTable from '../assets/images/latte_art_table_1783338092054.jpeg';
 import latteArtTopdown from '../assets/images/latte_art_topdown_1783338101365.jpg';
 import coffeeCherriesDrying from '../assets/images/coffee_cherries_drying_1783338132429.jpg';
 import sortingBeans from '../assets/images/sorting_beans_1783338143134.jpg';
-import cocktailBar from '../assets/images/cocktail_bar_1783338176140.jpg';
+import cocktailBar from '../assets/images/cocktail_bar_1783338176140.jpeg';
 import latteArtCup from '../assets/images/latte_art_cup_1783338158532.jpg';
 
 interface GalleryItem {

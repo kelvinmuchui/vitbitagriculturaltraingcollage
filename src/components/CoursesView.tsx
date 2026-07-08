@@ -5,7 +5,7 @@ import { COURSES } from '../data';
 import { Course } from '../types';
 
 // Import our real student and campus photos
-import latteArtTable from '../assets/images/latte_art_table_1783338092054.jpg';
+import latteArtTable from '../assets/images/latte_art_table_1783338092054.jpeg';
 
 interface CoursesViewProps {
   setView: (view: string) => void;
