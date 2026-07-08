@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
 import { Eye, Layers, Compass, Flame, Leaf, Sparkles, X, ChevronLeft, ChevronRight, Info } from 'lucide-react';
 
 // Import our real student and campus photos
@@ -183,11 +184,16 @@ export default function PhotoGallery() {
 
       {/* GALLERY GRID */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {filteredItems.map((item) => (
-          <div 
+        {filteredItems.map((item, idx) => (
+          <motion.div 
             key={item.id}
             id={item.id}
             className="group bg-white border border-[#2E221C]/10 overflow-hidden hover:shadow-xl hover:border-[#C28A4E]/30 transition-all duration-300 flex flex-col justify-between"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.5, delay: (idx % 3) * 0.1 }}
+            whileHover={{ y: -6, boxShadow: "0 20px 25px -5px rgb(0 0 0 / 0.05), 0 8px 10px -6px rgb(0 0 0 / 0.05)" }}
           >
             {/* Visual Block */}
             <div className="relative h-64 overflow-hidden bg-slate-100 shrink-0">
@@ -242,106 +248,117 @@ export default function PhotoGallery() {
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
 
       {/* LIGHTBOX MODAL WITH FULL IMAGE PREVIEW */}
-      {selectedItemIdx !== null && (
-        <div 
-          className="fixed inset-0 z-50 bg-[#21100B]/95 backdrop-blur-sm flex items-center justify-center p-4 sm:p-10"
-          role="dialog"
-          aria-modal="true"
-        >
-          {/* Close trigger */}
-          <button 
-            onClick={handleCloseLightbox}
-            id="close-lightbox"
-            className="absolute top-6 right-6 text-white hover:text-[#C28A4E] p-3 transition-colors bg-white/10 hover:bg-white/20 cursor-pointer"
-            aria-label="Close Lightbox"
+      <AnimatePresence>
+        {selectedItemIdx !== null && (
+          <motion.div 
+            className="fixed inset-0 z-50 bg-[#21100B]/95 backdrop-blur-sm flex items-center justify-center p-4 sm:p-10"
+            role="dialog"
+            aria-modal="true"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
           >
-            <X className="h-6 w-6" />
-          </button>
+            {/* Close trigger */}
+            <button 
+              onClick={handleCloseLightbox}
+              id="close-lightbox"
+              className="absolute top-6 right-6 text-white hover:text-[#C28A4E] p-3 transition-colors bg-white/10 hover:bg-white/20 cursor-pointer"
+              aria-label="Close Lightbox"
+            >
+              <X className="h-6 w-6" />
+            </button>
 
-          {/* Slider Controls */}
-          <button 
-            onClick={handlePrevItem}
-            id="prev-lightbox-item"
-            className="absolute left-4 sm:left-8 text-white hover:text-[#C28A4E] p-4 transition-colors bg-white/5 hover:bg-white/15 cursor-pointer z-10"
-            aria-label="Previous image"
-          >
-            <ChevronLeft className="h-8 w-8" />
-          </button>
+            {/* Slider Controls */}
+            <button 
+              onClick={handlePrevItem}
+              id="prev-lightbox-item"
+              className="absolute left-4 sm:left-8 text-white hover:text-[#C28A4E] p-4 transition-colors bg-white/5 hover:bg-white/15 cursor-pointer z-10"
+              aria-label="Previous image"
+            >
+              <ChevronLeft className="h-8 w-8" />
+            </button>
 
-          <button 
-            onClick={handleNextItem}
-            id="next-lightbox-item"
-            className="absolute right-4 sm:right-8 text-white hover:text-[#C28A4E] p-4 transition-colors bg-white/5 hover:bg-white/15 cursor-pointer z-10"
-            aria-label="Next image"
-          >
-            <ChevronRight className="h-8 w-8" />
-          </button>
+            <button 
+              onClick={handleNextItem}
+              id="next-lightbox-item"
+              className="absolute right-4 sm:right-8 text-white hover:text-[#C28A4E] p-4 transition-colors bg-white/5 hover:bg-white/15 cursor-pointer z-10"
+              aria-label="Next image"
+            >
+              <ChevronRight className="h-8 w-8" />
+            </button>
 
-          {/* Main Visual Frame & Spec Details */}
-          <div className="bg-white max-w-5xl w-full grid grid-cols-1 md:grid-cols-12 overflow-hidden shadow-2xl relative animate-fade-in max-h-[85vh]">
-            {/* Visual Area */}
-            <div className="md:col-span-7 bg-black flex items-center justify-center relative min-h-[300px] md:min-h-[500px]">
-              <img 
-                src={galleryItems[selectedItemIdx].image} 
-                alt={galleryItems[selectedItemIdx].title} 
-                className="w-full h-full object-cover max-h-[500px]"
-                referrerPolicy="no-referrer"
-              />
-              <div className="absolute top-4 left-4 bg-[#C28A4E] text-white text-[10px] font-bold px-3 py-1 uppercase tracking-widest">
-                {galleryItems[selectedItemIdx].categoryLabel}
+            {/* Main Visual Frame & Spec Details */}
+            <motion.div 
+              className="bg-white max-w-5xl w-full grid grid-cols-1 md:grid-cols-12 overflow-hidden shadow-2xl relative max-h-[85vh]"
+              initial={{ opacity: 0, scale: 0.95, y: 15 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: -15 }}
+              transition={{ duration: 0.3 }}
+            >
+              {/* Visual Area */}
+              <div className="md:col-span-7 bg-black flex items-center justify-center relative min-h-[300px] md:min-h-[500px]">
+                <img 
+                  src={galleryItems[selectedItemIdx].image} 
+                  alt={galleryItems[selectedItemIdx].title} 
+                  className="w-full h-full object-cover max-h-[500px]"
+                  referrerPolicy="no-referrer"
+                />
+                <div className="absolute top-4 left-4 bg-[#C28A4E] text-white text-[10px] font-bold px-3 py-1 uppercase tracking-widest">
+                  {galleryItems[selectedItemIdx].categoryLabel}
+                </div>
               </div>
-            </div>
 
-            {/* Explanations & Meta Info Area */}
-            <div className="md:col-span-5 p-6 sm:p-8 flex flex-col justify-between bg-[#FAF6F0] overflow-y-auto">
-              <div className="space-y-6">
-                <div>
-                  <span className="text-[10px] font-extrabold uppercase tracking-widest text-[#C28A4E] block mb-1">
-                    VIBIT Specialty Facility
-                  </span>
-                  <h3 className="font-serif text-2xl font-bold text-[#2E221C] leading-snug">
-                    {galleryItems[selectedItemIdx].title}
-                  </h3>
-                </div>
+              {/* Explanations & Meta Info Area */}
+              <div className="md:col-span-5 p-6 sm:p-8 flex flex-col justify-between bg-[#FAF6F0] overflow-y-auto">
+                <div className="space-y-6">
+                  <div>
+                    <span className="text-[10px] font-extrabold uppercase tracking-widest text-[#C28A4E] block mb-1">
+                      VIBIT Specialty Facility
+                    </span>
+                    <h3 className="font-serif text-2xl font-bold text-[#2E221C] leading-snug">
+                      {galleryItems[selectedItemIdx].title}
+                    </h3>
+                  </div>
 
-                <div className="space-y-3">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-[#8E7C74] block">
-                    Infrastructure & Operational Purpose:
-                  </span>
-                  <p className="text-xs text-[#2E221C]/80 leading-relaxed">
-                    {galleryItems[selectedItemIdx].description}
-                  </p>
-                </div>
+                  <div className="space-y-3">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-[#8E7C74] block">
+                      Infrastructure & Operational Purpose:
+                    </span>
+                    <p className="text-xs text-[#2E221C]/80 leading-relaxed">
+                      {galleryItems[selectedItemIdx].description}
+                    </p>
+                  </div>
 
-                {/* Grid of full Technical specifications */}
-                <div className="space-y-3 pt-4 border-t border-[#2E221C]/10">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-[#8E7C74] block">
-                    Academic Lab Specification:
-                  </span>
-                  <div className="grid grid-cols-1 gap-2.5">
-                    {galleryItems[selectedItemIdx].specs.map((spec, sIdx) => (
-                      <div key={sIdx} className="bg-white p-3 border border-[#2E221C]/5 flex justify-between items-center text-xs">
-                        <span className="text-gray-500 font-semibold">{spec.label}</span>
-                        <span className="text-[#2E221C] font-bold">{spec.value}</span>
-                      </div>
-                    ))}
+                  {/* Grid of full Technical specifications */}
+                  <div className="space-y-3 pt-4 border-t border-[#2E221C]/10">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-[#8E7C74] block">
+                      Academic Lab Specification:
+                    </span>
+                    <div className="grid grid-cols-1 gap-2.5">
+                      {galleryItems[selectedItemIdx].specs.map((spec, sIdx) => (
+                        <div key={sIdx} className="bg-white p-3 border border-[#2E221C]/5 flex justify-between items-center text-xs">
+                          <span className="text-gray-500 font-semibold">{spec.label}</span>
+                          <span className="text-[#2E221C] font-bold">{spec.value}</span>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              <div className="pt-6 mt-6 border-t border-[#2E221C]/10 flex justify-between items-center text-[10px] text-[#8E7C74] font-bold uppercase">
-                <span>Facility Code: VIBIT-{galleryItems[selectedItemIdx].id.toUpperCase()}</span>
-                <span>{selectedItemIdx + 1} of {galleryItems.length}</span>
+                <div className="pt-6 mt-6 border-t border-[#2E221C]/10 flex justify-between items-center text-[10px] text-[#8E7C74] font-bold uppercase">
+                  <span>Facility Code: VIBIT-{galleryItems[selectedItemIdx].id.toUpperCase()}</span>
+                  <span>{selectedItemIdx + 1} of {galleryItems.length}</span>
+                </div>
               </div>
-            </div>
-          </div>
-        </div>
-      )}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }

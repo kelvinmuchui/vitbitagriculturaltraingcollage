@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
 import { ArrowRight, Star, Award, Leaf, Flame, ShieldAlert, Sparkles, MoveRight, Users, Compass, BookOpen } from 'lucide-react';
 import { TESTIMONIALS, LOGO_URL } from '../data';
 import PhotoGallery from './PhotoGallery';
+import CoffeeLabs from './CoffeeLabs';
 
 // Import our real student and campus photos
 import studentsBuilding from '../assets/images/students_building_1783338059168.jpg';
@@ -60,79 +62,155 @@ export default function HomeView({ setView, setSelectedCourseId }: HomeViewProps
   };
 
   return (
-    <div className="space-y-24 pb-20 animate-fade-in" id="home-view">
+    <div className="space-y-24 pb-20" id="home-view">
       
-      {/* 1. HERO SECTION */}
-      <section className="relative h-[90vh] flex items-center justify-center overflow-hidden">
-        {/* Background Image with elegant heavy overlay */}
-        <div className="absolute inset-0 z-0">
-          <img 
-            src={studentsBuilding}
-            alt="VIBIT Agricultural Training College Campus" 
-            className="w-full h-full object-cover scale-105 transform hover:scale-100 transition-transform duration-[10s]"
-            referrerPolicy="no-referrer"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#110E0C] via-[#110E0C]/75 to-transparent"></div>
-          <div className="absolute inset-0 bg-black/40"></div>
-        </div>
+      {/* 1. APPLE-INSPIRED HERO SECTION */}
+      <section className="relative overflow-hidden bg-gradient-to-b from-white via-amber-50/10 to-[#FAF6F0]/20 py-16 sm:py-24 lg:py-32">
+        {/* Subtle decorative background gradient circles */}
+        <div className="absolute top-0 right-0 h-[500px] w-[500px] bg-red-500/5 rounded-full filter blur-3xl pointer-events-none" />
+        <div className="absolute bottom-12 left-12 h-[300px] w-[300px] bg-amber-500/5 rounded-full filter blur-3xl pointer-events-none" />
 
-        {/* Content Box */}
-        <div className="relative z-10 max-w-5xl mx-auto text-center px-4 sm:px-6 lg:px-8 space-y-8">
-          <div className="inline-flex items-center space-x-2 bg-[#FAF6F0]/10 backdrop-blur-md px-4 py-2 rounded-full border border-white/20 text-[#FAF6F0] text-xs font-bold uppercase tracking-widest">
-            <Sparkles className="h-4 w-4 text-[#C28A4E]" />
-            <span>Admissions Now Open • Academic Year 2024/2025</span>
-          </div>
-
-          <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-tight">
-            Master the Art of Coffee <br />
-            <span className="text-[#C28A4E]">From Bean to Market</span>
-          </h1>
-
-          <p className="max-w-2xl mx-auto text-base sm:text-lg md:text-xl text-gray-200 font-medium leading-relaxed">
-            Acquire world-class training in sustainable agronomy, sensory profiling, commercial roasting, and agribusiness enterprise. Bridging local farming excellence with the global coffee economy.
-          </p>
-
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
-            <button
-              id="hero-apply-btn"
-              onClick={() => setView('admissions')}
-              className="w-full sm:w-auto flex items-center justify-center space-x-2 bg-[#C28A4E] hover:bg-[#A4713C] text-white px-8 py-4 rounded-xl font-bold text-base shadow-lg hover:shadow-xl transition-all cursor-pointer"
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+            
+            {/* Left Side: Elegant Display Copy (7 cols) */}
+            <motion.div 
+              className="lg:col-span-7 space-y-8 text-left"
+              initial={{ opacity: 0, x: -30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
             >
-              <span>Apply Online Portal</span>
-              <ArrowRight className="h-5 w-5" />
-            </button>
-            <button
-              id="hero-courses-btn"
-              onClick={() => setView('courses')}
-              className="w-full sm:w-auto flex items-center justify-center space-x-2 bg-white/10 hover:bg-white/20 text-white px-8 py-4 rounded-xl font-bold text-base border border-white/30 backdrop-blur-sm transition-all cursor-pointer"
+              <motion.div 
+                className="inline-flex items-center space-x-2 bg-gray-50 border border-gray-200/60 px-4 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-wider text-gray-700 shadow-xs"
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.1, duration: 0.4 }}
+              >
+                <span className="h-1.5 w-1.5 bg-[#b6171e] rounded-full animate-pulse" />
+                <span>Admission Intake Now Open • Academic Year 2024 / 2025</span>
+              </motion.div>
+
+              <div className="space-y-4">
+                <h1 className="font-sans text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-gray-900 leading-[1.1] md:leading-[1.05]">
+                  Crafting the Future of <br className="hidden sm:inline" />
+                  <span className="bg-gradient-to-r from-gray-900 via-[#271310] to-[#b6171e] bg-clip-text text-transparent">Specialty Coffee</span>
+                </h1>
+                <p className="font-serif text-lg sm:text-xl text-[#271310]/80 italic max-w-xl">
+                  "Seed to Cup, farm management to luxury branding."
+                </p>
+              </div>
+
+              <p className="text-sm sm:text-base text-gray-500 leading-relaxed max-w-xl">
+                Gain hands-on expertise inside Africa's premier coffee training academy. From nursery genetics and high-elevation cultivation to roasting gas metrics, sensory science, and barista calibration.
+              </p>
+
+              {/* Apple-style Premium Action Bar */}
+              <div className="flex flex-col sm:flex-row items-center gap-4 pt-2">
+                <motion.button
+                  id="hero-apply-btn"
+                  onClick={() => setView('admissions')}
+                  className="w-full sm:w-auto flex items-center justify-center space-x-2 bg-gray-900 hover:bg-gray-800 text-white px-8 py-4 rounded-xl font-bold text-sm shadow-md hover:shadow-lg transition-all cursor-pointer"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <span>Apply Online Portal</span>
+                  <ArrowRight className="h-4 w-4" />
+                </motion.button>
+                <motion.button
+                  id="hero-courses-btn"
+                  onClick={() => setView('courses')}
+                  className="w-full sm:w-auto flex items-center justify-center space-x-2 bg-white hover:bg-gray-50 text-gray-800 px-8 py-4 rounded-xl font-bold text-sm border border-gray-200 shadow-xs transition-all cursor-pointer"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <span>Explore Programs</span>
+                  <BookOpen className="h-4 w-4 text-gray-400" />
+                </motion.button>
+              </div>
+
+              {/* Mini Features List */}
+              <div className="grid grid-cols-3 gap-4 pt-6 border-t border-gray-100 max-w-md">
+                <div>
+                  <span className="font-bold text-gray-900 block text-sm">TVET Board</span>
+                  <span className="text-[10px] text-gray-400 uppercase tracking-wider font-semibold">Approved Certs</span>
+                </div>
+                <div>
+                  <span className="font-bold text-gray-900 block text-sm">SCA Aligned</span>
+                  <span className="text-[10px] text-gray-400 uppercase tracking-wider font-semibold">Cupping Standard</span>
+                </div>
+                <div>
+                  <span className="font-bold text-gray-900 block text-sm">92% Hired</span>
+                  <span className="text-[10px] text-gray-400 uppercase tracking-wider font-semibold">Direct Internship</span>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Right Side: Showcase Photo (5 cols) */}
+            <motion.div 
+              className="lg:col-span-5 w-full mt-10 lg:mt-0"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
             >
-              <span>Explore Programs</span>
-              <BookOpen className="h-5 w-5" />
-            </button>
+              <div className="relative bg-white rounded-2xl overflow-hidden shadow-xl border border-gray-200/80 p-2.5">
+                <img 
+                  src={studentsBuilding} 
+                  alt="VIBIT Student Cohort and Campus" 
+                  className="w-full h-auto rounded-xl object-contain"
+                  referrerPolicy="no-referrer"
+                />
+                <div className="mt-4 px-3 pb-1.5 flex justify-between items-center">
+                  <div>
+                    <span className="text-[9px] uppercase tracking-widest font-bold text-[#b6171e] font-mono">Admitted Student Cohort</span>
+                    <h4 className="font-sans font-extrabold text-sm text-gray-900 mt-0.5">VIBIT Academic Community</h4>
+                  </div>
+                  <span className="text-[9px] font-bold text-gray-500 bg-gray-100 border border-gray-200/50 px-2.5 py-1 rounded-md uppercase tracking-wider font-mono">TVET Approved</span>
+                </div>
+              </div>
+            </motion.div>
+
           </div>
         </div>
       </section>
 
       {/* 2. QUICK STATS BAR */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-20 relative z-20">
-        <div className="bg-[#2E221C] text-[#FAF6F0] rounded-2xl p-8 sm:p-12 shadow-2xl border border-[#C28A4E]/20 grid grid-cols-2 lg:grid-cols-4 gap-8">
+        <motion.div 
+          className="bg-[#2E221C] text-[#FAF6F0] rounded-2xl p-8 sm:p-12 shadow-2xl border border-[#C28A4E]/20 grid grid-cols-2 lg:grid-cols-4 gap-8"
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.7, ease: "easeOut" }}
+        >
           {stats.map((stat, idx) => (
-            <div key={idx} className="text-center space-y-1.5 border-r border-[#FAF6F0]/10 last:border-0" id={`stat-card-${idx}`}>
+            <motion.div 
+              key={idx} 
+              className="text-center space-y-1.5 border-r border-[#FAF6F0]/10 last:border-0" 
+              id={`stat-card-${idx}`}
+              whileHover={{ scale: 1.05 }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            >
               <div className="font-serif text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#C28A4E]">
                 {stat.value}
               </div>
               <div className="text-sm font-bold tracking-tight text-white">{stat.label}</div>
               <div className="text-[11px] text-[#FAF6F0]/60 uppercase tracking-wider">{stat.desc}</div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </section>
 
       {/* 3. ABOUT US INTRO */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
           {/* Text Left */}
-          <div className="lg:col-span-7 space-y-6">
+          <motion.div 
+            className="lg:col-span-7 space-y-6"
+            initial={{ opacity: 0, x: -40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+          >
             <div className="text-xs font-extrabold uppercase tracking-widest text-[#C28A4E]">
               Crafting Careers from the Ground Up
             </div>
@@ -156,20 +234,30 @@ export default function HomeView({ setView, setSelectedCourseId }: HomeViewProps
                 <MoveRight className="h-5 w-5 transform group-hover:translate-x-1.5 transition-transform" />
               </button>
             </div>
-          </div>
+          </motion.div>
 
           {/* Graphic Image Right */}
-          <div className="lg:col-span-5 relative">
+          <motion.div 
+            className="lg:col-span-5 relative"
+            initial={{ opacity: 0, x: 40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+            whileHover={{ y: -6 }}
+          >
             <div className="absolute -inset-4 bg-[#C28A4E]/10 rounded-3xl -rotate-2"></div>
             <div className="relative bg-white rounded-2xl overflow-hidden shadow-xl border border-[#2E221C]/10 aspect-4/3">
               <img 
                 src={studentsAccreditation}
                 alt="Accredited Practical Training at VIBIT"
-                className="w-full h-full object-cover animate-fade-in"
+                className="w-full h-full object-cover"
                 referrerPolicy="no-referrer"
               />
             </div>
-            <div className="absolute -bottom-6 -left-6 bg-[#FAF6F0] border border-[#2E221C]/10 p-4 rounded-xl shadow-lg flex items-center space-x-3 max-w-[240px]">
+            <motion.div 
+              className="absolute -bottom-6 -left-6 bg-[#FAF6F0] border border-[#2E221C]/10 p-4 rounded-xl shadow-lg flex items-center space-x-3 max-w-[240px]"
+              whileHover={{ scale: 1.05 }}
+            >
               <div className="bg-green-100 p-2 rounded-lg text-green-800">
                 <Users className="h-5 w-5" />
               </div>
@@ -177,15 +265,21 @@ export default function HomeView({ setView, setSelectedCourseId }: HomeViewProps
                 <div className="text-xs text-[#8E7C74] font-semibold leading-none">Global Network</div>
                 <div className="font-serif text-sm font-bold text-[#2E221C] mt-1">SCA Aligned Curriculum</div>
               </div>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </div>
       </section>
 
       {/* 4. WHY CHOOSE VIBIT BENTO GRID */}
       <section className="bg-[#FAF6F0]/40 py-20 border-y border-[#2E221C]/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-          <div className="text-center space-y-4 max-w-2xl mx-auto">
+          <motion.div 
+            className="text-center space-y-4 max-w-2xl mx-auto"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6 }}
+          >
             <div className="text-xs font-extrabold uppercase tracking-widest text-[#C28A4E]">Why Choose VIBIT</div>
             <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#2E221C]">
               Built Around Practical, Real-world Laboratory Dynamics
@@ -193,13 +287,20 @@ export default function HomeView({ setView, setSelectedCourseId }: HomeViewProps
             <p className="text-sm text-[#2E221C]/70">
               We focus purely on hands-on craft. Every theory module is validated in our sensory labs, roastery bays, or green greenhouses.
             </p>
-          </div>
+          </motion.div>
 
           {/* Bento Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8">
             
             {/* Box 1 - Certification */}
-            <div className="lg:col-span-7 bg-white border border-[#2E221C]/5 rounded-2xl overflow-hidden shadow-sm flex flex-col md:flex-row h-[320px]">
+            <motion.div 
+              className="lg:col-span-7 bg-white border border-[#2E221C]/5 rounded-2xl overflow-hidden shadow-sm flex flex-col md:flex-row h-[320px]"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              whileHover={{ y: -6, boxShadow: "0 20px 25px -5px rgb(0 0 0 / 0.05), 0 8px 10px -6px rgb(0 0 0 / 0.05)" }}
+            >
               <div className="p-8 flex flex-col justify-between md:w-1/2">
                 <div className="space-y-4">
                   <span className="inline-flex items-center px-3 py-1 bg-amber-100 text-amber-800 text-xs font-bold rounded-full">
@@ -212,18 +313,25 @@ export default function HomeView({ setView, setSelectedCourseId }: HomeViewProps
                 </div>
                 <div className="text-xs text-[#8E7C74] font-medium">Valid Government Accreditation</div>
               </div>
-              <div className="md:w-1/2 h-full">
+              <div className="md:w-1/2 h-full overflow-hidden">
                 <img 
                   src={studentsAccreditation}
                   alt="Gold Seal TVET Certificate and Accreditation Banner"
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
                   referrerPolicy="no-referrer"
                 />
               </div>
-            </div>
+            </motion.div>
 
             {/* Box 2 - Industry Connections */}
-            <div className="lg:col-span-5 bg-white border border-[#2E221C]/5 rounded-2xl overflow-hidden shadow-sm flex flex-col justify-between p-8 h-[320px]">
+            <motion.div 
+              className="lg:col-span-5 bg-white border border-[#2E221C]/5 rounded-2xl overflow-hidden shadow-sm flex flex-col justify-between p-8 h-[320px]"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              whileHover={{ y: -6, boxShadow: "0 20px 25px -5px rgb(0 0 0 / 0.05), 0 8px 10px -6px rgb(0 0 0 / 0.05)" }}
+            >
               <div className="space-y-4">
                 <div className="flex justify-between items-start">
                   <span className="inline-flex items-center px-3 py-1 bg-emerald-100 text-emerald-800 text-xs font-bold rounded-full">
@@ -242,10 +350,17 @@ export default function HomeView({ setView, setSelectedCourseId }: HomeViewProps
                 </p>
               </div>
               <div className="text-xs text-[#8E7C74] font-medium">92% Immediate Employment Rate</div>
-            </div>
+            </motion.div>
 
             {/* Box 3 - Barista Arts */}
-            <div className="lg:col-span-5 bg-[#2E221C] text-[#FAF6F0] rounded-2xl overflow-hidden shadow-sm flex flex-col justify-between p-8 h-[320px]">
+            <motion.div 
+              className="lg:col-span-5 bg-[#2E221C] text-[#FAF6F0] rounded-2xl overflow-hidden shadow-sm flex flex-col justify-between p-8 h-[320px]"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              whileHover={{ y: -6, boxShadow: "0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)" }}
+            >
               <div className="space-y-4">
                 <span className="inline-flex items-center px-3 py-1 bg-[#FAF6F0]/10 text-[#C28A4E] text-xs font-bold rounded-full">
                   <Flame className="h-3 w-3 mr-1" /> Barista Masters
@@ -260,19 +375,26 @@ export default function HomeView({ setView, setSelectedCourseId }: HomeViewProps
                 <img 
                   src={latteArtCup} 
                   alt="Barista art"
-                  className="h-12 w-12 rounded-xl object-cover"
+                  className="h-12 w-12 rounded-xl object-cover hover:scale-105 transition-transform duration-500"
                   referrerPolicy="no-referrer"
                 />
               </div>
-            </div>
+            </motion.div>
 
             {/* Box 4 - Plantation Excellence */}
-            <div className="lg:col-span-7 bg-white border border-[#2E221C]/5 rounded-2xl overflow-hidden shadow-sm flex flex-col md:flex-row h-[320px]">
-              <div className="md:w-1/2 h-full">
+            <motion.div 
+              className="lg:col-span-7 bg-white border border-[#2E221C]/5 rounded-2xl overflow-hidden shadow-sm flex flex-col md:flex-row h-[320px]"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              whileHover={{ y: -6, boxShadow: "0 20px 25px -5px rgb(0 0 0 / 0.05), 0 8px 10px -6px rgb(0 0 0 / 0.05)" }}
+            >
+              <div className="md:w-1/2 h-full overflow-hidden">
                 <img 
                   src={sortingBeans}
                   alt="Students sorting beans at campus nursery"
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
                   referrerPolicy="no-referrer"
                 />
               </div>
@@ -288,7 +410,7 @@ export default function HomeView({ setView, setSelectedCourseId }: HomeViewProps
                 </div>
                 <div className="text-xs text-[#8E7C74] font-medium">Eco-friendly Practices & Standards</div>
               </div>
-            </div>
+            </motion.div>
 
           </div>
         </div>
@@ -296,30 +418,43 @@ export default function HomeView({ setView, setSelectedCourseId }: HomeViewProps
 
       {/* 5. LEADING PROGRAMS */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+        <motion.div 
+          className="flex flex-col md:flex-row md:items-end md:justify-between gap-6"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6 }}
+        >
           <div className="space-y-4">
             <div className="text-xs font-extrabold uppercase tracking-widest text-[#C28A4E]">Our Leading Programs</div>
             <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#2E221C]">
               Launch a Specialized Career Path
             </h2>
           </div>
-          <button
+          <motion.button
             id="view-all-courses-btn"
             onClick={() => setView('courses')}
             className="inline-flex items-center space-x-2 bg-[#2E221C] hover:bg-[#110E0C] text-white font-bold px-6 py-3.5 rounded-xl text-sm shadow-md transition-colors w-max cursor-pointer"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.98 }}
           >
             <span>View Complete Catalog</span>
             <ArrowRight className="h-4 w-4" />
-          </button>
-        </div>
+          </motion.button>
+        </motion.div>
 
         {/* Programs cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {leadingPrograms.map((program) => (
-            <div 
+          {leadingPrograms.map((program, idx) => (
+            <motion.div 
               key={program.id} 
               id={`program-highlight-${program.id}`}
               className="bg-white border border-[#2E221C]/5 rounded-2xl p-8 hover:shadow-xl hover:border-[#C28A4E]/20 transition-all flex flex-col justify-between h-[280px]"
+              initial={{ opacity: 0, y: 35 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.6, delay: idx * 0.1 }}
+              whileHover={{ y: -8, boxShadow: "0 20px 25px -5px rgb(0 0 0 / 0.05), 0 8px 10px -6px rgb(0 0 0 / 0.05)" }}
             >
               <div className="space-y-4">
                 <div className="flex justify-between items-center">
@@ -338,14 +473,19 @@ export default function HomeView({ setView, setSelectedCourseId }: HomeViewProps
               <button
                 id={`program-link-${program.id}`}
                 onClick={() => handleProgramClick(program.id)}
-                className="inline-flex items-center space-x-1.5 text-xs font-bold text-[#C28A4E] hover:text-[#A4713C] transition-colors text-left"
+                className="inline-flex items-center space-x-1.5 text-xs font-bold text-[#C28A4E] hover:text-[#A4713C] transition-colors text-left cursor-pointer"
               >
                 <span>Syllabus & Tuition Calculator</span>
-                <ArrowRight className="h-3.5 w-3.5" />
+                <ArrowRight className="h-3.5 w-3.5 text-[#C28A4E]" />
               </button>
-            </div>
+            </motion.div>
           ))}
         </div>
+      </section>
+
+      {/* INTERACTIVE COFFEE LABS WORKSPACE */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <CoffeeLabs />
       </section>
 
       {/* PHOTO GALLERY SECTION */}
@@ -356,47 +496,68 @@ export default function HomeView({ setView, setSelectedCourseId }: HomeViewProps
         <div className="absolute inset-0 bg-radial-gradient from-transparent to-[#110E0C]"></div>
         
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-16">
-          <div className="text-center space-y-4">
+          <motion.div 
+            className="text-center space-y-4"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6 }}
+          >
             <span className="text-xs font-extrabold uppercase tracking-widest text-[#C28A4E]">Our Alumni Stories</span>
             <h2 className="font-serif text-3xl sm:text-4xl font-bold text-white">
               Success Measured by Our Graduates' Careers
             </h2>
-          </div>
+          </motion.div>
 
-          {/* Testimonial Active Slider Box */}
-          <div className="bg-[#FAF6F0]/5 border border-white/10 rounded-3xl p-8 sm:p-12 relative">
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-10 items-center">
-              
-              {/* Photo */}
-              <div className="md:col-span-4 flex justify-center">
-                <div className="relative h-44 w-44 sm:h-52 sm:w-52 rounded-2xl overflow-hidden border-2 border-[#C28A4E]/30 shadow-lg">
-                  <img 
-                    src={TESTIMONIALS[activeTestimonial].image} 
-                    alt={TESTIMONIALS[activeTestimonial].name} 
-                    className="w-full h-full object-cover"
-                    referrerPolicy="no-referrer"
-                  />
-                </div>
-              </div>
-
-              {/* Quote Content */}
-              <div className="md:col-span-8 space-y-6">
-                <div className="flex space-x-1 text-[#C28A4E]">
-                  {[...Array(5)].map((_, i) => <Star key={i} className="h-5 w-5 fill-[#C28A4E]" />)}
-                </div>
+          {/* Testimonial Active Slider Box with internal exit/entry animation */}
+          <motion.div 
+            className="bg-[#FAF6F0]/5 border border-white/10 rounded-3xl p-8 sm:p-12 relative overflow-hidden"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.7 }}
+          >
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeTestimonial}
+                initial={{ opacity: 0, x: 25 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -25 }}
+                transition={{ duration: 0.35, ease: "easeInOut" }}
+                className="grid grid-cols-1 md:grid-cols-12 gap-10 items-center"
+              >
                 
-                <p className="font-serif text-lg sm:text-xl md:text-2xl italic leading-relaxed text-gray-200">
-                  "{TESTIMONIALS[activeTestimonial].quote}"
-                </p>
-
-                <div className="space-y-1">
-                  <h4 className="font-bold text-base text-white">{TESTIMONIALS[activeTestimonial].name}</h4>
-                  <div className="text-xs text-[#C28A4E] font-semibold">{TESTIMONIALS[activeTestimonial].role}</div>
-                  <div className="text-[10px] text-gray-400 uppercase tracking-widest">{TESTIMONIALS[activeTestimonial].year}</div>
+                {/* Photo */}
+                <div className="md:col-span-4 flex justify-center">
+                  <div className="relative h-44 w-44 sm:h-52 sm:w-52 rounded-2xl overflow-hidden border-2 border-[#C28A4E]/30 shadow-lg">
+                    <img 
+                      src={TESTIMONIALS[activeTestimonial].image} 
+                      alt={TESTIMONIALS[activeTestimonial].name} 
+                      className="w-full h-full object-cover"
+                      referrerPolicy="no-referrer"
+                    />
+                  </div>
                 </div>
-              </div>
 
-            </div>
+                {/* Quote Content */}
+                <div className="md:col-span-8 space-y-6">
+                  <div className="flex space-x-1 text-[#C28A4E]">
+                    {[...Array(5)].map((_, i) => <Star key={i} className="h-5 w-5 fill-[#C28A4E]" />)}
+                  </div>
+                  
+                  <p className="font-serif text-lg sm:text-xl md:text-2xl italic leading-relaxed text-gray-200">
+                    "{TESTIMONIALS[activeTestimonial].quote}"
+                  </p>
+
+                  <div className="space-y-1">
+                    <h4 className="font-bold text-base text-white">{TESTIMONIALS[activeTestimonial].name}</h4>
+                    <div className="text-xs text-[#C28A4E] font-semibold">{TESTIMONIALS[activeTestimonial].role}</div>
+                    <div className="text-[10px] text-gray-400 uppercase tracking-widest">{TESTIMONIALS[activeTestimonial].year}</div>
+                  </div>
+                </div>
+
+              </motion.div>
+            </AnimatePresence>
 
             {/* Slider Dots */}
             <div className="absolute bottom-6 right-8 flex space-x-2">
@@ -412,13 +573,19 @@ export default function HomeView({ setView, setSelectedCourseId }: HomeViewProps
                 />
               ))}
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* 7. CTA BANNER */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-[#C28A4E] rounded-3xl p-8 sm:p-16 text-center space-y-8 relative overflow-hidden shadow-xl border border-white/10 text-white">
+        <motion.div 
+          className="bg-[#C28A4E] rounded-3xl p-8 sm:p-16 text-center space-y-8 relative overflow-hidden shadow-xl border border-white/10 text-white"
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6 }}
+        >
           <div className="absolute top-0 right-0 h-40 w-40 bg-white/5 rounded-full filter blur-xl transform translate-x-10 -translate-y-10"></div>
           
           <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold max-w-3xl mx-auto leading-tight">
@@ -429,22 +596,26 @@ export default function HomeView({ setView, setSelectedCourseId }: HomeViewProps
           </p>
           
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <button
+            <motion.button
               id="cta-apply-btn"
               onClick={() => setView('admissions')}
               className="w-full sm:w-auto bg-[#2E221C] hover:bg-[#110E0C] text-[#FAF6F0] font-bold px-8 py-4 rounded-xl text-base shadow-lg transition-colors cursor-pointer"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.98 }}
             >
               Start Online Enrollment
-            </button>
-            <button
+            </motion.button>
+            <motion.button
               id="cta-contact-btn"
               onClick={() => setView('contact')}
               className="w-full sm:w-auto bg-transparent hover:bg-white/10 text-white font-bold px-8 py-4 rounded-xl text-base border border-white/40 transition-colors cursor-pointer"
+              whileHover={{ scale: 1.05, backgroundColor: "rgba(255, 255, 255, 0.1)" }}
+              whileTap={{ scale: 0.98 }}
             >
               Consult Admissions Team
-            </button>
+            </motion.button>
           </div>
-        </div>
+        </motion.div>
       </section>
 
     </div>

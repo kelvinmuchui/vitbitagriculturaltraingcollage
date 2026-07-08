@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import HomeView from './components/HomeView';
@@ -51,8 +52,18 @@ export default function App() {
       <Navbar currentView={currentView} setView={setView} />
       
       {/* Main Viewport */}
-      <main className="flex-grow">
-        {renderActiveView()}
+      <main className="flex-grow overflow-hidden">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={currentView}
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -15 }}
+            transition={{ duration: 0.35, ease: 'easeInOut' }}
+          >
+            {renderActiveView()}
+          </motion.div>
+        </AnimatePresence>
       </main>
 
       {/* Footer */}

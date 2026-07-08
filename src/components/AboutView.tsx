@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
 import { CheckCircle2, Award, Star, Compass, MapPin, Eye, Play, ArrowRight, ShieldCheck, Heart } from 'lucide-react';
 import { FACILITIES } from '../data';
 
@@ -34,7 +35,7 @@ export default function AboutView({ setView }: AboutViewProps) {
   ];
 
   return (
-    <div className="space-y-24 pb-20 animate-fade-in" id="about-view">
+    <div className="space-y-24 pb-20" id="about-view">
       
       {/* 1. HERO SECTION */}
       <section className="relative py-28 flex items-center justify-center text-center text-white overflow-hidden">
@@ -48,7 +49,12 @@ export default function AboutView({ setView }: AboutViewProps) {
           <div className="absolute inset-0 bg-gradient-to-b from-[#110E0C]/90 via-[#110E0C]/80 to-[#FAF6F0]"></div>
         </div>
 
-        <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+        <motion.div 
+          className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+        >
           <span className="inline-flex items-center px-3 py-1 bg-[#C28A4E]/20 text-[#C28A4E] text-xs font-bold uppercase tracking-widest rounded-full border border-[#C28A4E]/30">
             About Our Academy
           </span>
@@ -59,14 +65,20 @@ export default function AboutView({ setView }: AboutViewProps) {
           <p className="max-w-2xl mx-auto text-sm sm:text-base text-gray-300 leading-relaxed">
             Established to elevate the standards of local coffee production and commercial agriculture, VIBIT Agricultural Training College acts as a direct conduit to the global premium coffee market.
           </p>
-        </div>
+        </motion.div>
       </section>
 
       {/* 2. VISION, MISSION & STANDARDS */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
           {/* Mission Left */}
-          <div className="lg:col-span-5 space-y-6">
+          <motion.div 
+            className="lg:col-span-5 space-y-6"
+            initial={{ opacity: 0, x: -40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.7 }}
+          >
             <div className="text-xs font-extrabold uppercase tracking-widest text-[#C28A4E]">
               Our Mandate
             </div>
@@ -83,10 +95,16 @@ export default function AboutView({ setView }: AboutViewProps) {
                 By integrating rigorous horticultural agronomy with barista hospitality standards under a single cooperative campus, our graduates acquire the rare multi-disciplinary competence needed to build lucrative brands.
               </p>
             </div>
-          </div>
+          </motion.div>
 
           {/* Standards Right */}
-          <div className="lg:col-span-7 space-y-8">
+          <motion.div 
+            className="lg:col-span-7 space-y-8"
+            initial={{ opacity: 0, x: 40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.7 }}
+          >
             <h3 className="font-serif text-xl sm:text-2xl font-bold text-[#2E221C] border-b border-[#2E221C]/10 pb-4">
               Our Academic Benchmarks
             </h3>
@@ -95,7 +113,13 @@ export default function AboutView({ setView }: AboutViewProps) {
               {standards.map((std, idx) => {
                 const Icon = std.icon;
                 return (
-                  <div key={idx} className="flex items-start space-x-4" id={`standard-card-${idx}`}>
+                  <motion.div 
+                    key={idx} 
+                    className="flex items-start space-x-4" 
+                    id={`standard-card-${idx}`}
+                    whileHover={{ x: 6 }}
+                    transition={{ type: "spring", stiffness: 250, damping: 15 }}
+                  >
                     <div className="bg-[#C28A4E]/10 p-3.5 rounded-xl text-[#C28A4E] shrink-0">
                       <Icon className="h-6 w-6" />
                     </div>
@@ -103,11 +127,11 @@ export default function AboutView({ setView }: AboutViewProps) {
                       <h4 className="font-bold text-base text-[#2E221C]">{std.title}</h4>
                       <p className="text-xs text-[#2E221C]/75 leading-relaxed">{std.description}</p>
                     </div>
-                  </div>
+                  </motion.div>
                 );
               })}
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
@@ -115,7 +139,13 @@ export default function AboutView({ setView }: AboutViewProps) {
       <section className="bg-[#FAF6F0]/50 py-24 border-y border-[#2E221C]/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
           
-          <div className="text-center space-y-4 max-w-2xl mx-auto">
+          <motion.div 
+            className="text-center space-y-4 max-w-2xl mx-auto"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6 }}
+          >
             <span className="text-xs font-extrabold uppercase tracking-widest text-[#C28A4E]">Active Learning Centers</span>
             <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#2E221C]">
               Explore Our State-of-the-Art Laboratories
@@ -123,7 +153,7 @@ export default function AboutView({ setView }: AboutViewProps) {
             <p className="text-sm text-[#2E221C]/70">
               Students spend 80% of their lecture hours inside active testing environments. Click a lab below to inspect our real equipment sets.
             </p>
-          </div>
+          </motion.div>
 
           {/* Tab Switcher Buttons */}
           <div className="flex flex-wrap items-center justify-center gap-2 border-b border-[#2E221C]/10 pb-4">
@@ -143,61 +173,70 @@ export default function AboutView({ setView }: AboutViewProps) {
             ))}
           </div>
 
-          {/* Active Facility Display Box */}
-          <div className="bg-white border border-[#2E221C]/5 rounded-3xl p-6 sm:p-10 shadow-lg grid grid-cols-1 lg:grid-cols-12 gap-12 items-center min-h-[460px]">
-            
-            {/* Visual Left */}
-            <div className="lg:col-span-6 relative aspect-video rounded-2xl overflow-hidden shadow-inner border border-[#2E221C]/10 h-full max-h-[340px]">
-              <img 
-                src={activeFacility.image} 
-                alt={activeFacility.title} 
-                className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-                referrerPolicy="no-referrer"
-              />
-              <div className="absolute top-4 left-4 bg-[#2E221C]/90 text-[#FAF6F0] text-[10px] font-bold tracking-widest uppercase px-3 py-1.5 rounded-full backdrop-blur-sm border border-white/15">
-                Active Training Space
-              </div>
-            </div>
-
-            {/* Content Right */}
-            <div className="lg:col-span-6 space-y-6">
-              <h3 className="font-serif text-2xl font-bold text-[#2E221C]">{activeFacility.title}</h3>
-              <p className="text-sm text-[#2E221C]/75 leading-relaxed">
-                {activeFacility.description}
-              </p>
-
-              <div className="space-y-3.5">
-                <div className="text-xs font-bold text-[#C28A4E] uppercase tracking-widest border-b border-[#2E221C]/5 pb-2">
-                  Featured Hardware & Setup:
+          {/* Active Facility Display Box with smooth switch slider */}
+          <div className="bg-white border border-[#2E221C]/5 rounded-3xl p-6 sm:p-10 shadow-lg min-h-[460px] overflow-hidden flex items-center">
+            <AnimatePresence mode="wait">
+              <motion.div 
+                key={activeFacilityIdx}
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -20 }}
+                transition={{ duration: 0.35 }}
+                className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center w-full"
+              >
+                {/* Visual Left */}
+                <div className="lg:col-span-6 relative aspect-video rounded-2xl overflow-hidden shadow-inner border border-[#2E221C]/10 h-full max-h-[340px]">
+                  <img 
+                    src={activeFacility.image} 
+                    alt={activeFacility.title} 
+                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                    referrerPolicy="no-referrer"
+                  />
+                  <div className="absolute top-4 left-4 bg-[#2E221C]/90 text-[#FAF6F0] text-[10px] font-bold tracking-widest uppercase px-3 py-1.5 rounded-full backdrop-blur-sm border border-white/15">
+                    Active Training Space
+                  </div>
                 </div>
-                <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  {activeFacility.features.map((feature, idx) => (
-                    <li key={idx} className="flex items-start space-x-2.5 text-xs text-[#2E221C]/80">
-                      <CheckCircle2 className="h-4 w-4 text-[#C28A4E] shrink-0 mt-0.5" />
-                      <span>{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
 
-              <div className="pt-4 flex flex-wrap gap-4">
-                <button
-                  id="facility-courses-btn"
-                  onClick={() => setView('courses')}
-                  className="bg-[#2E221C] hover:bg-[#110E0C] text-[#FAF6F0] font-bold text-xs px-5 py-3 rounded-xl transition-all shadow-sm cursor-pointer"
-                >
-                  View Related Courses
-                </button>
-                <button
-                  id="facility-contact-btn"
-                  onClick={() => setView('contact')}
-                  className="bg-[#FAF6F0] hover:bg-[#2E221C]/5 text-[#2E221C] font-semibold text-xs px-5 py-3 rounded-xl border border-[#2E221C]/15 transition-all cursor-pointer"
-                >
-                  Request Lab Tour
-                </button>
-              </div>
-            </div>
+                {/* Content Right */}
+                <div className="lg:col-span-6 space-y-6">
+                  <h3 className="font-serif text-2xl font-bold text-[#2E221C]">{activeFacility.title}</h3>
+                  <p className="text-sm text-[#2E221C]/75 leading-relaxed">
+                    {activeFacility.description}
+                  </p>
 
+                  <div className="space-y-3.5">
+                    <div className="text-xs font-bold text-[#C28A4E] uppercase tracking-widest border-b border-[#2E221C]/5 pb-2">
+                      Featured Hardware & Setup:
+                    </div>
+                    <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      {activeFacility.features.map((feature, idx) => (
+                        <li key={idx} className="flex items-start space-x-2.5 text-xs text-[#2E221C]/80">
+                          <CheckCircle2 className="h-4 w-4 text-[#C28A4E] shrink-0 mt-0.5" />
+                          <span>{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div className="pt-4 flex flex-wrap gap-4">
+                    <button
+                      id="facility-courses-btn"
+                      onClick={() => setView('courses')}
+                      className="bg-[#2E221C] hover:bg-[#110E0C] text-[#FAF6F0] font-bold text-xs px-5 py-3 rounded-xl transition-all shadow-sm cursor-pointer"
+                    >
+                      View Related Courses
+                    </button>
+                    <button
+                      id="facility-contact-btn"
+                      onClick={() => setView('contact')}
+                      className="bg-[#FAF6F0] hover:bg-[#2E221C]/5 text-[#2E221C] font-semibold text-xs px-5 py-3 rounded-xl border border-[#2E221C]/15 transition-all cursor-pointer"
+                    >
+                      Request Lab Tour
+                    </button>
+                  </div>
+                </div>
+              </motion.div>
+            </AnimatePresence>
           </div>
 
         </div>
@@ -208,24 +247,39 @@ export default function AboutView({ setView }: AboutViewProps) {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           
           {/* Image Block Left */}
-          <div className="relative">
+          <motion.div 
+            className="relative"
+            initial={{ opacity: 0, x: -40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.7 }}
+          >
             <div className="absolute -inset-4 bg-green-800/10 rounded-3xl rotate-1"></div>
             <div className="relative rounded-2xl overflow-hidden shadow-lg aspect-video max-h-[360px] border border-[#2E221C]/10">
               <img 
                 src={sortingBeans}
                 alt="Students sorting coffee beans outdoors"
-                className="w-full h-full object-cover animate-fade-in"
+                className="w-full h-full object-cover"
                 referrerPolicy="no-referrer"
               />
             </div>
-            <div className="absolute -top-4 -right-4 bg-emerald-800 text-white p-4 rounded-xl shadow-lg flex items-center space-x-3.5 max-w-[250px]">
+            <motion.div 
+              className="absolute -top-4 -right-4 bg-emerald-800 text-white p-4 rounded-xl shadow-lg flex items-center space-x-3.5 max-w-[250px]"
+              whileHover={{ scale: 1.05 }}
+            >
               <span className="font-bold text-3xl">100%</span>
               <span className="text-[10px] leading-tight uppercase font-semibold text-emerald-100">Regenerative Shade Grown Practices</span>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
           {/* Content Block Right */}
-          <div className="space-y-6">
+          <motion.div 
+            className="space-y-6"
+            initial={{ opacity: 0, x: 40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.7 }}
+          >
             <div className="text-xs font-extrabold uppercase tracking-widest text-[#C28A4E]">Regenerative Innovation</div>
             <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl font-bold text-[#2E221C] leading-tight">
               Pioneering Sustainable Cooperative Frameworks
@@ -247,28 +301,36 @@ export default function AboutView({ setView }: AboutViewProps) {
                 </li>
               ))}
             </ul>
-          </div>
+          </motion.div>
 
         </div>
       </section>
 
       {/* 5. FINAL CTA TEAM LINK */}
       <section className="bg-[#FAF6F0] max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-[#2E221C] text-white rounded-3xl p-8 sm:p-12 shadow-xl flex flex-col md:flex-row items-center justify-between gap-8 border border-[#C28A4E]/20">
+        <motion.div 
+          className="bg-[#2E221C] text-white rounded-3xl p-8 sm:p-12 shadow-xl flex flex-col md:flex-row items-center justify-between gap-8 border border-[#C28A4E]/20"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6 }}
+        >
           <div className="space-y-2 max-w-xl">
             <h3 className="font-serif text-2xl font-bold text-white">Join Our Next Campus Open Day</h3>
             <p className="text-xs text-gray-300">
               Speak directly with our cooperative agronomists, roasting masters, and admissions board. Taste micro-lots roasted on site in our cup-testing theater.
             </p>
           </div>
-          <button
+          <motion.button
             id="about-cta-apply"
             onClick={() => setView('admissions')}
             className="w-full md:w-auto shrink-0 bg-[#C28A4E] hover:bg-[#A4713C] text-white font-bold px-8 py-4 rounded-xl text-sm tracking-wide shadow-md transition-all cursor-pointer"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.98 }}
           >
             Schedule Campus Visit
-          </button>
-        </div>
+          </motion.button>
+        </motion.div>
       </section>
 
     </div>

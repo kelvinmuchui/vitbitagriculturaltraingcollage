@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
 import { Mail, Phone, MapPin, Send, CheckCircle2, MessageSquare, ArrowRight, ShieldAlert, Sparkles, HelpCircle } from 'lucide-react';
 
 // Import our real student and campus photos
@@ -68,7 +69,7 @@ export default function ContactView() {
   };
 
   return (
-    <div className="space-y-24 pb-20 animate-fade-in" id="contact-view">
+    <div className="space-y-24 pb-20" id="contact-view">
       
       {/* 1. HERO */}
       <section className="relative py-24 flex items-center justify-center text-center text-white overflow-hidden">
@@ -82,7 +83,12 @@ export default function ContactView() {
           <div className="absolute inset-0 bg-[#110E0C]/85"></div>
         </div>
 
-        <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+        <motion.div 
+          className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+        >
           <span className="inline-flex items-center px-3 py-1 bg-[#C28A4E]/20 text-[#C28A4E] text-xs font-bold uppercase tracking-widest rounded-full border border-[#C28A4E]/30">
             Admissions Registry
           </span>
@@ -93,7 +99,7 @@ export default function ContactView() {
           <p className="max-w-2xl mx-auto text-xs sm:text-sm text-gray-300 leading-relaxed">
             Have questions about credits, campus tours, or enrollment procedures? Reach out to our valley registrar office or chat with our automated support bot below.
           </p>
-        </div>
+        </motion.div>
       </section>
 
       {/* 2. CORE DETAILS & FORM GRID */}
@@ -101,7 +107,13 @@ export default function ContactView() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
           
           {/* Details Left (5 cols) */}
-          <div className="lg:col-span-5 space-y-10">
+          <motion.div 
+            className="lg:col-span-5 space-y-10"
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6 }}
+          >
             <div className="space-y-4">
               <span className="text-xs font-extrabold uppercase tracking-widest text-[#C28A4E]">Get in Touch</span>
               <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#2E221C]">Registrar Support Offices</h2>
@@ -112,7 +124,11 @@ export default function ContactView() {
 
             {/* Contacts Stack */}
             <ul className="space-y-6">
-              <li className="flex items-start space-x-4">
+              <motion.li 
+                className="flex items-start space-x-4"
+                whileHover={{ x: 6 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              >
                 <div className="bg-[#C28A4E]/10 p-3.5 rounded-xl text-[#C28A4E] shrink-0">
                   <MapPin className="h-6 w-6" />
                 </div>
@@ -120,9 +136,13 @@ export default function ContactView() {
                   <h4 className="font-bold text-sm text-[#2E221C]">Campus Location</h4>
                   <p className="text-xs text-[#2E221C]/75 leading-relaxed">Leomar Court, Westlands Road No. 45, Nairobi, Kenya</p>
                 </div>
-              </li>
+              </motion.li>
               
-              <li className="flex items-start space-x-4">
+              <motion.li 
+                className="flex items-start space-x-4"
+                whileHover={{ x: 6 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              >
                 <div className="bg-[#C28A4E]/10 p-3.5 rounded-xl text-[#C28A4E] shrink-0">
                   <Phone className="h-6 w-6" />
                 </div>
@@ -131,9 +151,13 @@ export default function ContactView() {
                   <p className="text-xs text-[#2E221C]/75">+254 708 137992</p>
                   <p className="text-[10px] text-[#8E7C74]">Toll-Free during academic intake periods</p>
                 </div>
-              </li>
+              </motion.li>
 
-              <li className="flex items-start space-x-4">
+              <motion.li 
+                className="flex items-start space-x-4"
+                whileHover={{ x: 6 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              >
                 <div className="bg-[#C28A4E]/10 p-3.5 rounded-xl text-[#C28A4E] shrink-0">
                   <Mail className="h-6 w-6" />
                 </div>
@@ -142,17 +166,23 @@ export default function ContactView() {
                   <p className="text-xs text-[#2E221C]/75">info@vibiagriculrturaltraningcollege.co.ke</p>
                   <p className="text-[10px] text-[#8E7C74]">Average reply timeline: 24 working hours</p>
                 </div>
-              </li>
+              </motion.li>
             </ul>
 
             {/* Accreditations badge */}
             <div className="bg-[#2E221C]/5 p-5 rounded-2xl border-l-4 border-[#C28A4E] text-xs text-[#2E221C]/80 leading-relaxed">
               <strong>Approved TVET Institution:</strong> Licensed by the Ministry of Education, State Department for Vocational and Technical Training. Registration Number: TVET/COFFEE/2024/098.
             </div>
-          </div>
+          </motion.div>
 
           {/* Form Right (7 cols) */}
-          <div className="lg:col-span-7 bg-white border border-[#2E221C]/10 rounded-3xl p-6 sm:p-10 shadow-lg">
+          <motion.div 
+            className="lg:col-span-7 bg-white border border-[#2E221C]/10 rounded-3xl p-6 sm:p-10 shadow-lg"
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6 }}
+          >
             <h3 className="font-serif text-xl font-bold text-[#2E221C] border-b border-[#2E221C]/5 pb-4 mb-6">Send an Academic Inquiry</h3>
             
             <form onSubmit={handleFormSubmit} className="space-y-6">
@@ -243,7 +273,7 @@ export default function ContactView() {
               )}
 
             </form>
-          </div>
+          </motion.div>
 
         </div>
       </section>
@@ -252,7 +282,13 @@ export default function ContactView() {
       <section className="bg-[#FAF6F0]/50 py-24 border-y border-[#2E221C]/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
           
-          <div className="text-center space-y-4 max-w-2xl mx-auto">
+          <motion.div 
+            className="text-center space-y-4 max-w-2xl mx-auto"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6 }}
+          >
             <span className="text-xs font-extrabold uppercase tracking-widest text-[#C28A4E]">Instant Helper</span>
             <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#2E221C]">
               VIBIT Instant Registrar Chat
@@ -260,7 +296,7 @@ export default function ContactView() {
             <p className="text-sm text-[#2E221C]/70">
               Have immediate questions? Click one of our official query cards below to chat directly with our knowledge-base simulator.
             </p>
-          </div>
+          </motion.div>
 
           <div className="bg-white border border-[#2E221C]/15 rounded-3xl p-6 sm:p-8 shadow-lg max-w-3xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-8 items-stretch h-[540px]">
             
@@ -270,15 +306,17 @@ export default function ContactView() {
               
               <div className="space-y-3 flex-grow overflow-y-auto pr-1">
                 {faqQuestions.map((faq, idx) => (
-                  <button
+                  <motion.button
                     key={idx}
                     id={`faq-btn-${idx}`}
                     onClick={() => handleFAQClick(faq.q, faq.a)}
                     className="w-full text-left bg-[#FAF6F0] hover:bg-[#C28A4E]/10 border border-[#2E221C]/10 p-3.5 rounded-xl transition-all flex items-start space-x-2.5 group cursor-pointer"
+                    whileHover={{ scale: 1.02, x: 4 }}
+                    whileTap={{ scale: 0.98 }}
                   >
                     <HelpCircle className="h-4 w-4 text-[#C28A4E] shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
                     <span className="text-[11px] font-bold text-[#2E221C] leading-snug">{faq.q}</span>
-                  </button>
+                  </motion.button>
                 ))}
               </div>
 
@@ -301,20 +339,25 @@ export default function ContactView() {
 
               {/* Chat Message Logs */}
               <div className="flex-grow overflow-y-auto py-4 space-y-4 text-xs pr-1" id="chat-messages-container">
-                {chatHistory.map((msg, i) => (
-                  <div
-                    key={i}
-                    className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'} animate-fade-in`}
-                  >
-                    <div className={`p-3.5 rounded-2xl max-w-[85%] leading-relaxed ${
-                      msg.sender === 'user'
-                        ? 'bg-[#2E221C] text-white rounded-tr-none'
-                        : 'bg-[#FAF6F0] text-[#2E221C] rounded-tl-none border border-[#2E221C]/10'
-                    }`}>
-                      {msg.text}
-                    </div>
-                  </div>
-                ))}
+                <AnimatePresence initial={false}>
+                  {chatHistory.map((msg, i) => (
+                    <motion.div
+                      key={i}
+                      className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}
+                      initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      transition={{ duration: 0.25 }}
+                    >
+                      <div className={`p-3.5 rounded-2xl max-w-[85%] leading-relaxed ${
+                        msg.sender === 'user'
+                          ? 'bg-[#2E221C] text-white rounded-tr-none shadow-sm'
+                          : 'bg-[#FAF6F0] text-[#2E221C] rounded-tl-none border border-[#2E221C]/10 shadow-sm'
+                      }`}>
+                        {msg.text}
+                      </div>
+                    </motion.div>
+                  ))}
+                </AnimatePresence>
               </div>
 
               {/* Input simulator (visual) */}
@@ -342,7 +385,13 @@ export default function ContactView() {
         <div className="bg-white border border-[#2E221C]/10 rounded-3xl p-6 sm:p-10 shadow-lg grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           
           {/* Visual Left (8 cols) - Stylized Vector Campus Layout */}
-          <div className="lg:col-span-7 bg-[#FAF6F0] rounded-2xl p-6 border border-[#2E221C]/10 relative overflow-hidden flex flex-col justify-between h-[360px]">
+          <motion.div 
+            className="lg:col-span-7 bg-[#FAF6F0] rounded-2xl p-6 border border-[#2E221C]/10 relative overflow-hidden flex flex-col justify-between h-[360px]"
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6 }}
+          >
             
             <div className="absolute top-0 right-0 h-44 w-44 bg-[#C28A4E]/5 rounded-full filter blur-xl"></div>
             
@@ -377,10 +426,16 @@ export default function ContactView() {
             <div className="text-[10px] text-[#8E7C74] border-t border-[#2E221C]/5 pt-3 font-semibold mt-4">
               Leomar Court, Westlands Road No. 45, Nairobi, Kenya
             </div>
-          </div>
+          </motion.div>
 
           {/* Details Right (5 cols) */}
-          <div className="lg:col-span-5 space-y-6">
+          <motion.div 
+            className="lg:col-span-5 space-y-6"
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6 }}
+          >
             <span className="text-xs font-extrabold uppercase tracking-widest text-[#C28A4E]">Physical Visits</span>
             <h3 className="font-serif text-2xl font-bold text-[#2E221C]">Schedule a Guided Campus Tour</h3>
             <p className="text-xs text-[#2E221C]/75 leading-relaxed">
@@ -395,7 +450,7 @@ export default function ContactView() {
                 <ArrowRight className="h-4 w-4" />
               </a>
             </div>
-          </div>
+          </motion.div>
 
         </div>
       </section>
