@@ -1,14 +1,14 @@
 import { Course, Facility, Testimonial, EnrollmentStep } from './types';
 
 // Import our real campus and student images
-import studentsBuilding from './assets/images/students_building_1783338059168.jpeg';
-import baristaSmoothies from './assets/images/barista_smoothies_1783338078505.jpeg';
-import latteArtTable from './assets/images/latte_art_table_1783338092054.jpeg';
+import studentsBuilding from './assets/images/students_building_1783338059168.jpg';
+import baristaSmoothies from './assets/images/barista_smoothies_1783338078505.jpg';
+import latteArtTable from './assets/images/latte_art_table_1783338092054.jpg';
 import latteArtTopdown from './assets/images/latte_art_topdown_1783338101365.jpg';
-import studentsAccreditation from './assets/images/students_accreditation_1783338111803.jpeg';
+import studentsAccreditation from './assets/images/students_accreditation_1783338111803.jpg';
 import coffeeCherriesDrying from './assets/images/coffee_cherries_drying_1783338132429.jpg';
 import sortingBeans from './assets/images/sorting_beans_1783338143134.jpg';
-import cocktailBar from './assets/images/cocktail_bar_1783338176140.jpeg';
+import cocktailBar from './assets/images/cocktail_bar_1783338176140.jpg';
 import latteArtCup from './assets/images/latte_art_cup_1783338158532.jpg';
 
 export const LOGO_URL = ""; // Empty string or placeholder since we are using the new React <Logo /> component!
