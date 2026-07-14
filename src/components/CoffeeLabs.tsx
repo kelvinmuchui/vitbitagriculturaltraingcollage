@@ -347,7 +347,7 @@ export default function CoffeeLabs() {
           <Award className="h-3 w-3 mr-1 text-[#b6171e]" /> Live Academic Playground
         </span>
         <h2 className="font-serif text-3xl font-bold tracking-tight text-gray-900">
-          VIBIT Interactive Coffee Labs
+          VBIT Interactive Coffee Labs
         </h2>
         <p className="max-w-2xl mx-auto text-xs sm:text-sm text-gray-500 leading-relaxed">
           Interact with actual lab metrics taught inside our state-of-the-art sensory, commercial roasting, and professional brewing academies.
@@ -567,7 +567,7 @@ export default function CoffeeLabs() {
                       <div className="bg-gray-50 border border-gray-100 rounded-2xl p-5 space-y-4 shadow-inner">
                         <div className="flex items-center justify-between text-xs font-bold text-gray-700 border-b border-gray-200/60 pb-2">
                           <span className="font-mono text-[10px] text-[#827472] uppercase tracking-wider">Official Sensory Log</span>
-                          <span className="text-[#b6171e]">VIBIT Cupping Laboratory</span>
+                          <span className="text-[#b6171e]">VBIT Cupping Laboratory</span>
                         </div>
                         <p className="text-xs text-gray-700 leading-relaxed italic">
                           "{getSCAEvaluation()}"
@@ -1029,7 +1029,7 @@ export default function CoffeeLabs() {
           <Info className="h-4 w-4 text-gray-400 shrink-0" />
           <span>These physical simulators are based directly on the Specialty Coffee Association (SCA) syllabus.</span>
         </div>
-        <span className="text-[10px] uppercase font-bold text-gray-400 font-mono">VIBIT Coffee Academy • Kenya</span>
+        <span className="text-[10px] uppercase font-bold text-gray-400 font-mono">VBIT Coffee Academy • Kenya</span>
       </div>
 
     </div>

@@ -256,7 +256,7 @@ export const TESTIMONIALS: Testimonial[] = [
     id: "t1",
     name: "Clara Chebet",
     role: "Estate Manager, Mount Elgon Cooperative",
-    quote: "The Agribusiness program at VIBIT transformed our estate. I learned how to process our coffee from commercial grade to 86+ Specialty Honey micro-lots. Our farm's revenue increased by 40% in our very first harvest season.",
+    quote: "The Agribusiness program at VBIT transformed our estate. I learned how to process our coffee from commercial grade to 86+ Specialty Honey micro-lots. Our farm's revenue increased by 40% in our very first harvest season.",
     image: studentsAccreditation,
     year: "Class of 2023"
   },
@@ -264,7 +264,7 @@ export const TESTIMONIALS: Testimonial[] = [
     id: "t2",
     name: "Samuel Mwangi",
     role: "Head Barista & Roaster, Zenith Roasters",
-    quote: "VIBIT isn't just an academy; it's a bridge to the global industry. The intensity of their Barista Skills certificate and their connections got me hired before I even graduated. Operating commercial roasters is standard practice here.",
+    quote: "VBIT isn't just an academy; it's a bridge to the global industry. The intensity of their Barista Skills certificate and their connections got me hired before I even graduated. Operating commercial roasters is standard practice here.",
     image: baristaSmoothies,
     year: "Class of 2022"
   },
@@ -272,7 +272,7 @@ export const TESTIMONIALS: Testimonial[] = [
     id: "t3",
     name: "Evelyn Korir",
     role: "Founder, Bloom Agrisolution Ltd.",
-    quote: "Using VIBIT's botanical commons to trial eco-friendly fertilizer alternatives launched my consulting business. Their professors are world-class mentors who support you long after graduation.",
+    quote: "Using VBIT's botanical commons to trial eco-friendly fertilizer alternatives launched my consulting business. Their professors are world-class mentors who support you long after graduation.",
     image: latteArtTable,
     year: "Class of 2024"
   }

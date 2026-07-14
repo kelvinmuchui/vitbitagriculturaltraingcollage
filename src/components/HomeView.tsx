@@ -4,6 +4,7 @@ import { ArrowRight, Star, Award, Leaf, Flame, ShieldAlert, Sparkles, MoveRight,
 import { TESTIMONIALS, LOGO_URL } from '../data';
 import PhotoGallery from './PhotoGallery';
 import CoffeeLabs from './CoffeeLabs';
+import HeroParallaxImage from './HeroParallaxImage';
 
 // Import our real student and campus photos
 import studentsBuilding from '../assets/images/students_building_1783338059168.jpg';
@@ -81,7 +82,7 @@ export default function HomeView({ setView, setSelectedCourseId }: HomeViewProps
               transition={{ duration: 0.8, ease: "easeOut" }}
             >
               <motion.div 
-                className="inline-flex items-center space-x-2 bg-gray-50 border border-gray-200/60 px-4 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-wider text-gray-700 shadow-xs"
+                className="inline-flex items-center space-x-2 bg-white/70 backdrop-blur-md border border-[#b6171e]/15 px-4.5 py-2 rounded-full text-[10px] font-extrabold uppercase tracking-widest text-[#b6171e] shadow-xs"
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.1, duration: 0.4 }}
@@ -95,7 +96,7 @@ export default function HomeView({ setView, setSelectedCourseId }: HomeViewProps
                   Crafting the Future of <br className="hidden sm:inline" />
                   <span className="bg-gradient-to-r from-gray-900 via-[#271310] to-[#b6171e] bg-clip-text text-transparent">Specialty Coffee</span>
                 </h1>
-                <p className="font-serif text-lg sm:text-xl text-[#271310]/80 italic max-w-xl">
+                <p className="font-serif text-lg sm:text-xl text-[#271310]/80 italic max-w-xl pl-4 border-l-2 border-[#C28A4E]/30 py-1 bg-gradient-to-r from-[#C28A4E]/5 to-transparent rounded-r-lg">
                   "Seed to Cup, farm management to luxury branding."
                 </p>
               </div>
@@ -109,7 +110,7 @@ export default function HomeView({ setView, setSelectedCourseId }: HomeViewProps
                 <motion.button
                   id="hero-apply-btn"
                   onClick={() => setView('admissions')}
-                  className="w-full sm:w-auto flex items-center justify-center space-x-2 bg-gray-900 hover:bg-gray-800 text-white px-8 py-4 rounded-xl font-bold text-sm shadow-md hover:shadow-lg transition-all cursor-pointer"
+                  className="w-full sm:w-auto flex items-center justify-center space-x-2 bg-gradient-to-r from-gray-950 to-gray-900 hover:from-gray-900 hover:to-gray-850 text-white px-8 py-4 rounded-xl font-bold text-sm shadow-[0_12px_24px_-8px_rgba(0,0,0,0.25)] hover:shadow-[0_16px_32px_-6px_rgba(0,0,0,0.3)] transition-all cursor-pointer border border-white/5"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
@@ -119,7 +120,7 @@ export default function HomeView({ setView, setSelectedCourseId }: HomeViewProps
                 <motion.button
                   id="hero-courses-btn"
                   onClick={() => setView('courses')}
-                  className="w-full sm:w-auto flex items-center justify-center space-x-2 bg-white hover:bg-gray-50 text-gray-800 px-8 py-4 rounded-xl font-bold text-sm border border-gray-200 shadow-xs transition-all cursor-pointer"
+                  className="w-full sm:w-auto flex items-center justify-center space-x-2 bg-white/70 backdrop-blur-md hover:bg-white text-gray-800 px-8 py-4 rounded-xl font-bold text-sm border border-gray-200/80 shadow-[0_4px_12px_rgba(0,0,0,0.02)] hover:shadow-[0_12px_24px_-8px_rgba(0,0,0,0.1)] transition-all cursor-pointer"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
@@ -129,44 +130,39 @@ export default function HomeView({ setView, setSelectedCourseId }: HomeViewProps
               </div>
 
               {/* Mini Features List */}
-              <div className="grid grid-cols-3 gap-4 pt-6 border-t border-gray-100 max-w-md">
-                <div>
-                  <span className="font-bold text-gray-900 block text-sm">TVET Board</span>
-                  <span className="text-[10px] text-gray-400 uppercase tracking-wider font-semibold">Approved Certs</span>
+              <div className="grid grid-cols-3 gap-6 pt-6 border-t border-gray-200/50 max-w-md">
+                <div className="space-y-1">
+                  <span className="font-extrabold text-gray-900 text-sm flex items-center gap-1.5">
+                    <span className="h-1.5 w-1.5 bg-amber-500 rounded-full" />
+                    TVET Board
+                  </span>
+                  <span className="text-[9px] text-[#8E7C74] font-bold uppercase tracking-widest block leading-none">Approved Certs</span>
                 </div>
-                <div>
-                  <span className="font-bold text-gray-900 block text-sm">SCA Aligned</span>
-                  <span className="text-[10px] text-gray-400 uppercase tracking-wider font-semibold">Cupping Standard</span>
+                <div className="space-y-1">
+                  <span className="font-extrabold text-gray-900 text-sm flex items-center gap-1.5">
+                    <span className="h-1.5 w-1.5 bg-[#b6171e] rounded-full" />
+                    SCA Aligned
+                  </span>
+                  <span className="text-[9px] text-[#8E7C74] font-bold uppercase tracking-widest block leading-none">Cupping Lab</span>
                 </div>
-                <div>
-                  <span className="font-bold text-gray-900 block text-sm">92% Hired</span>
-                  <span className="text-[10px] text-gray-400 uppercase tracking-wider font-semibold">Direct Internship</span>
+                <div className="space-y-1">
+                  <span className="font-extrabold text-gray-900 text-sm flex items-center gap-1.5">
+                    <span className="h-1.5 w-1.5 bg-emerald-500 rounded-full" />
+                    92% Hired
+                  </span>
+                  <span className="text-[9px] text-[#8E7C74] font-bold uppercase tracking-widest block leading-none">Direct Work</span>
                 </div>
               </div>
             </motion.div>
 
-            {/* Right Side: Showcase Photo (5 cols) */}
+            {/* Right Side: Showcase Photo (5 cols) with 3D Parallax Tilt Effect */}
             <motion.div 
-              className="lg:col-span-5 w-full mt-10 lg:mt-0"
-              initial={{ opacity: 0, y: 20 }}
+              className="lg:col-span-5 w-full mt-10 lg:mt-0 flex justify-center items-center"
+              initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-              <div className="relative bg-white rounded-2xl overflow-hidden shadow-xl border border-gray-200/80 p-2.5">
-                <img 
-                  src={studentsBuilding} 
-                  alt="VIBIT Student Cohort and Campus" 
-                  className="w-full h-auto rounded-xl object-contain"
-                  referrerPolicy="no-referrer"
-                />
-                <div className="mt-4 px-3 pb-1.5 flex justify-between items-center">
-                  <div>
-                    <span className="text-[9px] uppercase tracking-widest font-bold text-[#b6171e] font-mono">Admitted Student Cohort</span>
-                    <h4 className="font-sans font-extrabold text-sm text-gray-900 mt-0.5">VIBIT Academic Community</h4>
-                  </div>
-                  <span className="text-[9px] font-bold text-gray-500 bg-gray-100 border border-gray-200/50 px-2.5 py-1 rounded-md uppercase tracking-wider font-mono">TVET Approved</span>
-                </div>
-              </div>
+              <HeroParallaxImage imageSrc={studentsBuilding} />
             </motion.div>
 
           </div>
@@ -219,10 +215,10 @@ export default function HomeView({ setView, setSelectedCourseId }: HomeViewProps
             </h2>
             <div className="w-16 h-1 bg-[#C28A4E] rounded"></div>
             <p className="text-[#2E221C]/80 leading-relaxed text-base sm:text-lg">
-              At VIBIT Agricultural Training College, we empower students with immersive, completely practical education. Our campus acts as a mini-cooperative value chain, enabling you to study breeding inside our nursery, harvest cherries, process them, roast them commercially, and serve them as a qualified barista.
+              At VBIT School of Coffee and Agribusiness, we empower students with immersive, completely practical education. Our campus acts as a mini-cooperative value chain, enabling you to study breeding inside our nursery, harvest cherries, process them, roast them commercially, and serve them as a qualified barista.
             </p>
             <p className="text-[#2E221C]/70 text-sm">
-              Whether you are an aspiring entrepreneur seeking to launch a specialty cafe, a farming cooperative manager modernizing local practices, or a professional aiming for international roasting championships, VIBIT supplies the state-of-the-art facilities and mentors to secure your success.
+              Whether you are an aspiring entrepreneur seeking to launch a specialty cafe, a farming cooperative manager modernizing local practices, or a professional aiming for international roasting championships, VBIT supplies the state-of-the-art facilities and mentors to secure your success.
             </p>
             <div className="pt-4">
               <button
@@ -249,7 +245,7 @@ export default function HomeView({ setView, setSelectedCourseId }: HomeViewProps
             <div className="relative bg-white rounded-2xl overflow-hidden shadow-xl border border-[#2E221C]/10 aspect-4/3">
               <img 
                 src={studentsAccreditation}
-                alt="Accredited Practical Training at VIBIT"
+                alt="Accredited Practical Training at VBIT"
                 className="w-full h-full object-cover"
                 referrerPolicy="no-referrer"
               />
@@ -270,7 +266,7 @@ export default function HomeView({ setView, setSelectedCourseId }: HomeViewProps
         </div>
       </section>
 
-      {/* 4. WHY CHOOSE VIBIT BENTO GRID */}
+      {/* 4. WHY CHOOSE VBIT BENTO GRID */}
       <section className="bg-[#FAF6F0]/40 py-20 border-y border-[#2E221C]/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
           <motion.div 
@@ -280,7 +276,7 @@ export default function HomeView({ setView, setSelectedCourseId }: HomeViewProps
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.6 }}
           >
-            <div className="text-xs font-extrabold uppercase tracking-widest text-[#C28A4E]">Why Choose VIBIT</div>
+            <div className="text-xs font-extrabold uppercase tracking-widest text-[#C28A4E]">Why Choose VBIT</div>
             <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#2E221C]">
               Built Around Practical, Real-world Laboratory Dynamics
             </h2>

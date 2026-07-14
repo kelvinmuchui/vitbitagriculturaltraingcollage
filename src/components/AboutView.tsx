@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { CheckCircle2, Award, Star, Compass, MapPin, Eye, Play, ArrowRight, ShieldCheck, Heart } from 'lucide-react';
+import { CheckCircle2, Award, Star, Compass, MapPin, Eye, Play, ArrowRight, ShieldCheck, Heart, Sprout, TrendingUp, Flame } from 'lucide-react';
 import { FACILITIES } from '../data';
 
 // Import our real student and campus photos
@@ -42,7 +42,7 @@ export default function AboutView({ setView }: AboutViewProps) {
         <div className="absolute inset-0 z-0">
           <img 
             src={baristaSmoothies}
-            alt="VIBIT Academic Barista Workshop" 
+            alt="VBIT Academic Barista Workshop" 
             className="w-full h-full object-cover"
             referrerPolicy="no-referrer"
           />
@@ -63,7 +63,7 @@ export default function AboutView({ setView }: AboutViewProps) {
             <span className="text-[#C28A4E]">From Seed to Cup</span>
           </h1>
           <p className="max-w-2xl mx-auto text-sm sm:text-base text-gray-300 leading-relaxed">
-            Established to elevate the standards of local coffee production and commercial agriculture, VIBIT Agricultural Training College acts as a direct conduit to the global premium coffee market.
+            Established to elevate the standards of local coffee production and commercial agriculture, VBIT School of Coffee and Agribusiness acts as a direct conduit to the global premium coffee market.
           </p>
         </motion.div>
       </section>
@@ -306,7 +306,107 @@ export default function AboutView({ setView }: AboutViewProps) {
         </div>
       </section>
 
-      {/* 5. FINAL CTA TEAM LINK */}
+      {/* 5. PROFESSIONAL CAREER PATHS */}
+      <section className="bg-gradient-to-b from-white to-[#FAF6F0]/40 py-20 border-t border-[#2E221C]/5">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+          <motion.div 
+            className="text-center space-y-3 max-w-3xl mx-auto"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <div className="text-xs font-extrabold uppercase tracking-widest text-[#C28A4E]">Professional Horizons</div>
+            <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#2E221C]">
+              Your Future in Specialty Coffee & Agribusiness
+            </h2>
+            <div className="w-12 h-1 bg-[#C28A4E] mx-auto rounded"></div>
+            <p className="text-sm text-[#2E221C]/75 leading-relaxed">
+              Graduating from VBIT prepares you for high-impact roles across the global coffee supply chain and modern commercial agricultural networks. Explore some of the premium paths available:
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[
+              {
+                title: "Head Coffee Roaster",
+                role: "Direct commercial batch roasters, optimize heat dynamics, log profile roast curves, and evaluate batch uniformity.",
+                competencies: ["Roast Curve Logging", "Sample Roasting", "Roaster Safety"],
+                potential: "Private roasteries, specialty coffee labels, coffee export firms.",
+                icon: Flame,
+                color: "bg-[#FDF3F3] border-red-100 text-red-700 hover:border-red-300"
+              },
+              {
+                title: "Sensory & QC Specialist",
+                role: "Conduct standard cupping sessions, grade green coffee defects, score microlots using SCA sheets, and manage procurement quality.",
+                competencies: ["Triangulation Testing", "Defect Identification", "SCA Sheet Grading"],
+                potential: "Quality assurance labs, regulatory authorities, importing agencies.",
+                icon: Award,
+                color: "bg-[#FBF6ED] border-[#C28A4E]/10 text-[#C28A4E] hover:border-[#C28A4E]/30"
+              },
+              {
+                title: "Farm & Cooperative Manager",
+                role: "Direct sustainable shade-grown coffee blocks, manage cooperative nurseries, and consult on smart agricultural practices.",
+                competencies: ["Canopy Management", "Organic Micro-fertilizers", "Eco-pulping Processing"],
+                potential: "Agricultural cooperatives, boutique farms, regional extension offices.",
+                icon: Sprout,
+                color: "bg-[#F3F9F5] border-emerald-100 text-emerald-700 hover:border-emerald-300"
+              },
+              {
+                title: "Agribusiness Entrepreneur",
+                role: "Establish direct-trade channels, manage export logistics, launch premium brands, and navigate digital traceability systems.",
+                competencies: ["Direct-Trade Hedging", "Supply Chain Logistics", "Agricultural Brand Strategy"],
+                potential: "Specialty coffee exporters, farm-gate tech ventures, private consultancies.",
+                icon: TrendingUp,
+                color: "bg-[#F4F7FB] border-blue-100 text-blue-700 hover:border-blue-300"
+              }
+            ].map((path, idx) => (
+              <motion.div
+                key={idx}
+                className="bg-white border border-[#2E221C]/10 rounded-2xl p-6 shadow-xs flex flex-col justify-between hover:shadow-md transition-all duration-300 relative group overflow-hidden"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: idx * 0.1 }}
+                whileHover={{ y: -4 }}
+              >
+                <div className="space-y-4">
+                  {/* Icon Block */}
+                  <div className={`h-12 w-12 rounded-xl flex items-center justify-center border transition-colors ${path.color}`}>
+                    <path.icon className="h-6 w-6" />
+                  </div>
+
+                  {/* Title & Role */}
+                  <div className="space-y-1.5">
+                    <h3 className="font-serif text-lg font-bold text-[#2E221C] group-hover:text-[#C28A4E] transition-colors">{path.title}</h3>
+                    <p className="text-xs text-[#2E221C]/70 leading-relaxed">{path.role}</p>
+                  </div>
+
+                  {/* Competencies */}
+                  <div className="space-y-1.5 pt-2">
+                    <span className="text-[10px] font-mono font-bold text-[#8E7C74] tracking-widest uppercase block">Core Competencies:</span>
+                    <div className="flex flex-wrap gap-1.5">
+                      {path.competencies.map((comp, cIdx) => (
+                        <span key={cIdx} className="text-[10px] bg-[#FAF6F0] text-[#2E221C]/80 px-2 py-0.5 rounded-md border border-[#2E221C]/5 font-medium">
+                          {comp}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Target Industry Potential */}
+                <div className="pt-4 mt-4 border-t border-[#2E221C]/5 space-y-1">
+                  <span className="text-[9px] font-mono font-bold text-gray-400 uppercase tracking-wider block">Primary Sectors:</span>
+                  <p className="text-[11px] text-gray-600 font-medium leading-tight">{path.potential}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 6. FINAL CTA TEAM LINK */}
       <section className="bg-[#FAF6F0] max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div 
           className="bg-[#2E221C] text-white rounded-3xl p-8 sm:p-12 shadow-xl flex flex-col md:flex-row items-center justify-between gap-8 border border-[#C28A4E]/20"

@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Upload, X, Check, ArrowRight, BookOpen, Calculator, CheckCircle2, Calendar, Clock, AlertCircle, FileText, Phone } from 'lucide-react';
-import { COURSES, ENROLLMENT_STEPS } from '../data';
+import { ENROLLMENT_STEPS } from '../data';
 import { Course } from '../types';
 
 // Import our real student and campus photos
@@ -12,15 +12,16 @@ interface AdmissionsViewProps {
   setView: (view: string) => void;
   selectedCourseId: string | null;
   setSelectedCourseId: (id: string | null) => void;
+  courses: Course[];
 }
 
-export default function AdmissionsView({ setView, selectedCourseId, setSelectedCourseId }: AdmissionsViewProps) {
+export default function AdmissionsView({ setView, selectedCourseId, setSelectedCourseId, courses }: AdmissionsViewProps) {
   // Application Form State
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
     phone: '',
-    courseId: selectedCourseId || COURSES[0].id,
+    courseId: selectedCourseId || (courses[0]?.id || 'barista-level-3'),
     priorExperience: 'none',
     academicGrade: 'C',
     motivation: ''
@@ -45,11 +46,11 @@ export default function AdmissionsView({ setView, selectedCourseId, setSelectedC
   const [interviewBooked, setInterviewBooked] = useState(false);
 
   // Fee Calculator State
-  const [calcCourseId, setCalcCourseId] = useState(selectedCourseId || COURSES[0].id);
+  const [calcCourseId, setCalcCourseId] = useState(selectedCourseId || (courses[0]?.id || 'barista-level-3'));
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const selectedCalcCourse = COURSES.find(c => c.id === calcCourseId) || COURSES[0];
+  const selectedCalcCourse = courses.find(c => c.id === calcCourseId) || courses[0];
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -101,13 +102,127 @@ export default function AdmissionsView({ setView, selectedCourseId, setSelectedC
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate Registrar processing
+    const randomNum = Math.floor(10000 + Math.random() * 90000);
+    const code = `VBIT-2026-${randomNum}`;
+
+    // Create the new application object
+    const newApp = {
+      id: `app-${Date.now()}`,
+      fullName: formData.fullName,
+      email: formData.email,
+      phone: formData.phone,
+      courseId: formData.courseId,
+      courseName: courses.find(c => c.id === formData.courseId)?.title || formData.courseId,
+      priorExperience: formData.priorExperience,
+      academicGrade: formData.academicGrade,
+      motivation: formData.motivation,
+      status: 'Pending' as const,
+      generatedCode: code,
+      timestamp: new Date().toISOString(),
+      filesCount: uploadedFiles.length > 0 ? uploadedFiles.length : 1
+    };
+
+    // 1. Persist the new application in localStorage
+    const currentAppsLocal = localStorage.getItem('vibit_applications');
+    let appList = [];
+    if (currentAppsLocal) {
+      try { appList = JSON.parse(currentAppsLocal); } catch (err) {}
+    }
+    appList.push(newApp);
+    localStorage.setItem('vibit_applications', JSON.stringify(appList));
+
+    // 2. Log submission event to analytics
+    const currentAnalyticsLocal = localStorage.getItem('vibit_analytics');
+    let analyticsData = {
+      pageViews: {},
+      courseClicks: {},
+      submissions: 0,
+      submissionsByCourse: {},
+      timeline: [],
+      emailLog: []
+    };
+    if (currentAnalyticsLocal) {
+      try { analyticsData = JSON.parse(currentAnalyticsLocal); } catch (err) {}
+    }
+    analyticsData.submissions = (analyticsData.submissions || 0) + 1;
+    analyticsData.submissionsByCourse = analyticsData.submissionsByCourse || {};
+    analyticsData.submissionsByCourse[formData.courseId] = (analyticsData.submissionsByCourse[formData.courseId] || 0) + 1;
+    
+    // update timeline entries
+    const today = new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+    analyticsData.timeline = analyticsData.timeline || [];
+    let todayEntry = analyticsData.timeline.find((t: any) => t.date === today);
+    if (!todayEntry) {
+      todayEntry = { date: today, views: 0, submissions: 0 };
+      analyticsData.timeline.push(todayEntry);
+    }
+    todayEntry.submissions += 1;
+    localStorage.setItem('vibit_analytics', JSON.stringify(analyticsData));
+
+    // 3. Dispatch actual email notification via FormSubmit.co to registrar
+    const targetEmail = "muchuikelvin423@gmail.com";
+    const endpoint = `https://formsubmit.co/ajax/${targetEmail}`;
+    const emailBody = {
+      _subject: `New VBIT Admission Application: ${newApp.fullName} (${newApp.generatedCode})`,
+      _template: "table",
+      fullName: newApp.fullName,
+      email: newApp.email,
+      phone: newApp.phone,
+      courseId: newApp.courseId,
+      courseName: newApp.courseName,
+      priorExperience: newApp.priorExperience,
+      academicGrade: newApp.academicGrade,
+      motivation: newApp.motivation,
+      applicationCode: newApp.generatedCode,
+      submissionTime: new Date(newApp.timestamp).toLocaleString(),
+    };
+
+    fetch(endpoint, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify(emailBody)
+    })
+    .then(res => res.json())
+    .then(data => {
+      const isSuccess = data.success === "true" || data.success === true;
+      const freshAnalytics = localStorage.getItem('vibit_analytics');
+      let freshData = freshAnalytics ? JSON.parse(freshAnalytics) : {};
+      freshData.emailLog = freshData.emailLog || [];
+      freshData.emailLog.push({
+        id: `email-${Date.now()}`,
+        to: targetEmail,
+        subject: emailBody._subject,
+        body: `Applicant ${newApp.fullName} registered for ${newApp.courseName}. Credentials successfully dispatched to ${targetEmail} via FormSubmit AJAX gateway.`,
+        timestamp: new Date().toISOString(),
+        status: isSuccess ? 'Sent' : 'Failed'
+      });
+      localStorage.setItem('vibit_analytics', JSON.stringify(freshData));
+    })
+    .catch(err => {
+      console.error("Email forward failed", err);
+      const freshAnalytics = localStorage.getItem('vibit_analytics');
+      let freshData = freshAnalytics ? JSON.parse(freshAnalytics) : {};
+      freshData.emailLog = freshData.emailLog || [];
+      freshData.emailLog.push({
+        id: `email-${Date.now()}`,
+        to: targetEmail,
+        subject: emailBody._subject,
+        body: `Applicant ${newApp.fullName} registered for ${newApp.courseName}. Credentials failed to send: ${err.message}`,
+        timestamp: new Date().toISOString(),
+        status: 'Failed'
+      });
+      localStorage.setItem('vibit_analytics', JSON.stringify(freshData));
+    });
+
+    // Handle complete UI submission state
     setTimeout(() => {
       setIsSubmitting(false);
       setSubmissionSuccess(true);
-      const randomNum = Math.floor(10000 + Math.random() * 90000);
-      setGeneratedCode(`VIBIT-2024-${randomNum}`);
-    }, 1500);
+      setGeneratedCode(code);
+    }, 1200);
   };
 
   const handleBookInterview = (e: React.FormEvent) => {
@@ -122,7 +237,7 @@ export default function AdmissionsView({ setView, selectedCourseId, setSelectedC
       fullName: '',
       email: '',
       phone: '',
-      courseId: COURSES[0].id,
+      courseId: courses[0]?.id || 'barista-level-3',
       priorExperience: 'none',
       academicGrade: 'C',
       motivation: ''
@@ -308,7 +423,7 @@ export default function AdmissionsView({ setView, selectedCourseId, setSelectedC
                       className="w-full bg-gray-50 border border-gray-200 focus:border-gray-900 focus:bg-white rounded-xl px-4 py-3.5 text-sm text-gray-900 transition-all shadow-xs"
                       required
                     >
-                      {COURSES.map(course => (
+                      {courses.map(course => (
                         <option key={course.id} value={course.id}>{course.title} ({course.duration})</option>
                       ))}
                     </select>
@@ -356,7 +471,7 @@ export default function AdmissionsView({ setView, selectedCourseId, setSelectedC
                     rows={4}
                     value={formData.motivation}
                     onChange={handleInputChange}
-                    placeholder="Provide a brief paragraph (2-3 sentences) explaining why you want to join VIBIT and what you aim to achieve after your graduation."
+                    placeholder="Provide a brief paragraph (2-3 sentences) explaining why you want to join VBIT and what you aim to achieve after your graduation."
                     className="w-full bg-gray-50 border border-gray-200 focus:border-gray-900 focus:bg-white rounded-xl px-4 py-3.5 text-sm text-gray-900 transition-all shadow-xs"
                     required
                   ></textarea>
@@ -649,7 +764,7 @@ export default function AdmissionsView({ setView, selectedCourseId, setSelectedC
                 onChange={(e) => setCalcCourseId(e.target.value)}
                 className="w-full bg-[#FAF6F0] border border-[#2E221C]/15 rounded-xl px-4 py-3 text-xs text-[#2E221C] focus:border-[#C28A4E] transition-all cursor-pointer"
               >
-                {COURSES.map(course => (
+                {courses.map(course => (
                   <option key={course.id} value={course.id}>{course.title}</option>
                 ))}
               </select>
