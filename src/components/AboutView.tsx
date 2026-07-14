@@ -4,7 +4,7 @@ import { CheckCircle2, Award, Star, Compass, MapPin, Eye, Play, ArrowRight, Shie
 import { FACILITIES } from '../data';
 
 // Import our real student and campus photos
-import baristaSmoothies from '../assets/images/barista_smoothies_1783338078505.jpeg';
+import baristaSmoothies from '../assets/images/barista_smoothies_1783338078505.jpg';
 import sortingBeans from '../assets/images/sorting_beans_1783338143134.jpg';
 
 interface AboutViewProps {
