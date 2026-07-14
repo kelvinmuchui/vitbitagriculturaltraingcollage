@@ -37,16 +37,16 @@ export default function Footer({ setView }: FooterProps) {
               <Logo className="h-11 w-11 drop-shadow-md hover:scale-105 transition-all duration-300" />
               <div>
                 <span className="font-serif text-xl font-extrabold tracking-tight text-[#FAF6F0] block leading-tight">
-                  VIBIT
+                  VBIT
                 </span>
                 <span className="text-[9px] uppercase tracking-wider text-[#8E7C74] font-bold block">
-                  Agricultural Training College
+                  School of Coffee & Agribusiness
                 </span>
               </div>
             </div>
             
             <p className="text-sm text-[#FAF6F0]/70 leading-relaxed">
-              VIBIT is a premier TVET-accredited institution bridging the gap between specialty coffee craft and commercial agricultural management. From Seed to Cup, we nurture future industry leaders.
+              VBIT is a premier TVET-accredited institution bridging the gap between specialty coffee craft and commercial agricultural management. From Seed to Cup, we nurture future industry leaders.
             </p>
 
             <div className="flex items-center space-x-3 text-xs bg-[#2E221C]/50 p-3.5 rounded-xl border border-[#C28A4E]/20">
@@ -97,7 +97,7 @@ export default function Footer({ setView }: FooterProps) {
               </li>
               <li className="flex items-center space-x-3 text-sm text-[#FAF6F0]/70">
                 <Mail className="h-5 w-5 text-[#C28A4E] shrink-0" />
-                <span>info@vibiagriculrturaltraningcollege.co.ke</span>
+                <span>info@vbitschoolofcoffee.co.ke</span>
               </li>
             </ul>
           </div>
@@ -135,7 +135,7 @@ export default function Footer({ setView }: FooterProps) {
             {subscribed && (
               <div className="mt-3 flex items-center space-x-2 text-xs text-green-400 bg-green-500/10 p-2.5 rounded-lg border border-green-500/20">
                 <CheckCircle2 className="h-4 w-4 shrink-0" />
-                <span>Subscribed! Check your inbox for VIBIT Welcome Kit.</span>
+                <span>Subscribed! Check your inbox for VBIT Welcome Kit.</span>
               </div>
             )}
           </div>
@@ -145,7 +145,7 @@ export default function Footer({ setView }: FooterProps) {
         {/* Bottom Section - Copyright */}
         <div className="pt-8 border-t border-[#FAF6F0]/10 text-center md:flex md:justify-between md:items-center">
           <p className="text-xs text-[#FAF6F0]/50">
-            &copy; {new Date().getFullYear()} VIBIT Agricultural Training College. All Rights Reserved. TVET Board Reg No: TVET/COFFEE/2024/098
+            &copy; {new Date().getFullYear()} VBIT School of Coffee and Agribusiness. All Rights Reserved. TVET Board Reg No: TVET/COFFEE/2024/098
           </p>
           <div className="mt-4 md:mt-0 flex justify-center space-x-6 text-xs text-[#FAF6F0]/50">
             <a href="#" className="hover:text-[#C28A4E] transition-colors">Academic Catalog</a>

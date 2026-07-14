@@ -14,396 +14,189 @@ import latteArtCup from './assets/images/latte_art_cup_1783338158532.jpg';
 export const LOGO_URL = ""; // Empty string or placeholder since we are using the new React <Logo /> component!
 
 export const COURSES: Course[] = [
-  // 1. Certificates (Duration: 6-12 Months)
   {
-    id: "cert-production",
-    title: "Certificate in Coffee Production",
+    id: "barista-level-3",
+    title: "Barista Level 3",
     category: "certificate",
-    duration: "6–12 Months",
-    level: "Beginner to Intermediate",
-    certification: "TVET Board Approved Level 4 Certificate in Coffee Production",
-    description: "Equips learners with foundational knowledge and practical skills in soil preparation, coffee botany, climate-smart agronomy, nursery management, and harvesting.",
-    syllabus: [
-      "Introduction to Coffee Botany & Cultivar Selection",
-      "Nursery Setup, Propagation & Shading Dynamics",
-      "Soil Health, Nutrition & Organic Fertilization",
-      "Pest, Weed & Disease Management",
-      "Harvesting Standards & Selective Cherry Picking"
-    ],
-    image: sortingBeans,
-    fees: {
-      tuition: 65000,
-      labFee: 10000,
-      deposit: 5000
-    },
-    schedule: "Full-Time (Mon - Fri, 8:00 AM - 4:00 PM)"
-  },
-  {
-    id: "cert-processing",
-    title: "Certificate in Coffee Processing & Quality",
-    category: "certificate",
-    duration: "6–12 Months",
-    level: "Beginner to Intermediate",
-    certification: "TVET Board Approved Level 4 Certificate in Processing & Sorting",
-    description: "Dive deep into post-harvest methods including wet processing, ecological pulping, fermentation, drying bed management, and dry milling quality standards.",
-    syllabus: [
-      "Post-Harvest Chemistry & Fruit Biology",
-      "Wet Milling Operations & Eco-Pulping Systems",
-      "Fermentation Dynamics & Controlled Washing Protocols",
-      "Solar Parabolic & Raised Drying Bed Management",
-      "Dry Milling Principles & Grading Mechanics"
-    ],
-    image: coffeeCherriesDrying,
-    fees: {
-      tuition: 70000,
-      labFee: 15000,
-      deposit: 6000
-    },
-    schedule: "Full-Time or Intensive Block Mode"
-  },
-  {
-    id: "cert-barista-brewing",
-    title: "Certificate in Barista & Brewing Skills",
-    category: "certificate",
-    duration: "6–12 Months",
-    level: "Beginner to Intermediate",
-    certification: "SCA Aligned Proficiency & TVET Level 4 Certificate",
-    description: "Equips learners with hands-on skills in espresso extraction, brewing methods, milk chemistry, latte art, and café operations.",
+    duration: "6 Months",
+    level: "Level 3 (Intermediate)",
+    certification: "TVET Approved Level 3 Certificate in Barista Skills",
+    description: "Master espresso extraction mechanics, milk chemistry, high-fidelity latte art, sensory profiling, and high-efficiency café workflow operations.",
     syllabus: [
       "Espresso Extraction Science & Grind Calibration",
-      "Manual Brewing Methods (V60, Chemex, Aeropress, French Press)",
-      "Milk Chemistry, Micro-Foam Texturing & Latte Art",
-      "Sensory Analysis Foundations & Flavor Profile Evaluation",
-      "Cafe Workflow Management & Equipment Maintenance"
+      "Milk Chemistry, Micro-Foam Texturing & Latte Art Pours",
+      "Manual Brewing Methods (V60, Chemex, Aeropress)",
+      "Sensory Analysis Foundations & Tasting Protocols",
+      "Café Workflow Optimization & Equipment Maintenance"
     ],
     image: latteArtCup,
+    fees: {
+      tuition: 60000,
+      labFee: 15000,
+      deposit: 5000
+    },
+    schedule: "Full-Time (Mon - Fri, 8:00 AM - 1:00 PM)"
+  },
+  {
+    id: "mixology-level-3",
+    title: "Mixology Level 3",
+    category: "certificate",
+    duration: "6 Months",
+    level: "Level 3 (Intermediate)",
+    certification: "TVET Approved Level 3 Certificate in Mixology",
+    description: "Designed for premium bar environments. Focuses on flavor mapping, cold-brew infusions, non-alcoholic cocktail design, syrups, and craft botanical formulations.",
+    syllabus: [
+      "Foundations of Flavor Pairing & Structural Taste Science",
+      "Cold-Brew Infusions & Nitro-Draft Implementations",
+      "Craft Syrups, Shrubs, and Botanical Bitters Production",
+      "Creative Presentation, Garnish Artistry & Glassware Pairing",
+      "Inventory Management, Bar Setup, & Safety Standards"
+    ],
+    image: baristaSmoothies,
+    fees: {
+      tuition: 65000,
+      labFee: 15000,
+      deposit: 5000
+    },
+    schedule: "Full-Time or Evening Intensive"
+  },
+  {
+    id: "bartending-level-4",
+    title: "Bartending Level 4",
+    category: "diploma",
+    duration: "1 Year",
+    level: "Level 4 (Advanced)",
+    certification: "TVET Approved Level 4 Diploma in Bartending & Bar Operations",
+    description: "Learn advanced hospitality service, cellar management, high-volume counter ergonomics, menu design, and the business metrics of modern bar systems.",
+    syllabus: [
+      "Advanced Customer Care & VIP Service Systems",
+      "Somatic Bar Layout Design & Speed Workflows",
+      "Beverage Costing, Menu Design, & Profit Optimization",
+      "Cellar Management, Temperature Control, & Sourcing Logistics",
+      "Staff Coordination, Leadership & Bar Licensing Regulations"
+    ],
+    image: cocktailBar,
     fees: {
       tuition: 85000,
       labFee: 20000,
       deposit: 8000
     },
-    schedule: "Full-Time or Afternoon Intensive (Mon - Fri)"
+    schedule: "Full-Time (Mon - Fri, 9:00 AM - 4:00 PM)"
   },
-
-  // 2. Diplomas (Duration: 1-2 Years)
   {
-    id: "diploma-tech",
-    title: "Diploma in Coffee Technology",
-    category: "diploma",
-    duration: "1–2 Years",
-    level: "Intermediate to Advanced",
-    certification: "TVET National Diploma in Coffee Technology",
-    description: "Advanced coffee processing, fermentation techniques, milling operations, grading, equipment maintenance, and quality assurance systems.",
+    id: "coffee-agronomy-level-3",
+    title: "Coffee Agronomy Level 3",
+    category: "certificate",
+    duration: "6 Months",
+    level: "Level 3 (Beginner to Intermediate)",
+    certification: "TVET Approved Level 3 Certificate in Coffee Agronomy",
+    description: "A comprehensive grounding in coffee botany, soil health science, climate-resilient nursery management, and organic crop nutrition.",
     syllabus: [
-      "Biochemistry of Coffee Fermentation & Microbial Control",
-      "Industrial Coffee Processing Machinery & Eco-Pulper Maintenance",
-      "Commercial Roasting Thermodynamics & Heat Profile Optimization",
-      "Dry Mill Engineering & Sorting Loss Auditing",
-      "Quality Assurance Systems & Organic Standards Compliance"
+      "Introduction to Coffee Botany & Cultivar Selection",
+      "Nursery Setup, Shading Dynamics & Propagation Techniques",
+      "Soil Chemistry, Nutrition Management & Composting Methods",
+      "Climate-Smart Agroforestry & Shaded Plot Design",
+      "Pest, Weed & Disease Management Protocols"
     ],
-    image: coffeeCherriesDrying,
+    image: sortingBeans,
     fees: {
-      tuition: 110000,
-      labFee: 20000,
-      deposit: 10000
+      tuition: 55000,
+      labFee: 10000,
+      deposit: 5000
     },
-    schedule: "Full-Time (Mon - Fri, 8:30 AM - 4:30 PM)"
+    schedule: "Full-Time or Blocks (Mon - Fri)"
   },
   {
-    id: "diploma-sensory",
-    title: "Diploma in Coffee Quality & Sensory Analysis",
-    category: "diploma",
+    id: "agripreneurship-level-5-6",
+    title: "Agripreneurship Level 5 & 6",
+    category: "professional",
     duration: "1–2 Years",
-    level: "Intermediate to Advanced",
-    certification: "TVET National Diploma in Specialty Coffee Grading & Sensory Arts",
-    description: "Become an elite cupper, grading expert, or Q-grader. Master olfaction exercises, organic acid identification, blind triangulation, and commercial defect evaluation.",
+    level: "Level 5 & 6 (Graduate / Executive)",
+    certification: "TVET Approved Level 5 & 6 National Diploma in Agripreneurship",
+    description: "Build scalable agribusiness models. Master global supply chain systems, direct trade strategies, pricing hedging on futures markets, and regional export compliance.",
     syllabus: [
-      "Le Nez du Café: Olfactory Reference Library Training",
-      "Gustatory Training: Identifying Organic Acids & Sweets",
-      "SCA Cupping Protocols & Sample Roasting Management",
-      "Triangulation Drills & Specialty Lot Authentication",
-      "Water Chemistry Standards & Flavor Profile Engineering"
-    ],
-    image: latteArtTable,
-    fees: {
-      tuition: 115000,
-      labFee: 25000,
-      deposit: 10000
-    },
-    schedule: "Full-Time or Evening Block Release"
-  },
-  {
-    id: "diploma-marketing",
-    title: "Diploma in Coffee Marketing & Export Management",
-    category: "diploma",
-    duration: "1–2 Years",
-    level: "Intermediate to Advanced",
-    certification: "TVET National Diploma in International Coffee Trade & Marketing",
-    description: "Navigate global supply chains, international logistics, direct-trade business models, futures markets, price hedging, and custom regulatory protocols.",
-    syllabus: [
-      "Global Coffee Supply Chain, Shipping & Port Logistics",
-      "The Coffee Futures Market: NY/London Price Risk Hedging",
-      "International Trade Law, Contracts, & Arbitration Regulations",
-      "Direct Trade Business Models & Estate-to-Consumer Marketing",
-      "Specialty Branding, Packaging & E-Commerce Implementations"
+      "Business Model Generation for Commercial Farms",
+      "Global Coffee Supply Chains, Logistics, & Trade Agreements",
+      "The Futures Market: Price Hedging & Risk Management",
+      "Agribusiness Bookkeeping, Taxation, & Financial Audit Standards",
+      "Strategic Branding, E-Commerce, & Pitching to Global Investors"
     ],
     image: studentsAccreditation,
     fees: {
-      tuition: 105000,
-      labFee: 10000,
+      tuition: 110000,
+      labFee: 15000,
       deposit: 10000
     },
-    schedule: "Full-Time or Weekend Hybrid Model"
+    schedule: "Weekend and Evening Hybrid (On-Campus + Remote)"
   },
   {
-    id: "diploma-cooperative",
-    title: "Diploma in Coffee Cooperative & Enterprise Management",
-    category: "diploma",
+    id: "cooperative-management-level-5-6",
+    title: "Cooperative Management Level 5 & 6",
+    category: "professional",
     duration: "1–2 Years",
-    level: "Intermediate to Advanced",
+    level: "Level 5 & 6 (Graduate / Executive)",
     certification: "TVET National Diploma in Cooperative Governance & Agribusiness",
-    description: "Cooperative Management Training: Focuses on administrative law, cooperative audits, bookkeeping, Direct Settlement Systems (DSS), and modern rural leadership.",
+    description: "Focused training for cooperative leaders. Covers administrative law, cooperative audits, bookkeeping, Direct Settlement Systems (DSS), and modern rural leadership.",
     syllabus: [
-      "Cooperative Governance Legal Frameworks & Regulatory Compliance",
-      "Financial Accounting, Bookkeeping & Fiduciary Reporting",
+      "Cooperative Governance Legal Frameworks & Compliance",
+      "Financial Accounting, Fiduciary Bookkeeping, & Annual Audits",
       "Direct Settlement Systems (DSS) Operations & Mobile Integration",
-      "Member Engagement, Strategic Dispute Resolution & Extension Coordination",
+      "Member Engagement, Dispute Resolution & Extension Coordination",
       "Strategic Management & Agricultural Investment Planning"
     ],
     image: studentsBuilding,
     fees: {
-      tuition: 98000,
+      tuition: 115000,
       labFee: 10000,
-      deposit: 8000
-    },
-    schedule: "Full-Time or Block Release Blocks"
-  },
-
-  // 3. Higher Diplomas & Executive (Duration: 1-2 Years)
-  {
-    id: "higher-diploma-value",
-    title: "Higher Diploma in Coffee Value Chain Management",
-    category: "professional",
-    duration: "1–2 Years",
-    level: "Advanced (Graduate / Professional)",
-    certification: "TVET Higher National Diploma in Coffee Value Chain Management",
-    description: "Integrated value chain analysis, sustainability certifications (RA, Fairtrade, Organic), risk and compliance management, digital traceability, and coffee policy.",
-    syllabus: [
-      "Integrated Supply Chain Mapping & Competitive Optimization",
-      "Global Sustainability Certifications (Rainforest Alliance, Fairtrade)",
-      "Internal Auditing Systems, Compliance & International Standards",
-      "Digital Traceability Platforms & Agricultural Blockchain Solutions",
-      "Coffee Sector Policy, Advocacy & Regional Government Relations"
-    ],
-    image: studentsAccreditation,
-    fees: {
-      tuition: 130000,
-      labFee: 15000,
-      deposit: 12000
-    },
-    schedule: "Evening and Weekend Hybrid (Online + On-Campus Practicals)"
-  },
-  {
-    id: "prof-cert-inspection",
-    title: "Professional Certificate in Coffee Inspection & Export Readiness",
-    category: "professional",
-    duration: "1–2 Years",
-    level: "Advanced / Professional",
-    certification: "VIBIT Professional Certificate in Export Regulatory Compliance",
-    description: "Prepare professional auditors and coffee exporters to navigate strict inspection systems, phytosanitary requirements, outturn validation, and international quality standards.",
-    syllabus: [
-      "Export Board Regulations & Phytosanitary Checks",
-      "Pre-Shipment Sample Authentication & Lot Sealing Protocols",
-      "Milling Loss Auditing & Moisture Verification",
-      "Specialty Warehouse Inspection & Pest Prevention Chemistry",
-      "Customs Valuation, Trade Financing & Letters of Credit"
-    ],
-    image: studentsBuilding,
-    fees: {
-      tuition: 125000,
-      labFee: 15000,
       deposit: 10000
     },
-    schedule: "Block Release / Alternating Weekends"
+    schedule: "Block Release / Executive Seminars"
   },
   {
-    id: "bsc-coffee",
-    title: "Bachelor of Science (BSc) in Coffee Science & Agribusiness",
-    category: "professional",
-    duration: "4 Years (2 Years at VIBIT)",
-    level: "Undergraduate (Affiliated Track)",
-    certification: "BSc in Coffee Science & Agribusiness (Joint University Affiliation)",
-    description: "Delivered through university affiliation. Learners complete Years 1–2 at VIBIT Agricultural Training College and finalize Years 3–4 at an accredited partner university. Program covers agronomy, genetics, processing technology, global economics, and trade.",
+    id: "cupping-technology-level-4-5",
+    title: "Coffee Cupping and Technology Level 4 & 5",
+    category: "diploma",
+    duration: "1 Year",
+    level: "Level 4 & 5 (Intermediate to Advanced)",
+    certification: "TVET National Diploma in Coffee Grading & Quality Assurance",
+    description: "Advanced sensory analysis, specialty grading, moisture validation, dry milling loss calculation, and wet mill operations.",
     syllabus: [
-      "Year 1-2: Advanced Botany, Soils, Processing & Sensory Lab Work at VIBIT",
-      "Year 1-2: Agribusiness Bookkeeping, Mechanics & Nursery Operations at VIBIT",
-      "Year 3-4: Advanced Crop Genetics & Food Science (Accredited University)",
-      "Year 3-4: Macro-Economics, Hedging & Export Policy (Accredited University)",
-      "Year 3-4: Undergraduate Research Dissertation & Cooperative Internship"
+      "SCA Sensory Evaluation Protocols & Olfactory Training",
+      "Triangulation Drills & Identifying Bean Defect Classes",
+      "Parchment Moisture Analysis & Milling Loss Math",
+      "Biochemistry of Fermentation & Processing Technology",
+      "Export Board Phytosanitary Requirements & Lot Sealing Protocols"
     ],
-    image: studentsBuilding,
+    image: latteArtTable,
     fees: {
-      tuition: 160000,
-      labFee: 30000,
-      deposit: 20000
+      tuition: 95000,
+      labFee: 20000,
+      deposit: 10000
     },
-    schedule: "Full-Time Calendar (September Intake)"
-  },
-
-  // 4. Short Courses (Duration: 3–14 Days)
-  {
-    id: "short-cupping",
-    title: "Coffee Cupping & Grading",
-    category: "short",
-    duration: "3–14 Days",
-    level: "Beginner to Intermediate",
-    certification: "VIBIT Practical Certificate of Competence in Coffee Grading",
-    description: "Train your senses to assess coffee quality according to standard SCA protocols. Includes flavor recognition, defect counting, and grading sheets.",
-    syllabus: [
-      "Flavor Wheel & Taste Standards Mapping",
-      "Defect Counts, Identification, & Bean Grading",
-      "SCA Scoring Methods & Form Audits",
-      "Triangulation & Comparative Origins Trials"
-    ],
-    image: latteArtTopdown,
-    fees: {
-      tuition: 18000,
-      labFee: 5000,
-      deposit: 2000
-    },
-    schedule: "Intensive 5-Day Day Session"
+    schedule: "Full-Time or Alternate Weekends"
   },
   {
-    id: "short-barista",
-    title: "Professional Barista Training",
+    id: "coffee-roasting",
+    title: "Coffee Roasting",
     category: "short",
-    duration: "3–14 Days",
+    duration: "1–2 Weeks",
     level: "Beginner to Intermediate",
-    certification: "VIBIT Certificate in Professional Barista Skills",
-    description: "Launch your career with intensive practicals on commercial espresso extraction, perfect milk texturing, recipe development, and cafe bar logistics.",
+    certification: "VBIT Certificate in Coffee Roasting Fundamentals",
+    description: "Operate commercial roasters, manage heat profiles, trace roast curves, log first crack, and detect common roasting defects.",
     syllabus: [
-      "Espresso Brewing Variables & Extraction Science",
-      "Grinder Adjustment & Workstation Setup",
-      "Milk Texturing (Micro-Foam) & Latte Art Pours",
-      "Specialty Menu Management & Customer Relations"
-    ],
-    image: baristaSmoothies,
-    fees: {
-      tuition: 15000,
-      labFee: 5000,
-      deposit: 2000
-    },
-    schedule: "Daily Practicals (9:00 AM - 1:00 PM)"
-  },
-  {
-    id: "short-roasting",
-    title: "Coffee Roasting Fundamentals",
-    category: "short",
-    duration: "3–14 Days",
-    level: "Beginner to Intermediate",
-    certification: "VIBIT Practical Certificate of Roastery Operations",
-    description: "An interactive, practical introduction to operating commercial roasters, tracing roast logs, control panel adjustments, and identifying roast defects.",
-    syllabus: [
-      "Commercial Roaster Safety & Pre-Start Checks",
-      "Thermodynamics & Basic Heat Profiles",
-      "Logging First Crack & Density Changes",
-      "Identifying Over-Roasting, Scorches & Baking Defects"
+      "Commercial Roaster Hardware Setup & Pre-Start Safety",
+      "Thermodynamics, Conduction, and Convection Profiles",
+      "Artisan & Cropster Software Profile Logging Integration",
+      "Density and Moisture Testing of Green & Roasted Coffee",
+      "Identifying Roast Defects: Under-Roasting, Scorching, & Baking"
     ],
     image: coffeeCherriesDrying,
     fees: {
-      tuition: 22000,
-      labFee: 8000,
-      deposit: 3000
+      tuition: 25000,
+      labFee: 10000,
+      deposit: 5000
     },
-    schedule: "Intensive 4-Day Session (Includes Saturdays)"
-  },
-  {
-    id: "short-milling",
-    title: "Milling Loss Calculation",
-    category: "short",
-    duration: "3–14 Days",
-    level: "Intermediate",
-    certification: "VIBIT Certificate in Coffee Milling & Loss Evaluation",
-    description: "Designed for dry-mill supervisors. Learn to calculate parchment-to-green bean outturn ratios, identify where loss occurs, and optimize milling efficiency.",
-    syllabus: [
-      "Parchment Grade Assessment & Moisture Auditing",
-      "Dry Milling Operations & De-Hulling Shrinkage",
-      "Outturn Determination Math & Yield Formulas",
-      "Waste Control, Trash Grading & Dust Mass Accounting"
-    ],
-    image: sortingBeans,
-    fees: {
-      tuition: 12000,
-      labFee: 3000,
-      deposit: 1000
-    },
-    schedule: "3-Day Block Intensive Seminar"
-  },
-  {
-    id: "short-dss",
-    title: "Direct Settlement Systems",
-    category: "short",
-    duration: "3–14 Days",
-    level: "Beginner to Intermediate",
-    certification: "VIBIT Certificate in DSS Trade Operations",
-    description: "Understand the financial architecture of direct settle payout regulations in Kenya. Learn how payouts route from auctions directly to cooperative societies and farmer ledgers.",
-    syllabus: [
-      "Kenya Coffee Act Regulations & DSS Guidelines",
-      "Payment Gateway Interfaces & Cooperative Setup",
-      "Accounting Integration & Automated Ledger Auditing",
-      "Fiduciary Reporting & Transacting Transparency Standards"
-    ],
-    image: studentsAccreditation,
-    fees: {
-      tuition: 10000,
-      labFee: 2000,
-      deposit: 1000
-    },
-    schedule: "Online & On-Campus Evening Program (4 Days)"
-  },
-  {
-    id: "short-governance",
-    title: "Board Governance for Cooperatives",
-    category: "short",
-    duration: "3–14 Days",
-    level: "Intermediate to Advanced",
-    certification: "VIBIT Certificate in Cooperative Fiduciary Governance",
-    description: "Empower cooperative board directors with structural management skills, fiduciary standards, transparent auditing, and member-centric strategic planning.",
-    syllabus: [
-      "Cooperative Administrative Policies & Voting Systems",
-      "Fiduciary Accountability & Annual General Meetings (AGMs)",
-      "Financial Audit Controls & Cooperative Capital Management",
-      "Advocacy, Regional Representation & Extension Planning"
-    ],
-    image: studentsBuilding,
-    fees: {
-      tuition: 15000,
-      labFee: 2000,
-      deposit: 2000
-    },
-    schedule: "3-Day Executive Block Retaining Format"
-  },
-  {
-    id: "short-climate",
-    title: "Climate Resilience in Coffee Farming",
-    category: "short",
-    duration: "3–14 Days",
-    level: "Beginner to Intermediate",
-    certification: "VIBIT Certificate in Climate-Resilient Coffee Agronomy",
-    description: "Adapt your coffee plots to global weather shifts. Master agroforestry shade patterns, drought-tolerant seedling husbandry, water-conserving drip setups, and organic mulching.",
-    syllabus: [
-      "Climate-Shift Vectors in Coffee Belt Regions",
-      "Shaded Agroforestry Layouts & Canopy Selection",
-      "Drought-Tolerant Seedling Propagating & Soil Moisture Care",
-      "Sustainable Soil Carbon Trapping & Drip Irrigation Layouts"
-    ],
-    image: sortingBeans,
-    fees: {
-      tuition: 11000,
-      labFee: 3000,
-      deposit: 1000
-    },
-    schedule: "Field-Intensive 4-Day Session"
+    schedule: "Intensive 5-Day Day Session or 2-Week Evening Session"
   }
 ];
 
@@ -463,7 +256,7 @@ export const TESTIMONIALS: Testimonial[] = [
     id: "t1",
     name: "Clara Chebet",
     role: "Estate Manager, Mount Elgon Cooperative",
-    quote: "The Agribusiness program at VIBIT transformed our estate. I learned how to process our coffee from commercial grade to 86+ Specialty Honey micro-lots. Our farm's revenue increased by 40% in our very first harvest season.",
+    quote: "The Agribusiness program at VBIT transformed our estate. I learned how to process our coffee from commercial grade to 86+ Specialty Honey micro-lots. Our farm's revenue increased by 40% in our very first harvest season.",
     image: studentsAccreditation,
     year: "Class of 2023"
   },
@@ -471,7 +264,7 @@ export const TESTIMONIALS: Testimonial[] = [
     id: "t2",
     name: "Samuel Mwangi",
     role: "Head Barista & Roaster, Zenith Roasters",
-    quote: "VIBIT isn't just an academy; it's a bridge to the global industry. The intensity of their Barista Skills certificate and their connections got me hired before I even graduated. Operating commercial roasters is standard practice here.",
+    quote: "VBIT isn't just an academy; it's a bridge to the global industry. The intensity of their Barista Skills certificate and their connections got me hired before I even graduated. Operating commercial roasters is standard practice here.",
     image: baristaSmoothies,
     year: "Class of 2022"
   },
@@ -479,7 +272,7 @@ export const TESTIMONIALS: Testimonial[] = [
     id: "t3",
     name: "Evelyn Korir",
     role: "Founder, Bloom Agrisolution Ltd.",
-    quote: "Using VIBIT's botanical commons to trial eco-friendly fertilizer alternatives launched my consulting business. Their professors are world-class mentors who support you long after graduation.",
+    quote: "Using VBIT's botanical commons to trial eco-friendly fertilizer alternatives launched my consulting business. Their professors are world-class mentors who support you long after graduation.",
     image: latteArtTable,
     year: "Class of 2024"
   }

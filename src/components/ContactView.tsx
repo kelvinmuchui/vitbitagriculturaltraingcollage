@@ -18,7 +18,7 @@ export default function ContactView() {
 
   // Chatbot State
   const [chatHistory, setChatHistory] = useState<Array<{ sender: 'user' | 'bot'; text: string }>>([
-    { sender: 'bot', text: 'Jambo! I am VIBIT Registrar Bot. How can I help you navigate our coffee and agribusiness programs today?' }
+    { sender: 'bot', text: 'Jambo! I am VBIT Registrar Bot. How can I help you navigate our coffee and agribusiness programs today?' }
   ]);
 
   const faqQuestions = [
@@ -32,7 +32,7 @@ export default function ContactView() {
     },
     {
       q: "How do I secure government TVET funding?",
-      a: "As a registered TVET institution, VIBIT admits government-sponsored students through the KUCCPS placement portal. Students can also apply for tuition support loans through the Higher Education Loans Board (HELB)."
+      a: "As a registered TVET institution, VBIT admits government-sponsored students through the KUCCPS placement portal. Students can also apply for tuition support loans through the Higher Education Loans Board (HELB)."
     },
     {
       q: "Can international students apply?",
@@ -291,7 +291,7 @@ export default function ContactView() {
           >
             <span className="text-xs font-extrabold uppercase tracking-widest text-[#C28A4E]">Instant Helper</span>
             <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#2E221C]">
-              VIBIT Instant Registrar Chat
+              VBIT Instant Registrar Chat
             </h2>
             <p className="text-sm text-[#2E221C]/70">
               Have immediate questions? Click one of our official query cards below to chat directly with our knowledge-base simulator.

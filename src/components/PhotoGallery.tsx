@@ -318,7 +318,7 @@ export default function PhotoGallery() {
                 <div className="space-y-6">
                   <div>
                     <span className="text-[10px] font-extrabold uppercase tracking-widest text-[#C28A4E] block mb-1">
-                      VIBIT Specialty Facility
+                      VBIT Specialty Facility
                     </span>
                     <h3 className="font-serif text-2xl font-bold text-[#2E221C] leading-snug">
                       {galleryItems[selectedItemIdx].title}
@@ -351,7 +351,7 @@ export default function PhotoGallery() {
                 </div>
 
                 <div className="pt-6 mt-6 border-t border-[#2E221C]/10 flex justify-between items-center text-[10px] text-[#8E7C74] font-bold uppercase">
-                  <span>Facility Code: VIBIT-{galleryItems[selectedItemIdx].id.toUpperCase()}</span>
+                  <span>Facility Code: VBIT-{galleryItems[selectedItemIdx].id.toUpperCase()}</span>
                   <span>{selectedItemIdx + 1} of {galleryItems.length}</span>
                 </div>
               </div>

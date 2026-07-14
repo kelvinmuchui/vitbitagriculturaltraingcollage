@@ -35,7 +35,7 @@ export default function Logo({ className = "h-10 w-10" }: LogoProps) {
       {/* SVG Text along path for the College Name */}
       <text fill="#FAF6F0" fontSize="11" fontWeight="bold" letterSpacing="1.2">
         <textPath href="#textPathTop" startOffset="50%" textAnchor="middle">
-          VIBIT AGRICULTURAL TRAINING COLLEGE
+          VBIT SCHOOL OF COFFEE AND AGRIBUSINESS
         </textPath>
       </text>
 
