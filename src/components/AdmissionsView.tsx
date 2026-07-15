@@ -5,8 +5,8 @@ import { ENROLLMENT_STEPS } from '../data';
 import { Course } from '../types';
 
 // Import our real student and campus photos
-import studentsBuilding from '../assets/images/students_building_1783338059168.jpg';
-import studentsAccreditation from '../assets/images/students_accreditation_1783338111803.jpg';
+import studentsBuilding from '../assets/images/students_building_1783338059168.jpeg';
+import studentsAccreditation from '../assets/images/students_accreditation_1783338111803.jpeg';
 
 interface AdmissionsViewProps {
   setView: (view: string) => void;

@@ -7,8 +7,8 @@ import CoffeeLabs from './CoffeeLabs';
 import HeroParallaxImage from './HeroParallaxImage';
 
 // Import our real student and campus photos
-import studentsBuilding from '../assets/images/students_building_1783338059168.jpg';
-import studentsAccreditation from '../assets/images/students_accreditation_1783338111803.jpg';
+import studentsBuilding from '../assets/images/students_building_1783338059168.jpeg';
+import studentsAccreditation from '../assets/images/students_accreditation_1783338111803.jpeg';
 import sortingBeans from '../assets/images/sorting_beans_1783338143134.jpg';
 import latteArtCup from '../assets/images/latte_art_cup_1783338158532.jpg';
 

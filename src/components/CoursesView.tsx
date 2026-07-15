@@ -9,7 +9,7 @@ import {
 import { Course } from '../types';
 
 // Import our real student and campus photos
-import latteArtTable from '../assets/images/latte_art_table_1783338092054.jpg';
+import latteArtTable from '../assets/images/latte_art_table_1783338092054.jpeg';
 
 interface CoursesViewProps {
   setView: (view: string) => void;
@@ -1420,7 +1420,7 @@ export default function CoursesView({ setView, selectedCourseId, setSelectedCour
                         </div>
                       </div>
                       <div>
-                        <strong className="text-xs text-[#2E221C] block">Dr. Kenneth Njeru, Ph.D.</strong>
+                        <strong className="text-xs text-[#2E221C] block">Dr. Festus Bett, Ph.D.</strong>
                         <span className="text-[10px] text-gray-400 block">Director of Academic Affairs, VBIT</span>
                       </div>
                     </div>
