@@ -4,7 +4,7 @@ import { CheckCircle2, Award, Star, Compass, MapPin, Eye, Play, ArrowRight, Shie
 import { FACILITIES } from '../data';
 
 // Import our real student and campus photos
-import baristaSmoothies from '../assets/images/barista_smoothies_1783338078505.jpeg';
+import baristaSmoothies from '../assets/images/barista_smoothies_1783338078505.jpg';
 import sortingBeans from '../assets/images/sorting_beans_1783338143134.jpg';
 
 interface AboutViewProps {
@@ -42,7 +42,7 @@ export default function AboutView({ setView }: AboutViewProps) {
         <div className="absolute inset-0 z-0">
           <img 
             src={baristaSmoothies}
-            alt="VBIT Academic Barista Workshop" 
+            alt="VIBIT Academic Barista Workshop" 
             className="w-full h-full object-cover"
             referrerPolicy="no-referrer"
           />
@@ -63,7 +63,7 @@ export default function AboutView({ setView }: AboutViewProps) {
             <span className="text-[#C28A4E]">From Seed to Cup</span>
           </h1>
           <p className="max-w-2xl mx-auto text-sm sm:text-base text-gray-300 leading-relaxed">
-            Established to elevate the standards of local coffee production and commercial agriculture, VBIT School of Coffee and Agribusiness acts as a direct conduit to the global premium coffee market.
+            Established to elevate the standards of local coffee production and commercial agriculture, VIBIT Agricultural Training College acts as a direct conduit to the global premium coffee market.
           </p>
         </motion.div>
       </section>
@@ -156,7 +156,13 @@ export default function AboutView({ setView }: AboutViewProps) {
           </motion.div>
 
           {/* Tab Switcher Buttons */}
-          <div className="flex flex-wrap items-center justify-center gap-2 border-b border-[#2E221C]/10 pb-4">
+          <motion.div 
+            className="flex flex-wrap items-center justify-center gap-2 border-b border-[#2E221C]/10 pb-4"
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+          >
             {FACILITIES.map((facility, idx) => (
               <button
                 key={facility.id}
@@ -171,10 +177,16 @@ export default function AboutView({ setView }: AboutViewProps) {
                 {facility.title}
               </button>
             ))}
-          </div>
+          </motion.div>
 
           {/* Active Facility Display Box with smooth switch slider */}
-          <div className="bg-white border border-[#2E221C]/5 rounded-3xl p-6 sm:p-10 shadow-lg min-h-[460px] overflow-hidden flex items-center">
+          <motion.div 
+            className="bg-white border border-[#2E221C]/5 rounded-3xl p-6 sm:p-10 shadow-lg min-h-[460px] overflow-hidden flex items-center"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
             <AnimatePresence mode="wait">
               <motion.div 
                 key={activeFacilityIdx}
@@ -237,7 +249,7 @@ export default function AboutView({ setView }: AboutViewProps) {
                 </div>
               </motion.div>
             </AnimatePresence>
-          </div>
+          </motion.div>
 
         </div>
       </section>
@@ -322,7 +334,7 @@ export default function AboutView({ setView }: AboutViewProps) {
             </h2>
             <div className="w-12 h-1 bg-[#C28A4E] mx-auto rounded"></div>
             <p className="text-sm text-[#2E221C]/75 leading-relaxed">
-              Graduating from VBIT prepares you for high-impact roles across the global coffee supply chain and modern commercial agricultural networks. Explore some of the premium paths available:
+              Graduating from VIBIT prepares you for high-impact roles across the global coffee supply chain and modern commercial agricultural networks. Explore some of the premium paths available:
             </p>
           </motion.div>
 

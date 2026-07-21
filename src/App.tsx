@@ -12,7 +12,25 @@ import { COURSES } from './data';
 import { Course } from './types';
 
 export default function App() {
-  const [currentView, setView] = useState<string>('home');
+  const [currentView, setRawView] = useState<string>(() => {
+    const path = window.location.pathname;
+    const hash = window.location.hash;
+    if (path === '/admin' || path === '/admin/' || hash === '#admin' || hash === '#/admin') {
+      return 'admin';
+    }
+    const possibleViews = ['home', 'about', 'courses', 'admissions', 'contact'];
+    const match = possibleViews.find(v => path === `/${v}` || hash === `#${v}`);
+    return match || 'home';
+  });
+
+  const setView = (view: string) => {
+    setRawView(view);
+    const targetPath = view === 'home' ? '/' : `/${view}`;
+    if (window.location.pathname !== targetPath) {
+      window.history.pushState(null, '', targetPath);
+    }
+  };
+
   const [selectedCourseId, setSelectedCourseId] = useState<string | null>(null);
 
   // Stateful, persistent courses catalog loaded from LocalStorage
@@ -35,6 +53,32 @@ export default function App() {
       localStorage.removeItem('vibit_courses');
     }
   };
+
+  // Synchronize view state with browser address bar path / hash changes (e.g. Back/Forward)
+  useEffect(() => {
+    const handleLocationChange = () => {
+      const path = window.location.pathname;
+      const hash = window.location.hash;
+      if (path === '/admin' || path === '/admin/' || hash === '#admin' || hash === '#/admin') {
+        setRawView('admin');
+      } else {
+        const possibleViews = ['home', 'about', 'courses', 'admissions', 'contact'];
+        const match = possibleViews.find(v => path === `/${v}` || hash === `#${v}`);
+        setRawView(match || 'home');
+      }
+    };
+
+    window.addEventListener('popstate', handleLocationChange);
+    window.addEventListener('hashchange', handleLocationChange);
+
+    // Initial check
+    handleLocationChange();
+
+    return () => {
+      window.removeEventListener('popstate', handleLocationChange);
+      window.removeEventListener('hashchange', handleLocationChange);
+    };
+  }, []);
 
   // Smooth scroll to top and record analytics telemetry when changing screens
   useEffect(() => {

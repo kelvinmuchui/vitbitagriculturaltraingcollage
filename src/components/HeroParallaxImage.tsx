@@ -110,7 +110,7 @@ export default function HeroParallaxImage({ imageSrc }: HeroParallaxImageProps) 
           {/* Base Image Layer - sits deep in the perspective */}
           <motion.img 
             src={imageSrc} 
-            alt="VBIT Student Cohort and Campus" 
+            alt="VIBIT Student Cohort and Campus" 
             className="w-full h-full object-cover select-none"
             referrerPolicy="no-referrer"
             style={{
@@ -139,7 +139,7 @@ export default function HeroParallaxImage({ imageSrc }: HeroParallaxImageProps) 
                 <Sparkles className="h-2.5 w-2.5" />
                 Active Student Cohort
               </span>
-              <h4 className="font-sans font-extrabold text-base text-white mt-1 drop-shadow-sm">VBIT Academic Community</h4>
+              <h4 className="font-sans font-extrabold text-base text-white mt-1 drop-shadow-sm">VIBIT Academic Community</h4>
               <p className="text-[10px] text-gray-300 font-medium font-mono mt-0.5">Empowering specialty agribusiness</p>
             </div>
             

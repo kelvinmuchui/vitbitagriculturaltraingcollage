@@ -5,8 +5,8 @@ import { ENROLLMENT_STEPS } from '../data';
 import { Course } from '../types';
 
 // Import our real student and campus photos
-import studentsBuilding from '../assets/images/students_building_1783338059168.jpeg';
-import studentsAccreditation from '../assets/images/students_accreditation_1783338111803.jpeg';
+import studentsBuilding from '../assets/images/students_building_1783338059168.jpg';
+import studentsAccreditation from '../assets/images/students_accreditation_1783338111803.jpg';
 
 interface AdmissionsViewProps {
   setView: (view: string) => void;
@@ -103,7 +103,7 @@ export default function AdmissionsView({ setView, selectedCourseId, setSelectedC
     setIsSubmitting(true);
 
     const randomNum = Math.floor(10000 + Math.random() * 90000);
-    const code = `VBIT-2026-${randomNum}`;
+    const code = `VIBIT-2026-${randomNum}`;
 
     // Create the new application object
     const newApp = {
@@ -163,7 +163,7 @@ export default function AdmissionsView({ setView, selectedCourseId, setSelectedC
     const targetEmail = "muchuikelvin423@gmail.com";
     const endpoint = `https://formsubmit.co/ajax/${targetEmail}`;
     const emailBody = {
-      _subject: `New VBIT Admission Application: ${newApp.fullName} (${newApp.generatedCode})`,
+      _subject: `New VIBIT Admission Application: ${newApp.fullName} (${newApp.generatedCode})`,
       _template: "table",
       fullName: newApp.fullName,
       email: newApp.email,
@@ -471,7 +471,7 @@ export default function AdmissionsView({ setView, selectedCourseId, setSelectedC
                     rows={4}
                     value={formData.motivation}
                     onChange={handleInputChange}
-                    placeholder="Provide a brief paragraph (2-3 sentences) explaining why you want to join VBIT and what you aim to achieve after your graduation."
+                    placeholder="Provide a brief paragraph (2-3 sentences) explaining why you want to join VIBIT and what you aim to achieve after your graduation."
                     className="w-full bg-gray-50 border border-gray-200 focus:border-gray-900 focus:bg-white rounded-xl px-4 py-3.5 text-sm text-gray-900 transition-all shadow-xs"
                     required
                   ></textarea>
@@ -724,7 +724,7 @@ export default function AdmissionsView({ setView, selectedCourseId, setSelectedC
                 </div>
                 <div>
                   <div className="font-bold text-[#2E221C]">+254 708 137992</div>
-                  <div className="text-[10px] text-[#8E7C74]">info@vibiagriculrturaltraningcollege.co.ke</div>
+                  <div className="text-[10px] text-[#8E7C74]">info@vibitcollege.ac.ke</div>
                 </div>
               </div>
             </motion.div>

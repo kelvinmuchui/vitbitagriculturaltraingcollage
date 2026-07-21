@@ -7,8 +7,8 @@ import CoffeeLabs from './CoffeeLabs';
 import HeroParallaxImage from './HeroParallaxImage';
 
 // Import our real student and campus photos
-import studentsBuilding from '../assets/images/students_building_1783338059168.jpeg';
-import studentsAccreditation from '../assets/images/students_accreditation_1783338111803.jpeg';
+import studentsBuilding from '../assets/images/students_building_1783338059168.jpg';
+import studentsAccreditation from '../assets/images/students_accreditation_1783338111803.jpg';
 import sortingBeans from '../assets/images/sorting_beans_1783338143134.jpg';
 import latteArtCup from '../assets/images/latte_art_cup_1783338158532.jpg';
 
@@ -215,10 +215,10 @@ export default function HomeView({ setView, setSelectedCourseId }: HomeViewProps
             </h2>
             <div className="w-16 h-1 bg-[#C28A4E] rounded"></div>
             <p className="text-[#2E221C]/80 leading-relaxed text-base sm:text-lg">
-              At VBIT School of Coffee and Agribusiness, we empower students with immersive, completely practical education. Our campus acts as a mini-cooperative value chain, enabling you to study breeding inside our nursery, harvest cherries, process them, roast them commercially, and serve them as a qualified barista.
+              At VIBIT Agricultural Training College, we empower students with immersive, completely practical education. Our campus acts as a mini-cooperative value chain, enabling you to study breeding inside our nursery, harvest cherries, process them, roast them commercially, and serve them as a qualified barista.
             </p>
             <p className="text-[#2E221C]/70 text-sm">
-              Whether you are an aspiring entrepreneur seeking to launch a specialty cafe, a farming cooperative manager modernizing local practices, or a professional aiming for international roasting championships, VBIT supplies the state-of-the-art facilities and mentors to secure your success.
+              Whether you are an aspiring entrepreneur seeking to launch a specialty cafe, a farming cooperative manager modernizing local practices, or a professional aiming for international roasting championships, VIBIT supplies the state-of-the-art facilities and mentors to secure your success.
             </p>
             <div className="pt-4">
               <button
@@ -245,7 +245,7 @@ export default function HomeView({ setView, setSelectedCourseId }: HomeViewProps
             <div className="relative bg-white rounded-2xl overflow-hidden shadow-xl border border-[#2E221C]/10 aspect-4/3">
               <img 
                 src={studentsAccreditation}
-                alt="Accredited Practical Training at VBIT"
+                alt="Accredited Practical Training at VIBIT"
                 className="w-full h-full object-cover"
                 referrerPolicy="no-referrer"
               />
@@ -276,7 +276,7 @@ export default function HomeView({ setView, setSelectedCourseId }: HomeViewProps
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.6 }}
           >
-            <div className="text-xs font-extrabold uppercase tracking-widest text-[#C28A4E]">Why Choose VBIT</div>
+            <div className="text-xs font-extrabold uppercase tracking-widest text-[#C28A4E]">Why Choose VIBIT</div>
             <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#2E221C]">
               Built Around Practical, Real-world Laboratory Dynamics
             </h2>

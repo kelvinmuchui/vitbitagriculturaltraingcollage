@@ -9,7 +9,7 @@ import {
 import { Course } from '../types';
 
 // Import our real student and campus photos
-import latteArtTable from '../assets/images/latte_art_table_1783338092054.jpeg';
+import latteArtTable from '../assets/images/latte_art_table_1783338092054.jpg';
 
 interface CoursesViewProps {
   setView: (view: string) => void;
@@ -313,7 +313,13 @@ export default function CoursesView({ setView, selectedCourseId, setSelectedCour
 
       {/* 2. TAB NAVIGATION (Option 2 & 3 Integration) */}
       <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 -mt-12 relative z-20">
-        <div className="bg-[#FAF6F0]/95 backdrop-blur-md border border-[#2E221C]/15 rounded-3xl p-2 shadow-xl flex flex-col md:flex-row gap-1.5">
+        <motion.div 
+          className="bg-[#FAF6F0]/95 backdrop-blur-md border border-[#2E221C]/15 rounded-3xl p-2 shadow-xl flex flex-col md:flex-row gap-1.5"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
           <button
             onClick={() => { setActiveTab('catalog'); setSelectedCourseId(null); }}
             className={`flex-1 flex items-center justify-center space-x-2 py-3.5 rounded-2xl text-xs font-bold uppercase tracking-wider transition-all cursor-pointer ${
@@ -349,7 +355,7 @@ export default function CoursesView({ setView, selectedCourseId, setSelectedCour
             <Compass className="h-4 w-4 text-[#C28A4E]" />
             <span>🧪 Sensory Profiler</span>
           </button>
-        </div>
+        </motion.div>
       </section>
 
       {/* 3. DYNAMIC VIEWS CONTAINER */}
@@ -367,7 +373,13 @@ export default function CoursesView({ setView, selectedCourseId, setSelectedCour
               className="space-y-12"
             >
               {/* Dynamic Filter / Search Bar */}
-              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <motion.div 
+                className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.5 }}
+              >
                 <div className="bg-white border border-[#2E221C]/10 rounded-2xl p-6 sm:p-8 shadow-md flex flex-col md:flex-row items-center justify-between gap-6">
                   
                   {/* Category Filter Pills */}
@@ -413,7 +425,7 @@ export default function CoursesView({ setView, selectedCourseId, setSelectedCour
                   </div>
 
                 </div>
-              </div>
+              </motion.div>
 
               {/* Course Listing Grid */}
               <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -926,7 +938,13 @@ export default function CoursesView({ setView, selectedCourseId, setSelectedCour
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
                 
                 {/* Left Side: Interative Grid Deck (7 cols) */}
-                <div className="lg:col-span-6 space-y-6">
+                <motion.div 
+                  className="lg:col-span-6 space-y-6"
+                  initial={{ opacity: 0, x: -30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, margin: "-100px" }}
+                  transition={{ duration: 0.6 }}
+                >
                   <div className="space-y-2">
                     <div className="flex items-center space-x-2">
                       <Compass className="h-5 w-5 text-[#C28A4E]" />
@@ -934,7 +952,7 @@ export default function CoursesView({ setView, selectedCourseId, setSelectedCour
                     </div>
                     <h3 className="font-serif text-xl sm:text-2xl font-black text-[#2E221C]">Tactile Coffee Flavor Profiler</h3>
                     <p className="text-xs text-gray-500 leading-relaxed">
-                      Coffee contains over 800 organic volatile flavor compounds. Click on any core flavor group card to inspect chemical profiles, soil origins, and corresponding VBIT grading courses.
+                      Coffee contains over 800 organic volatile flavor compounds. Click on any core flavor group card to inspect chemical profiles, soil origins, and corresponding VIBIT grading courses.
                     </p>
                   </div>
 
@@ -996,10 +1014,16 @@ export default function CoursesView({ setView, selectedCourseId, setSelectedCour
                       );
                     })}
                   </div>
-                </div>
+                </motion.div>
 
                 {/* Right Side: High-fidelity Details Board (6 cols) */}
-                <div className="lg:col-span-6">
+                <motion.div 
+                  className="lg:col-span-6"
+                  initial={{ opacity: 0, x: 30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, margin: "-100px" }}
+                  transition={{ duration: 0.6 }}
+                >
                   <AnimatePresence mode="wait">
                     <motion.div
                       key={activeFlavor.id}
@@ -1144,7 +1168,7 @@ export default function CoursesView({ setView, selectedCourseId, setSelectedCour
 
                     </motion.div>
                   </AnimatePresence>
-                </div>
+                </motion.div>
 
               </div>
             </motion.div>
@@ -1155,13 +1179,19 @@ export default function CoursesView({ setView, selectedCourseId, setSelectedCour
 
       {/* 4. SYLLABUS DISCLAIMER */}
       <section className="bg-[#FAF6F0]/60 py-16 border-t border-b border-[#2E221C]/5">
-        <div className="max-w-4xl mx-auto px-4 text-center space-y-4">
+        <motion.div 
+          className="max-w-4xl mx-auto px-4 text-center space-y-4"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6 }}
+        >
           <CheckSquare className="h-8 w-8 text-[#C28A4E] mx-auto animate-pulse" />
           <h3 className="font-serif text-lg font-bold text-[#2E221C]">TVET Competency-Based Educational Framework</h3>
           <p className="text-xs text-[#2E221C]/70 leading-relaxed">
             All curriculum pathways are fully mapped to the National Occupational Standards of Kenya. In addition to theory logs, graduates must complete a mandatory 3-month external industrial field placement inside partnering washing stations, agricultural technology centers, or commercial roasteries prior to the awarding of diplomas.
           </p>
-        </div>
+        </motion.div>
       </section>
 
       {/* 5. PRINT-FRIENDLY FLYER PREVIEW MODAL */}
@@ -1351,7 +1381,7 @@ export default function CoursesView({ setView, selectedCourseId, setSelectedCour
                       
                       <div className="border-t border-[#2E221C]/10 pt-3">
                         <span className="text-[8px] font-mono text-gray-400 block">Dossier ID:</span>
-                        <span className="text-[10px] font-mono font-bold text-[#2E221C]">VBIT-D-2026-{printCourse.id.substring(0,6).toUpperCase()}</span>
+                        <span className="text-[10px] font-mono font-bold text-[#2E221C]">VIBIT-D-2026-{printCourse.id.substring(0,6).toUpperCase()}</span>
                       </div>
                     </div>
                   </div>
@@ -1416,12 +1446,12 @@ export default function CoursesView({ setView, selectedCourseId, setSelectedCour
                       <div className="border-b border-[#2E221C]/30 h-10 w-48 relative">
                         {/* Stamp Placeholder in print */}
                         <div className="absolute right-0 -top-4 h-12 w-12 border border-[#C28A4E]/30 rounded-full flex items-center justify-center bg-[#FAF6F0]/50 text-[6px] font-bold text-[#C28A4E] rotate-12 uppercase print-header-seal print-text-dark">
-                          VBIT REGISTRY
+                          VIBIT REGISTRY
                         </div>
                       </div>
                       <div>
-                        <strong className="text-xs text-[#2E221C] block">Dr. Festus Bett, Ph.D.</strong>
-                        <span className="text-[10px] text-gray-400 block">Director of Academic Affairs, VBIT</span>
+                        <strong className="text-xs text-[#2E221C] block">Dr. Kenneth Njeru, Ph.D.</strong>
+                        <span className="text-[10px] text-gray-400 block">Director of Academic Affairs, VIBIT</span>
                       </div>
                     </div>
 
@@ -1440,7 +1470,7 @@ export default function CoursesView({ setView, selectedCourseId, setSelectedCour
                   <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 border-t border-gray-100 text-[10px] text-gray-400 no-print-break">
                     <div>
                       <p>Computer-generated reference flyer. Valid for 2026 academic intakes.</p>
-                      <p className="mt-0.5">© 2026 VBIT School of Coffee and Agribusiness.</p>
+                      <p className="mt-0.5">© 2026 VIBIT Agricultural Training College.</p>
                     </div>
                     {/* Simulated barcode using flex divs of various widths */}
                     <div className="flex items-center space-x-3 bg-[#FAF6F0] p-1.5 rounded-lg border border-[#2E221C]/5 shrink-0">
@@ -1457,7 +1487,7 @@ export default function CoursesView({ setView, selectedCourseId, setSelectedCour
                         <div className="w-[1px] h-full bg-black"></div>
                         <div className="w-[3px] h-full bg-black"></div>
                       </div>
-                      <span className="font-mono text-[9px] font-bold text-gray-400 uppercase tracking-widest leading-none">VBIT-SECURE</span>
+                      <span className="font-mono text-[9px] font-bold text-gray-400 uppercase tracking-widest leading-none">VIBIT-SECURE</span>
                     </div>
                   </div>
                 </div>

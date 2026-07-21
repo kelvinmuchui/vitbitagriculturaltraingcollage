@@ -1,6 +1,6 @@
 {
-  "name": "VBIT School of Coffee and Agribusiness",
-  "description": "The official website for VBIT School of Coffee and Agribusiness, offering professional training in coffee production, processing, sensory analysis, cooperative management, and agribusiness with state-of-the-art sensory, cupping, and roasting facilities.",
+  "name": "VIBIT Agricultural training college",
+  "description": "The official website for VIBIT Agricultural training college, offering professional training in coffee production, processing, sensory analysis, cooperative management, and agribusiness with state-of-the-art sensory, cupping, and roasting facilities.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }
