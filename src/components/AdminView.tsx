@@ -61,7 +61,7 @@ const SEED_APPLICATIONS: Application[] = [
     academicGrade: "B+",
     motivation: "I have been working as a service attendant in a small cafe in Nyeri and want to elevate my credentials with an official TVET certificate, mastering advanced espresso chemistry and high-fidelity latte art to seek high-paying barista positions in Nairobi.",
     status: "Interview Scheduled",
-    generatedCode: "VBIT-2026-84321",
+    generatedCode: "VIBIT-2026-84321",
     timestamp: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString(), // 3 days ago
     interviewDate: "2026-07-20",
     interviewTime: "10:30",
@@ -78,7 +78,7 @@ const SEED_APPLICATIONS: Application[] = [
     academicGrade: "B-",
     motivation: "My family owns a 2-acre shaded coffee block in Kericho. I wish to learn professional climate-smart soil agronomy and pruning systems so I can double our cooperative cherry yields and transition us to organic production.",
     status: "Pending",
-    generatedCode: "VBIT-2026-19283",
+    generatedCode: "VIBIT-2026-19283",
     timestamp: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(), // 1 day ago
     filesCount: 1
   },
@@ -93,7 +93,7 @@ const SEED_APPLICATIONS: Application[] = [
     academicGrade: "A-",
     motivation: "As a cooperative auditor in Eldoret, I see local farms struggling with price volatility. I want to study trade hedging, Direct Settlement Systems, and marketing branding to construct a regional export business directly connected to micro-lot buyers in Europe.",
     status: "Approved",
-    generatedCode: "VBIT-2026-40291",
+    generatedCode: "VIBIT-2026-40291",
     timestamp: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(), // 5 days ago
     filesCount: 3
   }
@@ -137,7 +137,7 @@ const SEED_ANALYTICS: AnalyticsData = {
     {
       id: "seed-mail-1",
       to: "muchuikelvin423@gmail.com",
-      subject: "New VBIT Admission Application: Mercy Chepkorir (VBIT-2026-40291)",
+      subject: "New VIBIT Admission Application: Mercy Chepkorir (VIBIT-2026-40291)",
       body: "Applicant Mercy Chepkorir submitted a formal application for Agripreneurship Level 5 & 6. Credentials successfully compiled and routed via FormSubmit Gateway.",
       timestamp: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(),
       status: "Sent"
@@ -153,7 +153,7 @@ const SEED_ANALYTICS: AnalyticsData = {
     {
       id: "seed-mail-3",
       to: "muchuikelvin423@gmail.com",
-      subject: "New VBIT Admission Application: Emmanuel Kiprop (VBIT-2026-19283)",
+      subject: "New VIBIT Admission Application: Emmanuel Kiprop (VBIT-2026-19283)",
       body: "Applicant Emmanuel Kiprop submitted a formal application for Coffee Agronomy Level 3. Credentials successfully compiled and routed via FormSubmit Gateway.",
       timestamp: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(),
       status: "Sent"

@@ -42,7 +42,7 @@ export default function AboutView({ setView }: AboutViewProps) {
         <div className="absolute inset-0 z-0">
           <img 
             src={baristaSmoothies}
-            alt="VBIT Academic Barista Workshop" 
+            alt="VIBIT Academic Barista Workshop" 
             className="w-full h-full object-cover"
             referrerPolicy="no-referrer"
           />
@@ -63,7 +63,7 @@ export default function AboutView({ setView }: AboutViewProps) {
             <span className="text-[#C28A4E]">From Seed to Cup</span>
           </h1>
           <p className="max-w-2xl mx-auto text-sm sm:text-base text-gray-300 leading-relaxed">
-            Established to elevate the standards of local coffee production and commercial agriculture, VBIT School of Coffee and Agribusiness acts as a direct conduit to the global premium coffee market.
+            Established to elevate the standards of local coffee production and commercial agriculture, VIBIT School of Coffee and Agribusiness acts as a direct conduit to the global premium coffee market.
           </p>
         </motion.div>
       </section>
@@ -322,7 +322,7 @@ export default function AboutView({ setView }: AboutViewProps) {
             </h2>
             <div className="w-12 h-1 bg-[#C28A4E] mx-auto rounded"></div>
             <p className="text-sm text-[#2E221C]/75 leading-relaxed">
-              Graduating from VBIT prepares you for high-impact roles across the global coffee supply chain and modern commercial agricultural networks. Explore some of the premium paths available:
+              Graduating from VIBIT prepares you for high-impact roles across the global coffee supply chain and modern commercial agricultural networks. Explore some of the premium paths available:
             </p>
           </motion.div>
 

@@ -38,10 +38,10 @@ export default function Navbar({ currentView, setView }: NavbarProps) {
             <Logo className="h-12 w-12 hover:scale-105 transition-all duration-300 drop-shadow-sm shrink-0" />
             <div className="flex flex-col">
               <span className="font-serif text-lg font-extrabold tracking-tight text-[#2E221C] group-hover:text-[#C28A4E] transition-colors leading-tight">
-                VBIT
+                VIBIT
               </span>
               <span className="text-[10px] uppercase tracking-wider text-[#8E7C74] font-bold leading-none">
-                School of Coffee & Agribusiness
+                Agricultural Training College
               </span>
             </div>
           </div>

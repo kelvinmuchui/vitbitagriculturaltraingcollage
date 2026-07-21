@@ -103,7 +103,7 @@ export default function AdmissionsView({ setView, selectedCourseId, setSelectedC
     setIsSubmitting(true);
 
     const randomNum = Math.floor(10000 + Math.random() * 90000);
-    const code = `VBIT-2026-${randomNum}`;
+    const code = `VIBIT-2026-${randomNum}`;
 
     // Create the new application object
     const newApp = {
@@ -163,7 +163,7 @@ export default function AdmissionsView({ setView, selectedCourseId, setSelectedC
     const targetEmail = "muchuikelvin423@gmail.com";
     const endpoint = `https://formsubmit.co/ajax/${targetEmail}`;
     const emailBody = {
-      _subject: `New VBIT Admission Application: ${newApp.fullName} (${newApp.generatedCode})`,
+      _subject: `New VIBIT Admission Application: ${newApp.fullName} (${newApp.generatedCode})`,
       _template: "table",
       fullName: newApp.fullName,
       email: newApp.email,
@@ -471,7 +471,7 @@ export default function AdmissionsView({ setView, selectedCourseId, setSelectedC
                     rows={4}
                     value={formData.motivation}
                     onChange={handleInputChange}
-                    placeholder="Provide a brief paragraph (2-3 sentences) explaining why you want to join VBIT and what you aim to achieve after your graduation."
+                    placeholder="Provide a brief paragraph (2-3 sentences) explaining why you want to join VIBIT and what you aim to achieve after your graduation."
                     className="w-full bg-gray-50 border border-gray-200 focus:border-gray-900 focus:bg-white rounded-xl px-4 py-3.5 text-sm text-gray-900 transition-all shadow-xs"
                     required
                   ></textarea>
