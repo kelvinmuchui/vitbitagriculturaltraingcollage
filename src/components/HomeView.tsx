@@ -88,7 +88,7 @@ export default function HomeView({ setView, setSelectedCourseId }: HomeViewProps
                 transition={{ delay: 0.1, duration: 0.4 }}
               >
                 <span className="h-1.5 w-1.5 bg-[#b6171e] rounded-full animate-pulse" />
-                <span>Admission Intake Now Open • Academic Year 2024 / 2025</span>
+                <span>Admission Intake Now Open • Academic Year 2026 / 2027</span>
               </motion.div>
 
               <div className="space-y-4">

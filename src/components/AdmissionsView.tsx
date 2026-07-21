@@ -160,7 +160,7 @@ export default function AdmissionsView({ setView, selectedCourseId, setSelectedC
     localStorage.setItem('vibit_analytics', JSON.stringify(analyticsData));
 
     // 3. Dispatch actual email notification via FormSubmit.co to registrar
-    const targetEmail = "muchuikelvin423@gmail.com";
+    const targetEmail = "artofcoffeeschool@gmail.com";
     const endpoint = `https://formsubmit.co/ajax/${targetEmail}`;
     const emailBody = {
       _subject: `New VIBIT Admission Application: ${newApp.fullName} (${newApp.generatedCode})`,
