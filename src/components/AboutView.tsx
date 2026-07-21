@@ -63,11 +63,7 @@ export default function AboutView({ setView }: AboutViewProps) {
             <span className="text-[#C28A4E]">From Seed to Cup</span>
           </h1>
           <p className="max-w-2xl mx-auto text-sm sm:text-base text-gray-300 leading-relaxed">
-<<<<<<< HEAD
-            Established to elevate the standards of local coffee production and commercial agriculture, VIBIT School of Coffee and Agribusiness acts as a direct conduit to the global premium coffee market.
-=======
             Established to elevate the standards of local coffee production and commercial agriculture, VIBIT Agricultural Training College acts as a direct conduit to the global premium coffee market.
->>>>>>> 89d9db95a08abafc2a7fd2af4b80a87a855cc8bb
           </p>
         </motion.div>
       </section>

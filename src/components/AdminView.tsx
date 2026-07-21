@@ -153,11 +153,7 @@ const SEED_ANALYTICS: AnalyticsData = {
     {
       id: "seed-mail-3",
       to: "muchuikelvin423@gmail.com",
-<<<<<<< HEAD
-      subject: "New VIBIT Admission Application: Emmanuel Kiprop (VBIT-2026-19283)",
-=======
       subject: "New VIBIT Admission Application: Emmanuel Kiprop (VIBIT-2026-19283)",
->>>>>>> 89d9db95a08abafc2a7fd2af4b80a87a855cc8bb
       body: "Applicant Emmanuel Kiprop submitted a formal application for Coffee Agronomy Level 3. Credentials successfully compiled and routed via FormSubmit Gateway.",
       timestamp: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(),
       status: "Sent"
