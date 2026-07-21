@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { Mail, Phone, MapPin, Send, CheckCircle2, MessageSquare, ArrowRight, ShieldAlert, Sparkles, HelpCircle } from 'lucide-react';
 
 // Import our real student and campus photos
-import studentsBuilding from '../assets/images/students_building_1783338059168.jpeg';
+import studentsBuilding from '../assets/images/students_building_1783338059168.jpg';
 
 export default function ContactView() {
   // Contact Form State

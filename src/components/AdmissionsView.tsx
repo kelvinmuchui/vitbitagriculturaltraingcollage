@@ -5,8 +5,8 @@ import { ENROLLMENT_STEPS } from '../data';
 import { Course } from '../types';
 
 // Import our real student and campus photos
-import studentsBuilding from '../assets/images/students_building_1783338059168.jpeg';
-import studentsAccreditation from '../assets/images/students_accreditation_1783338111803.jpeg';
+import studentsBuilding from '../assets/images/students_building_1783338059168.jpg';
+import studentsAccreditation from '../assets/images/students_accreditation_1783338111803.jpg';
 
 interface AdmissionsViewProps {
   setView: (view: string) => void;
@@ -724,7 +724,7 @@ export default function AdmissionsView({ setView, selectedCourseId, setSelectedC
                 </div>
                 <div>
                   <div className="font-bold text-[#2E221C]">+254 708 137992</div>
-                  <div className="text-[10px] text-[#8E7C74]">info@vibiagriculrturaltraningcollege.co.ke</div>
+                  <div className="text-[10px] text-[#8E7C74]">info@vibitcollege.ac.ke</div>
                 </div>
               </div>
             </motion.div>

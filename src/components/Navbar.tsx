@@ -16,7 +16,6 @@ export default function Navbar({ currentView, setView }: NavbarProps) {
     { id: 'courses', label: 'Courses Catalog', icon: BookOpen },
     { id: 'admissions', label: 'Admissions', icon: GraduationCap },
     { id: 'contact', label: 'Contact Us', icon: PhoneCall },
-    { id: 'admin', label: 'Admin Portal', icon: LayoutDashboard },
   ];
 
   const handleNavClick = (id: string) => {

@@ -145,7 +145,7 @@ const SEED_ANALYTICS: AnalyticsData = {
     {
       id: "seed-mail-2",
       to: "muchuikelvin423@gmail.com",
-      subject: "New VBIT Admission Application: Jane Wanjiku Mwangi (VBIT-2026-84321)",
+      subject: "New VIBIT Admission Application: Jane Wanjiku Mwangi (VIBIT-2026-84321)",
       body: "Applicant Jane Wanjiku Mwangi submitted a formal application for Barista Level 3. Credentials successfully compiled and routed via FormSubmit Gateway.",
       timestamp: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString(),
       status: "Sent"
@@ -153,7 +153,11 @@ const SEED_ANALYTICS: AnalyticsData = {
     {
       id: "seed-mail-3",
       to: "muchuikelvin423@gmail.com",
+<<<<<<< HEAD
       subject: "New VIBIT Admission Application: Emmanuel Kiprop (VBIT-2026-19283)",
+=======
+      subject: "New VIBIT Admission Application: Emmanuel Kiprop (VIBIT-2026-19283)",
+>>>>>>> 89d9db95a08abafc2a7fd2af4b80a87a855cc8bb
       body: "Applicant Emmanuel Kiprop submitted a formal application for Coffee Agronomy Level 3. Credentials successfully compiled and routed via FormSubmit Gateway.",
       timestamp: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(),
       status: "Sent"
@@ -455,7 +459,7 @@ export default function AdminView({ courses, onUpdateCourses, onResetCourses }: 
         <div>
           <div className="flex items-center space-x-2 text-xs text-[#C28A4E] font-bold tracking-widest uppercase">
             <Settings className="h-4 w-4 animate-spin-slow" />
-            <span>VBIT Security Portal</span>
+            <span>VIBIT Security Portal</span>
           </div>
           <h1 className="font-serif text-3xl font-extrabold text-[#2E221C] mt-1">
             Registrar & Content Administration
