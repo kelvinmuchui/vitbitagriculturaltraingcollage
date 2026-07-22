@@ -52,8 +52,8 @@ const FLAVOR_GROUPS: FlavorGroup[] = [
     compounds: "Citric & Malic organic acids",
     roastFit: "Light Roast, Wet/Washed processing",
     origins: "Kenya (Nyeri, Kirinyaga), Ethiopia (Yirgacheffe)",
-    matchingCourseId: "cupping-technology-level-4-5",
-    matchingCourseTitle: "Coffee Cupping & Technology Level 4 & 5",
+    matchingCourseId: "cupping-technology",
+    matchingCourseTitle: "Coffee Cupping & Technology",
     category: "Enzymatic / Organic Acids",
     sliders: { acidity: 92, body: 48, sweetness: 78 }
   },
@@ -68,8 +68,8 @@ const FLAVOR_GROUPS: FlavorGroup[] = [
     compounds: "Linalool & floral terpene esters",
     roastFit: "Ultralight Roast, Anaerobic slow fermentation",
     origins: "Panama (Geisha cultivar), Ethiopia (Guji / Sidamo)",
-    matchingCourseId: "barista-level-3",
-    matchingCourseTitle: "Barista Level 3 Certification",
+    matchingCourseId: "barista-skills",
+    matchingCourseTitle: "Coffee Barista Skills",
     category: "Aromatic / Flowery",
     sliders: { acidity: 86, body: 40, sweetness: 72 }
   },
@@ -85,7 +85,7 @@ const FLAVOR_GROUPS: FlavorGroup[] = [
     roastFit: "Medium Roast, Pulped Natural / Honey processing",
     origins: "Costa Rica (Tarrazu), El Salvador (Bourbon cultivar)",
     matchingCourseId: "coffee-roasting",
-    matchingCourseTitle: "Coffee Roasting Fundamentals",
+    matchingCourseTitle: "Coffee Roasting Technology",
     category: "Sugar Browning",
     sliders: { acidity: 52, body: 72, sweetness: 94 }
   },
@@ -101,7 +101,7 @@ const FLAVOR_GROUPS: FlavorGroup[] = [
     roastFit: "Medium-Dark Roast, Traditional Natural processing",
     origins: "Brazil (Sul de Minas), Colombia (Huila Excelso)",
     matchingCourseId: "coffee-roasting",
-    matchingCourseTitle: "Coffee Roasting Fundamentals",
+    matchingCourseTitle: "Coffee Roasting Technology",
     category: "Maillard Reaction & Pyrolytic",
     sliders: { acidity: 28, body: 88, sweetness: 82 }
   },
@@ -116,8 +116,8 @@ const FLAVOR_GROUPS: FlavorGroup[] = [
     compounds: "Phenolic wood derivatives & essential oils",
     roastFit: "Dark Roast, Giling Basah (Wet-Hulled) processing",
     origins: "Indonesia (Sumatra Mandheling), Rwanda (Kivu region)",
-    matchingCourseId: "coffee-agronomy-level-3",
-    matchingCourseTitle: "Coffee Agronomy Level 3",
+    matchingCourseId: "coffee-agronomy",
+    matchingCourseTitle: "Coffee Agronomy",
     category: "Dry Distillation / Spicy",
     sliders: { acidity: 18, body: 92, sweetness: 58 }
   }
@@ -211,24 +211,24 @@ export default function CoursesView({ setView, selectedCourseId, setSelectedCour
     const q2 = userAns['q2'];
     const q3 = userAns['q3'];
 
-    let courseId = 'barista-level-3'; // Default fallback
+    let courseId = 'barista-skills'; // Default fallback
 
     if (q1 === 'agronomy') {
       if (q2 === 'short') {
         courseId = 'coffee-roasting';
       } else if (q2 === 'medium') {
-        courseId = 'coffee-agronomy-level-3';
+        courseId = 'coffee-agronomy';
       } else {
-        courseId = 'cupping-technology-level-4-5';
+        courseId = 'cupping-technology';
       }
     } else if (q1 === 'business') {
       if (q2 === 'short' || q2 === 'medium') {
-        courseId = 'agripreneurship-level-5-6';
+        courseId = 'agripreneurship';
       } else {
         if (q3 === 'agri_leader') {
-          courseId = 'cooperative-management-level-5-6';
+          courseId = 'cooperative-management-diploma';
         } else {
-          courseId = 'agripreneurship-level-5-6';
+          courseId = 'agripreneurship';
         }
       }
     } else {
@@ -237,12 +237,12 @@ export default function CoursesView({ setView, selectedCourseId, setSelectedCour
         courseId = 'coffee-roasting';
       } else if (q2 === 'medium') {
         if (q3 === 'founder') {
-          courseId = 'mixology-level-3';
+          courseId = 'mixology';
         } else {
-          courseId = 'barista-level-3';
+          courseId = 'barista-skills';
         }
       } else {
-        courseId = 'bartending-level-4';
+        courseId = 'barista-skills';
       }
     }
 
@@ -281,34 +281,35 @@ export default function CoursesView({ setView, selectedCourseId, setSelectedCour
     <div className="space-y-16 pb-20 animate-fade-in" id="courses-view">
       
       {/* 1. HERO BANNER */}
-      <section className="relative py-24 flex items-center justify-center text-center text-white overflow-hidden">
-        <div className="absolute inset-0 z-0">
+      <section className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 pb-6">
+        <div className="relative rounded-3xl overflow-hidden shadow-2xl border border-gray-200/80 min-h-[420px] sm:min-h-[480px] flex items-center justify-center p-6 sm:p-12">
+          {/* Background image without dark overlay */}
           <img 
             src={latteArtTable}
             alt="VBIT Laboratory Commons" 
-            className="w-full h-full object-cover"
+            className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 hover:scale-105"
             referrerPolicy="no-referrer"
           />
-          <div className="absolute inset-0 bg-[#110E0C]/85"></div>
+          
+          {/* Frosted card for crisp text readability without obscuring the photo */}
+          <motion.div 
+            className="relative z-10 max-w-3xl mx-auto bg-white/95 backdrop-blur-md p-8 sm:p-10 rounded-3xl border border-white/60 shadow-2xl text-center space-y-4"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <span className="inline-flex items-center px-3.5 py-1 bg-[#C28A4E]/15 text-[#C28A4E] text-xs font-extrabold uppercase tracking-widest rounded-full border border-[#C28A4E]/30">
+              Official Curriculum 
+            </span>
+            <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-[#2E221C] leading-tight">
+              Nurturing Future Leaders of <br />
+              <span className="text-[#C28A4E]">Coffee & Agribusiness</span>
+            </h1>
+            <p className="max-w-2xl mx-auto text-xs sm:text-sm text-[#2E221C]/80 leading-relaxed font-medium">
+              Choose from government TVET-accredited diplomas, technical certificates, or intensive short modules designed for commercial practitioners and corporate farm cooperations.
+            </p>
+          </motion.div>
         </div>
-
-        <motion.div 
-          className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-5"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-        >
-          <span className="inline-flex items-center px-3.5 py-1 bg-[#C28A4E]/20 text-[#C28A4E] text-xs font-bold uppercase tracking-widest rounded-full border border-[#C28A4E]/30">
-            Official Curriculum 
-          </span>
-          <h1 className="font-serif text-4xl sm:text-5xl font-bold tracking-tight">
-            Nurturing Future Leaders of <br />
-            <span className="text-[#C28A4E]">Coffee & Agribusiness</span>
-          </h1>
-          <p className="max-w-2xl mx-auto text-xs sm:text-sm text-gray-300 leading-relaxed">
-            Choose from government TVET-accredited diplomas, technical certificates, or intensive short modules designed for commercial practitioners and corporate farm cooperations.
-          </p>
-        </motion.div>
       </section>
 
       {/* 2. TAB NAVIGATION (Option 2 & 3 Integration) */}
@@ -549,12 +550,24 @@ export default function CoursesView({ setView, selectedCourseId, setSelectedCour
                                 )}
                               </AnimatePresence>
 
-                              {/* Tuition pricing quick row */}
-                              <div className="flex items-center justify-between text-xs border-t border-b border-[#2E221C]/5 py-3">
-                                <span className="text-[#8E7C74] font-medium">Standard Tuition:</span>
-                                <span className="font-serif font-extrabold text-[#2E221C]">
-                                  KSh {course.fees.tuition.toLocaleString()}
-                                </span>
+                              {/* Official Fee Structure Breakdown */}
+                              <div className="bg-[#FAF6F0] rounded-xl p-3 border border-[#2E221C]/10 space-y-1.5 text-xs">
+                                <div className="flex justify-between items-center text-[#2E221C]/80 text-[11px]">
+                                  <span>Tuition Fees:</span>
+                                  <span className="font-semibold">KSh {course.fees.tuition.toLocaleString()}</span>
+                                </div>
+                                {course.fees.labFee > 0 && (
+                                  <div className="flex justify-between items-center text-[#2E221C]/80 text-[11px]">
+                                    <span>Materials Fees:</span>
+                                    <span className="font-semibold">KSh {course.fees.labFee.toLocaleString()}</span>
+                                  </div>
+                                )}
+                                <div className="flex justify-between items-center font-bold text-[#2E221C] border-t border-[#2E221C]/10 pt-1.5 mt-1">
+                                  <span>Total Program Fees:</span>
+                                  <span className="font-serif font-extrabold text-[#C28A4E]">
+                                    KSh {(course.fees.tuition + course.fees.labFee).toLocaleString()}
+                                  </span>
+                                </div>
                               </div>
 
                               {/* Actions */}

@@ -1,5 +1,5 @@
 import React from 'react';
-import logoImage from '../assets/images/logo.jpg';
+import logoImage from '../assets/images/vibit_college_logo_1784621441588.jpg';
 
 interface LogoProps {
   className?: string;

@@ -55,8 +55,8 @@ const SEED_APPLICATIONS: Application[] = [
     fullName: "Jane Wanjiku Mwangi",
     email: "jane.mwangi@gmail.com",
     phone: "+254 712 345678",
-    courseId: "barista-level-3",
-    courseName: "Barista Level 3 Skills",
+    courseId: "barista-skills",
+    courseName: "Coffee Barista Skills",
     priorExperience: "one_year",
     academicGrade: "B+",
     motivation: "I have been working as a service attendant in a small cafe in Nyeri and want to elevate my credentials with an official TVET certificate, mastering advanced espresso chemistry and high-fidelity latte art to seek high-paying barista positions in Nairobi.",
@@ -72,8 +72,8 @@ const SEED_APPLICATIONS: Application[] = [
     fullName: "Emmanuel Kiprop",
     email: "kiprop.emmanuel@yahoo.com",
     phone: "+254 722 987654",
-    courseId: "coffee-agronomy-level-3",
-    courseName: "Coffee Agronomy Level 3",
+    courseId: "coffee-agronomy",
+    courseName: "Coffee Agronomy",
     priorExperience: "none",
     academicGrade: "B-",
     motivation: "My family owns a 2-acre shaded coffee block in Kericho. I wish to learn professional climate-smart soil agronomy and pruning systems so I can double our cooperative cherry yields and transition us to organic production.",
@@ -87,8 +87,8 @@ const SEED_APPLICATIONS: Application[] = [
     fullName: "Mercy Chepkorir",
     email: "chepkorir.m@hotmail.com",
     phone: "+254 703 555111",
-    courseId: "agripreneurship-level-5-6",
-    courseName: "Agripreneurship Level 5 & 6",
+    courseId: "agripreneurship",
+    courseName: "Agripreneurship",
     priorExperience: "three_years",
     academicGrade: "A-",
     motivation: "As a cooperative auditor in Eldoret, I see local farms struggling with price volatility. I want to study trade hedging, Direct Settlement Systems, and marketing branding to construct a regional export business directly connected to micro-lot buyers in Europe.",
@@ -136,7 +136,7 @@ const SEED_ANALYTICS: AnalyticsData = {
   emailLog: [
     {
       id: "seed-mail-1",
-      to: "artofcoffeeschool@gmail.com",
+      to: "muchuikelvin423@gmail.com",
       subject: "New VIBIT Admission Application: Mercy Chepkorir (VIBIT-2026-40291)",
       body: "Applicant Mercy Chepkorir submitted a formal application for Agripreneurship Level 5 & 6. Credentials successfully compiled and routed via FormSubmit Gateway.",
       timestamp: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(),
@@ -144,7 +144,7 @@ const SEED_ANALYTICS: AnalyticsData = {
     },
     {
       id: "seed-mail-2",
-      to: "artofcoffeeschool@gmail.com",
+      to: "muchuikelvin423@gmail.com",
       subject: "New VIBIT Admission Application: Jane Wanjiku Mwangi (VIBIT-2026-84321)",
       body: "Applicant Jane Wanjiku Mwangi submitted a formal application for Barista Level 3. Credentials successfully compiled and routed via FormSubmit Gateway.",
       timestamp: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString(),
@@ -152,7 +152,7 @@ const SEED_ANALYTICS: AnalyticsData = {
     },
     {
       id: "seed-mail-3",
-      to: "artofcoffeeschool@gmail.com",
+      to: "muchuikelvin423@gmail.com",
       subject: "New VIBIT Admission Application: Emmanuel Kiprop (VIBIT-2026-19283)",
       body: "Applicant Emmanuel Kiprop submitted a formal application for Coffee Agronomy Level 3. Credentials successfully compiled and routed via FormSubmit Gateway.",
       timestamp: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(),
@@ -461,7 +461,7 @@ export default function AdminView({ courses, onUpdateCourses, onResetCourses }: 
             Registrar & Content Administration
           </h1>
           <p className="text-xs text-[#8E7C74] mt-0.5">
-            Admin: <span className="font-semibold text-[#2E221C]">artofcoffeeschool@gmail.com</span> • Live and persistent controls.
+            Admin: <span className="font-semibold text-[#2E221C]">muchuikelvin423@gmail.com</span> • Live and persistent controls.
           </p>
         </div>
 
@@ -541,7 +541,7 @@ export default function AdminView({ courses, onUpdateCourses, onResetCourses }: 
             <Mail className="h-4.5 w-4.5 text-blue-500" />
           </div>
           <div className="mt-2.5">
-            <div className="text-xs font-bold text-[#2E221C] truncate" title="artofcoffeeschool@gmail.com">Jack@gm...</div>
+            <div className="text-xs font-bold text-[#2E221C] truncate" title="muchuikelvin423@gmail.com">muchuikelvin423@gm...</div>
             <span className="text-[9px] text-emerald-600 font-bold flex items-center mt-1.5">
               <Check className="h-3 w-3 shrink-0 mr-0.5" /> FormSubmit.co Active
             </span>
@@ -1157,7 +1157,7 @@ export default function AdminView({ courses, onUpdateCourses, onResetCourses }: 
                   <h4 className="text-xs font-bold uppercase tracking-wider">FormSubmit.co Outbox Records</h4>
                 </div>
                 <span className="text-[10px] bg-emerald-950/80 text-emerald-300 border border-emerald-500/20 px-2 py-0.5 rounded-full font-mono">
-                  Forward Target: artofcoffeeschool@gmail.com
+                  Forward Target: muchuikelvin423@gmail.com
                 </span>
               </div>
 

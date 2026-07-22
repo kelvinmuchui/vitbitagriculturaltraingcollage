@@ -88,7 +88,7 @@ export default function HomeView({ setView, setSelectedCourseId }: HomeViewProps
                 transition={{ delay: 0.1, duration: 0.4 }}
               >
                 <span className="h-1.5 w-1.5 bg-[#b6171e] rounded-full animate-pulse" />
-                <span>Admission Intake Now Open • Academic Year 2026 / 2027</span>
+                <span>Admission Intake Now Open • Academic Year 2024 / 2025</span>
               </motion.div>
 
               <div className="space-y-4">
@@ -102,7 +102,7 @@ export default function HomeView({ setView, setSelectedCourseId }: HomeViewProps
               </div>
 
               <p className="text-sm sm:text-base text-gray-500 leading-relaxed max-w-xl">
-                Gain hands-on expertise inside Africa's premier coffee training academy. From nursery genetics and high-elevation cultivation to roasting gas metrics, sensory science, and barista calibration.
+                Gain hands-on expertise inside Africa's premier coffee training college. From nursery genetics and high-elevation cultivation to roasting gas metrics, sensory science, and barista calibration.
               </p>
 
               {/* Apple-style Premium Action Bar */}

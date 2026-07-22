@@ -37,7 +37,13 @@ export default function App() {
   const [courses, setCourses] = useState<Course[]>(() => {
     const saved = localStorage.getItem('vibit_courses');
     if (saved) {
-      try { return JSON.parse(saved); } catch (e) { console.error(e); }
+      try {
+        const parsed: Course[] = JSON.parse(saved);
+        // Verify saved courses match the official fee structure IDs
+        if (parsed.some(c => c.id === 'barista-skills' || c.id === 'ai-coffee-industry')) {
+          return parsed;
+        }
+      } catch (e) { console.error(e); }
     }
     return COURSES;
   });

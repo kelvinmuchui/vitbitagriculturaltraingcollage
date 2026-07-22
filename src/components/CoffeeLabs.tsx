@@ -1029,7 +1029,7 @@ export default function CoffeeLabs() {
           <Info className="h-4 w-4 text-gray-400 shrink-0" />
           <span>These physical simulators are based directly on the Specialty Coffee Association (SCA) syllabus.</span>
         </div>
-        <span className="text-[10px] uppercase font-bold text-gray-400 font-mono">VIBIT Coffee Academy • Kenya</span>
+        <span className="text-[10px] uppercase font-bold text-gray-400 font-mono">VIBIT Coffee College • Kenya</span>
       </div>
 
     </div>

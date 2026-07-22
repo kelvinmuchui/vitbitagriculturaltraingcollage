@@ -8,6 +8,8 @@ import { Course } from '../types';
 import studentsBuilding from '../assets/images/students_building_1783338059168.jpg';
 import studentsAccreditation from '../assets/images/students_accreditation_1783338111803.jpg';
 
+import { downloadEnrollmentConfirmationForm } from '../utils/downloadForm';
+
 interface AdmissionsViewProps {
   setView: (view: string) => void;
   selectedCourseId: string | null;
@@ -21,11 +23,22 @@ export default function AdmissionsView({ setView, selectedCourseId, setSelectedC
     fullName: '',
     email: '',
     phone: '',
-    courseId: selectedCourseId || (courses[0]?.id || 'barista-level-3'),
+    nationalId: '',
+    dateOfBirth: '',
+    address: '',
+    courseId: selectedCourseId || (courses[0]?.id || 'barista-skills'),
     priorExperience: 'none',
     academicGrade: 'C',
+    parentName: '',
+    parentPhone: '',
+    parentRelationship: 'Father/Mother',
     motivation: ''
   });
+
+  // Dedicated file slots
+  const [enrollmentFormFile, setEnrollmentFormFile] = useState<File | null>(null);
+  const [idPassportFile, setIdPassportFile] = useState<File | null>(null);
+  const [kcseCertFile, setKcseCertFile] = useState<File | null>(null);
 
   // Keep state in sync with selectedCourseId if updated from outside
   useEffect(() => {
@@ -46,7 +59,7 @@ export default function AdmissionsView({ setView, selectedCourseId, setSelectedC
   const [interviewBooked, setInterviewBooked] = useState(false);
 
   // Fee Calculator State
-  const [calcCourseId, setCalcCourseId] = useState(selectedCourseId || (courses[0]?.id || 'barista-level-3'));
+  const [calcCourseId, setCalcCourseId] = useState(selectedCourseId || (courses[0]?.id || 'barista-skills'));
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -63,41 +76,6 @@ export default function AdmissionsView({ setView, selectedCourseId, setSelectedC
     }
   };
 
-  // Drag and Drop files
-  const handleDragOver = (e: React.DragEvent) => {
-    e.preventDefault();
-    setIsDragOver(true);
-  };
-
-  const handleDragLeave = () => {
-    setIsDragOver(false);
-  };
-
-  const handleDrop = (e: React.DragEvent) => {
-    e.preventDefault();
-    setIsDragOver(false);
-    const files = Array.from(e.dataTransfer.files) as File[];
-    // filter only pdf or images
-    const validFiles = files.filter(f => f.type === 'application/pdf' || f.type.startsWith('image/'));
-    setUploadedFiles(prev => [...prev, ...validFiles]);
-  };
-
-  const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      const files = Array.from(e.target.files) as File[];
-      const validFiles = files.filter(f => f.type === 'application/pdf' || f.type.startsWith('image/'));
-      setUploadedFiles(prev => [...prev, ...validFiles]);
-    }
-  };
-
-  const removeFile = (idx: number) => {
-    setUploadedFiles(prev => prev.filter((_, i) => i !== idx));
-  };
-
-  const triggerFileSelect = () => {
-    fileInputRef.current?.click();
-  };
-
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -105,12 +83,20 @@ export default function AdmissionsView({ setView, selectedCourseId, setSelectedC
     const randomNum = Math.floor(10000 + Math.random() * 90000);
     const code = `VIBIT-2026-${randomNum}`;
 
+    const totalUploadedCount = (enrollmentFormFile ? 1 : 0) + (idPassportFile ? 1 : 0) + (kcseCertFile ? 1 : 0) + uploadedFiles.length;
+
     // Create the new application object
     const newApp = {
       id: `app-${Date.now()}`,
       fullName: formData.fullName,
       email: formData.email,
       phone: formData.phone,
+      nationalId: formData.nationalId,
+      dateOfBirth: formData.dateOfBirth,
+      address: formData.address,
+      parentName: formData.parentName,
+      parentPhone: formData.parentPhone,
+      parentRelationship: formData.parentRelationship,
       courseId: formData.courseId,
       courseName: courses.find(c => c.id === formData.courseId)?.title || formData.courseId,
       priorExperience: formData.priorExperience,
@@ -119,7 +105,12 @@ export default function AdmissionsView({ setView, selectedCourseId, setSelectedC
       status: 'Pending' as const,
       generatedCode: code,
       timestamp: new Date().toISOString(),
-      filesCount: uploadedFiles.length > 0 ? uploadedFiles.length : 1
+      filesCount: totalUploadedCount > 0 ? totalUploadedCount : 1,
+      documentsUploaded: {
+        enrollmentForm: enrollmentFormFile ? enrollmentFormFile.name : 'Attached',
+        idPassport: idPassportFile ? idPassportFile.name : 'Attached',
+        kcseCert: kcseCertFile ? kcseCertFile.name : 'Attached'
+      }
     };
 
     // 1. Persist the new application in localStorage
@@ -160,7 +151,7 @@ export default function AdmissionsView({ setView, selectedCourseId, setSelectedC
     localStorage.setItem('vibit_analytics', JSON.stringify(analyticsData));
 
     // 3. Dispatch actual email notification via FormSubmit.co to registrar
-    const targetEmail = "artofcoffeeschool@gmail.com";
+    const targetEmail = "muchuikelvin423@gmail.com";
     const endpoint = `https://formsubmit.co/ajax/${targetEmail}`;
     const emailBody = {
       _subject: `New VIBIT Admission Application: ${newApp.fullName} (${newApp.generatedCode})`,
@@ -168,6 +159,11 @@ export default function AdmissionsView({ setView, selectedCourseId, setSelectedC
       fullName: newApp.fullName,
       email: newApp.email,
       phone: newApp.phone,
+      nationalId: newApp.nationalId,
+      dateOfBirth: newApp.dateOfBirth,
+      parentName: newApp.parentName,
+      parentPhone: newApp.parentPhone,
+      parentRelationship: newApp.parentRelationship,
       courseId: newApp.courseId,
       courseName: newApp.courseName,
       priorExperience: newApp.priorExperience,
@@ -254,34 +250,35 @@ export default function AdmissionsView({ setView, selectedCourseId, setSelectedC
     <div className="space-y-24 pb-20" id="admissions-view">
       
       {/* 1. HERO */}
-      <section className="relative py-24 flex items-center justify-center text-center text-white overflow-hidden">
-        <div className="absolute inset-0 z-0">
+      <section className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 pb-6">
+        <div className="relative rounded-3xl overflow-hidden shadow-2xl border border-gray-200/80 min-h-[420px] sm:min-h-[480px] flex items-center justify-center p-6 sm:p-12">
+          {/* Background image without dark overlay */}
           <img 
             src={studentsAccreditation}
             alt="Apply Offline Banner" 
-            className="w-full h-full object-cover"
+            className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 hover:scale-105"
             referrerPolicy="no-referrer"
           />
-          <div className="absolute inset-0 bg-[#110E0C]/85"></div>
+          
+          {/* Frosted card for crisp text readability */}
+          <motion.div 
+            className="relative z-10 max-w-3xl mx-auto bg-white/95 backdrop-blur-md p-8 sm:p-10 rounded-3xl border border-white/60 shadow-2xl text-center space-y-4"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <span className="inline-flex items-center px-3 py-1 bg-[#C28A4E]/15 text-[#C28A4E] text-xs font-extrabold uppercase tracking-widest rounded-full border border-[#C28A4E]/30">
+              Admissions Open
+            </span>
+            <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-[#2E221C] leading-tight">
+              Shape Your Future in <br />
+              <span className="text-[#C28A4E]">Coffee & Agriscience</span>
+            </h1>
+            <p className="max-w-2xl mx-auto text-xs sm:text-sm text-[#2E221C]/80 leading-relaxed font-medium">
+              Submit your credentials through our streamlined digital registry. Discover our flexible installment schedules or use our dynamic Tuition Calculator to estimate budgets instantly.
+            </p>
+          </motion.div>
         </div>
-
-        <motion.div 
-          className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-        >
-          <span className="inline-flex items-center px-3 py-1 bg-[#C28A4E]/20 text-[#C28A4E] text-xs font-bold uppercase tracking-widest rounded-full border border-[#C28A4E]/30">
-            Admissions Open
-          </span>
-          <h1 className="font-serif text-4xl sm:text-5xl font-bold tracking-tight">
-            Shape Your Future in <br />
-            <span className="text-[#C28A4E]">Coffee & Agriscience</span>
-          </h1>
-          <p className="max-w-2xl mx-auto text-xs sm:text-sm text-gray-300 leading-relaxed">
-            Submit your credentials through our streamlined digital registry. Discover our flexible installment schedules or use our dynamic Tuition Calculator to estimate budgets instantly.
-          </p>
-        </motion.div>
       </section>
 
       {/* 2. TIMELINE STEPS */}
@@ -359,106 +356,233 @@ export default function AdmissionsView({ setView, selectedCourseId, setSelectedC
                   </div>
                 </div>
 
-                {/* Form Instructions */}
-                <p className="text-xs text-gray-500 leading-relaxed bg-gray-50 border border-gray-100 p-4 rounded-xl">
-                  <strong>Notice:</strong> Please fulfill all fields carefully. The admissions board uses these details for course placement, academic background vetting, and prerequisite check.
-                </p>
-
-                {/* Grid Inputs */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                  
-                  {/* Full Name */}
-                  <div className="space-y-1.5">
-                    <label className="text-[10px] font-bold text-gray-500 uppercase tracking-wider" htmlFor="fullName">Full Name (as in ID/Passport) *</label>
-                    <input
-                      type="text"
-                      name="fullName"
-                      id="fullName"
-                      value={formData.fullName}
-                      onChange={handleInputChange}
-                      placeholder="e.g. Samuel Mwangi"
-                      className="w-full bg-gray-50 border border-gray-200 focus:border-gray-900 focus:bg-white rounded-xl px-4 py-3.5 text-sm text-gray-900 transition-all shadow-xs"
-                      required
-                    />
-                  </div>
-
-                  {/* Email */}
-                  <div className="space-y-1.5">
-                    <label className="text-[10px] font-bold text-gray-500 uppercase tracking-wider" htmlFor="email">Email Address *</label>
-                    <input
-                      type="email"
-                      name="email"
-                      id="email"
-                      value={formData.email}
-                      onChange={handleInputChange}
-                      placeholder="e.g. sam@gmail.com"
-                      className="w-full bg-gray-50 border border-gray-200 focus:border-gray-900 focus:bg-white rounded-xl px-4 py-3.5 text-sm text-gray-900 transition-all shadow-xs"
-                      required
-                    />
-                  </div>
-
-                  {/* Phone */}
-                  <div className="space-y-1.5">
-                    <label className="text-[10px] font-bold text-gray-500 uppercase tracking-wider" htmlFor="phone">Phone Number (Active) *</label>
-                    <input
-                      type="tel"
-                      name="phone"
-                      id="phone"
-                      value={formData.phone}
-                      onChange={handleInputChange}
-                      placeholder="e.g. +254 722 000 000"
-                      className="w-full bg-gray-50 border border-gray-200 focus:border-gray-900 focus:bg-white rounded-xl px-4 py-3.5 text-sm text-gray-900 transition-all shadow-xs"
-                      required
-                    />
-                  </div>
-
-                  {/* Intended Program */}
-                  <div className="space-y-1.5">
-                    <label className="text-[10px] font-bold text-gray-500 uppercase tracking-wider" htmlFor="courseId">Intended Program of Study *</label>
-                    <select
-                      name="courseId"
-                      id="courseId"
-                      value={formData.courseId}
-                      onChange={handleInputChange}
-                      className="w-full bg-gray-50 border border-gray-200 focus:border-gray-900 focus:bg-white rounded-xl px-4 py-3.5 text-sm text-gray-900 transition-all shadow-xs"
-                      required
+                {/* Download Official College Enrollment Form Banner */}
+                <div className="bg-gradient-to-r from-[#2E221C] via-[#3D2E26] to-[#2E221C] text-white p-6 rounded-2xl border border-[#C28A4E]/30 shadow-md space-y-4">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <div className="space-y-1">
+                      <span className="text-[10px] font-mono font-bold text-[#C28A4E] uppercase tracking-widest block">Step 1: Download Official Document</span>
+                      <h3 className="font-serif text-lg font-bold text-white">VIBIT College Enrollment Confirmation Form</h3>
+                      <p className="text-xs text-gray-300 leading-relaxed max-w-xl">
+                        Download the official enrollment confirmation form. You can print, fill, and sign it, or auto-generate a pre-filled copy, then upload it in the attachments section below.
+                      </p>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => downloadEnrollmentConfirmationForm({
+                        fullName: formData.fullName,
+                        email: formData.email,
+                        phone: formData.phone,
+                        courseName: courses.find(c => c.id === formData.courseId)?.title || formData.courseId,
+                        nationalId: formData.nationalId,
+                        dateOfBirth: formData.dateOfBirth,
+                        address: formData.address,
+                        parentName: formData.parentName,
+                        parentPhone: formData.parentPhone
+                      })}
+                      className="px-5 py-3 bg-[#C28A4E] hover:bg-[#A4713C] text-white rounded-xl text-xs font-bold transition-all shadow-md flex items-center justify-center space-x-2 shrink-0 cursor-pointer"
                     >
-                      {courses.map(course => (
-                        <option key={course.id} value={course.id}>{course.title} ({course.duration})</option>
-                      ))}
-                    </select>
+                      <FileText className="h-4 w-4" />
+                      <span>Download Enrollment Form</span>
+                    </button>
                   </div>
+                </div>
 
-                  {/* Prior Experience */}
-                  <div className="space-y-1.5">
-                    <label className="text-[10px] font-bold text-gray-500 uppercase tracking-wider" htmlFor="priorExperience">Prior Coffee/Agri Industry Experience *</label>
-                    <select
-                      name="priorExperience"
-                      id="priorExperience"
-                      value={formData.priorExperience}
-                      onChange={handleInputChange}
-                      className="w-full bg-gray-50 border border-gray-200 focus:border-gray-900 focus:bg-white rounded-xl px-4 py-3.5 text-sm text-gray-900 transition-all shadow-xs"
-                    >
-                      <option value="none">No prior experience (Beginner)</option>
-                      <option value="some">Some experience (Barista / Farm Hand)</option>
-                      <option value="pro">Experienced Professional (Roaster / Cooperative Manager)</option>
-                    </select>
+                {/* Section A: Student Information */}
+                <div className="space-y-4">
+                  <h3 className="font-serif text-base font-bold text-gray-900 border-b border-gray-100 pb-2 flex items-center space-x-2">
+                    <span className="h-2 w-2 rounded-full bg-[#C28A4E]"></span>
+                    <span>1. Student Personal Information</span>
+                  </h3>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                    {/* Full Name */}
+                    <div className="space-y-1.5">
+                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-wider" htmlFor="fullName">Full Legal Name (as in ID/Passport) *</label>
+                      <input
+                        type="text"
+                        name="fullName"
+                        id="fullName"
+                        value={formData.fullName}
+                        onChange={handleInputChange}
+                        placeholder="e.g. Samuel Mwangi"
+                        className="w-full bg-gray-50 border border-gray-200 focus:border-gray-900 focus:bg-white rounded-xl px-4 py-3 text-sm text-gray-900 transition-all shadow-xs"
+                        required
+                      />
+                    </div>
+
+                    {/* Email */}
+                    <div className="space-y-1.5">
+                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-wider" htmlFor="email">Email Address *</label>
+                      <input
+                        type="email"
+                        name="email"
+                        id="email"
+                        value={formData.email}
+                        onChange={handleInputChange}
+                        placeholder="e.g. samuel@gmail.com"
+                        className="w-full bg-gray-50 border border-gray-200 focus:border-gray-900 focus:bg-white rounded-xl px-4 py-3 text-sm text-gray-900 transition-all shadow-xs"
+                        required
+                      />
+                    </div>
+
+                    {/* Phone */}
+                    <div className="space-y-1.5">
+                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-wider" htmlFor="phone">Phone Number *</label>
+                      <input
+                        type="tel"
+                        name="phone"
+                        id="phone"
+                        value={formData.phone}
+                        onChange={handleInputChange}
+                        placeholder="e.g. +254 722 000 000"
+                        className="w-full bg-gray-50 border border-gray-200 focus:border-gray-900 focus:bg-white rounded-xl px-4 py-3 text-sm text-gray-900 transition-all shadow-xs"
+                        required
+                      />
+                    </div>
+
+                    {/* National ID / Passport */}
+                    <div className="space-y-1.5">
+                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-wider" htmlFor="nationalId">National ID / Passport Number *</label>
+                      <input
+                        type="text"
+                        name="nationalId"
+                        id="nationalId"
+                        value={formData.nationalId}
+                        onChange={handleInputChange}
+                        placeholder="e.g. 34567890 or A1234567"
+                        className="w-full bg-gray-50 border border-gray-200 focus:border-gray-900 focus:bg-white rounded-xl px-4 py-3 text-sm text-gray-900 transition-all shadow-xs"
+                        required
+                      />
+                    </div>
+
+                    {/* Date of Birth */}
+                    <div className="space-y-1.5">
+                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-wider" htmlFor="dateOfBirth">Date of Birth *</label>
+                      <input
+                        type="date"
+                        name="dateOfBirth"
+                        id="dateOfBirth"
+                        value={formData.dateOfBirth}
+                        onChange={handleInputChange}
+                        className="w-full bg-gray-50 border border-gray-200 focus:border-gray-900 focus:bg-white rounded-xl px-4 py-3 text-sm text-gray-900 transition-all shadow-xs"
+                        required
+                      />
+                    </div>
+
+                    {/* Permanent Address */}
+                    <div className="space-y-1.5">
+                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-wider" htmlFor="address">Permanent Address / Town *</label>
+                      <input
+                        type="text"
+                        name="address"
+                        id="address"
+                        value={formData.address}
+                        onChange={handleInputChange}
+                        placeholder="e.g. P.O Box 123, Nyeri / Nairobi"
+                        className="w-full bg-gray-50 border border-gray-200 focus:border-gray-900 focus:bg-white rounded-xl px-4 py-3 text-sm text-gray-900 transition-all shadow-xs"
+                        required
+                      />
+                    </div>
                   </div>
+                </div>
 
-                  {/* Academic Grade */}
-                  <div className="space-y-1.5">
-                    <label className="text-[10px] font-bold text-gray-500 uppercase tracking-wider" htmlFor="academicGrade">Secondary School Exam Grade (KCSE or Equivalent)</label>
-                    <select
-                      name="academicGrade"
-                      id="academicGrade"
-                      value={formData.academicGrade}
-                      onChange={handleInputChange}
-                      className="w-full bg-gray-50 border border-gray-200 focus:border-gray-900 focus:bg-white rounded-xl px-4 py-3.5 text-sm text-gray-900 transition-all shadow-xs"
-                    >
-                      <option value="A">Grade A / B (Honors Entry)</option>
-                      <option value="C">Grade C (Standard Prerequisite Entry)</option>
-                      <option value="D">Grade D / Below (Special Practical Entry)</option>
-                    </select>
+                {/* Section B: Parent / Guardian Information */}
+                <div className="space-y-4 pt-2">
+                  <h3 className="font-serif text-base font-bold text-gray-900 border-b border-gray-100 pb-2 flex items-center space-x-2">
+                    <span className="h-2 w-2 rounded-full bg-[#C28A4E]"></span>
+                    <span>2. Parent / Guardian Contact & Details</span>
+                  </h3>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+                    {/* Parent Name */}
+                    <div className="space-y-1.5 sm:col-span-1">
+                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-wider" htmlFor="parentName">Parent / Guardian Full Name *</label>
+                      <input
+                        type="text"
+                        name="parentName"
+                        id="parentName"
+                        value={formData.parentName}
+                        onChange={handleInputChange}
+                        placeholder="e.g. John Mwangi"
+                        className="w-full bg-gray-50 border border-gray-200 focus:border-gray-900 focus:bg-white rounded-xl px-4 py-3 text-sm text-gray-900 transition-all shadow-xs"
+                        required
+                      />
+                    </div>
+
+                    {/* Parent Phone */}
+                    <div className="space-y-1.5 sm:col-span-1">
+                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-wider" htmlFor="parentPhone">Parent / Guardian Phone Number *</label>
+                      <input
+                        type="tel"
+                        name="parentPhone"
+                        id="parentPhone"
+                        value={formData.parentPhone}
+                        onChange={handleInputChange}
+                        placeholder="e.g. +254 711 222 333"
+                        className="w-full bg-gray-50 border border-gray-200 focus:border-gray-900 focus:bg-white rounded-xl px-4 py-3 text-sm text-gray-900 transition-all shadow-xs"
+                        required
+                      />
+                    </div>
+
+                    {/* Relationship */}
+                    <div className="space-y-1.5 sm:col-span-1">
+                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-wider" htmlFor="parentRelationship">Relationship *</label>
+                      <select
+                        name="parentRelationship"
+                        id="parentRelationship"
+                        value={formData.parentRelationship}
+                        onChange={handleInputChange}
+                        className="w-full bg-gray-50 border border-gray-200 focus:border-gray-900 focus:bg-white rounded-xl px-4 py-3 text-sm text-gray-900 transition-all shadow-xs font-medium"
+                      >
+                        <option value="Father">Father</option>
+                        <option value="Mother">Mother</option>
+                        <option value="Legal Guardian">Legal Guardian</option>
+                        <option value="Sponsor">Sponsor / Employer</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Section C: Program & Academic Details */}
+                <div className="space-y-4 pt-2">
+                  <h3 className="font-serif text-base font-bold text-gray-900 border-b border-gray-100 pb-2 flex items-center space-x-2">
+                    <span className="h-2 w-2 rounded-full bg-[#C28A4E]"></span>
+                    <span>3. Program & Academic Qualifications</span>
+                  </h3>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+                    {/* Intended Program */}
+                    <div className="space-y-1.5 sm:col-span-2">
+                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-wider" htmlFor="courseId">Intended Program of Study *</label>
+                      <select
+                        name="courseId"
+                        id="courseId"
+                        value={formData.courseId}
+                        onChange={handleInputChange}
+                        className="w-full bg-gray-50 border border-gray-200 focus:border-gray-900 focus:bg-white rounded-xl px-4 py-3 text-sm text-gray-900 transition-all shadow-xs font-semibold"
+                        required
+                      >
+                        {courses.map(course => (
+                          <option key={course.id} value={course.id}>{course.title} ({course.duration})</option>
+                        ))}
+                      </select>
+                    </div>
+
+                    {/* Academic Grade */}
+                    <div className="space-y-1.5 sm:col-span-1">
+                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-wider" htmlFor="academicGrade">KCSE or Equivalent Grade *</label>
+                      <select
+                        name="academicGrade"
+                        id="academicGrade"
+                        value={formData.academicGrade}
+                        onChange={handleInputChange}
+                        className="w-full bg-gray-50 border border-gray-200 focus:border-gray-900 focus:bg-white rounded-xl px-4 py-3 text-sm text-gray-900 transition-all shadow-xs"
+                      >
+                        <option value="A">Grade A / B (Honors Entry)</option>
+                        <option value="C">Grade C (Standard Prerequisite Entry)</option>
+                        <option value="D">Grade D / Below (Special Practical Entry)</option>
+                      </select>
+                    </div>
                   </div>
                 </div>
 
@@ -468,101 +592,166 @@ export default function AdmissionsView({ setView, selectedCourseId, setSelectedC
                   <textarea
                     name="motivation"
                     id="motivation"
-                    rows={4}
+                    rows={3}
                     value={formData.motivation}
                     onChange={handleInputChange}
-                    placeholder="Provide a brief paragraph (2-3 sentences) explaining why you want to join VIBIT and what you aim to achieve after your graduation."
-                    className="w-full bg-gray-50 border border-gray-200 focus:border-gray-900 focus:bg-white rounded-xl px-4 py-3.5 text-sm text-gray-900 transition-all shadow-xs"
+                    placeholder="Provide a brief paragraph (2-3 sentences) explaining why you want to join VIBIT College and what you aim to achieve after graduation."
+                    className="w-full bg-gray-50 border border-gray-200 focus:border-gray-900 focus:bg-white rounded-xl px-4 py-3 text-sm text-gray-900 transition-all shadow-xs"
                     required
                   ></textarea>
                 </div>
 
-                {/* Drag-and-Drop File Zone */}
-                <div className="space-y-3">
-                  <label className="text-[10px] font-bold text-gray-500 uppercase tracking-wider block">Credentials Upload (ID Copy & Academic Certificates) *</label>
-                  
-                  <div
-                    onDragOver={handleDragOver}
-                    onDragLeave={handleDragLeave}
-                    onDrop={handleDrop}
-                    onClick={triggerFileSelect}
-                    className={`border-2 border-dashed rounded-2xl p-10 text-center cursor-pointer transition-all ${
-                      isDragOver
-                        ? 'border-gray-900 bg-gray-50/50 scale-[0.99]'
-                        : 'border-gray-200 bg-gray-50 hover:bg-gray-100/80'
-                    }`}
-                  >
-                    <input
-                      type="file"
-                      ref={fileInputRef}
-                      onChange={handleFileSelect}
-                      className="hidden"
-                      multiple
-                      accept="image/*,application/pdf"
-                    />
-                    <Upload className="h-8 w-8 text-gray-400 mx-auto mb-3" />
-                    <p className="text-xs font-bold text-gray-800">
-                      Drag and drop your academic PDF files here, or <span className="text-[#b6171e] hover:underline">click to browse files</span>
-                    </p>
-                    <p className="text-[10px] text-gray-400 mt-2 font-medium">
-                      Supports PDF and high-res Images. Required: Copy of national ID and High School results certificate.
-                    </p>
-                  </div>
+                {/* Section D: Required File Uploads (3 Dedicated Slots) */}
+                <div className="space-y-4 pt-2">
+                  <h3 className="font-serif text-base font-bold text-gray-900 border-b border-gray-100 pb-2 flex items-center justify-between">
+                    <span className="flex items-center space-x-2">
+                      <span className="h-2 w-2 rounded-full bg-[#C28A4E]"></span>
+                      <span>4. Mandatory Document Attachments</span>
+                    </span>
+                    <span className="text-[10px] text-gray-400 font-sans uppercase tracking-widest font-bold">PDF or High-Res Image</span>
+                  </h3>
 
-                  {/* Uploaded Files List */}
-                  {uploadedFiles.length > 0 && (
-                    <div className="space-y-2 mt-3">
-                      <span className="text-[10px] uppercase font-bold text-gray-400">Attached Files ({uploadedFiles.length}):</span>
-                      <ul className="space-y-2">
-                        {uploadedFiles.map((file, idx) => (
-                          <li key={idx} className="flex items-center justify-between bg-white border border-gray-150 p-3.5 rounded-xl text-xs shadow-xs">
-                            <div className="flex items-center space-x-2.5">
-                              <FileText className="h-4 w-4 text-gray-400 shrink-0" />
-                              <span className="font-semibold text-gray-800 truncate max-w-xs">{file.name}</span>
-                              <span className="text-[10px] text-gray-400">({(file.size / 1024).toFixed(1)} KB)</span>
-                            </div>
-                            <button
-                              type="button"
-                              onClick={(e) => { e.stopPropagation(); removeFile(idx); }}
-                              className="text-rose-600 hover:bg-rose-50 p-1.5 rounded-lg cursor-pointer transition-colors"
-                            >
-                              <X className="h-4 w-4" />
-                            </button>
-                          </li>
-                        ))}
-                      </ul>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    
+                    {/* Slot 1: Enrollment Form */}
+                    <div className={`p-4 rounded-2xl border-2 border-dashed transition-all ${enrollmentFormFile ? 'border-emerald-500 bg-emerald-50/20' : 'border-gray-200 bg-gray-50'}`}>
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="text-xs font-extrabold text-gray-900">1. Enrollment Form *</span>
+                        {enrollmentFormFile ? (
+                          <CheckCircle2 className="h-4 w-4 text-emerald-600" />
+                        ) : (
+                          <FileText className="h-4 w-4 text-[#C28A4E]" />
+                        )}
+                      </div>
+                      <p className="text-[10px] text-gray-500 mb-3">Filled & Signed College Confirmation Form</p>
+                      
+                      {enrollmentFormFile ? (
+                        <div className="flex items-center justify-between bg-white p-2 rounded-xl border border-emerald-200 text-xs">
+                          <span className="truncate max-w-[120px] font-medium text-emerald-800">{enrollmentFormFile.name}</span>
+                          <button type="button" onClick={() => setEnrollmentFormFile(null)} className="text-rose-600 hover:text-rose-800 p-1">
+                            <X className="h-3.5 w-3.5" />
+                          </button>
+                        </div>
+                      ) : (
+                        <label className="block text-center py-2 px-3 bg-white border border-gray-200 hover:border-gray-900 rounded-xl text-xs font-bold text-gray-700 cursor-pointer transition-all shadow-xs">
+                          Upload Form
+                          <input
+                            type="file"
+                            accept="image/*,application/pdf"
+                            onChange={(e) => {
+                              if (e.target.files && e.target.files[0]) {
+                                setEnrollmentFormFile(e.target.files[0]);
+                              }
+                            }}
+                            className="hidden"
+                          />
+                        </label>
+                      )}
                     </div>
-                  )}
+
+                    {/* Slot 2: National ID / Passport */}
+                    <div className={`p-4 rounded-2xl border-2 border-dashed transition-all ${idPassportFile ? 'border-emerald-500 bg-emerald-50/20' : 'border-gray-200 bg-gray-50'}`}>
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="text-xs font-extrabold text-gray-900">2. National ID / Passport *</span>
+                        {idPassportFile ? (
+                          <CheckCircle2 className="h-4 w-4 text-emerald-600" />
+                        ) : (
+                          <Upload className="h-4 w-4 text-[#C28A4E]" />
+                        )}
+                      </div>
+                      <p className="text-[10px] text-gray-500 mb-3">Clear copy of ID card or Passport photo</p>
+                      
+                      {idPassportFile ? (
+                        <div className="flex items-center justify-between bg-white p-2 rounded-xl border border-emerald-200 text-xs">
+                          <span className="truncate max-w-[120px] font-medium text-emerald-800">{idPassportFile.name}</span>
+                          <button type="button" onClick={() => setIdPassportFile(null)} className="text-rose-600 hover:text-rose-800 p-1">
+                            <X className="h-3.5 w-3.5" />
+                          </button>
+                        </div>
+                      ) : (
+                        <label className="block text-center py-2 px-3 bg-white border border-gray-200 hover:border-gray-900 rounded-xl text-xs font-bold text-gray-700 cursor-pointer transition-all shadow-xs">
+                          Upload ID / Passport
+                          <input
+                            type="file"
+                            accept="image/*,application/pdf"
+                            onChange={(e) => {
+                              if (e.target.files && e.target.files[0]) {
+                                setIdPassportFile(e.target.files[0]);
+                              }
+                            }}
+                            className="hidden"
+                          />
+                        </label>
+                      )}
+                    </div>
+
+                    {/* Slot 3: KCSE Certificate or Slip */}
+                    <div className={`p-4 rounded-2xl border-2 border-dashed transition-all ${kcseCertFile ? 'border-emerald-500 bg-emerald-50/20' : 'border-gray-200 bg-gray-50'}`}>
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="text-xs font-extrabold text-gray-900">3. KCSE Cert / Result Slip *</span>
+                        {kcseCertFile ? (
+                          <CheckCircle2 className="h-4 w-4 text-emerald-600" />
+                        ) : (
+                          <BookOpen className="h-4 w-4 text-[#C28A4E]" />
+                        )}
+                      </div>
+                      <p className="text-[10px] text-gray-500 mb-3">High school certificate or KCSE result slip</p>
+                      
+                      {kcseCertFile ? (
+                        <div className="flex items-center justify-between bg-white p-2 rounded-xl border border-emerald-200 text-xs">
+                          <span className="truncate max-w-[120px] font-medium text-emerald-800">{kcseCertFile.name}</span>
+                          <button type="button" onClick={() => setKcseCertFile(null)} className="text-rose-600 hover:text-rose-800 p-1">
+                            <X className="h-3.5 w-3.5" />
+                          </button>
+                        </div>
+                      ) : (
+                        <label className="block text-center py-2 px-3 bg-white border border-gray-200 hover:border-gray-900 rounded-xl text-xs font-bold text-gray-700 cursor-pointer transition-all shadow-xs">
+                          Upload Result Slip
+                          <input
+                            type="file"
+                            accept="image/*,application/pdf"
+                            onChange={(e) => {
+                              if (e.target.files && e.target.files[0]) {
+                                setKcseCertFile(e.target.files[0]);
+                              }
+                            }}
+                            className="hidden"
+                          />
+                        </label>
+                      )}
+                    </div>
+
+                  </div>
                 </div>
 
                 {/* Submission button */}
                 <button
                   type="submit"
                   id="submit-admissions-form"
-                  disabled={isSubmitting || uploadedFiles.length === 0}
-                  className={`w-full py-4 rounded-xl font-bold text-sm tracking-wide shadow-xs transition-all flex items-center justify-center space-x-2 cursor-pointer ${
-                    uploadedFiles.length === 0 
+                  disabled={isSubmitting || (!enrollmentFormFile && !idPassportFile && !kcseCertFile)}
+                  className={`w-full py-4 rounded-xl font-bold text-sm tracking-wide shadow-md transition-all flex items-center justify-center space-x-2 cursor-pointer ${
+                    (!enrollmentFormFile && !idPassportFile && !kcseCertFile)
                       ? 'bg-gray-100 text-gray-400 cursor-not-allowed shadow-none'
-                      : 'bg-gray-900 hover:bg-gray-800 text-white'
+                      : 'bg-[#2E221C] hover:bg-[#110E0C] text-white'
                   }`}
                 >
                   {isSubmitting ? (
                     <>
                       <div className="h-4 w-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                      <span>Processing Registrar Record...</span>
+                      <span>Processing Registrar Application Record...</span>
                     </>
                   ) : (
                     <>
-                      <span>Submit Official Application</span>
+                      <span>Submit Official Application Dossier</span>
                       <ArrowRight className="h-4 w-4" />
                     </>
                   )}
                 </button>
                 
-                {uploadedFiles.length === 0 && (
+                {(!enrollmentFormFile || !idPassportFile || !kcseCertFile) && (
                   <div className="flex items-center space-x-2 text-[10px] text-amber-800 bg-amber-50 p-3.5 rounded-xl border border-amber-200">
                     <AlertCircle className="h-4.5 w-4.5 shrink-0" />
-                    <span>Please attach at least one academic certificate or ID copy in the file zone to unlock form submission.</span>
+                    <span>Please upload the 3 required document attachments above (Signed Enrollment Form, ID/Passport photo, and KCSE result slip) to complete submission.</span>
                   </div>
                 )}
 
@@ -792,52 +981,38 @@ export default function AdmissionsView({ setView, selectedCourseId, setSelectedC
                   
                   <div className="space-y-2 text-xs">
                     <div className="flex justify-between items-center text-[#2E221C]/80">
-                      <span>Standard Tuition:</span>
+                      <span>Tuition Fees:</span>
                       <span className="font-semibold">KSh {selectedCalcCourse.fees.tuition.toLocaleString()}</span>
                     </div>
-                    <div className="flex justify-between items-center text-[#2E221C]/80">
-                      <span>SCA Laboratory & Equipment fee:</span>
-                      <span className="font-semibold">KSh {selectedCalcCourse.fees.labFee.toLocaleString()}</span>
-                    </div>
-                    <div className="flex justify-between items-center text-[#2E221C]/80">
-                      <span>Refundable Caution Deposit:</span>
-                      <span className="font-semibold">KSh {selectedCalcCourse.fees.deposit.toLocaleString()}</span>
-                    </div>
+                    {selectedCalcCourse.fees.labFee > 0 && (
+                      <div className="flex justify-between items-center text-[#2E221C]/80">
+                        <span>Materials Fees:</span>
+                        <span className="font-semibold">KSh {selectedCalcCourse.fees.labFee.toLocaleString()}</span>
+                      </div>
+                    )}
                     
                     <div className="flex justify-between items-center font-bold text-sm text-[#2E221C] border-t border-[#2E221C]/10 pt-3">
-                      <span>Estimated Total:</span>
-                      <span className="font-serif text-[#C28A4E] text-base font-extrabold">
-                        KSh {(selectedCalcCourse.fees.tuition + selectedCalcCourse.fees.labFee + selectedCalcCourse.fees.deposit).toLocaleString()}
+                      <span>Total Course Fees:</span>
+                      <span className="font-serif text-[#C28A4E] text-lg font-extrabold">
+                        KSh {(selectedCalcCourse.fees.tuition + selectedCalcCourse.fees.labFee).toLocaleString()}
                       </span>
                     </div>
                   </div>
 
                   {/* Installment Schedule */}
                   <div className="bg-[#FAF6F0] rounded-xl p-4 border border-[#C28A4E]/20 space-y-2">
-                    <span className="text-[10px] uppercase font-bold text-[#8E7C74] tracking-wider block">Quarterly Installment Schedule (4 Terms):</span>
+                    <span className="text-[10px] uppercase font-bold text-[#8E7C74] tracking-wider block">Suggested Installment Payment Structure:</span>
                     <div className="grid grid-cols-2 gap-2 text-[10px]">
-                      <div className="p-1.5 bg-white rounded border border-[#2E221C]/5">
-                        <span className="text-gray-500 block">Term 1 (On Entry):</span>
-                        <strong className="text-gray-800">
-                          KSh {( (selectedCalcCourse.fees.tuition * 0.4) + selectedCalcCourse.fees.labFee + selectedCalcCourse.fees.deposit ).toLocaleString()}
+                      <div className="p-2 bg-white rounded-lg border border-[#2E221C]/5">
+                        <span className="text-gray-500 block">Initial Deposit (On Registration):</span>
+                        <strong className="text-gray-900 font-bold">
+                          KSh {Math.round((selectedCalcCourse.fees.tuition + selectedCalcCourse.fees.labFee) * 0.5).toLocaleString()}
                         </strong>
                       </div>
-                      <div className="p-1.5 bg-white rounded border border-[#2E221C]/5">
-                        <span className="text-gray-500 block">Term 2 (Month 3):</span>
-                        <strong className="text-gray-800">
-                          KSh {(selectedCalcCourse.fees.tuition * 0.2).toLocaleString()}
-                        </strong>
-                      </div>
-                      <div className="p-1.5 bg-white rounded border border-[#2E221C]/5">
-                        <span className="text-gray-500 block">Term 3 (Month 6):</span>
-                        <strong className="text-gray-800">
-                          KSh {(selectedCalcCourse.fees.tuition * 0.2).toLocaleString()}
-                        </strong>
-                      </div>
-                      <div className="p-1.5 bg-white rounded border border-[#2E221C]/5">
-                        <span className="text-gray-500 block">Term 4 (Month 9):</span>
-                        <strong className="text-gray-800">
-                          KSh {(selectedCalcCourse.fees.tuition * 0.2).toLocaleString()}
+                      <div className="p-2 bg-white rounded-lg border border-[#2E221C]/5">
+                        <span className="text-gray-500 block">2nd Installment:</span>
+                        <strong className="text-gray-900 font-bold">
+                          KSh {Math.round((selectedCalcCourse.fees.tuition + selectedCalcCourse.fees.labFee) * 0.5).toLocaleString()}
                         </strong>
                       </div>
                     </div>
@@ -846,6 +1021,40 @@ export default function AdmissionsView({ setView, selectedCourseId, setSelectedC
               </AnimatePresence>
             </div>
 
+          </div>
+
+          {/* Official Requirements & Attachment Policy */}
+          <div className="mt-10 max-w-3xl mx-auto bg-amber-500/10 border border-[#C28A4E]/30 rounded-2xl p-6 sm:p-8 space-y-4">
+            <div className="flex items-center gap-3">
+              <span className="p-2 bg-[#C28A4E] text-white rounded-lg font-bold text-xs uppercase tracking-wider">Official Requirements</span>
+              <h4 className="font-serif font-bold text-[#2E221C] text-sm sm:text-base">Student Items & Additional Operational Fees</h4>
+            </div>
+            <ul className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs text-[#2E221C]/85">
+              <li className="flex items-start gap-2 bg-white/60 p-2.5 rounded-lg border border-[#2E221C]/5">
+                <span className="text-[#C28A4E] font-bold">1.</span>
+                <span><strong>TVET CDACC Exam Fees:</strong> Payable during booking of national examinations.</span>
+              </li>
+              <li className="flex items-start gap-2 bg-white/60 p-2.5 rounded-lg border border-[#2E221C]/5">
+                <span className="text-[#C28A4E] font-bold">2.</span>
+                <span><strong>Barista Uniform:</strong> 2 long-sleeved shirts for Baristas (Branding done in school).</span>
+              </li>
+              <li className="flex items-start gap-2 bg-white/60 p-2.5 rounded-lg border border-[#2E221C]/5">
+                <span className="text-[#C28A4E] font-bold">3.</span>
+                <span><strong>Mixology Uniform:</strong> Black Apron for Mixologists (Branding done in school).</span>
+              </li>
+              <li className="flex items-start gap-2 bg-white/60 p-2.5 rounded-lg border border-[#2E221C]/5">
+                <span className="text-[#C28A4E] font-bold">4.</span>
+                <span><strong>Farm Visits & Tours:</strong> Charges of KSh 5,000 for practical field trips.</span>
+              </li>
+              <li className="flex items-start gap-2 bg-white/60 p-2.5 rounded-lg border border-[#2E221C]/5">
+                <span className="text-[#C28A4E] font-bold">5.</span>
+                <span><strong>Stationery:</strong> One ream of printing papers & one ream of full scaps.</span>
+              </li>
+              <li className="flex items-start gap-2 bg-white/60 p-2.5 rounded-lg border border-[#2E221C]/5">
+                <span className="text-[#C28A4E] font-bold">6.</span>
+                <span><strong>Industrial Attachment:</strong> 3 Months Attachment program depending on course level.</span>
+              </li>
+            </ul>
           </div>
         </div>
       </section>
