@@ -4,8 +4,8 @@ import { CheckCircle2, Award, Star, Compass, MapPin, Eye, Play, ArrowRight, Shie
 import { FACILITIES } from '../data';
 
 // Import our real student and campus photos
-import baristaSmoothies from '../assets/images/barista_smoothies_1783338078505.jpg';
-import sortingBeans from '../assets/images/sorting_beans_1783338143134.jpg';
+import aboutHeroBanner from '../assets/images/about_hero_banner_1784976365779.jpg';
+import coffeeCherriesDrying from '../assets/images/coffee_cherries_drying_1783338132429.jpg';
 
 interface AboutViewProps {
   setView: (view: string) => void;
@@ -42,7 +42,7 @@ export default function AboutView({ setView }: AboutViewProps) {
         <div className="relative rounded-3xl overflow-hidden shadow-2xl border border-gray-200/80 min-h-[420px] sm:min-h-[480px] flex items-center justify-center p-6 sm:p-12">
           {/* Background image without dark overlay */}
           <img 
-            src={baristaSmoothies}
+            src={aboutHeroBanner}
             alt="VIBIT Academic Barista Workshop" 
             className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 hover:scale-105"
             referrerPolicy="no-referrer"
@@ -182,7 +182,7 @@ export default function AboutView({ setView }: AboutViewProps) {
 
           {/* Active Facility Display Box with smooth switch slider */}
           <motion.div 
-            className="bg-white border border-[#2E221C]/5 rounded-3xl p-6 sm:p-10 shadow-lg min-h-[460px] overflow-hidden flex items-center"
+            className="bg-white border border-[#2E221C]/5 rounded-3xl p-6 sm:p-8 lg:p-10 shadow-lg min-h-0 flex flex-col justify-center overflow-hidden"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
@@ -195,23 +195,23 @@ export default function AboutView({ setView }: AboutViewProps) {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -20 }}
                 transition={{ duration: 0.35 }}
-                className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center w-full"
+                className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-center w-full"
               >
                 {/* Visual Left */}
-                <div className="lg:col-span-6 relative aspect-video rounded-2xl overflow-hidden shadow-inner border border-[#2E221C]/10 h-full max-h-[340px]">
+                <div className="lg:col-span-5 relative w-full max-w-md mx-auto aspect-video rounded-2xl overflow-hidden shadow-md border border-[#2E221C]/10 max-h-[260px] sm:max-h-[300px] shrink-0">
                   <img 
                     src={activeFacility.image} 
                     alt={activeFacility.title} 
                     className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
                     referrerPolicy="no-referrer"
                   />
-                  <div className="absolute top-4 left-4 bg-[#2E221C]/90 text-[#FAF6F0] text-[10px] font-bold tracking-widest uppercase px-3 py-1.5 rounded-full backdrop-blur-sm border border-white/15">
+                  <div className="absolute top-3 left-3 bg-[#2E221C]/90 text-[#FAF6F0] text-[10px] font-bold tracking-widest uppercase px-3 py-1 rounded-full backdrop-blur-sm border border-white/15">
                     Active Training Space
                   </div>
                 </div>
 
                 {/* Content Right */}
-                <div className="lg:col-span-6 space-y-6">
+                <div className="lg:col-span-7 space-y-5 w-full">
                   <h3 className="font-serif text-2xl font-bold text-[#2E221C]">{activeFacility.title}</h3>
                   <p className="text-sm text-[#2E221C]/75 leading-relaxed">
                     {activeFacility.description}
@@ -270,7 +270,7 @@ export default function AboutView({ setView }: AboutViewProps) {
             <div className="absolute -inset-4 bg-green-800/10 rounded-3xl rotate-1"></div>
             <div className="relative rounded-2xl overflow-hidden shadow-lg aspect-video max-h-[360px] border border-[#2E221C]/10">
               <img 
-                src={sortingBeans}
+                src={coffeeCherriesDrying}
                 alt="Students sorting coffee beans outdoors"
                 className="w-full h-full object-cover"
                 referrerPolicy="no-referrer"

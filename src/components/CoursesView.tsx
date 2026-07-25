@@ -9,7 +9,7 @@ import {
 import { Course } from '../types';
 
 // Import our real student and campus photos
-import latteArtTable from '../assets/images/latte_art_table_1783338092054.jpg';
+import coursesHeroBanner from '../assets/images/courses_hero_banner_1784976350863.jpg';
 
 interface CoursesViewProps {
   setView: (view: string) => void;
@@ -285,7 +285,7 @@ export default function CoursesView({ setView, selectedCourseId, setSelectedCour
         <div className="relative rounded-3xl overflow-hidden shadow-2xl border border-gray-200/80 min-h-[420px] sm:min-h-[480px] flex items-center justify-center p-6 sm:p-12">
           {/* Background image without dark overlay */}
           <img 
-            src={latteArtTable}
+            src={coursesHeroBanner}
             alt="VBIT Laboratory Commons" 
             className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 hover:scale-105"
             referrerPolicy="no-referrer"
