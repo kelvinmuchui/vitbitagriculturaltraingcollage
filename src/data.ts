@@ -3,16 +3,18 @@ import { Course, Facility, Testimonial, EnrollmentStep } from './types';
 // Import our real campus, student, and course images
 import studentsBuilding from './assets/images/students_building_1783338059168.jpg';
 import baristaSmoothies from './assets/images/barista_smoothies_1783338078505.jpg';
-import latteArtTable from './assets/images/latte_art_table_1783338092054.jpg';
+import latteArtTable from './assets/images/vbit_students_latte_art.jpg';
 import latteArtTopdown from './assets/images/latte_art_topdown_1783338101365.jpg';
 import studentsAccreditation from './assets/images/students_accreditation_1783338111803.jpg';
 import coffeeCherriesDrying from './assets/images/coffee_cherries_drying_1783338132429.jpg';
 import sortingBeans from './assets/images/sorting_beans_1783338143134.jpg';
-import cocktailBar from './assets/images/cocktail_bar_1783338176140.jpg';
+import cocktailBar from './assets/images/vbit_cocktails_row.jpg';
 import latteArtCup from './assets/images/latte_art_cup_1783338158532.jpg';
 import coffeeRoastingMachine from './assets/images/coffee_roasting_machine_1784706415458.jpg';
 import cuppingLabSetup from './assets/images/cupping_lab_setup_1784706432096.jpg';
-import aiCoffeeAgtech from './assets/images/ai_coffee_agtech_1784706447375.jpg';
+import aiCoffeeAgtech from './assets/images/vbit_students_lab_coat.jpg';
+import studentsCocktail from './assets/images/vbit_students_cocktail.jpg';
+import studentsSuits from './assets/images/vbit_students_suits.jpg';
 
 export const LOGO_URL = ""; // Empty string or placeholder since we are using the new React <Logo /> component!
 
@@ -147,7 +149,7 @@ export const COURSES: Course[] = [
       "Creative Presentation, Garnish Artistry & Glassware Pairing",
       "Inventory Management, Bar Setup, & Safety Standards"
     ],
-    image: cocktailBar,
+    image: studentsCocktail,
     fees: {
       tuition: 50000,
       labFee: 10000,
@@ -193,7 +195,7 @@ export const COURSES: Course[] = [
       "Member Engagement, Dispute Resolution & Extension Coordination",
       "Strategic Management & Agricultural Investment Planning"
     ],
-    image: studentsBuilding,
+    image: studentsSuits,
     fees: {
       tuition: 135000,
       labFee: 0,
@@ -216,7 +218,7 @@ export const COURSES: Course[] = [
       "International Trade Logistics & Cooperative Direct Exporting",
       "Executive Leadership & Board Governance Dynamics"
     ],
-    image: studentsBuilding,
+    image: studentsSuits,
     fees: {
       tuition: 270000,
       labFee: 0,
