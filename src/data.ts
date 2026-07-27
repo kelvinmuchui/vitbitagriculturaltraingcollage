@@ -3,18 +3,16 @@ import { Course, Facility, Testimonial, EnrollmentStep } from './types';
 // Import our real campus, student, and course images
 import studentsBuilding from './assets/images/students_building_1783338059168.jpg';
 import baristaSmoothies from './assets/images/barista_smoothies_1783338078505.jpg';
-import latteArtTable from './assets/images/vbit_students_latte_art.jpg';
+import latteArtTable from './assets/images/latte_art_table_1783338092054.jpg';
 import latteArtTopdown from './assets/images/latte_art_topdown_1783338101365.jpg';
 import studentsAccreditation from './assets/images/students_accreditation_1783338111803.jpg';
 import coffeeCherriesDrying from './assets/images/coffee_cherries_drying_1783338132429.jpg';
 import sortingBeans from './assets/images/sorting_beans_1783338143134.jpg';
-import cocktailBar from './assets/images/vbit_cocktails_row.jpg';
+import cocktailBar from './assets/images/cocktail_bar_1783338176140.jpg';
 import latteArtCup from './assets/images/latte_art_cup_1783338158532.jpg';
 import coffeeRoastingMachine from './assets/images/coffee_roasting_machine_1784706415458.jpg';
 import cuppingLabSetup from './assets/images/cupping_lab_setup_1784706432096.jpg';
-import aiCoffeeAgtech from './assets/images/vbit_students_lab_coat.jpg';
-import studentsCocktail from './assets/images/vbit_students_cocktail.jpg';
-import studentsSuits from './assets/images/vbit_students_suits.jpg';
+import aiCoffeeAgtech from './assets/images/ai_coffee_agtech_1784706447375.jpg';
 
 export const LOGO_URL = ""; // Empty string or placeholder since we are using the new React <Logo /> component!
 
@@ -34,7 +32,7 @@ export const COURSES: Course[] = [
       "Sensory Analysis Foundations & Tasting Protocols",
       "Café Workflow Optimization & Equipment Maintenance"
     ],
-    image: latteArtCup,
+    image: courseBaristaSkills,
     fees: {
       tuition: 50000,
       labFee: 10000,
@@ -57,7 +55,7 @@ export const COURSES: Course[] = [
       "Agribusiness Bookkeeping, Taxation, & Financial Audit Standards",
       "Strategic Branding, E-Commerce, & Pitching to Global Investors"
     ],
-    image: studentsAccreditation,
+    image: courseAgripreneurship,
     fees: {
       tuition: 40000,
       labFee: 20000,
@@ -80,7 +78,7 @@ export const COURSES: Course[] = [
       "Climate-Smart Agroforestry & Shaded Plot Design",
       "Pest, Weed & Disease Management Protocols"
     ],
-    image: sortingBeans,
+    image: courseAgronomy,
     fees: {
       tuition: 60000,
       labFee: 20000,
@@ -149,7 +147,7 @@ export const COURSES: Course[] = [
       "Creative Presentation, Garnish Artistry & Glassware Pairing",
       "Inventory Management, Bar Setup, & Safety Standards"
     ],
-    image: studentsCocktail,
+    image: cocktailBar,
     fees: {
       tuition: 50000,
       labFee: 10000,
@@ -195,7 +193,7 @@ export const COURSES: Course[] = [
       "Member Engagement, Dispute Resolution & Extension Coordination",
       "Strategic Management & Agricultural Investment Planning"
     ],
-    image: studentsSuits,
+    image: studentsBuilding,
     fees: {
       tuition: 135000,
       labFee: 0,
@@ -218,7 +216,7 @@ export const COURSES: Course[] = [
       "International Trade Logistics & Cooperative Direct Exporting",
       "Executive Leadership & Board Governance Dynamics"
     ],
-    image: studentsSuits,
+    image: studentsBuilding,
     fees: {
       tuition: 270000,
       labFee: 0,
@@ -233,7 +231,7 @@ export const FACILITIES: Facility[] = [
     id: "sensory-lab",
     title: "Sensory & Cupping Lab",
     description: "Our world-class sensory theater is built to rigorous Specialty Coffee Association (SCA) environmental, lighting, and water standards. Here, students learn to identify flavor profiles, score coffees, and conduct professional cupping trials.",
-    image: latteArtTable,
+    image: facilityEspressoLab,
     features: [
       "SCA Standard Cupping tables with individual task lighting",
       "Sartorius precision micro-scales & digital refractometers",
@@ -245,7 +243,7 @@ export const FACILITIES: Facility[] = [
     id: "roastery-stations",
     title: "Production Roastery Stations",
     description: "Work with commercial drum and fluid-bed roasters from leading brands (Probat, Diedrich, and Giesen). Integrated with Cropster software, our roasting lab offers a safe, real-world space to master thermodynamics and recipe logging.",
-    image: coffeeCherriesDrying,
+    image: facilityRoasteryQc,
     features: [
       "Commercial Probat 5kg and Giesen W1A roasting machines",
       "Artisan & Cropster automated profile logging integration",
@@ -257,7 +255,7 @@ export const FACILITIES: Facility[] = [
     id: "agri-commons",
     title: "Agri-Tech Botanical Commons",
     description: "Our active on-campus coffee greenhouse and nursery function as a living lab. Students study coffee breeding, soil health, organic compost production, climate-smart cropping, and wet/dry cherry washing workflows first-hand.",
-    image: sortingBeans,
+    image: facilityCoffeeNursery,
     features: [
       "Greenhouse housing major Coffea Arabica and Robusta cultivars",
       "Soil analysis kits and micro-element mapping stations",
@@ -269,7 +267,7 @@ export const FACILITIES: Facility[] = [
     id: "barista-stage",
     title: "Barista Performance Stage",
     description: "An high-fidelity simulation of an active, world-class specialty cafe and competition stage. Equipped with top-tier multi-boiler espresso machines (La Marzocco, Slayer) and electronic gravimetric grinders.",
-    image: cocktailBar,
+    image: facilitySoilAnalytics,
     features: [
       "La Marzocco Linea PB AV and Slayer Steam EP espresso systems",
       "Mahlkönig EK43, Mazzer, and Mythos Two gravimetric grinders",
@@ -285,7 +283,7 @@ export const TESTIMONIALS: Testimonial[] = [
     name: "Clara Chebet",
     role: "Estate Manager, Mount Elgon Cooperative",
     quote: "The Agribusiness program at VIBIT transformed our estate. I learned how to process our coffee from commercial grade to 86+ Specialty Honey micro-lots. Our farm's revenue increased by 40% in our very first harvest season.",
-    image: studentsAccreditation,
+    image: testimonialMercy,
     year: "Class of 2023"
   },
   {
@@ -293,7 +291,7 @@ export const TESTIMONIALS: Testimonial[] = [
     name: "Samuel Mwangi",
     role: "Head Barista & Roaster, Zenith Roasters",
     quote: "VIBIT isn't just a college; it's a bridge to the global industry. The intensity of their Barista Skills certificate and their connections got me hired before I even graduated. Operating commercial roasters is standard practice here.",
-    image: baristaSmoothies,
+    image: testimonialSamuel,
     year: "Class of 2022"
   },
   {
@@ -301,7 +299,7 @@ export const TESTIMONIALS: Testimonial[] = [
     name: "Evelyn Korir",
     role: "Founder, Bloom Agrisolution Ltd.",
     quote: "Using VIBIT's botanical commons to trial eco-friendly fertilizer alternatives launched my consulting business. Their professors are world-class mentors who support you long after graduation.",
-    image: latteArtTable,
+    image: testimonialDavid,
     year: "Class of 2024"
   }
 ];

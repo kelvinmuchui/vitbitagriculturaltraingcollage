@@ -7,7 +7,8 @@ import CoffeeLabs from './CoffeeLabs';
 import HeroParallaxImage from './HeroParallaxImage';
 
 // Import our real student and campus photos
-import studentsBuilding from '../assets/images/students_building_1783338059168.jpg';
+import homeHeroCampus from '../assets/images/home_hero_campus_1784976413691.jpg';
+import homeAgronomyPreview from '../assets/images/home_agronomy_preview_1784976428501.jpg';
 import studentsAccreditation from '../assets/images/students_accreditation_1783338111803.jpg';
 import sortingBeans from '../assets/images/sorting_beans_1783338143134.jpg';
 import latteArtCup from '../assets/images/latte_art_cup_1783338158532.jpg';
@@ -162,7 +163,7 @@ export default function HomeView({ setView, setSelectedCourseId }: HomeViewProps
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-              <HeroParallaxImage imageSrc={studentsBuilding} />
+              <HeroParallaxImage imageSrc={homeHeroCampus} />
             </motion.div>
 
           </div>
@@ -244,7 +245,7 @@ export default function HomeView({ setView, setSelectedCourseId }: HomeViewProps
             <div className="absolute -inset-4 bg-[#C28A4E]/10 rounded-3xl -rotate-2"></div>
             <div className="relative bg-white rounded-2xl overflow-hidden shadow-xl border border-[#2E221C]/10 aspect-4/3">
               <img 
-                src={studentsAccreditation}
+                src={homeAgronomyPreview}
                 alt="Accredited Practical Training at VIBIT"
                 className="w-full h-full object-cover"
                 referrerPolicy="no-referrer"

@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { Mail, Phone, MapPin, Send, CheckCircle2, MessageSquare, ArrowRight, ShieldAlert, Sparkles, HelpCircle } from 'lucide-react';
 
 // Import our real student and campus photos
-import studentsBuilding from '../assets/images/students_building_1783338059168.jpg';
+import contactCampusImage from '../assets/images/contact_campus_image_1784976397743.jpg';
 
 export default function ContactView() {
   // Contact Form State
@@ -72,34 +72,35 @@ export default function ContactView() {
     <div className="space-y-24 pb-20" id="contact-view">
       
       {/* 1. HERO */}
-      <section className="relative py-24 flex items-center justify-center text-center text-white overflow-hidden">
-        <div className="absolute inset-0 z-0">
+      <section className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 pb-6">
+        <div className="relative rounded-3xl overflow-hidden shadow-2xl border border-gray-200/80 min-h-[420px] sm:min-h-[480px] flex items-center justify-center p-6 sm:p-12">
+          {/* Background image without dark overlay */}
           <img 
-            src={studentsBuilding}
+            src={contactCampusImage}
             alt="Contact Registrars" 
-            className="w-full h-full object-cover"
+            className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 hover:scale-105"
             referrerPolicy="no-referrer"
           />
-          <div className="absolute inset-0 bg-[#110E0C]/85"></div>
+          
+          {/* Frosted card for crisp text readability */}
+          <motion.div 
+            className="relative z-10 max-w-3xl mx-auto bg-white/95 backdrop-blur-md p-8 sm:p-10 rounded-3xl border border-white/60 shadow-2xl text-center space-y-4"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <span className="inline-flex items-center px-3 py-1 bg-[#C28A4E]/15 text-[#C28A4E] text-xs font-extrabold uppercase tracking-widest rounded-full border border-[#C28A4E]/30">
+              Admissions Registry
+            </span>
+            <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-[#2E221C] leading-tight">
+              Your Bridge to the <br />
+              <span className="text-[#C28A4E]">Global Coffee Market</span>
+            </h1>
+            <p className="max-w-2xl mx-auto text-xs sm:text-sm text-[#2E221C]/80 leading-relaxed font-medium">
+              Have questions about credits, campus tours, or enrollment procedures? Reach out to our valley registrar office or chat with our automated support bot below.
+            </p>
+          </motion.div>
         </div>
-
-        <motion.div 
-          className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-        >
-          <span className="inline-flex items-center px-3 py-1 bg-[#C28A4E]/20 text-[#C28A4E] text-xs font-bold uppercase tracking-widest rounded-full border border-[#C28A4E]/30">
-            Admissions Registry
-          </span>
-          <h1 className="font-serif text-4xl sm:text-5xl font-bold tracking-tight">
-            Your Bridge to the <br />
-            <span className="text-[#C28A4E]">Global Coffee Market</span>
-          </h1>
-          <p className="max-w-2xl mx-auto text-xs sm:text-sm text-gray-300 leading-relaxed">
-            Have questions about credits, campus tours, or enrollment procedures? Reach out to our valley registrar office or chat with our automated support bot below.
-          </p>
-        </motion.div>
       </section>
 
       {/* 2. CORE DETAILS & FORM GRID */}

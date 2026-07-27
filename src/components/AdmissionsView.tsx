@@ -5,8 +5,8 @@ import { ENROLLMENT_STEPS } from '../data';
 import { Course } from '../types';
 
 // Import our real student and campus photos
+import admissionsHeroBanner from '../assets/images/admissions_hero_banner_1784976382717.jpg';
 import studentsBuilding from '../assets/images/students_building_1783338059168.jpg';
-import studentsAccreditation from '../assets/images/students_accreditation_1783338111803.jpg';
 
 import { downloadEnrollmentConfirmationForm } from '../utils/downloadForm';
 
@@ -254,7 +254,7 @@ export default function AdmissionsView({ setView, selectedCourseId, setSelectedC
         <div className="relative rounded-3xl overflow-hidden shadow-2xl border border-gray-200/80 min-h-[420px] sm:min-h-[480px] flex items-center justify-center p-6 sm:p-12">
           {/* Background image without dark overlay */}
           <img 
-            src={studentsAccreditation}
+            src={admissionsHeroBanner}
             alt="Apply Offline Banner" 
             className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 hover:scale-105"
             referrerPolicy="no-referrer"

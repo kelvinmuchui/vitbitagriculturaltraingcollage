@@ -3,13 +3,12 @@ import { motion, AnimatePresence } from 'motion/react';
 import { Eye, Layers, Compass, Flame, Leaf, Sparkles, X, ChevronLeft, ChevronRight, Info } from 'lucide-react';
 
 // Import our real student and campus photos
-import baristaSmoothies from '../assets/images/barista_smoothies_1783338078505.jpg';
-import latteArtTable from '../assets/images/latte_art_table_1783338092054.jpg';
-import latteArtTopdown from '../assets/images/latte_art_topdown_1783338101365.jpg';
-import coffeeCherriesDrying from '../assets/images/coffee_cherries_drying_1783338132429.jpg';
-import sortingBeans from '../assets/images/sorting_beans_1783338143134.jpg';
-import cocktailBar from '../assets/images/cocktail_bar_1783338176140.jpg';
-import latteArtCup from '../assets/images/latte_art_cup_1783338158532.jpg';
+import galleryBaristaCalibration from '../assets/images/gallery_barista_calibration_1784976635539.jpg';
+import galleryPourOverStation from '../assets/images/gallery_pour_over_station_1784976653213.jpg';
+import galleryGreenBeanSorting from '../assets/images/gallery_green_bean_sorting_1784976666339.jpg';
+import galleryCherryDepulping from '../assets/images/gallery_cherry_depulping_1784976680693.jpg';
+import galleryCuppingAromaSniff from '../assets/images/gallery_cupping_aroma_sniff_1784976694452.jpg';
+import galleryBarFlairMixology from '../assets/images/gallery_bar_flair_mixology_1784976708489.jpg';
 
 interface GalleryItem {
   id: string;
@@ -40,7 +39,7 @@ export default function PhotoGallery() {
       category: 'sensory',
       categoryLabel: 'Sensory Lab',
       description: 'Equipped with custom La Marzocco Linea PB espresso systems, reverse-osmosis mineral-water formulation columns, and high-precision Mahlkönig grinders for scientific extraction evaluation.',
-      image: latteArtTable,
+      image: galleryBaristaCalibration,
       specs: [
         { label: 'Espresso Stations', value: '12 Independent Workspaces' },
         { label: 'Technology', value: 'La Marzocco & Mythos Grinders' },
@@ -53,7 +52,7 @@ export default function PhotoGallery() {
       category: 'cupping',
       categoryLabel: 'Cupping Lounge',
       description: 'Built strictly to SCA standards, featuring soundproof acoustics, customized draft exhaust, rotating cupping tables, and specialized overhead spectral lighting for neutral color grading.',
-      image: latteArtTopdown,
+      image: galleryCuppingAromaSniff,
       specs: [
         { label: 'Brewing Temp', value: '93°C Terminally Regulated' },
         { label: 'Sample Capacity', value: 'Up to 48 Micro-lots daily' },
@@ -66,7 +65,7 @@ export default function PhotoGallery() {
       category: 'roasting',
       categoryLabel: 'Roasting Station',
       description: 'Houses multiple drum roasters from Giesen and Probat connected directly to desktop logging suites. Students log rate-of-rise (RoR), gas pressures, and drum airflows in real-time.',
-      image: coffeeCherriesDrying,
+      image: galleryCherryDepulping,
       specs: [
         { label: 'Roasters', value: 'Giesen W15A & Probatone 5' },
         { label: 'Telemetry', value: 'Cropster & Artisan Dual Logging' },
@@ -79,7 +78,7 @@ export default function PhotoGallery() {
       category: 'agribusiness',
       categoryLabel: 'Agribusiness',
       description: 'A controlled educational nursery focusing on cultivar genetic studies, soil moisture optimization, organic pest control, and regional soil composition mapping for sustainable farming.',
-      image: sortingBeans,
+      image: galleryGreenBeanSorting,
       specs: [
         { label: 'Key Cultivars', value: 'SL28, SL34, Batian, Ruiru 11' },
         { label: 'Soil Analytics', value: 'N-P-K Electronic Sensor Mesh' },
@@ -92,7 +91,7 @@ export default function PhotoGallery() {
       category: 'cupping',
       categoryLabel: 'Green Grading',
       description: 'Where incoming parchment coffee is analyzed for humidity, density, size screens, and visual physical defects under uniform daylight simulators.',
-      image: latteArtCup,
+      image: galleryPourOverStation,
       specs: [
         { label: 'Moisture Meters', value: 'Sinar BeanPro Coffee Analyzer' },
         { label: 'Screen Sizes', value: 'Official 14 to 20 Grading Sieves' },
@@ -105,7 +104,7 @@ export default function PhotoGallery() {
       category: 'sensory',
       categoryLabel: 'Barista Lab',
       description: 'A replica of international barista competition layouts designed to polish sensory workflow, table presentation speed, signature drink design, and technical mastery under pressure.',
-      image: cocktailBar,
+      image: galleryBarFlairMixology,
       specs: [
         { label: 'Staging Deck', value: 'U-Shaped Professional Counter' },
         { label: 'Tamper Tools', value: 'Puqpress Gen 5 Automatic' },
