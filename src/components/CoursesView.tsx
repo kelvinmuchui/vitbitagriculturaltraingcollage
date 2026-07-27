@@ -163,6 +163,8 @@ export default function CoursesView({ setView, selectedCourseId, setSelectedCour
     { id: 'professional', label: 'Executive' },
   ];
 
+  const selectedCourseObj = courses.find(c => c.id === selectedCourseId);
+
   const filteredCourses = courses.filter((course) => {
     const matchesCategory = activeCategory === 'all' || course.category === activeCategory;
     const matchesSearch = course.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
@@ -428,6 +430,60 @@ export default function CoursesView({ setView, selectedCourseId, setSelectedCour
                 </div>
               </motion.div>
 
+              {/* Active Selected Course Quick Action Banner */}
+              {selectedCourseObj && (
+                <motion.div 
+                  className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <div className="bg-[#FAF6F0] border-2 border-[#C28A4E]/40 rounded-2xl p-4 sm:p-5 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <div className="flex items-center space-x-3.5 w-full sm:w-auto">
+                      <div className="h-10 w-10 bg-[#C28A4E]/20 rounded-xl flex items-center justify-center text-[#C28A4E] shrink-0 border border-[#C28A4E]/30">
+                        <BookOpen className="h-5 w-5" />
+                      </div>
+                      <div>
+                        <div className="flex items-center space-x-2">
+                          <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#C28A4E]">Selected Program</span>
+                          <span className={`text-[9px] uppercase font-bold px-2 py-0.5 rounded-full border ${getCategoryBadgeColor(selectedCourseObj.category)}`}>
+                            {selectedCourseObj.category}
+                          </span>
+                        </div>
+                        <h4 className="font-serif text-sm sm:text-base font-bold text-[#2E221C]">{selectedCourseObj.title}</h4>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center space-x-2.5 w-full sm:w-auto justify-end shrink-0">
+                      <button
+                        id="selected-course-print-btn"
+                        onClick={() => setPrintCourse(selectedCourseObj)}
+                        className="flex-1 sm:flex-none px-4 py-2.5 bg-white hover:bg-gray-50 text-[#2E221C] text-xs font-bold rounded-xl border border-[#2E221C]/15 shadow-sm transition-all flex items-center justify-center space-x-1.5 cursor-pointer font-sans"
+                      >
+                        <Printer className="h-4 w-4 text-[#C28A4E]" />
+                        <span>Print Details (PDF)</span>
+                      </button>
+
+                      <button
+                        onClick={() => handleApplyClick(selectedCourseObj.id)}
+                        className="flex-1 sm:flex-none px-4 py-2.5 bg-[#C28A4E] hover:bg-[#A4713C] text-white text-xs font-bold rounded-xl shadow-sm transition-all flex items-center justify-center space-x-1.5 cursor-pointer font-sans"
+                      >
+                        <span>Apply Now</span>
+                        <ArrowRight className="h-3.5 w-3.5" />
+                      </button>
+
+                      <button
+                        onClick={() => setSelectedCourseId(null)}
+                        className="p-2.5 hover:bg-[#2E221C]/10 rounded-xl text-[#8E7C74] hover:text-[#2E221C] transition-colors cursor-pointer"
+                        title="Clear Selection"
+                      >
+                        <X className="h-4 w-4" />
+                      </button>
+                    </div>
+                  </div>
+                </motion.div>
+              )}
+
               {/* Course Listing Grid */}
               <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 {filteredCourses.length === 0 ? (
@@ -593,8 +649,8 @@ export default function CoursesView({ setView, selectedCourseId, setSelectedCour
                                     onClick={() => setPrintCourse(course)}
                                     className="w-full bg-[#FAF6F0] hover:bg-[#2E221C]/5 text-[#2E221C] font-bold text-xs py-2.5 rounded-xl border border-[#2E221C]/10 transition-all flex items-center justify-center space-x-1 cursor-pointer text-center font-sans"
                                   >
-                                    <Printer className="h-3.5 w-3.5 text-[#8E7C74]" />
-                                    <span>Print Flyer</span>
+                                    <Printer className="h-3.5 w-3.5 text-[#C28A4E]" />
+                                    <span>Print Details</span>
                                   </button>
                                 </div>
                               </div>
@@ -894,8 +950,8 @@ export default function CoursesView({ setView, selectedCourseId, setSelectedCour
                             onClick={() => setPrintCourse(quizResult)}
                             className="py-3 bg-[#FAF6F0] hover:bg-[#2E221C]/5 text-[#2E221C] text-[11px] font-bold uppercase tracking-wider rounded-xl border border-[#2E221C]/10 transition-all cursor-pointer text-center flex items-center justify-center space-x-1"
                           >
-                            <Printer className="h-3.5 w-3.5 text-[#8E7C74]" />
-                            <span>Print Flyer</span>
+                            <Printer className="h-3.5 w-3.5 text-[#C28A4E]" />
+                            <span>Print Details</span>
                           </button>
 
                           <button

@@ -1,18 +1,24 @@
 import { Course, Facility, Testimonial, EnrollmentStep } from './types';
 
-// Import our real campus, student, and course images
-import studentsBuilding from './assets/images/students_building_1783338059168.jpg';
-import baristaSmoothies from './assets/images/barista_smoothies_1783338078505.jpg';
-import latteArtTable from './assets/images/latte_art_table_1783338092054.jpg';
-import latteArtTopdown from './assets/images/latte_art_topdown_1783338101365.jpg';
-import studentsAccreditation from './assets/images/students_accreditation_1783338111803.jpg';
-import coffeeCherriesDrying from './assets/images/coffee_cherries_drying_1783338132429.jpg';
-import sortingBeans from './assets/images/sorting_beans_1783338143134.jpg';
-import cocktailBar from './assets/images/cocktail_bar_1783338176140.jpg';
-import latteArtCup from './assets/images/latte_art_cup_1783338158532.jpg';
-import coffeeRoastingMachine from './assets/images/coffee_roasting_machine_1784706415458.jpg';
+// Import distinct, non-repeating image assets for every single item
+import courseBaristaSkills from './assets/images/course_barista_skills_1784976448236.jpg';
+import courseAgripreneurship from './assets/images/course_agripreneurship_1784976463709.jpg';
+import courseAgronomy from './assets/images/course_agronomy_1784976477732.jpg';
 import cuppingLabSetup from './assets/images/cupping_lab_setup_1784706432096.jpg';
+import coffeeRoastingMachine from './assets/images/coffee_roasting_machine_1784706415458.jpg';
+import courseMixology from './assets/images/course_mixology_1784976493584.jpg';
 import aiCoffeeAgtech from './assets/images/ai_coffee_agtech_1784706447375.jpg';
+import courseCoopCert from './assets/images/course_coop_cert_1784976507855.jpg';
+import courseCoopDiploma from './assets/images/course_coop_diploma_1784976521899.jpg';
+
+import facilityEspressoLab from './assets/images/facility_espresso_lab_1784976539403.jpg';
+import facilityRoasteryQc from './assets/images/facility_roastery_qc_1784976554142.jpg';
+import facilityCoffeeNursery from './assets/images/facility_coffee_nursery_1784976568320.jpg';
+import facilitySoilAnalytics from './assets/images/facility_soil_analytics_1784976581491.jpg';
+
+import testimonialMercy from './assets/images/testimonial_mercy_1784976594167.jpg';
+import testimonialSamuel from './assets/images/testimonial_samuel_1784976608625.jpg';
+import testimonialDavid from './assets/images/testimonial_david_1784976621584.jpg';
 
 export const LOGO_URL = ""; // Empty string or placeholder since we are using the new React <Logo /> component!
 
@@ -147,7 +153,7 @@ export const COURSES: Course[] = [
       "Creative Presentation, Garnish Artistry & Glassware Pairing",
       "Inventory Management, Bar Setup, & Safety Standards"
     ],
-    image: cocktailBar,
+    image: courseMixology,
     fees: {
       tuition: 50000,
       labFee: 10000,
@@ -193,7 +199,7 @@ export const COURSES: Course[] = [
       "Member Engagement, Dispute Resolution & Extension Coordination",
       "Strategic Management & Agricultural Investment Planning"
     ],
-    image: studentsBuilding,
+    image: courseCoopCert,
     fees: {
       tuition: 135000,
       labFee: 0,
@@ -216,7 +222,7 @@ export const COURSES: Course[] = [
       "International Trade Logistics & Cooperative Direct Exporting",
       "Executive Leadership & Board Governance Dynamics"
     ],
-    image: studentsBuilding,
+    image: courseCoopDiploma,
     fees: {
       tuition: 270000,
       labFee: 0,
