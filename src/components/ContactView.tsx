@@ -230,7 +230,7 @@ export default function ContactView() {
                   <h4 className="font-bold text-sm text-[#2E221C]">Social Media Handles</h4>
                   <div className="flex items-center space-x-2 pt-0.5">
                     <a 
-                      href="https://facebook.com/vibitagriculturalcollege" 
+                      href="https://www.facebook.com/share/1EWj42YkES/" 
                       target="_blank" 
                       rel="noopener noreferrer"
                       className="inline-flex items-center space-x-1 text-xs font-bold text-blue-700 bg-blue-50 hover:bg-blue-100 px-2.5 py-1 rounded-lg border border-blue-200 transition-colors"
@@ -239,7 +239,7 @@ export default function ContactView() {
                       <span>Facebook</span>
                     </a>
                     <a 
-                      href="https://instagram.com/vibit_agricultural_college" 
+                      href="https://www.instagram.com/vbit.school?igsh=MWN4ZXQ2a3h4NTc0ZQ== 
                       target="_blank" 
                       rel="noopener noreferrer"
                       className="inline-flex items-center space-x-1 text-xs font-bold text-pink-700 bg-pink-50 hover:bg-pink-100 px-2.5 py-1 rounded-lg border border-pink-200 transition-colors"
@@ -444,7 +444,7 @@ export default function ContactView() {
 
               <a
                 id="contact-facebook-btn"
-                href="https://facebook.com/vibitagriculturalcollege"
+                href="https://www.facebook.com/share/1EWj42YkES/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs py-3 rounded-xl shadow-md hover:shadow-lg transition-all flex items-center justify-center space-x-2 cursor-pointer font-sans"
@@ -479,7 +479,7 @@ export default function ContactView() {
 
               <a
                 id="contact-instagram-btn"
-                href="https://instagram.com/vibit_agricultural_college"
+                href="https://www.instagram.com/vbit.school?igsh=MWN4ZXQ2a3h4NTc0ZQ=="
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full bg-gradient-to-r from-amber-500 via-rose-500 to-purple-600 hover:opacity-95 text-white font-bold text-xs py-3 rounded-xl shadow-md hover:shadow-lg transition-all flex items-center justify-center space-x-2 cursor-pointer font-sans"

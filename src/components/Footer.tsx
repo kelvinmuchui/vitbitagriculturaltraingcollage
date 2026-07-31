@@ -131,7 +131,7 @@ export default function Footer({ setView }: FooterProps) {
               </li>
               <li className="pt-2 flex items-center space-x-3 text-xs">
                 <a 
-                  href="https://facebook.com/vibitagriculturalcollege" 
+                  href="https://www.facebook.com/share/1EWj42YkES/" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="bg-[#2E221C] hover:bg-blue-600 text-white p-2 rounded-lg border border-white/10 transition-colors flex items-center space-x-1.5"
@@ -141,7 +141,7 @@ export default function Footer({ setView }: FooterProps) {
                   <span>Facebook</span>
                 </a>
                 <a 
-                  href="https://instagram.com/vibit_agricultural_college" 
+                  href="https://www.instagram.com/vbit.school?igsh=MWN4ZXQ2a3h4NTc0ZQ==" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="bg-[#2E221C] hover:bg-pink-600 text-white p-2 rounded-lg border border-white/10 transition-colors flex items-center space-x-1.5"
