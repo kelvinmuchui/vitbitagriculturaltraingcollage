@@ -238,12 +238,12 @@ export default function ContactView() {
                       <FacebookIcon className="h-3.5 w-3.5" />
                       <span>Facebook</span>
                     </a>
-                    <a 
-                      href="https://www.instagram.com/vbit.school?igsh=MWN4ZXQ2a3h4NTc0ZQ== 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center space-x-1 text-xs font-bold text-pink-700 bg-pink-50 hover:bg-pink-100 px-2.5 py-1 rounded-lg border border-pink-200 transition-colors"
-                    >
+                    <a
+  href="https://www.instagram.com/vbit.school?igsh=MWN4ZXQ2a3h4NTc0ZQ=="
+  target="_blank"
+  rel="noopener noreferrer"
+  className="inline-flex items-center space-x-1 text-xs font-bold text-pink-700 bg-pink-50 hover:bg-pink-100 px-2.5 py-1 rounded-lg border border-pink-200 transition-colors"
+>
                       <InstagramIcon className="h-3.5 w-3.5" />
                       <span>Instagram</span>
                     </a>
