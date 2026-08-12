@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://vibitcollege.ac.ke/sitemap.xml

@@ -93,17 +93,20 @@ export default function HomeView({ setView, setSelectedCourseId }: HomeViewProps
               </motion.div>
 
               <div className="space-y-4">
+                <span className="text-xs font-bold text-[#C28A4E] uppercase tracking-wider block">
+                  Premier Accredited Coffee School in Nairobi, Kenya
+                </span>
                 <h1 className="font-sans text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-gray-900 leading-[1.1] md:leading-[1.05]">
-                  Crafting the Future of <br className="hidden sm:inline" />
-                  <span className="bg-gradient-to-r from-gray-900 via-[#271310] to-[#b6171e] bg-clip-text text-transparent">Specialty Coffee</span>
+                  The Leading Coffee School <br className="hidden sm:inline" />
+                  <span className="bg-gradient-to-r from-gray-900 via-[#271310] to-[#b6171e] bg-clip-text text-transparent">in Nairobi, Kenya</span>
                 </h1>
                 <p className="font-serif text-lg sm:text-xl text-[#271310]/80 italic max-w-xl pl-4 border-l-2 border-[#C28A4E]/30 py-1 bg-gradient-to-r from-[#C28A4E]/5 to-transparent rounded-r-lg">
-                  "Seed to Cup, farm management to luxury branding."
+                  "Master specialty coffee from seed to cup — Barista Arts, Roasting & Agriscience."
                 </p>
               </div>
 
               <p className="text-sm sm:text-base text-gray-500 leading-relaxed max-w-xl">
-                Gain hands-on expertise inside Africa's premier coffee training college. From nursery genetics and high-elevation cultivation to roasting gas metrics, sensory science, and barista calibration.
+                Gain hands-on expertise inside Nairobi's top-rated coffee school located at Westlands Road No. 45. From nursery genetics and high-elevation cultivation to espresso extraction, sensory cupping, roasting profiling, and professional barista certification.
               </p>
 
               {/* Apple-style Premium Action Bar */}

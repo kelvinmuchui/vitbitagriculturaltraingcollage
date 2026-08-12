@@ -194,6 +194,16 @@ export default function Footer({ setView }: FooterProps) {
 
         </div>
 
+        {/* Local SEO Keyword Hub for Search Engines */}
+        <div className="my-8 py-4 px-6 bg-white/5 rounded-2xl border border-white/10 text-center space-y-2">
+          <p className="text-xs font-bold text-[#C28A4E] uppercase tracking-wider">
+            #1 Rated Accredited Coffee School in Nairobi, Kenya
+          </p>
+          <p className="text-xs text-[#FAF6F0]/60 leading-relaxed max-w-5xl mx-auto">
+            VIBIT Agricultural Training College is the leading TVET-registered <strong>coffee school in Nairobi</strong>. Located at Leomar Court, Westlands Road No. 45, Nairobi, we offer hands-on <strong>barista training in Nairobi</strong>, professional coffee cupping & Q-grading certification, commercial coffee roasting, and agribusiness diploma courses across Kenya and East Africa.
+          </p>
+        </div>
+
         {/* Bottom Section - Copyright */}
         <div className="pt-8 border-t border-[#FAF6F0]/10 text-center md:flex md:justify-between md:items-center">
           <p className="text-xs text-[#FAF6F0]/50">
