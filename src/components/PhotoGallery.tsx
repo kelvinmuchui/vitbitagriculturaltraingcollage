@@ -100,10 +100,10 @@ export default function PhotoGallery() {
     },
     {
       id: 'gallery-sensory-2',
-      title: ' Mixologist Championship Simulation Stage',
+      title: 'Barista Championship Simulation Stage',
       category: 'sensory',
-      categoryLabel: 'Mixologist Lab',
-      description: 'A replica of international Mixologist competition layouts designed to polish sensory workflow, table presentation speed, signature drink design, and technical mastery under pressure.',
+      categoryLabel: 'Barista Lab',
+      description: 'A replica of international barista competition layouts designed to polish sensory workflow, table presentation speed, signature drink design, and technical mastery under pressure.',
       image: galleryBarFlairMixology,
       specs: [
         { label: 'Staging Deck', value: 'U-Shaped Professional Counter' },

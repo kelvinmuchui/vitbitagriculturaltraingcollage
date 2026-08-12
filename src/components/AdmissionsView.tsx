@@ -247,40 +247,8 @@ export default function AdmissionsView({ setView, selectedCourseId, setSelectedC
   };
 
   return (
-    <div className="space-y-24 pb-20" id="admissions-view">
+    <div className="space-y-24 pt-8 pb-20" id="admissions-view">
       
-      {/* 1. HERO */}
-      <section className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 pb-6">
-        <div className="relative rounded-3xl overflow-hidden shadow-2xl border border-gray-200/80 min-h-[420px] sm:min-h-[480px] flex items-center justify-center p-6 sm:p-12">
-          {/* Background image without dark overlay */}
-          <img 
-            src={admissionsHeroBanner}
-            alt="Apply Offline Banner" 
-            className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 hover:scale-105"
-            referrerPolicy="no-referrer"
-          />
-          
-          {/* Frosted card for crisp text readability */}
-          <motion.div 
-            className="relative z-10 max-w-3xl mx-auto bg-white/95 backdrop-blur-md p-8 sm:p-10 rounded-3xl border border-white/60 shadow-2xl text-center space-y-4"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-          >
-            <span className="inline-flex items-center px-3 py-1 bg-[#C28A4E]/15 text-[#C28A4E] text-xs font-extrabold uppercase tracking-widest rounded-full border border-[#C28A4E]/30">
-              Admissions Open
-            </span>
-            <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-[#2E221C] leading-tight">
-              Shape Your Future in <br />
-              <span className="text-[#C28A4E]">Coffee & Agriscience</span>
-            </h1>
-            <p className="max-w-2xl mx-auto text-xs sm:text-sm text-[#2E221C]/80 leading-relaxed font-medium">
-              Submit your credentials through our streamlined digital registry. Discover our flexible installment schedules or use our dynamic Tuition Calculator to estimate budgets instantly.
-            </p>
-          </motion.div>
-        </div>
-      </section>
-
       {/* 2. TIMELINE STEPS */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         <motion.div 

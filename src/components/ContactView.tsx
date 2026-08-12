@@ -88,40 +88,8 @@ export default function ContactView() {
   };
 
   return (
-    <div className="space-y-24 pb-20" id="contact-view">
+    <div className="space-y-24 pt-8 pb-20" id="contact-view">
       
-      {/* 1. HERO */}
-      <section className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 pb-6">
-        <div className="relative rounded-3xl overflow-hidden shadow-2xl border border-gray-200/80 min-h-[420px] sm:min-h-[480px] flex items-center justify-center p-6 sm:p-12">
-          {/* Background image without dark overlay */}
-          <img 
-            src={contactCampusImage}
-            alt="Contact Registrars" 
-            className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 hover:scale-105"
-            referrerPolicy="no-referrer"
-          />
-          
-          {/* Frosted card for crisp text readability */}
-          <motion.div 
-            className="relative z-10 max-w-3xl mx-auto bg-white/95 backdrop-blur-md p-8 sm:p-10 rounded-3xl border border-white/60 shadow-2xl text-center space-y-4"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-          >
-            <span className="inline-flex items-center px-3 py-1 bg-[#C28A4E]/15 text-[#C28A4E] text-xs font-extrabold uppercase tracking-widest rounded-full border border-[#C28A4E]/30">
-              Admissions Registry
-            </span>
-            <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-[#2E221C] leading-tight">
-              Your Bridge to the <br />
-              <span className="text-[#C28A4E]">Global Coffee Market</span>
-            </h1>
-            <p className="max-w-2xl mx-auto text-xs sm:text-sm text-[#2E221C]/80 leading-relaxed font-medium">
-              Have questions about credits, campus tours, or enrollment procedures? Reach out to our valley registrar office or chat with our automated support bot below.
-            </p>
-          </motion.div>
-        </div>
-      </section>
-
       {/* 2. CORE DETAILS & FORM GRID */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
@@ -144,77 +112,104 @@ export default function ContactView() {
 
             {/* Contacts Stack */}
             <ul className="space-y-6">
+              {/* Location Link */}
               <motion.li 
-                className="flex items-start space-x-4"
                 whileHover={{ x: 6 }}
                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
               >
-                <div className="bg-[#C28A4E]/10 p-3.5 rounded-xl text-[#C28A4E] shrink-0">
-                  <MapPin className="h-6 w-6" />
-                </div>
-                <div className="space-y-1">
-                  <h4 className="font-bold text-sm text-[#2E221C]">Campus Location</h4>
-                  <p className="text-xs text-[#2E221C]/75 leading-relaxed">Leomar Court, Westlands Road No. 45, Nairobi, Kenya</p>
-                </div>
+                <a
+                  href="https://maps.google.com/?q=Leomar+Court,+Westlands+Road+No.+45,+Nairobi,+Kenya"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-start space-x-4 group cursor-pointer"
+                >
+                  <div className="bg-[#C28A4E]/10 group-hover:bg-[#C28A4E] group-hover:text-white p-3.5 rounded-xl text-[#C28A4E] shrink-0 transition-colors">
+                    <MapPin className="h-6 w-6" />
+                  </div>
+                  <div className="space-y-1">
+                    <h4 className="font-bold text-sm text-[#2E221C] group-hover:text-[#C28A4E] transition-colors flex items-center space-x-1.5">
+                      <span>Campus Location</span>
+                      <ExternalLink className="h-3 w-3 text-[#C28A4E]" />
+                    </h4>
+                    <p className="text-xs text-[#2E221C]/75 leading-relaxed underline decoration-dotted">Leomar Court, Westlands Road No. 45, Nairobi, Kenya</p>
+                  </div>
+                </a>
               </motion.li>
               
+              {/* Phone Link */}
               <motion.li 
-                className="flex items-start space-x-4"
                 whileHover={{ x: 6 }}
                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
               >
-                <div className="bg-[#C28A4E]/10 p-3.5 rounded-xl text-[#C28A4E] shrink-0">
-                  <Phone className="h-6 w-6" />
-                </div>
-                <div className="space-y-1">
-                  <h4 className="font-bold text-sm text-[#2E221C]">Direct Dial lines</h4>
-                  <p className="text-xs text-[#2E221C]/75 font-semibold">+254 708 137992</p>
-                  <p className="text-[10px] text-[#8E7C74]">Toll-Free during academic intake periods</p>
-                </div>
+                <a 
+                  href="tel:+254708137992"
+                  className="flex items-start space-x-4 group cursor-pointer"
+                >
+                  <div className="bg-[#C28A4E]/10 group-hover:bg-[#C28A4E] group-hover:text-white p-3.5 rounded-xl text-[#C28A4E] shrink-0 transition-colors">
+                    <Phone className="h-6 w-6" />
+                  </div>
+                  <div className="space-y-1">
+                    <h4 className="font-bold text-sm text-[#2E221C] group-hover:text-[#C28A4E] transition-colors flex items-center space-x-1.5">
+                      <span>Direct Dial Lines</span>
+                      <ExternalLink className="h-3 w-3 text-[#C28A4E]" />
+                    </h4>
+                    <p className="text-xs text-[#2E221C]/90 font-bold hover:underline">+254 708 137992</p>
+                    <p className="text-[10px] text-[#8E7C74]">Toll-Free during academic intake periods</p>
+                  </div>
+                </a>
               </motion.li>
 
               {/* WhatsApp Contact Item */}
               <motion.li 
-                className="flex items-start space-x-4"
                 whileHover={{ x: 6 }}
                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
               >
-                <div className="bg-emerald-500/10 p-3.5 rounded-xl text-emerald-600 shrink-0 border border-emerald-500/20">
-                  <WhatsAppIcon className="h-6 w-6" />
-                </div>
-                <div className="space-y-1">
-                  <h4 className="font-bold text-sm text-[#2E221C] flex items-center space-x-2">
-                    <span>WhatsApp Registrar Chat</span>
-                    <span className="bg-emerald-500/15 text-emerald-700 text-[9px] font-extrabold uppercase px-2 py-0.5 rounded-full border border-emerald-500/30">Active</span>
-                  </h4>
-                  <p className="text-xs text-[#2E221C]/75 font-semibold">+254 708 137992</p>
-                  <div className="pt-1">
-                    <a
-                      href="https://wa.me/254708137992?text=Hello%20VIBIT%20College%20Registrar%2C%20I%20have%20an%20inquiry%20regarding%20admission%20and%20courses."
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center space-x-1.5 text-xs font-bold text-emerald-700 bg-emerald-50 hover:bg-emerald-100 px-3 py-1.5 rounded-lg border border-emerald-200 transition-colors"
-                    >
-                      <span>Chat on WhatsApp</span>
-                      <ExternalLink className="h-3 w-3" />
-                    </a>
+                <a
+                  href="https://wa.me/254708137992?text=Hello%20VIBIT%20College%20Registrar%2C%20I%20have%20an%20inquiry%20regarding%20admission%20and%20courses."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-start space-x-4 group cursor-pointer"
+                >
+                  <div className="bg-emerald-500/10 group-hover:bg-emerald-600 group-hover:text-white p-3.5 rounded-xl text-emerald-600 shrink-0 border border-emerald-500/20 transition-colors">
+                    <WhatsAppIcon className="h-6 w-6" />
                   </div>
-                </div>
+                  <div className="space-y-1">
+                    <h4 className="font-bold text-sm text-[#2E221C] flex items-center space-x-2 group-hover:text-emerald-700 transition-colors">
+                      <span>WhatsApp Registrar Chat</span>
+                      <span className="bg-emerald-500/15 text-emerald-700 text-[9px] font-extrabold uppercase px-2 py-0.5 rounded-full border border-emerald-500/30">Active</span>
+                    </h4>
+                    <p className="text-xs text-[#2E221C]/90 font-bold hover:underline">+254 708 137992</p>
+                    <div className="pt-1">
+                      <span className="inline-flex items-center space-x-1.5 text-xs font-bold text-emerald-700 bg-emerald-50 group-hover:bg-emerald-100 px-3 py-1.5 rounded-lg border border-emerald-200 transition-colors">
+                        <span>Chat on WhatsApp</span>
+                        <ExternalLink className="h-3 w-3" />
+                      </span>
+                    </div>
+                  </div>
+                </a>
               </motion.li>
 
+              {/* Email Link */}
               <motion.li 
-                className="flex items-start space-x-4"
                 whileHover={{ x: 6 }}
                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
               >
-                <div className="bg-[#C28A4E]/10 p-3.5 rounded-xl text-[#C28A4E] shrink-0">
-                  <Mail className="h-6 w-6" />
-                </div>
-                <div className="space-y-1">
-                  <h4 className="font-bold text-sm text-[#2E221C]">Registrar Registry Email</h4>
-                  <p className="text-xs text-[#2E221C]/75">vbitschoolofcoffeeagribusiness@gmail.com</p>
-                  <p className="text-[10px] text-[#8E7C74]">Average reply timeline: 24 working hours</p>
-                </div>
+                <a 
+                  href="mailto:info@vibitcollege.ac.ke"
+                  className="flex items-start space-x-4 group cursor-pointer"
+                >
+                  <div className="bg-[#C28A4E]/10 group-hover:bg-[#C28A4E] group-hover:text-white p-3.5 rounded-xl text-[#C28A4E] shrink-0 transition-colors">
+                    <Mail className="h-6 w-6" />
+                  </div>
+                  <div className="space-y-1">
+                    <h4 className="font-bold text-sm text-[#2E221C] group-hover:text-[#C28A4E] transition-colors flex items-center space-x-1.5">
+                      <span>Registrar Registry Email</span>
+                      <ExternalLink className="h-3 w-3 text-[#C28A4E]" />
+                    </h4>
+                    <p className="text-xs text-[#2E221C]/90 font-semibold hover:underline">info@vibitcollege.ac.ke</p>
+                    <p className="text-[10px] text-[#8E7C74]">Average reply timeline: 24 working hours</p>
+                  </div>
+                </a>
               </motion.li>
 
               {/* Social Channels Quick Row */}
@@ -230,22 +225,24 @@ export default function ContactView() {
                   <h4 className="font-bold text-sm text-[#2E221C]">Social Media Handles</h4>
                   <div className="flex items-center space-x-2 pt-0.5">
                     <a 
-                      href="https://www.facebook.com/share/1EWj42YkES/" 
+                      href="https://facebook.com/vibitagriculturalcollege" 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="inline-flex items-center space-x-1 text-xs font-bold text-blue-700 bg-blue-50 hover:bg-blue-100 px-2.5 py-1 rounded-lg border border-blue-200 transition-colors"
+                      className="inline-flex items-center space-x-1 text-xs font-bold text-blue-700 bg-blue-50 hover:bg-blue-100 px-3 py-1.5 rounded-lg border border-blue-200 transition-colors shadow-2xs"
                     >
                       <FacebookIcon className="h-3.5 w-3.5" />
                       <span>Facebook</span>
+                      <ExternalLink className="h-2.5 w-2.5 ml-0.5" />
                     </a>
-                    <a
-  href="https://www.instagram.com/vbit.school?igsh=MWN4ZXQ2a3h4NTc0ZQ=="
-  target="_blank"
-  rel="noopener noreferrer"
-  className="inline-flex items-center space-x-1 text-xs font-bold text-pink-700 bg-pink-50 hover:bg-pink-100 px-2.5 py-1 rounded-lg border border-pink-200 transition-colors"
->
+                    <a 
+                      href="https://instagram.com/vibit_agricultural_college" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center space-x-1 text-xs font-bold text-pink-700 bg-pink-50 hover:bg-pink-100 px-3 py-1.5 rounded-lg border border-pink-200 transition-colors shadow-2xs"
+                    >
                       <InstagramIcon className="h-3.5 w-3.5" />
                       <span>Instagram</span>
+                      <ExternalLink className="h-2.5 w-2.5 ml-0.5" />
                     </a>
                   </div>
                 </div>
@@ -444,7 +441,7 @@ export default function ContactView() {
 
               <a
                 id="contact-facebook-btn"
-                href="https://www.facebook.com/share/1EWj42YkES/"
+                href="https://facebook.com/vibitagriculturalcollege"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs py-3 rounded-xl shadow-md hover:shadow-lg transition-all flex items-center justify-center space-x-2 cursor-pointer font-sans"
@@ -479,7 +476,7 @@ export default function ContactView() {
 
               <a
                 id="contact-instagram-btn"
-                href="https://www.instagram.com/vbit.school?igsh=MWN4ZXQ2a3h4NTc0ZQ=="
+                href="https://instagram.com/vibit_agricultural_college"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full bg-gradient-to-r from-amber-500 via-rose-500 to-purple-600 hover:opacity-95 text-white font-bold text-xs py-3 rounded-xl shadow-md hover:shadow-lg transition-all flex items-center justify-center space-x-2 cursor-pointer font-sans"

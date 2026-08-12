@@ -280,42 +280,10 @@ export default function CoursesView({ setView, selectedCourseId, setSelectedCour
   const activeFlavor = FLAVOR_GROUPS[activeFlavorIdx];
 
   return (
-    <div className="space-y-16 pb-20 animate-fade-in" id="courses-view">
+    <div className="space-y-12 pt-8 pb-20 animate-fade-in" id="courses-view">
       
-      {/* 1. HERO BANNER */}
-      <section className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 pb-6">
-        <div className="relative rounded-3xl overflow-hidden shadow-2xl border border-gray-200/80 min-h-[420px] sm:min-h-[480px] flex items-center justify-center p-6 sm:p-12">
-          {/* Background image without dark overlay */}
-          <img 
-            src={coursesHeroBanner}
-            alt="VBIT Laboratory Commons" 
-            className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 hover:scale-105"
-            referrerPolicy="no-referrer"
-          />
-          
-          {/* Frosted card for crisp text readability without obscuring the photo */}
-          <motion.div 
-            className="relative z-10 max-w-3xl mx-auto bg-white/95 backdrop-blur-md p-8 sm:p-10 rounded-3xl border border-white/60 shadow-2xl text-center space-y-4"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-          >
-            <span className="inline-flex items-center px-3.5 py-1 bg-[#C28A4E]/15 text-[#C28A4E] text-xs font-extrabold uppercase tracking-widest rounded-full border border-[#C28A4E]/30">
-              Official Curriculum 
-            </span>
-            <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-[#2E221C] leading-tight">
-              Nurturing Future Leaders of <br />
-              <span className="text-[#C28A4E]">Coffee & Agribusiness</span>
-            </h1>
-            <p className="max-w-2xl mx-auto text-xs sm:text-sm text-[#2E221C]/80 leading-relaxed font-medium">
-              Choose from government TVET-accredited diplomas, technical certificates, or intensive short modules designed for commercial practitioners and corporate farm cooperations.
-            </p>
-          </motion.div>
-        </div>
-      </section>
-
       {/* 2. TAB NAVIGATION (Option 2 & 3 Integration) */}
-      <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 -mt-12 relative z-20">
+      <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
         <motion.div 
           className="bg-[#FAF6F0]/95 backdrop-blur-md border border-[#2E221C]/15 rounded-3xl p-2 shadow-xl flex flex-col md:flex-row gap-1.5"
           initial={{ opacity: 0, y: 20 }}

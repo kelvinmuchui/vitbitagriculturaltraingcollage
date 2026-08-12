@@ -127,11 +127,11 @@ export default function Footer({ setView }: FooterProps) {
               </li>
               <li className="flex items-center space-x-3 text-sm text-[#FAF6F0]/70">
                 <Mail className="h-5 w-5 text-[#C28A4E] shrink-0" />
-                <span>vbitschoolofcoffeeagribusiness@gmail.com</span>
+                <span>info@vibitcollege.ac.ke</span>
               </li>
               <li className="pt-2 flex items-center space-x-3 text-xs">
                 <a 
-                  href="https://www.facebook.com/share/1EWj42YkES/" 
+                  href="https://facebook.com/vibitagriculturalcollege" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="bg-[#2E221C] hover:bg-blue-600 text-white p-2 rounded-lg border border-white/10 transition-colors flex items-center space-x-1.5"
@@ -141,7 +141,7 @@ export default function Footer({ setView }: FooterProps) {
                   <span>Facebook</span>
                 </a>
                 <a 
-                  href="https://www.instagram.com/vbit.school?igsh=MWN4ZXQ2a3h4NTc0ZQ==" 
+                  href="https://instagram.com/vibit_agricultural_college" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="bg-[#2E221C] hover:bg-pink-600 text-white p-2 rounded-lg border border-white/10 transition-colors flex items-center space-x-1.5"
