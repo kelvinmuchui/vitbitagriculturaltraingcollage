@@ -8,6 +8,7 @@ import CoursesView from './components/CoursesView';
 import AdmissionsView from './components/AdmissionsView';
 import ContactView from './components/ContactView';
 import AdminView from './components/AdminView';
+import SEOHead from './components/SEOHead';
 import { COURSES } from './data';
 import { Course } from './types';
 
@@ -166,6 +167,7 @@ export default function App() {
 
   return (
     <div className="flex flex-col min-h-screen bg-[#FAF6F0]" id="app-root-container">
+      <SEOHead currentView={currentView} />
       {/* Interactive Navigation */}
       <Navbar currentView={currentView} setView={setView} />
       
