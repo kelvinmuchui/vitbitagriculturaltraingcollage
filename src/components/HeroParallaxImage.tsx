@@ -110,7 +110,7 @@ export default function HeroParallaxImage({ imageSrc }: HeroParallaxImageProps) 
           {/* Base Image Layer - sits deep in the perspective */}
           <motion.img 
             src={imageSrc} 
-            alt="VIBIT Student Cohort and Campus" 
+            alt="VIBIT Agricultural Training College students and coffee school campus in Westlands, Nairobi" 
             className="w-full h-full object-cover select-none"
             referrerPolicy="no-referrer"
             style={{

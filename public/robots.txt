@@ -1,3 +1,13 @@
 User-agent: *
 Allow: /
-Sitemap: https://vibitcollege.ac.ke/sitemap.xml
+Allow: /courses
+Allow: /admissions
+Allow: /about
+Allow: /contact
+Allow: /assets/
+Disallow: /admin
+Disallow: /admin/
+Disallow: /api/
+
+Sitemap: https://vbitschoolofcoffeeandagribusiness.co.ke/sitemap.xml
+

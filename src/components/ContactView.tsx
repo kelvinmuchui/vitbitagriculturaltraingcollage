@@ -21,6 +21,12 @@ const InstagramIcon = ({ className = "h-5 w-5" }: { className?: string }) => (
   </svg>
 );
 
+const TikTokIcon = ({ className = "h-5 w-5" }: { className?: string }) => (
+  <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+    <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.88 2.89 2.89 0 0 1-2.89-2.88 2.89 2.89 0 0 1 2.89-2.88c.28 0 .54.04.79.1v-3.52a6.37 6.37 0 0 0-.79-.05A6.34 6.34 0 0 0 3.14 15.65 6.34 6.34 0 0 0 9.48 22a6.34 6.34 0 0 0 6.34-6.35V8.71a8.18 8.18 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.14z" />
+  </svg>
+);
+
 // Import our real student and campus photos
 import contactCampusImage from '../assets/images/contact_campus_image_1784976397743.jpg';
 
@@ -223,7 +229,7 @@ export default function ContactView() {
                 </div>
                 <div className="space-y-1.5">
                   <h4 className="font-bold text-sm text-[#2E221C]">Social Media Handles</h4>
-                  <div className="flex items-center space-x-2 pt-0.5">
+                  <div className="flex flex-wrap items-center gap-2 pt-0.5">
                     <a 
                       href="https://facebook.com/vibitagriculturalcollege" 
                       target="_blank" 
@@ -242,6 +248,16 @@ export default function ContactView() {
                     >
                       <InstagramIcon className="h-3.5 w-3.5" />
                       <span>Instagram</span>
+                      <ExternalLink className="h-2.5 w-2.5 ml-0.5" />
+                    </a>
+                    <a 
+                      href="https://www.tiktok.com/@vbit_shool" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center space-x-1 text-xs font-bold text-gray-900 bg-gray-100 hover:bg-gray-200 px-3 py-1.5 rounded-lg border border-gray-300 transition-colors shadow-2xs"
+                    >
+                      <TikTokIcon className="h-3.5 w-3.5" />
+                      <span>TikTok (@vbit shool)</span>
                       <ExternalLink className="h-2.5 w-2.5 ml-0.5" />
                     </a>
                   </div>
@@ -358,7 +374,7 @@ export default function ContactView() {
         </div>
       </section>
 
-      {/* 2.5 INSTANT CONNECT: WHATSAPP, FACEBOOK & INSTAGRAM */}
+      {/* 2.5 INSTANT CONNECT: WHATSAPP, FACEBOOK, INSTAGRAM & TIKTOK */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div 
           className="bg-[#FAF6F0] border border-[#2E221C]/10 rounded-3xl p-6 sm:p-10 shadow-md space-y-8"
@@ -375,11 +391,11 @@ export default function ContactView() {
               Connect With VIBIT Registrars Online
             </h2>
             <p className="text-xs sm:text-sm text-[#2E221C]/75 leading-relaxed">
-              Reach out via instant WhatsApp messaging or follow our official social handles for admissions advice, live practical updates, and agribusiness events.
+              Reach out via instant WhatsApp messaging or follow our official social handles for admissions advice, barista masterclasses, practical videos, and campus events.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             
             {/* WhatsApp Card */}
             <motion.div 
@@ -412,7 +428,7 @@ export default function ContactView() {
                 className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs py-3 rounded-xl shadow-md hover:shadow-lg transition-all flex items-center justify-center space-x-2 cursor-pointer font-sans"
               >
                 <WhatsAppIcon className="h-4 w-4" />
-                <span>Chat on WhatsApp (+254 708 137992)</span>
+                <span>Chat WhatsApp</span>
               </a>
             </motion.div>
 
@@ -447,7 +463,7 @@ export default function ContactView() {
                 className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs py-3 rounded-xl shadow-md hover:shadow-lg transition-all flex items-center justify-center space-x-2 cursor-pointer font-sans"
               >
                 <FacebookIcon className="h-4 w-4" />
-                <span>Visit Facebook Page</span>
+                <span>Visit Facebook</span>
               </a>
             </motion.div>
 
@@ -482,7 +498,42 @@ export default function ContactView() {
                 className="w-full bg-gradient-to-r from-amber-500 via-rose-500 to-purple-600 hover:opacity-95 text-white font-bold text-xs py-3 rounded-xl shadow-md hover:shadow-lg transition-all flex items-center justify-center space-x-2 cursor-pointer font-sans"
               >
                 <InstagramIcon className="h-4 w-4" />
-                <span>Follow on Instagram</span>
+                <span>Follow Instagram</span>
+              </a>
+            </motion.div>
+
+            {/* TikTok Card */}
+            <motion.div 
+              className="bg-white rounded-2xl p-6 border-2 border-gray-900/20 shadow-md hover:shadow-xl transition-all space-y-5 flex flex-col justify-between group"
+              whileHover={{ y: -5 }}
+            >
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <div className="h-12 w-12 bg-gray-900 text-white rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <TikTokIcon className="h-7 w-7" />
+                  </div>
+                  <span className="text-[10px] font-extrabold uppercase tracking-wider text-gray-900 bg-gray-100 border border-gray-300 px-2.5 py-1 rounded-full">
+                    TikTok Official
+                  </span>
+                </div>
+                <div>
+                  <h3 className="font-serif text-lg font-bold text-[#2E221C]">TikTok Channel</h3>
+                  <p className="text-xs font-bold text-gray-900 mt-1">vbit shool (@vbit_shool)</p>
+                </div>
+                <p className="text-xs text-[#2E221C]/70 leading-relaxed">
+                  Watch quick barista hacks, latte art tutorials, coffee roasting clips, and student campus life on our official TikTok.
+                </p>
+              </div>
+
+              <a
+                id="contact-tiktok-btn"
+                href="https://www.tiktok.com/@vbit_shool"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full bg-gray-900 hover:bg-black text-white font-bold text-xs py-3 rounded-xl shadow-md hover:shadow-lg transition-all flex items-center justify-center space-x-2 cursor-pointer font-sans"
+              >
+                <TikTokIcon className="h-4 w-4" />
+                <span>Follow on TikTok</span>
               </a>
             </motion.div>
 

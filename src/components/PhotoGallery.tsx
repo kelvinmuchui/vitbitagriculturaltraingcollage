@@ -198,7 +198,7 @@ export default function PhotoGallery() {
             <div className="relative h-64 overflow-hidden bg-slate-100 shrink-0">
               <img 
                 src={item.image} 
-                alt={item.title} 
+                alt={`${item.title} - VIBIT Agricultural Training College Coffee School Nairobi`} 
                 className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
                 referrerPolicy="no-referrer"
               />
@@ -303,7 +303,7 @@ export default function PhotoGallery() {
               <div className="md:col-span-7 bg-black flex items-center justify-center relative min-h-[300px] md:min-h-[500px]">
                 <img 
                   src={galleryItems[selectedItemIdx].image} 
-                  alt={galleryItems[selectedItemIdx].title} 
+                  alt={`${galleryItems[selectedItemIdx].title} - VIBIT Agricultural Training College Laboratory Nairobi`} 
                   className="w-full h-full object-cover max-h-[500px]"
                   referrerPolicy="no-referrer"
                 />

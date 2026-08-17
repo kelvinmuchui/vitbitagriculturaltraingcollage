@@ -21,6 +21,12 @@ const InstagramIcon = ({ className = "h-4 w-4" }: { className?: string }) => (
   </svg>
 );
 
+const TikTokIcon = ({ className = "h-4 w-4" }: { className?: string }) => (
+  <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+    <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.88 2.89 2.89 0 0 1-2.89-2.88 2.89 2.89 0 0 1 2.89-2.88c.28 0 .54.04.79.1v-3.52a6.37 6.37 0 0 0-.79-.05A6.34 6.34 0 0 0 3.14 15.65 6.34 6.34 0 0 0 9.48 22a6.34 6.34 0 0 0 6.34-6.35V8.71a8.18 8.18 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.14z" />
+  </svg>
+);
+
 interface FooterProps {
   setView: (view: string) => void;
 }
@@ -129,7 +135,7 @@ export default function Footer({ setView }: FooterProps) {
                 <Mail className="h-5 w-5 text-[#C28A4E] shrink-0" />
                 <span>info@vibitcollege.ac.ke</span>
               </li>
-              <li className="pt-2 flex items-center space-x-3 text-xs">
+              <li className="pt-2 flex flex-wrap items-center gap-2 text-xs">
                 <a 
                   href="https://facebook.com/vibitagriculturalcollege" 
                   target="_blank" 
@@ -149,6 +155,16 @@ export default function Footer({ setView }: FooterProps) {
                 >
                   <InstagramIcon className="h-4 w-4" />
                   <span>Instagram</span>
+                </a>
+                <a 
+                  href="https://www.tiktok.com/@vbit_shool" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="bg-[#2E221C] hover:bg-black text-white p-2 rounded-lg border border-white/10 transition-colors flex items-center space-x-1.5"
+                  title="TikTok Channel (vbit shool)"
+                >
+                  <TikTokIcon className="h-4 w-4" />
+                  <span>TikTok</span>
                 </a>
               </li>
             </ul>
