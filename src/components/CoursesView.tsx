@@ -538,6 +538,34 @@ export default function CoursesView({ setView, selectedCourseId, setSelectedCour
                                 <Award className="h-4 w-4 text-[#C28A4E] shrink-0 mt-0.5" />
                                 <span><strong>Credential:</strong> {course.certification}</span>
                               </div>
+
+                              {/* Entry Requirements & Intakes */}
+                              <div className="grid grid-cols-1 gap-2 pt-1">
+                                {course.requirements && (
+                                  <div className="text-[11px] bg-white border border-[#2E221C]/10 rounded-xl p-2.5 space-y-0.5">
+                                    <span className="text-[9px] uppercase font-bold text-[#8E7C74] tracking-wider block">Entry Requirements:</span>
+                                    <p className="text-[#2E221C]/90 font-medium">{course.requirements}</p>
+                                  </div>
+                                )}
+                                
+                                {course.careers && course.careers.length > 0 && (
+                                  <div className="text-[11px] bg-white border border-[#2E221C]/10 rounded-xl p-2.5 space-y-1">
+                                    <span className="text-[9px] uppercase font-bold text-[#8E7C74] tracking-wider block">Career Pathways:</span>
+                                    <div className="flex flex-wrap gap-1">
+                                      {course.careers.map((career, cIdx) => (
+                                        <span key={cIdx} className="bg-[#FAF6F0] text-[#2E221C] text-[10px] font-semibold px-2 py-0.5 rounded-md border border-[#2E221C]/5">
+                                          {career}
+                                        </span>
+                                      ))}
+                                    </div>
+                                  </div>
+                                )}
+
+                                <div className="flex items-center justify-between text-[10px] text-[#8E7C74] pt-1 px-1">
+                                  <span><strong>Intakes:</strong> {course.intakes || 'Monthly'}</span>
+                                  <span><strong>Methodology:</strong> {course.practicalRatio || '80% Practical'}</span>
+                                </div>
+                              </div>
                             </div>
 
                             {/* Collapsible Syllabus & Action buttons */}
@@ -1401,6 +1429,22 @@ export default function CoursesView({ setView, selectedCourseId, setSelectedCour
                           <span className="text-[9px] text-[#8E7C74] font-bold uppercase block tracking-wider">Schedule Option</span>
                           <strong className="text-[#2E221C] font-semibold">{printCourse.schedule || 'Full-Time & Part-Time'}</strong>
                         </div>
+                      </div>
+
+                      {/* Entry Requirements & Career Pathways in Print */}
+                      <div className="bg-[#FAF6F0]/80 p-4 rounded-xl border border-[#2E221C]/10 space-y-2 text-xs">
+                        {printCourse.requirements && (
+                          <div>
+                            <span className="text-[9px] text-[#8E7C74] font-bold uppercase block tracking-wider">Prerequisite Requirements:</span>
+                            <p className="text-[#2E221C] font-medium">{printCourse.requirements}</p>
+                          </div>
+                        )}
+                        {printCourse.careers && printCourse.careers.length > 0 && (
+                          <div>
+                            <span className="text-[9px] text-[#8E7C74] font-bold uppercase block tracking-wider">Graduate Career Prospects:</span>
+                            <p className="text-[#2E221C] font-medium">{printCourse.careers.join(' • ')}</p>
+                          </div>
+                        )}
                       </div>
                     </div>
 

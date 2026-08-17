@@ -136,7 +136,7 @@ const SEED_ANALYTICS: AnalyticsData = {
   emailLog: [
     {
       id: "seed-mail-1",
-      to: "muchuikelvin423@gmail.com",
+      to: "vbitschoolofcoffeagribusiness@gmail.com",
       subject: "New VIBIT Admission Application: Mercy Chepkorir (VIBIT-2026-40291)",
       body: "Applicant Mercy Chepkorir submitted a formal application for Agripreneurship Level 5 & 6. Credentials successfully compiled and routed via FormSubmit Gateway.",
       timestamp: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(),
@@ -144,7 +144,7 @@ const SEED_ANALYTICS: AnalyticsData = {
     },
     {
       id: "seed-mail-2",
-      to: "muchuikelvin423@gmail.com",
+      to: "vbitschoolofcoffeagribusiness@gmail.com",
       subject: "New VIBIT Admission Application: Jane Wanjiku Mwangi (VIBIT-2026-84321)",
       body: "Applicant Jane Wanjiku Mwangi submitted a formal application for Barista Level 3. Credentials successfully compiled and routed via FormSubmit Gateway.",
       timestamp: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString(),
@@ -152,7 +152,7 @@ const SEED_ANALYTICS: AnalyticsData = {
     },
     {
       id: "seed-mail-3",
-      to: "muchuikelvin423@gmail.com",
+      to: "vbitschoolofcoffeagribusiness@gmail.com",
       subject: "New VIBIT Admission Application: Emmanuel Kiprop (VIBIT-2026-19283)",
       body: "Applicant Emmanuel Kiprop submitted a formal application for Coffee Agronomy Level 3. Credentials successfully compiled and routed via FormSubmit Gateway.",
       timestamp: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(),
@@ -1157,7 +1157,7 @@ export default function AdminView({ courses, onUpdateCourses, onResetCourses }: 
                   <h4 className="text-xs font-bold uppercase tracking-wider">FormSubmit.co Outbox Records</h4>
                 </div>
                 <span className="text-[10px] bg-emerald-950/80 text-emerald-300 border border-emerald-500/20 px-2 py-0.5 rounded-full font-mono">
-                  Forward Target: muchuikelvin423@gmail.com
+                  Forward Target: vbitschoolofcoffeagribusiness@gmail.com
                 </span>
               </div>
 

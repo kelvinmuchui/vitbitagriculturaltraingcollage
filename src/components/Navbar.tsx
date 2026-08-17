@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Menu, X, Coffee, BookOpen, GraduationCap, PhoneCall, Info, ArrowRight, LayoutDashboard } from 'lucide-react';
+import { Menu, X, Coffee, BookOpen, GraduationCap, PhoneCall, Info, ArrowRight, LayoutDashboard, Compass } from 'lucide-react';
 import Logo from './Logo';
 
 interface NavbarProps {
@@ -13,9 +13,10 @@ export default function Navbar({ currentView, setView }: NavbarProps) {
   const navItems = [
     { id: 'home', label: 'Home', icon: Coffee },
     { id: 'about', label: 'About Us', icon: Info },
-    { id: 'courses', label: 'Courses Catalog', icon: BookOpen },
+    { id: 'courses', label: 'Courses', icon: BookOpen },
     { id: 'admissions', label: 'Admissions', icon: GraduationCap },
-    { id: 'contact', label: 'Contact Us', icon: PhoneCall },
+    { id: 'resources', label: 'Guides & Careers', icon: Compass },
+    { id: 'contact', label: 'Contact', icon: PhoneCall },
   ];
 
   const handleNavClick = (id: string) => {

@@ -7,6 +7,7 @@ import AboutView from './components/AboutView';
 import CoursesView from './components/CoursesView';
 import AdmissionsView from './components/AdmissionsView';
 import ContactView from './components/ContactView';
+import ResourcesView from './components/ResourcesView';
 import AdminView from './components/AdminView';
 import SEOHead from './components/SEOHead';
 import { COURSES } from './data';
@@ -19,7 +20,7 @@ export default function App() {
     if (path === '/admin' || path === '/admin/' || hash === '#admin' || hash === '#/admin') {
       return 'admin';
     }
-    const possibleViews = ['home', 'about', 'courses', 'admissions', 'contact'];
+    const possibleViews = ['home', 'about', 'courses', 'admissions', 'resources', 'contact'];
     const match = possibleViews.find(v => path === `/${v}` || hash === `#${v}`);
     return match || 'home';
   });
@@ -69,7 +70,7 @@ export default function App() {
       if (path === '/admin' || path === '/admin/' || hash === '#admin' || hash === '#/admin') {
         setRawView('admin');
       } else {
-        const possibleViews = ['home', 'about', 'courses', 'admissions', 'contact'];
+        const possibleViews = ['home', 'about', 'courses', 'admissions', 'resources', 'contact'];
         const match = possibleViews.find(v => path === `/${v}` || hash === `#${v}`);
         setRawView(match || 'home');
       }
@@ -148,6 +149,13 @@ export default function App() {
             selectedCourseId={selectedCourseId} 
             setSelectedCourseId={setSelectedCourseId} 
             courses={courses}
+          />
+        );
+      case 'resources':
+        return (
+          <ResourcesView 
+            setView={setView} 
+            setSelectedCourseId={setSelectedCourseId} 
           />
         );
       case 'contact':

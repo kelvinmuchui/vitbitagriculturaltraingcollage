@@ -151,7 +151,7 @@ export default function AdmissionsView({ setView, selectedCourseId, setSelectedC
     localStorage.setItem('vibit_analytics', JSON.stringify(analyticsData));
 
     // 3. Dispatch actual email notification via FormSubmit.co to registrar
-    const targetEmail = "muchuikelvin423@gmail.com";
+    const targetEmail = "vbitschoolofcoffeagribusiness@gmail.com";
     const endpoint = `https://formsubmit.co/ajax/${targetEmail}`;
     const emailBody = {
       _subject: `New VIBIT Admission Application: ${newApp.fullName} (${newApp.generatedCode})`,
@@ -552,6 +552,32 @@ export default function AdmissionsView({ setView, selectedCourseId, setSelectedC
                       </select>
                     </div>
                   </div>
+
+                  {/* Selected Program Requirements Banner */}
+                  {(() => {
+                    const selCourse = courses.find(c => c.id === formData.courseId);
+                    if (!selCourse) return null;
+                    return (
+                      <div className="bg-[#FAF6F0] rounded-2xl p-4 border border-[#C28A4E]/20 space-y-2 text-xs">
+                        <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#2E221C]/10 pb-2">
+                          <span className="font-serif font-bold text-sm text-[#2E221C]">{selCourse.title}</span>
+                          <span className="font-mono font-bold text-[#C28A4E]">
+                            Tuition: KSh {selCourse.fees.tuition.toLocaleString()} | Lab: KSh {selCourse.fees.labFee.toLocaleString()}
+                          </span>
+                        </div>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-[11px] text-[#2E221C]/80">
+                          <div>
+                            <strong className="text-[#2E221C] block">Prerequisite Requirements:</strong>
+                            <span>{selCourse.requirements || 'Open to all passionate learners'}</span>
+                          </div>
+                          <div>
+                            <strong className="text-[#2E221C] block">Intake & Schedule:</strong>
+                            <span>{selCourse.intakes || 'Monthly'} • {selCourse.duration}</span>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })()}
                 </div>
 
                 {/* Motivation Box */}
@@ -881,7 +907,7 @@ export default function AdmissionsView({ setView, selectedCourseId, setSelectedC
                 </div>
                 <div>
                   <div className="font-bold text-[#2E221C]">+254 708 137992</div>
-                  <div className="text-[10px] text-[#8E7C74]">info@vibitcollege.ac.ke</div>
+                  <div className="text-[10px] text-[#8E7C74]">vbitschoolofcoffeagribusiness@gmail.com</div>
                 </div>
               </div>
             </motion.div>

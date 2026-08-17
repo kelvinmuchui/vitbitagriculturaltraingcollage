@@ -44,7 +44,24 @@ export const COURSES: Course[] = [
       labFee: 10000,
       deposit: 0
     },
-    schedule: "Full-Time (Mon - Fri) or Evening Sessions"
+    schedule: "Full-Time (Mon - Fri) or Evening Sessions",
+    requirements: [
+      "Open to high school leavers and coffee enthusiasts",
+      "KCSE certificate or equivalent prior learning",
+      "Passion for culinary hospitality and specialty coffee"
+    ],
+    careers: [
+      "Head Barista & Café Shift Supervisor",
+      "Specialty Coffee Barista (Local & International Hospitality)",
+      "Cruise Ship / Overseas Barista Specialist (Gulf & Europe)",
+      "Café Entrepreneur / Independent Coffee Bar Owner"
+    ],
+    targetAudience: "Aspiring professional baristas, hospitality workers, café founders, and youth seeking international job mobility.",
+    intakes: ["January", "May", "September", "First Monday of Every Month (Modular)"],
+    practicalHoursRatio: "85% Hands-on Machine Labs • 15% Theory",
+    seoTitle: "Barista Course in Nairobi Kenya | Professional Barista Training & Fees | VIBIT",
+    metaDescription: "Enroll in accredited Coffee Barista Skills training in Nairobi at VIBIT. Master espresso calibration, milk latte art, brewing & café operations. Apply today.",
+    primaryKeyword: "barista training Nairobi"
   },
   {
     id: "agripreneurship",
@@ -67,7 +84,24 @@ export const COURSES: Course[] = [
       labFee: 20000,
       deposit: 0
     },
-    schedule: "Weekend and Evening Hybrid"
+    schedule: "Weekend and Evening Hybrid",
+    requirements: [
+      "Interest in agricultural entrepreneurship and commodity trade",
+      "Basic business arithmetic and secondary education background",
+      "Existing farmers and agro-investors highly welcomed"
+    ],
+    careers: [
+      "Agribusiness Founder & Commercial Farm Manager",
+      "Agricultural Export Procurement & Logistics Officer",
+      "Commodity Trading & Sourcing Specialist",
+      "Agri-Fintech & Agricultural Loan Consultant"
+    ],
+    targetAudience: "Commercial farmers, agricultural entrepreneurs, cooperative committee members, and youth investing in modern agro-enterprises.",
+    intakes: ["January", "May", "September", "Modular Weekend Cohorts"],
+    practicalHoursRatio: "70% Case Studies & Field Analysis • 30% Strategy Labs",
+    seoTitle: "Agribusiness Course in Kenya | Agripreneurship & Export Training | VIBIT",
+    metaDescription: "Learn commercial agribusiness, commodity export logistics, and farm financial management at VIBIT Agricultural Training College Nairobi.",
+    primaryKeyword: "agribusiness course in Kenya"
   },
   {
     id: "coffee-agronomy",
@@ -90,7 +124,23 @@ export const COURSES: Course[] = [
       labFee: 20000,
       deposit: 0
     },
-    schedule: "Full-Time or Block Release"
+    schedule: "Full-Time or Block Release",
+    requirements: [
+      "KCSE D+ or Certificate in General Agriculture",
+      "Passion for sustainable crop science and coffee estate management"
+    ],
+    careers: [
+      "Coffee Estate Agronomist & Field Extension Officer",
+      "Certified Coffee Seedling Nursery Operator",
+      "Sustainable Soil & Crop Protection Consultant",
+      "Cooperative Agricultural Field Advisor"
+    ],
+    targetAudience: "Coffee estate managers, agricultural extension agents, nursery owners, and crop science students.",
+    intakes: ["January", "May", "September"],
+    practicalHoursRatio: "80% Greenhouse & Field Trials • 20% Lecture",
+    seoTitle: "Coffee Agronomy Course in Kenya | Sustainable Crop Science | VIBIT",
+    metaDescription: "Master coffee agronomy, soil chemistry, nursery propagation, and climate-smart farm management at VIBIT Agricultural Training College.",
+    primaryKeyword: "coffee agronomy course Kenya"
   },
   {
     id: "cupping-technology",
@@ -113,7 +163,23 @@ export const COURSES: Course[] = [
       labFee: 40000,
       deposit: 0
     },
-    schedule: "Full-Time or Alternate Weekends"
+    schedule: "Full-Time or Alternate Weekends",
+    requirements: [
+      "Secondary school certificate or prior barista / roasting experience",
+      "Sensory aptitude and commitment to rigorous quality control standards"
+    ],
+    careers: [
+      "Licensed Coffee Cupper & Quality Assurance (QA) Director",
+      "Green Coffee Buyer & Export Grader",
+      "Wet & Dry Mill Operations Quality Manager",
+      "Coffee Auction Sensory Representative"
+    ],
+    targetAudience: "Quality control technicians, coffee exporters, mill managers, and advanced sensory professionals.",
+    intakes: ["January", "May", "September"],
+    practicalHoursRatio: "90% Sensory Lab Cupping • 10% Industry Standards",
+    seoTitle: "Coffee Cupping & Grading Course Kenya | Sensory Technology | VIBIT",
+    metaDescription: "Become a certified coffee cupper and sensory quality specialist at VIBIT. Master SCA grading, defect classification, and export lot evaluation in Nairobi.",
+    primaryKeyword: "coffee cupping course Kenya"
   },
   {
     id: "coffee-roasting",
@@ -136,7 +202,23 @@ export const COURSES: Course[] = [
       labFee: 20000,
       deposit: 0
     },
-    schedule: "Intensive Day or Evening Sessions"
+    schedule: "Intensive Day or Evening Sessions",
+    requirements: [
+      "Open to baristas, roastery operators, and coffee entrepreneurs",
+      "Basic chemistry / thermodynamics comprehension"
+    ],
+    careers: [
+      "Commercial Head Roaster",
+      "Roastery Operations & Production Manager",
+      "Specialty Coffee Brand Owner & Roaster",
+      "Roastery Equipment Calibration Technician"
+    ],
+    targetAudience: "Café owners, production roasters, baristas advancing their craft, and specialty coffee entrepreneurs.",
+    intakes: ["Monthly Rolling Intakes", "January", "May", "September"],
+    practicalHoursRatio: "85% Roaster Hands-on • 15% Curve Analytics",
+    seoTitle: "Coffee Roasting Course Nairobi Kenya | Commercial Roaster Training | VIBIT",
+    metaDescription: "Learn commercial coffee roasting in Nairobi at VIBIT. Master drum roaster thermodynamics, Cropster profile logging, and defect analysis.",
+    primaryKeyword: "coffee roasting course Kenya"
   },
   {
     id: "mixology",
@@ -159,7 +241,23 @@ export const COURSES: Course[] = [
       labFee: 10000,
       deposit: 0
     },
-    schedule: "Full-Time or Evening Intensive"
+    schedule: "Full-Time or Evening Intensive",
+    requirements: [
+      "Minimum age: 18 years",
+      "Passion for culinary flavor pairing, craft beverages, and bar hospitality"
+    ],
+    careers: [
+      "Professional Mixologist & Bar Captain",
+      "Craft Beverage & Mocktail Menu Developer",
+      "Luxury Resort / Cruise Line Bartender",
+      "Mobile Bar & Events Beverage Caterer"
+    ],
+    targetAudience: "Hospitality professionals, beverage developers, resort staff, and creative bartenders.",
+    intakes: ["January", "May", "September", "Monthly Cohorts"],
+    practicalHoursRatio: "85% Bar Practical • 15% Flavor Science",
+    seoTitle: "Mixology Course in Nairobi Kenya | Craft Beverage & Bar Training | VIBIT",
+    metaDescription: "Study professional mixology, craft botanical beverage creation, and bar operations at VIBIT Agricultural Training College in Nairobi.",
+    primaryKeyword: "mixology course Nairobi"
   },
   {
     id: "ai-coffee-industry",
@@ -182,7 +280,23 @@ export const COURSES: Course[] = [
       labFee: 10000,
       deposit: 0
     },
-    schedule: "Weekend Hybrid (Online + Practical Lab)"
+    schedule: "Weekend Hybrid (Online + Practical Lab)",
+    requirements: [
+      "Basic computer literacy and secondary school qualification",
+      "Interest in modern agricultural technology and automation"
+    ],
+    careers: [
+      "AgTech Project Specialist & Digital Farm Integrator",
+      "Smart Agriculture Data Analyst",
+      "Automated Processing Mill Quality Supervisor",
+      "Digital Traceability & Supply Chain Specialist"
+    ],
+    targetAudience: "Agronomists, tech innovators, supply chain specialists, and agricultural cooperative planners.",
+    intakes: ["January", "May", "September", "Weekend Hybrid Sessions"],
+    practicalHoursRatio: "60% Software & Lab Practical • 40% Conceptual Foundations",
+    seoTitle: "AI in Agriculture Course Kenya | AgTech & Smart Coffee Farming | VIBIT",
+    metaDescription: "Discover how AI and IoT sensors are revolutionizing agriculture, yield prediction, and coffee quality control in Kenya with VIBIT.",
+    primaryKeyword: "AI in agriculture Kenya"
   },
   {
     id: "cooperative-management-cert",
@@ -205,7 +319,23 @@ export const COURSES: Course[] = [
       labFee: 0,
       deposit: 0
     },
-    schedule: "Full-Time or Block Release (KSh 45,000 / semester)"
+    schedule: "Full-Time or Block Release (KSh 45,000 / semester)",
+    requirements: [
+      "KCSE D (Plain) or equivalent TVET Level 4 Certificate",
+      "Cooperative society staff, committee members, and youth leaders"
+    ],
+    careers: [
+      "Co-operative Society Manager & Internal Auditor",
+      "SACCO Operations & Credit Officer",
+      "Member Extension & Agricultural Society Secretary",
+      "Agricultural Marketing Society Coordinator"
+    ],
+    targetAudience: "Cooperative staff, SACCO officers, farmer group leaders, and career starters in cooperative finance.",
+    intakes: ["January", "May", "September"],
+    practicalHoursRatio: "60% Auditing & Governance Practicals • 40% Theory",
+    seoTitle: "Certificate in Cooperative Management Kenya | TVET Approved | VIBIT",
+    metaDescription: "Enroll in the TVET-approved Certificate in Co-operative Management at VIBIT in Nairobi. Master cooperative governance, DSS accounting, and audits.",
+    primaryKeyword: "cooperative management course Kenya"
   },
   {
     id: "cooperative-management-diploma",
@@ -228,7 +358,23 @@ export const COURSES: Course[] = [
       labFee: 0,
       deposit: 0
     },
-    schedule: "Full-Time / Executive Seminars (KSh 45,000 / semester)"
+    schedule: "Full-Time / Executive Seminars (KSh 45,000 / semester)",
+    requirements: [
+      "KCSE C- (Minus) or Certificate in Co-operative Management / Business Administration",
+      "Passionate about agricultural cooperative leadership and governance"
+    ],
+    careers: [
+      "Chief Executive Officer (CEO) / General Manager of Cooperative Union",
+      "Senior SACCO Financial Controller & Risk Manager",
+      "Government Cooperative Auditor / Ministry Inspector",
+      "International Commodity & Direct Export Trade Director"
+    ],
+    targetAudience: "Cooperative directors, SACCO managers, finance graduates, and senior agricultural leaders.",
+    intakes: ["January", "May", "September"],
+    practicalHoursRatio: "50% Executive Case Studies • 50% Regulatory & Financial Seminars",
+    seoTitle: "Diploma in Cooperative Management in Kenya | TVET Diploma | VIBIT",
+    metaDescription: "Advance your leadership with a TVET National Diploma in Co-operative Management at VIBIT Agricultural Training College in Nairobi, Kenya.",
+    primaryKeyword: "diploma in cooperative management Kenya"
   }
 ];
 

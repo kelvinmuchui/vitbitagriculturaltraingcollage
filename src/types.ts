@@ -14,6 +14,16 @@ export interface Course {
     deposit: number;
   };
   schedule: string;
+  // Enhanced SEO & Academic Authority Attributes
+  requirements?: string[] | string;
+  careers?: string[];
+  targetAudience?: string;
+  intakes?: string[] | string;
+  practicalRatio?: string;
+  practicalHoursRatio?: string;
+  seoTitle?: string;
+  metaDescription?: string;
+  primaryKeyword?: string;
 }
 
 export interface Facility {

@@ -91,6 +91,7 @@ export default function Footer({ setView }: FooterProps) {
                 { id: 'about', label: 'Our Standards & Labs' },
                 { id: 'courses', label: 'Program Catalog' },
                 { id: 'admissions', label: 'Enrollment Portal' },
+                { id: 'resources', label: 'Agricultural Guides & Resources' },
                 { id: 'contact', label: 'Contact Registrar' }
               ].map((link) => (
                 <li key={link.id}>
@@ -133,7 +134,7 @@ export default function Footer({ setView }: FooterProps) {
               </li>
               <li className="flex items-center space-x-3 text-sm text-[#FAF6F0]/70">
                 <Mail className="h-5 w-5 text-[#C28A4E] shrink-0" />
-                <a href="mailto:info@vibitcollege.ac.ke" className="hover:text-[#C28A4E] transition-colors">info@vibitcollege.ac.ke</a>
+                <a href="mailto:vbitschoolofcoffeagribusiness@gmail.com" className="hover:text-[#C28A4E] transition-colors">vbitschoolofcoffeagribusiness@gmail.com</a>
               </li>
               <li className="pt-2 flex flex-wrap items-center gap-2 text-xs">
                 <a 

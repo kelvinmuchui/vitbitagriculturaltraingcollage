@@ -193,7 +193,7 @@ export function downloadEnrollmentConfirmationForm(studentData?: {
       <h1 class="header-logo-text">VIBIT School of Coffee & Agribusiness</h1>
       <p class="header-sub">
         <strong>VIBIT Agricultural Training College</strong><br>
-        P. O. Box 14700-00800 Nairobi | Mobile: +254 708 137992 | Email: vbitschoolofcoffeeagribusiness@gmail.com<br>
+        P. O. Box 14700-00800 Nairobi | Mobile: +254 708 137992 | Email: vbitschoolofcoffeagribusiness@gmail.com<br>
         Website: www.vbitschoolofagribusiness.co.ke
       </p>
     </div>

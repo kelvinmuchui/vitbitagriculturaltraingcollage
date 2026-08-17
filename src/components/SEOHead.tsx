@@ -46,10 +46,17 @@ const SEO_MAP: Record<string, PageMeta> = {
   },
   contact: {
     title: "Contact VIBIT Agricultural Training College | Nairobi, Kenya",
-    description: "Contact VIBIT Agricultural Training College. Located at Leomar Court, 45 Westlands Road, Nairobi. Call or WhatsApp 0708 137992 or email info@vibitcollege.ac.ke.",
+    description: "Contact VIBIT Agricultural Training College. Located at Leomar Court, 45 Westlands Road, Nairobi. Call or WhatsApp 0708 137992 or email vbitschoolofcoffeagribusiness@gmail.com.",
     keywords: "contact VIBIT Agricultural Training College, VIBIT location Westlands Nairobi, coffee school phone Nairobi, barista training WhatsApp contact, agricultural college address",
     path: "/contact",
     ogType: "website"
+  },
+  resources: {
+    title: "Agricultural Training & Career Guides Kenya | VIBIT Agricultural Training College",
+    description: "Comprehensive agricultural education guides in Kenya. Explore top agriculture courses, agribusiness ventures, coffee & barista careers, entry requirements, and admission steps.",
+    keywords: "agriculture courses in Kenya, agribusiness in Kenya, agricultural careers in Kenya, coffee school Nairobi, barista training Kenya requirements, agriculture college fees Kenya",
+    path: "/resources",
+    ogType: "article"
   },
   admin: {
     title: "Registrar Administration Portal | VIBIT Agricultural Training College",
