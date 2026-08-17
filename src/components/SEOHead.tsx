@@ -17,9 +17,9 @@ const BASE_URL = 'https://vibitagriculturaltrainingcollege.co.ke';
 
 const SEO_MAP: Record<string, PageMeta> = {
   home: {
-    title: "VIBIT Agricultural Training College | Agriculture, Coffee & Agribusiness Kenya",
-    description: "VIBIT Agricultural Training College in Nairobi offers practical training in agriculture, coffee technology, agribusiness and barista skills. Explore courses and apply today.",
-    keywords: "VIBIT Agricultural Training College, agricultural training college Kenya, agricultural college Kenya, agriculture college Nairobi, coffee training Kenya, barista training Kenya, barista training Nairobi, agribusiness courses Kenya, coffee technology course Kenya",
+    title: "VIBIT Agricultural Training College Kenya | Agriculture Courses & Training",
+    description: "VIBIT Agricultural Training College offers practical agricultural education and training in Kenya. Explore agriculture courses, admissions, fees, entry requirements and how to apply.",
+    keywords: "VIBIT Agricultural Training College, agricultural training college Kenya, agricultural college Kenya, agriculture college Nairobi, agriculture courses Kenya, coffee training Kenya, barista training Kenya, barista training Nairobi, agribusiness courses Kenya, coffee technology course Kenya",
     path: "/",
     ogType: "website"
   },

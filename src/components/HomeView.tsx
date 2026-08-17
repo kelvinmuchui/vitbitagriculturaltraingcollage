@@ -89,24 +89,24 @@ export default function HomeView({ setView, setSelectedCourseId }: HomeViewProps
                 transition={{ delay: 0.1, duration: 0.4 }}
               >
                 <span className="h-1.5 w-1.5 bg-[#b6171e] rounded-full animate-pulse" />
-                <span>Admission Intake Now Open •</span>
+                <span>Admission Intake Open • Apply Today</span>
               </motion.div>
 
               <div className="space-y-4">
                 <span className="text-xs font-bold text-[#C28A4E] uppercase tracking-wider block">
-                  Premier Accredited Coffee School in Nairobi, Kenya
+                  Vocational Agricultural Education • Westlands, Nairobi, Kenya
                 </span>
                 <h1 className="font-sans text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-gray-900 leading-[1.1] md:leading-[1.05]">
-                  The Leading Coffee School <br className="hidden sm:inline" />
-                  <span className="bg-gradient-to-r from-gray-900 via-[#271310] to-[#b6171e] bg-clip-text text-transparent">in Nairobi, Kenya</span>
+                  VIBIT Agricultural <br className="hidden sm:inline" />
+                  <span className="bg-gradient-to-r from-gray-900 via-[#271310] to-[#b6171e] bg-clip-text text-transparent">Training College Kenya</span>
                 </h1>
                 <p className="font-serif text-lg sm:text-xl text-[#271310]/80 italic max-w-xl pl-4 border-l-2 border-[#C28A4E]/30 py-1 bg-gradient-to-r from-[#C28A4E]/5 to-transparent rounded-r-lg">
-                  "Master specialty coffee from seed to cup — Barista Arts, Roasting & Agriscience."
+                  "Practical agricultural education, coffee value-chain training & agribusiness skills in Kenya."
                 </p>
               </div>
 
               <p className="text-sm sm:text-base text-gray-500 leading-relaxed max-w-xl">
-                Gain hands-on expertise inside Nairobi's top-rated coffee school located at Westlands Road No. 45. From nursery genetics and high-elevation cultivation to espresso extraction, sensory cupping, roasting profiling, and professional barista certification.
+                VIBIT Agricultural Training College offers hands-on vocational training at Leomar Court, 45 Westlands Road, Nairobi. Explore accredited agriculture courses, coffee technology, commercial roasting, cupping, barista certification, agribusiness, entry requirements, fees, and ongoing admissions.
               </p>
 
               {/* Apple-style Premium Action Bar */}
