@@ -13,48 +13,48 @@ interface PageMeta {
   isNoIndex?: boolean;
 }
 
-const BASE_URL = 'https://vbitschoolofcoffeeandagribusiness.co.ke';
+const BASE_URL = 'https://vibitagriculturaltrainingcollege.co.ke';
 
 const SEO_MAP: Record<string, PageMeta> = {
   home: {
-    title: "VIBIT Agricultural Training College | Coffee & Agribusiness Training Kenya",
-    description: "VIBIT Agricultural Training College offers practical coffee, agriculture and agribusiness training in Kenya, preparing students for careers and entrepreneurship.",
-    keywords: "VIBIT Agricultural Training College, VIBIT School of Coffee and Agribusiness, coffee school in nairobi, coffee college nairobi, barista school nairobi, best coffee school in nairobi, barista training in nairobi kenya, coffee training school nairobi, coffee cupping course nairobi, coffee roasting school westlands nairobi, tvet coffee courses nairobi, agribusiness courses kenya",
+    title: "VIBIT Agricultural Training College | Agriculture, Coffee & Agribusiness Kenya",
+    description: "VIBIT Agricultural Training College in Nairobi offers practical training in agriculture, coffee technology, agribusiness and barista skills. Explore courses and apply today.",
+    keywords: "VIBIT Agricultural Training College, agricultural training college Kenya, agricultural college Kenya, agriculture college Nairobi, coffee training Kenya, barista training Kenya, barista training Nairobi, agribusiness courses Kenya, coffee technology course Kenya",
     path: "/",
     ogType: "website"
   },
   courses: {
-    title: "Agriculture, Coffee & Agribusiness Courses in Kenya | VIBIT",
-    description: "Explore TVET-accredited barista training, commercial coffee roasting, cupping, agronomy, and agribusiness management diploma courses at VIBIT in Nairobi, Kenya.",
-    keywords: "coffee courses nairobi, barista training courses nairobi, coffee roasting school nairobi, coffee cupping certification kenya, barista diploma nairobi, agribusiness diploma kenya, tvet agriculture courses nairobi",
+    title: "Agriculture, Coffee & Agribusiness Courses in Kenya | VIBIT Agricultural Training College",
+    description: "Explore accredited courses in coffee technology, barista skills, commercial coffee roasting, cupping, agronomy, and agribusiness management at VIBIT in Nairobi, Kenya.",
+    keywords: "agriculture courses Kenya, coffee courses Kenya, barista training Nairobi, coffee roasting training Kenya, coffee cupping course Kenya, agribusiness training Kenya, vocational agricultural training Nairobi",
     path: "/courses",
     ogType: "website"
   },
   admissions: {
-    title: "VIBIT Admissions 2026 | Courses, Requirements & Application",
-    description: "Apply for 2026 intake at VIBIT Agricultural Training College. Check entry requirements, fee structures, and download application forms for coffee and agriculture courses.",
-    keywords: "vibit admissions 2026, coffee school admissions nairobi, barista course fees nairobi, join coffee college kenya, vibit admissions westlands, agriculture college application kenya",
+    title: "VIBIT Admissions | Courses, Requirements & Application",
+    description: "Apply for upcoming intakes at VIBIT Agricultural Training College. View admission requirements, course schedules, tuition fee structures, and application procedures.",
+    keywords: "VIBIT admissions, agricultural college intake Kenya, coffee school admissions Nairobi, barista course fees Nairobi, agriculture college application Kenya",
     path: "/admissions",
     ogType: "website"
   },
   about: {
     title: "About VIBIT Agricultural Training College | Nairobi, Kenya",
-    description: "Learn about VIBIT Agricultural Training College in Nairobi, Kenya. TVET-accredited institution with SCA-aligned sensory labs, commercial roastery, and agronomy campus.",
-    keywords: "about vibit agricultural training college, vibit school of coffee and agribusiness, coffee school history nairobi, top barista institute kenya, accredited agricultural college nairobi",
+    description: "Learn about VIBIT Agricultural Training College in Nairobi, Kenya. TVET-accredited institution specializing in practical agriculture, specialty coffee labs, and agribusiness leadership.",
+    keywords: "about VIBIT Agricultural Training College, accredited agricultural college Nairobi, coffee school Nairobi, agricultural education Kenya, VIBIT college profile",
     path: "/about",
     ogType: "website"
   },
   contact: {
     title: "Contact VIBIT Agricultural Training College | Nairobi, Kenya",
-    description: "Get in touch with VIBIT Agricultural Training College. Visit our campus at Leomar Court, Westlands Road No. 45, Nairobi. Call or WhatsApp +254 708 137992.",
-    keywords: "contact vibit agricultural training college, vibit location westlands nairobi, coffee school whatsapp contact nairobi, barista training nairobi phone",
+    description: "Contact VIBIT Agricultural Training College. Located at Leomar Court, 45 Westlands Road, Nairobi. Call or WhatsApp 0708 137992 or email info@vibitcollege.ac.ke.",
+    keywords: "contact VIBIT Agricultural Training College, VIBIT location Westlands Nairobi, coffee school phone Nairobi, barista training WhatsApp contact, agricultural college address",
     path: "/contact",
     ogType: "website"
   },
   admin: {
     title: "Registrar Administration Portal | VIBIT Agricultural Training College",
-    description: "VIBIT Agricultural Training College secure registrar and academic admissions portal.",
-    keywords: "vibit admin portal",
+    description: "VIBIT Agricultural Training College internal registrar and student administration portal.",
+    keywords: "VIBIT admin portal",
     path: "/admin",
     ogType: "website",
     isNoIndex: true

@@ -124,7 +124,7 @@ export default function ContactView() {
                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
               >
                 <a
-                  href="https://maps.google.com/?q=Leomar+Court,+Westlands+Road+No.+45,+Nairobi,+Kenya"
+                  href="https://maps.google.com/?q=Leomar+Court,+45+Westlands+Road,+Nairobi,+Kenya"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-start space-x-4 group cursor-pointer"
@@ -137,7 +137,7 @@ export default function ContactView() {
                       <span>Campus Location</span>
                       <ExternalLink className="h-3 w-3 text-[#C28A4E]" />
                     </h4>
-                    <p className="text-xs text-[#2E221C]/75 leading-relaxed underline decoration-dotted">Leomar Court, Westlands Road No. 45, Nairobi, Kenya</p>
+                    <p className="text-xs text-[#2E221C]/75 leading-relaxed underline decoration-dotted">Leomar Court, 45 Westlands Road, Nairobi, Kenya</p>
                   </div>
                 </a>
               </motion.li>
@@ -148,7 +148,7 @@ export default function ContactView() {
                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
               >
                 <a 
-                  href="tel:+254708137992"
+                  href="tel:0708137992"
                   className="flex items-start space-x-4 group cursor-pointer"
                 >
                   <div className="bg-[#C28A4E]/10 group-hover:bg-[#C28A4E] group-hover:text-white p-3.5 rounded-xl text-[#C28A4E] shrink-0 transition-colors">
@@ -159,8 +159,8 @@ export default function ContactView() {
                       <span>Direct Dial Lines</span>
                       <ExternalLink className="h-3 w-3 text-[#C28A4E]" />
                     </h4>
-                    <p className="text-xs text-[#2E221C]/90 font-bold hover:underline">+254 708 137992</p>
-                    <p className="text-[10px] text-[#8E7C74]">Toll-Free during academic intake periods</p>
+                    <p className="text-xs text-[#2E221C]/90 font-bold hover:underline">0708 137992 / +254 708 137992</p>
+                    <p className="text-[10px] text-[#8E7C74]">Admissions desk open Mon-Fri 8am-5pm, Sat 8am-1pm</p>
                   </div>
                 </a>
               </motion.li>

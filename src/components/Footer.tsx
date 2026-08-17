@@ -114,11 +114,11 @@ export default function Footer({ setView }: FooterProps) {
             <ul className="space-y-4">
               <li className="flex items-start space-x-3 text-sm text-[#FAF6F0]/70">
                 <MapPin className="h-5 w-5 text-[#C28A4E] shrink-0 mt-0.5" />
-                <span>Leomar Court, Westlands Road No. 45, Nairobi, Kenya</span>
+                <span>Leomar Court, 45 Westlands Road, Nairobi, Kenya</span>
               </li>
               <li className="flex items-center space-x-3 text-sm text-[#FAF6F0]/70">
                 <Phone className="h-5 w-5 text-[#C28A4E] shrink-0" />
-                <span>+254 708 137992</span>
+                <a href="tel:0708137992" className="hover:text-[#C28A4E] transition-colors">0708 137992 / +254 708 137992</a>
               </li>
               <li className="flex items-center space-x-3 text-sm text-[#FAF6F0]/70">
                 <a 
@@ -128,12 +128,12 @@ export default function Footer({ setView }: FooterProps) {
                   className="flex items-center space-x-3 text-emerald-400 hover:text-emerald-300 transition-colors"
                 >
                   <WhatsAppIcon className="h-5 w-5 text-emerald-500 shrink-0" />
-                  <span className="font-medium">WhatsApp: +254 708 137992</span>
+                  <span className="font-medium">WhatsApp: 0708 137992</span>
                 </a>
               </li>
               <li className="flex items-center space-x-3 text-sm text-[#FAF6F0]/70">
                 <Mail className="h-5 w-5 text-[#C28A4E] shrink-0" />
-                <span>info@vibitcollege.ac.ke</span>
+                <a href="mailto:info@vibitcollege.ac.ke" className="hover:text-[#C28A4E] transition-colors">info@vibitcollege.ac.ke</a>
               </li>
               <li className="pt-2 flex flex-wrap items-center gap-2 text-xs">
                 <a 
