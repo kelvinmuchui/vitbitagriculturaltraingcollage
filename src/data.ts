@@ -1,4 +1,4 @@
-import { Course, Facility, Testimonial, EnrollmentStep } from './types';
+import { Course, Facility, Testimonial, EnrollmentStep, FAQItem } from './types';
 
 // Import distinct, non-repeating image assets for every single item
 import courseBaristaSkills from './assets/images/course_barista_skills_1784976448236.jpg';
@@ -638,5 +638,78 @@ export const ENROLLMENT_STEPS: EnrollmentStep[] = [
     title: "Secure Seat & Induction",
     description: "Receive your formal Admission Letter and secure your slot with a standard security deposit.",
     details: "Induction and lab equipment check-outs occur one week prior to class start dates."
+  }
+];
+
+export const OFFICIAL_FAQS: FAQItem[] = [
+  {
+    id: "faq-location",
+    question: "Where is VIBIT Agricultural Training College located?",
+    answer: "VIBIT Agricultural Training College is located at Leomar Court, 45 Westlands Road, Westlands, Nairobi, Kenya (P.O. Box 14700-00800 Nairobi). Our central Westlands campus is situated in a secure, easily accessible commercial and educational hub with seamless public transit links, on-site specialty coffee laboratories, commercial roasteries, and modern agribusiness lecture rooms.",
+    category: "location",
+    badge: "Location & Campus"
+  },
+  {
+    id: "faq-coffee-training",
+    question: "Does VIBIT offer coffee training?",
+    answer: "Yes, absolutely. VIBIT provides comprehensive, hands-on practical coffee training spanning the entire farm-to-cup value chain. Our accredited courses include Professional Barista Training & Latte Art, Commercial Coffee Roasting & Profiling, Sensory Cupping & Quality Evaluation, and Coffee Production & Post-Harvest Processing. Training is conducted on commercial equipment including La Marzocco espresso machines, Mahlkönig grinders, and Probat drum roasters.",
+    category: "courses",
+    badge: "Coffee Education"
+  },
+  {
+    id: "faq-coffee-tech",
+    question: "Does VIBIT offer coffee technology courses?",
+    answer: "Yes. VIBIT offers the specialized \"Coffee Technology & Quality Science\" program (12 Weeks). This course provides in-depth training on green coffee grading, physical screen sizing, defect classification according to international standards, moisture and water activity analytics, dry milling operations, hulling mechanics, and export lot preparation for international commodity trade.",
+    category: "courses",
+    badge: "Coffee Technology"
+  },
+  {
+    id: "faq-agri-courses",
+    question: "Does VIBIT offer agricultural courses?",
+    answer: "Yes. VIBIT offers high-impact, market-driven agricultural courses including Agripreneurship & Commodity Export Logistics, AI in Agriculture & Smart AgTech, Sustainable Agriculture & Crop Production, and Sustainable Coffee Agronomy. Our curriculum integrates commercial greenhouse management, drip irrigation systems, regenerative soil health, and digital agricultural tools.",
+    category: "courses",
+    badge: "Agribusiness & AgTech"
+  },
+  {
+    id: "faq-how-to-apply",
+    question: "How can I apply to VIBIT?",
+    answer: "Applying to VIBIT is quick and straightforward: (1) Online through our interactive Admissions Portal on this website, (2) By emailing your academic certificates and national ID copy to vbitschoolofcoffeagribusiness@gmail.com, (3) Via WhatsApp or telephone call to our Admissions Desk at +254 708 137992, or (4) In person by visiting our Westlands campus at Leomar Court, 45 Westlands Road, Nairobi.",
+    category: "admissions",
+    badge: "Enrollment & Intake"
+  },
+  {
+    id: "faq-short-courses",
+    question: "Does VIBIT offer short courses?",
+    answer: "Yes. VIBIT offers flexible modular short courses ranging from 1 to 8 weeks in Barista Skills, Commercial Coffee Roasting, Wet Mill Operations, Sensory Cupping Triangulation, and Smart AgTech workshops. These intensive programs are designed for working professionals, entrepreneurs, and busy students, offering flexible full-time, evening, and Saturday intensive schedules.",
+    category: "courses",
+    badge: "Short & Modular Courses"
+  },
+  {
+    id: "faq-tvet-programmes",
+    question: "Does VIBIT offer TVET programmes?",
+    answer: "Yes. VIBIT Agricultural Training College is a TVET-approved and CDACC-accredited vocational training institution. We offer TVET National Diploma (Level 6) and Certificate (Level 5) programs in Co-operative Management, Coffee Barista Skills (Level 3), and Professional Mixology & Beverage Technology.",
+    category: "tvet",
+    badge: "TVET / CDACC Accredited"
+  },
+  {
+    id: "faq-entry-requirements",
+    question: "What are the entry requirements for courses at VIBIT?",
+    answer: "Entry requirements depend on the program level: National Diplomas require a KCSE grade of C- (Minus) or a relevant Level 5 Certificate; Certificate programs require a KCSE grade of D (Plain) or D+; while Short Courses and Executive Masterclasses (e.g. Barista Skills, Coffee Roasting, Smart AgTech) have open entry with no minimum KCSE grade required—open to anyone passionate about coffee or agribusiness.",
+    category: "admissions",
+    badge: "Entry Requirements"
+  },
+  {
+    id: "faq-fee-installments",
+    question: "Can students pay tuition fees in installments?",
+    answer: "Yes. VIBIT offers student-friendly flexible payment plans. Long-term Diploma and Certificate programs allow tuition to be paid in semester-based installments (e.g. KSh 45,000 per semester), and short courses can be paid in structured partial installments prior to practical laboratory sessions.",
+    category: "admissions",
+    badge: "Fees & Payment Plans"
+  },
+  {
+    id: "faq-job-placement",
+    question: "Does VIBIT assist students with job placement and internships?",
+    answer: "Yes. VIBIT maintains active industry partnerships with leading specialty coffee roasteries, export houses, commercial estates, SACCOs, luxury hotels, and agricultural cooperatives across East Africa. We connect students with internship opportunities, industry field days, and direct employment pipelines upon graduation.",
+    category: "general",
+    badge: "Careers & Internships"
   }
 ];

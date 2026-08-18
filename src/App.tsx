@@ -165,7 +165,7 @@ export default function App() {
           />
         );
       case 'contact':
-        return <ContactView />;
+        return <ContactView setView={setView} />;
       case 'admin':
         return (
           <AdminView 

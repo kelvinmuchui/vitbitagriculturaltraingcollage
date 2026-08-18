@@ -52,3 +52,11 @@ export interface EnrollmentStep {
   description: string;
   details: string;
 }
+
+export interface FAQItem {
+  id: string;
+  question: string;
+  answer: string;
+  category?: 'general' | 'location' | 'courses' | 'admissions' | 'tvet';
+  badge?: string;
+}

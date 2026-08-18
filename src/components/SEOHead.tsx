@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { OFFICIAL_FAQS } from '../data';
 
 interface SEOHeadProps {
   currentView: string;
@@ -58,6 +59,13 @@ const SEO_MAP: Record<string, PageMeta> = {
     path: "/resources",
     ogType: "article"
   },
+  'student-life': {
+    title: "Student Life, Accommodation & Labs | VIBIT Agricultural Training College Nairobi",
+    description: "Discover student life at VIBIT in Westlands, Nairobi. Explore our specialty coffee sensory labs, commercial roasteries, student housing options, field excursions, and vibrant campus culture.",
+    keywords: "VIBIT student life, Nairobi coffee school campus, agricultural college accommodation Nairobi, Westlands student housing, coffee lab facilities Nairobi, student barista club",
+    path: "/student-life",
+    ogType: "website"
+  },
   admin: {
     title: "Registrar Administration Portal | VIBIT Agricultural Training College",
     description: "VIBIT Agricultural Training College internal registrar and student administration portal.",
@@ -111,35 +119,68 @@ export default function SEOHead({ currentView }: SEOHeadProps) {
     updateOrCreateMeta('twitter:title', meta.title);
     updateOrCreateMeta('twitter:description', meta.description);
     updateOrCreateMeta('twitter:image', pageImage);
+    updateOrCreateMeta('twitter:url', pageUrl);
 
-    // 5. Canonical Link
-    let canonical = document.querySelector('link[rel="canonical"]');
-    if (canonical) {
-      canonical.setAttribute('href', pageUrl);
-    } else {
-      canonical = document.createElement('link');
-      canonical.setAttribute('rel', 'canonical');
-      canonical.setAttribute('href', pageUrl);
-      document.head.appendChild(canonical);
-    }
+    // 5. Canonical Link & Alternate Hreflang Tags
+    const updateOrCreateLink = (rel: string, href: string, hreflang?: string) => {
+      const selector = hreflang 
+        ? `link[rel="${rel}"][hreflang="${hreflang}"]` 
+        : `link[rel="${rel}"]`;
+      let linkTag = document.querySelector(selector);
+      if (linkTag) {
+        linkTag.setAttribute('href', href);
+      } else {
+        linkTag = document.createElement('link');
+        linkTag.setAttribute('rel', rel);
+        if (hreflang) {
+          linkTag.setAttribute('hreflang', hreflang);
+        }
+        linkTag.setAttribute('href', href);
+        document.head.appendChild(linkTag);
+      }
+    };
 
-    // 6. Dynamic Breadcrumb & WebPage Structured Data
-    const breadcrumbSchema = {
+    // Set Primary Canonical URL
+    updateOrCreateLink('canonical', pageUrl);
+
+    // Set International & Regional Hreflang Canonical References
+    updateOrCreateLink('alternate', pageUrl, 'en-KE');
+    updateOrCreateLink('alternate', pageUrl, 'en');
+    updateOrCreateLink('alternate', pageUrl, 'x-default');
+
+    // 6. Dynamic Breadcrumb & FAQPage Structured Data Schema Graph
+    const schemaGraph = {
       "@context": "https://schema.org",
-      "@type": "BreadcrumbList",
-      "itemListElement": [
+      "@graph": [
         {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": BASE_URL
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": BASE_URL
+            },
+            ...(meta.path !== '/' ? [{
+              "@type": "ListItem",
+              "position": 2,
+              "name": currentView.charAt(0).toUpperCase() + currentView.slice(1),
+              "item": pageUrl
+            }] : [])
+          ]
         },
-        ...(meta.path !== '/' ? [{
-          "@type": "ListItem",
-          "position": 2,
-          "name": currentView.charAt(0).toUpperCase() + currentView.slice(1),
-          "item": pageUrl
-        }] : [])
+        {
+          "@type": "FAQPage",
+          "@id": `${pageUrl}#faq`,
+          "mainEntity": OFFICIAL_FAQS.map(faq => ({
+            "@type": "Question",
+            "name": faq.question,
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": faq.answer
+            }
+          }))
+        }
       ]
     };
 
@@ -150,7 +191,7 @@ export default function SEOHead({ currentView }: SEOHeadProps) {
       schemaScript.setAttribute('type', 'application/ld+json');
       document.head.appendChild(schemaScript);
     }
-    schemaScript.textContent = JSON.stringify(breadcrumbSchema);
+    schemaScript.textContent = JSON.stringify(schemaGraph);
 
   }, [currentView]);
 

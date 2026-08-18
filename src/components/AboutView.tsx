@@ -6,6 +6,7 @@ import { FACILITIES } from '../data';
 // Import our real student and campus photos
 import aboutHeroBanner from '../assets/images/about_hero_banner_1784976365779.jpg';
 import coffeeCherriesDrying from '../assets/images/coffee_cherries_drying_1783338132429.jpg';
+import FAQSection from './FAQSection';
 
 interface AboutViewProps {
   setView: (view: string) => void;
@@ -387,8 +388,11 @@ export default function AboutView({ setView }: AboutViewProps) {
         </div>
       </section>
 
-      {/* 6. FINAL CTA TEAM LINK */}
-      <section className="bg-[#FAF6F0] max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* 6. INSTITUTION Q&A */}
+      <FAQSection setView={setView} />
+
+      {/* 7. FINAL CTA TEAM LINK */}
+      <section className="bg-[#FAF6F0] max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
         <motion.div 
           className="bg-[#2E221C] text-white rounded-3xl p-8 sm:p-12 shadow-xl flex flex-col md:flex-row items-center justify-between gap-8 border border-[#C28A4E]/20"
           initial={{ opacity: 0, y: 30 }}

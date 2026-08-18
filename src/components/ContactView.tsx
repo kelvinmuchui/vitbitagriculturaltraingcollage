@@ -29,8 +29,13 @@ const TikTokIcon = ({ className = "h-5 w-5" }: { className?: string }) => (
 
 // Import our real student and campus photos
 import contactCampusImage from '../assets/images/contact_campus_image_1784976397743.jpg';
+import FAQSection from './FAQSection';
 
-export default function ContactView() {
+interface ContactViewProps {
+  setView?: (view: string) => void;
+}
+
+export default function ContactView({ setView }: ContactViewProps) {
   // Contact Form State
   const [form, setForm] = useState({
     name: '',
@@ -717,6 +722,9 @@ export default function ContactView() {
 
         </div>
       </section>
+
+      {/* 5. OFFICIAL QUESTIONS & ANSWERS (Q&A) */}
+      <FAQSection setView={setView} />
 
     </div>
   );

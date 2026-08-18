@@ -5,6 +5,7 @@ import { TESTIMONIALS, LOGO_URL } from '../data';
 import PhotoGallery from './PhotoGallery';
 import CoffeeLabs from './CoffeeLabs';
 import HeroParallaxImage from './HeroParallaxImage';
+import FAQSection from './FAQSection';
 
 // Import our real student and campus photos
 import homeHeroCampus from '../assets/images/home_hero_campus_1784976413691.jpg';
@@ -580,8 +581,11 @@ export default function HomeView({ setView, setSelectedCourseId }: HomeViewProps
         </div>
       </section>
 
-      {/* 7. CTA BANNER */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* 7. OFFICIAL QUESTIONS & ANSWERS (Q&A) */}
+      <FAQSection setView={setView} />
+
+      {/* 8. CTA BANNER */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
         <motion.div 
           className="bg-[#C28A4E] rounded-3xl p-8 sm:p-16 text-center space-y-8 relative overflow-hidden shadow-xl border border-white/10 text-white"
           initial={{ opacity: 0, scale: 0.95 }}
