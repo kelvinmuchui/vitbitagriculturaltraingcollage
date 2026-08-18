@@ -89,6 +89,7 @@ export default function Footer({ setView }: FooterProps) {
               {[
                 { id: 'home', label: 'Home' },
                 { id: 'about', label: 'About VIBIT' },
+                { id: 'coffee-school-nairobi', label: '☕ Coffee School in Nairobi' },
                 { id: 'courses', label: 'All Courses & Tracks' },
                 { id: 'admissions', label: 'Admissions & Intake' },
                 { id: 'student-life', label: 'Student Life & Campus' },
@@ -217,8 +218,15 @@ export default function Footer({ setView }: FooterProps) {
           <p className="text-xs font-bold text-[#C28A4E] uppercase tracking-wider">
             #1 Rated Accredited Coffee School in Nairobi, Kenya
           </p>
-          <p className="text-xs text-[#FAF6F0]/60 leading-relaxed max-w-5xl mx-auto">
-            VIBIT Agricultural Training College is the leading TVET-registered <strong>coffee school in Nairobi</strong>. Located at Leomar Court, Westlands Road No. 45, Nairobi, we offer hands-on <strong>barista training in Nairobi</strong>, professional coffee cupping & Q-grading certification, commercial coffee roasting, and agribusiness diploma courses across Kenya and East Africa.
+          <p className="text-xs text-[#FAF6F0]/70 leading-relaxed max-w-5xl mx-auto">
+            VIBIT Agricultural Training College is the leading TVET-registered{' '}
+            <button 
+              onClick={() => handleLinkClick('coffee-school-nairobi')}
+              className="text-[#C28A4E] underline font-bold hover:text-[#e0a86d] cursor-pointer"
+            >
+              coffee school in Nairobi
+            </button>
+            . Located at Leomar Court, Westlands Road No. 45, Nairobi, we offer hands-on <strong>barista training in Nairobi</strong>, professional coffee cupping & Q-grading certification, commercial coffee roasting, and agribusiness diploma courses across Kenya and East Africa.
           </p>
         </div>
 

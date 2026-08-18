@@ -10,29 +10,100 @@ import StudentLifeView from './components/StudentLifeView';
 import ContactView from './components/ContactView';
 import ResourcesView from './components/ResourcesView';
 import AdminView from './components/AdminView';
+import CoffeeSchoolNairobiView from './components/CoffeeSchoolNairobiView';
 import SEOHead from './components/SEOHead';
 import { COURSES } from './data';
 import { Course } from './types';
 
-export default function App() {
-  const [currentView, setRawView] = useState<string>(() => {
-    const path = window.location.pathname;
-    const hash = window.location.hash;
-    if (path === '/admin' || path === '/admin/' || hash === '#admin' || hash === '#/admin') {
-      return 'admin';
+function parseViewFromLocation(): string {
+  try {
+    const pathname = window.location.pathname.toLowerCase().trim();
+    const hash = window.location.hash.toLowerCase().trim().replace(/^#\/?/, '');
+    const search = new URLSearchParams(window.location.search);
+    const viewParam = (search.get('view') || search.get('page') || search.get('p') || '').toLowerCase().trim();
+
+    if (viewParam) {
+      if (viewParam === 'coffee-school-nairobi' || viewParam === 'coffee-school' || viewParam === 'coffee_school_nairobi' || viewParam === 'coffee-school-in-nairobi') {
+        return 'coffee-school-nairobi';
+      }
+      if (viewParam === 'news-blog' || viewParam === 'news' || viewParam === 'blog') return 'resources';
+      const valid = ['home', 'about', 'courses', 'admissions', 'student-life', 'resources', 'contact', 'coffee-school-nairobi', 'admin'];
+      if (valid.includes(viewParam)) return viewParam;
     }
-    const possibleViews = ['home', 'about', 'courses', 'admissions', 'student-life', 'resources', 'news-blog', 'contact'];
-    const match = possibleViews.find(v => path === `/${v}` || hash === `#${v}`);
-    if (match === 'news-blog') return 'resources';
+
+    if (hash) {
+      if (hash === 'coffee-school-nairobi' || hash === 'coffee-school' || hash === 'coffee_school_nairobi' || hash === 'coffee-school-in-nairobi') {
+        return 'coffee-school-nairobi';
+      }
+      if (hash === 'admin' || hash === '/admin') return 'admin';
+      if (hash === 'news-blog' || hash === 'news' || hash === 'blog') return 'resources';
+      const valid = ['home', 'about', 'courses', 'admissions', 'student-life', 'resources', 'contact', 'coffee-school-nairobi', 'admin'];
+      if (valid.includes(hash)) return hash;
+    }
+
+    // Clean pathname
+    const cleanPath = pathname.replace(/\/+$/, '').replace(/^\/+/, '');
+
+    if (!cleanPath || cleanPath === '' || cleanPath === 'index.html') {
+      return 'home';
+    }
+
+    if (
+      cleanPath === 'coffee-school-nairobi' ||
+      cleanPath === 'coffee-school' ||
+      cleanPath === 'coffee_school_nairobi' ||
+      cleanPath === 'coffee-school-in-nairobi' ||
+      cleanPath.startsWith('coffee-school')
+    ) {
+      return 'coffee-school-nairobi';
+    }
+
+    if (cleanPath === 'admin') return 'admin';
+    if (cleanPath === 'news-blog' || cleanPath === 'news' || cleanPath === 'blog') return 'resources';
+    if (cleanPath === 'courses' || cleanPath.startsWith('courses')) return 'courses';
+    if (cleanPath === 'about' || cleanPath === 'about-us') return 'about';
+    if (cleanPath === 'admissions' || cleanPath === 'admission' || cleanPath === 'apply') return 'admissions';
+    if (cleanPath === 'student-life' || cleanPath === 'studentlife') return 'student-life';
+    if (cleanPath === 'resources') return 'resources';
+    if (cleanPath === 'contact' || cleanPath === 'contact-us') return 'contact';
+
+    const validViews = ['home', 'about', 'courses', 'admissions', 'student-life', 'resources', 'contact', 'coffee-school-nairobi', 'admin'];
+    const match = validViews.find(v => cleanPath === v || cleanPath === `${v}.html`);
     return match || 'home';
-  });
+  } catch (e) {
+    console.error('Error parsing route:', e);
+    return 'home';
+  }
+}
+
+export default function App() {
+  const [currentView, setRawView] = useState<string>(() => parseViewFromLocation());
 
   const setView = (view: string) => {
-    const normalized = view === 'news-blog' ? 'resources' : view;
+    let normalized = view;
+    if (view === 'news-blog' || view === 'blog' || view === 'news') {
+      normalized = 'resources';
+    } else if (
+      view === 'coffee-school' || 
+      view === 'coffee_school_nairobi' || 
+      view === 'coffee-school-in-nairobi'
+    ) {
+      normalized = 'coffee-school-nairobi';
+    }
+    
     setRawView(normalized);
-    const targetPath = normalized === 'home' ? '/' : `/${normalized}`;
-    if (window.location.pathname !== targetPath) {
-      window.history.pushState(null, '', targetPath);
+
+    // Safely update browser address bar
+    try {
+      const targetPath = normalized === 'home' ? '/' : `/${normalized}`;
+      if (window.location.pathname !== targetPath) {
+        window.history.pushState({ view: normalized }, '', targetPath);
+      }
+    } catch (e) {
+      // In restricted iframe environments, sync hash
+      try {
+        window.location.hash = normalized === 'home' ? '' : normalized;
+      } catch (_) {}
     }
   };
 
@@ -68,15 +139,8 @@ export default function App() {
   // Synchronize view state with browser address bar path / hash changes (e.g. Back/Forward)
   useEffect(() => {
     const handleLocationChange = () => {
-      const path = window.location.pathname;
-      const hash = window.location.hash;
-      if (path === '/admin' || path === '/admin/' || hash === '#admin' || hash === '#/admin') {
-        setRawView('admin');
-      } else {
-        const possibleViews = ['home', 'about', 'courses', 'admissions', 'student-life', 'resources', 'news-blog', 'contact'];
-        const match = possibleViews.find(v => path === `/${v}` || hash === `#${v}`);
-        setRawView(match === 'news-blog' ? 'resources' : (match || 'home'));
-      }
+      const parsed = parseViewFromLocation();
+      setRawView(parsed);
     };
 
     window.addEventListener('popstate', handleLocationChange);
@@ -166,6 +230,13 @@ export default function App() {
         );
       case 'contact':
         return <ContactView setView={setView} />;
+      case 'coffee-school-nairobi':
+        return (
+          <CoffeeSchoolNairobiView 
+            setView={setView} 
+            setSelectedCourseId={setSelectedCourseId} 
+          />
+        );
       case 'admin':
         return (
           <AdminView 

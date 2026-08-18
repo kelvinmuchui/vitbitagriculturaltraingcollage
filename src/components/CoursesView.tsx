@@ -361,6 +361,40 @@ export default function CoursesView({ setView, selectedCourseId, setSelectedCour
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 0.5 }}
               >
+                {/* Dedicated Coffee School Feature Alert Banner */}
+                <div className="bg-gradient-to-r from-[#2E221C] via-[#3d2b21] to-[#2E221C] border border-[#C28A4E]/30 rounded-2xl p-4 sm:p-5 shadow-md flex flex-col sm:flex-row items-center justify-between gap-4 text-white">
+                  <div className="flex items-center space-x-3.5">
+                    <div className="p-2.5 rounded-xl bg-[#C28A4E]/20 text-[#C28A4E] shrink-0 border border-[#C28A4E]/30">
+                      <Coffee className="h-6 w-6" />
+                    </div>
+                    <div>
+                      <div className="flex items-center space-x-2">
+                        <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-[#C28A4E] text-white">
+                          Flagship Academy
+                        </span>
+                        <span className="text-xs text-white/70">Westlands Campus, Nairobi</span>
+                      </div>
+                      <h3 className="font-serif font-bold text-sm sm:text-base text-white mt-0.5">
+                        Looking for the Accredited Coffee School in Nairobi?
+                      </h3>
+                      <p className="text-xs text-white/80 line-clamp-1">
+                        Explore our hands-on Barista, Roasting, Cupping & Coffee Technology Academy curriculum.
+                      </p>
+                    </div>
+                  </div>
+
+                  <button
+                    onClick={() => {
+                      setView('coffee-school-nairobi');
+                      window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }}
+                    className="w-full sm:w-auto shrink-0 bg-[#C28A4E] hover:bg-[#A9743B] text-white px-5 py-2.5 rounded-xl font-bold text-xs flex items-center justify-center space-x-1.5 transition-all shadow-xs cursor-pointer"
+                  >
+                    <span>View Coffee School Nairobi</span>
+                    <ArrowRight className="h-3.5 w-3.5" />
+                  </button>
+                </div>
+
                 {/* 1. Main Department Switcher */}
                 <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
                   {departments.map((dept) => {

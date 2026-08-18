@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { ArrowRight, Star, Award, Leaf, Flame, ShieldAlert, Sparkles, MoveRight, Users, Compass, BookOpen } from 'lucide-react';
+import { ArrowRight, Star, Award, Leaf, Flame, ShieldAlert, Sparkles, MoveRight, Users, Compass, BookOpen, Coffee } from 'lucide-react';
 import { TESTIMONIALS, LOGO_URL } from '../data';
 import PhotoGallery from './PhotoGallery';
 import CoffeeLabs from './CoffeeLabs';
@@ -128,12 +128,22 @@ export default function HomeView({ setView, setSelectedCourseId }: HomeViewProps
                 <motion.button
                   id="hero-courses-btn"
                   onClick={() => setView('courses')}
-                  className="w-full sm:w-auto flex items-center justify-center space-x-2 bg-white/70 backdrop-blur-md hover:bg-white text-gray-800 px-8 py-4 rounded-xl font-bold text-sm border border-gray-200/80 shadow-[0_4px_12px_rgba(0,0,0,0.02)] hover:shadow-[0_12px_24px_-8px_rgba(0,0,0,0.1)] transition-all cursor-pointer"
+                  className="w-full sm:w-auto flex items-center justify-center space-x-2 bg-white/70 backdrop-blur-md hover:bg-white text-gray-800 px-6 py-4 rounded-xl font-bold text-sm border border-gray-200/80 shadow-[0_4px_12px_rgba(0,0,0,0.02)] hover:shadow-[0_12px_24px_-8px_rgba(0,0,0,0.1)] transition-all cursor-pointer"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
                   <span>Explore Programs</span>
                   <BookOpen className="h-4 w-4 text-gray-400" />
+                </motion.button>
+                <motion.button
+                  id="hero-coffee-school-btn"
+                  onClick={() => setView('coffee-school-nairobi')}
+                  className="w-full sm:w-auto flex items-center justify-center space-x-2 bg-[#C28A4E]/10 hover:bg-[#C28A4E]/20 text-[#271310] px-6 py-4 rounded-xl font-bold text-sm border border-[#C28A4E]/30 transition-all cursor-pointer"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <Coffee className="h-4 w-4 text-[#C28A4E]" />
+                  <span>Coffee School Nairobi</span>
                 </motion.button>
               </div>
 

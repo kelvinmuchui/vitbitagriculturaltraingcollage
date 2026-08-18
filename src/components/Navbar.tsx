@@ -29,6 +29,7 @@ export default function Navbar({ currentView, setView }: NavbarProps) {
   const navItems = [
     { id: 'home', label: 'Home', icon: Coffee },
     { id: 'about', label: 'About VIBIT', icon: Info },
+    { id: 'coffee-school-nairobi', label: 'Coffee School', icon: Sparkles, isHighlight: true },
     { id: 'courses', label: 'Courses', icon: BookOpen, hasDropdown: true },
     { id: 'admissions', label: 'Admissions', icon: GraduationCap },
     { id: 'student-life', label: 'Student Life', icon: Users },
@@ -38,25 +39,40 @@ export default function Navbar({ currentView, setView }: NavbarProps) {
 
   const courseDepartments = [
     {
-      title: "Coffee Courses",
-      icon: Coffee,
-      badge: "6 Specialized Tracks",
-      desc: "Coffee Technology, Production, Processing, Cupping, Roasting & Barista Training",
-      color: "text-[#C28A4E]"
+      id: "coffee-school-nairobi",
+      title: "☕ Coffee School in Nairobi",
+      icon: Sparkles,
+      badge: "Flagship Academy",
+      desc: "Specialty Coffee Technology, Roasting, Cupping, Barista Science & Agribusiness",
+      color: "text-[#C28A4E]",
+      directLink: "coffee-school-nairobi"
     },
     {
+      id: "coffee-courses",
+      title: "Coffee Courses Catalog",
+      icon: Coffee,
+      badge: "6 Specialized Tracks",
+      desc: "Full Syllabus & Fee Structure for all Barista, Roasting & Agronomy Certifications",
+      color: "text-[#C28A4E]",
+      directLink: "courses"
+    },
+    {
+      id: "agri-courses",
       title: "Agriculture Courses",
       icon: Leaf,
       badge: "AgTech & Trade",
       desc: "Agripreneurship, AI in Agriculture & Sustainable Crop Production",
-      color: "text-emerald-600"
+      color: "text-emerald-600",
+      directLink: "courses"
     },
     {
+      id: "tvet-programmes",
       title: "TVET Programmes",
       icon: Award,
       badge: "CDACC Level 5 & 6",
       desc: "Diploma & Certificate in Co-operative Management, Professional Mixology",
-      color: "text-amber-700"
+      color: "text-amber-700",
+      directLink: "courses"
     }
   ];
 
@@ -124,15 +140,23 @@ export default function Navbar({ currentView, setView }: NavbarProps) {
                       {courseDepartments.map((dept, dIdx) => (
                         <div
                           key={dIdx}
-                          onClick={() => handleNavClick('courses')}
-                          className="p-2.5 rounded-xl hover:bg-[#FAF6F0] transition-colors cursor-pointer space-y-1"
+                          onClick={() => handleNavClick(dept.directLink)}
+                          className={`p-2.5 rounded-xl transition-colors cursor-pointer space-y-1 ${
+                            dept.directLink === 'coffee-school-nairobi' 
+                              ? 'bg-[#C28A4E]/10 hover:bg-[#C28A4E]/15 border border-[#C28A4E]/20' 
+                              : 'hover:bg-[#FAF6F0]'
+                          }`}
                         >
                           <div className="flex items-center justify-between">
                             <span className="font-serif font-bold text-xs text-[#2E221C] flex items-center space-x-1.5">
                               <dept.icon className={`h-3.5 w-3.5 ${dept.color}`} />
                               <span>{dept.title}</span>
                             </span>
-                            <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-sm bg-[#2E221C]/5 text-[#8E7C74]">
+                            <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded-sm ${
+                              dept.directLink === 'coffee-school-nairobi'
+                                ? 'bg-[#C28A4E] text-white'
+                                : 'bg-[#2E221C]/5 text-[#8E7C74]'
+                            }`}>
                               {dept.badge}
                             </span>
                           </div>

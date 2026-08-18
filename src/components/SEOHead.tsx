@@ -66,6 +66,13 @@ const SEO_MAP: Record<string, PageMeta> = {
     path: "/student-life",
     ogType: "website"
   },
+  'coffee-school-nairobi': {
+    title: "Coffee School in Nairobi | Barista, Roasting & Coffee Technology Courses | VIBIT",
+    description: "Accredited Coffee School in Nairobi at Leomar Court, Westlands. Master Barista Skills, Commercial Coffee Roasting, Sensory Cupping, Coffee Technology, and Agribusiness. TVET approved with 85%+ practical lab training.",
+    keywords: "coffee school in Nairobi, coffee school Nairobi, barista training Nairobi, barista course Nairobi, coffee roasting training Nairobi, coffee cupping course Nairobi, coffee technology course Kenya, coffee classes Nairobi, specialty coffee training Westlands, VIBIT coffee school",
+    path: "/coffee-school-nairobi",
+    ogType: "website"
+  },
   admin: {
     title: "Registrar Administration Portal | VIBIT Agricultural Training College",
     description: "VIBIT Agricultural Training College internal registrar and student administration portal.",
