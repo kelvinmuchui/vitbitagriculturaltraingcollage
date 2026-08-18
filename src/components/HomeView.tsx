@@ -30,28 +30,31 @@ export default function HomeView({ setView, setSelectedCourseId }: HomeViewProps
 
   const leadingPrograms = [
     {
-      id: "diploma-agri",
-      title: "Diploma in Agribusiness Management",
-      duration: "2 Years",
-      highlight: "Comprehensive agronomy & trade principles",
-      badge: "High Enrollment",
-      color: "border-emerald-600/30 text-emerald-800 bg-emerald-50"
-    },
-    {
-      id: "cert-barista",
-      title: "Certificate in Barista & Coffee Sensory Arts",
-      duration: "1 Year",
-      highlight: "Advanced espresso, milk texturing & palate metrics",
+      id: "barista-skills",
+      title: "Barista Training & Coffee Arts",
+      duration: "12 Weeks",
+      department: "Coffee Courses",
+      highlight: "Espresso calibration, milk latte art & café workflow speed",
       badge: "SCA Aligned",
       color: "border-amber-600/30 text-amber-800 bg-amber-50"
     },
     {
-      id: "short-roasting",
-      title: "Commercial Coffee Roasting Masterclass",
-      duration: "1 Month",
-      highlight: "Drum roaster mechanics, gas logging & profiling",
-      badge: "Executive Favorite",
+      id: "coffee-technology",
+      title: "Coffee Technology & Quality Science",
+      duration: "12 Weeks",
+      department: "Coffee Courses",
+      highlight: "Green bean grading, moisture analytics & dry milling quality",
+      badge: "Industry Standard",
       color: "border-rose-600/30 text-rose-800 bg-rose-50"
+    },
+    {
+      id: "agripreneurship",
+      title: "Agripreneurship & Commodity Export Logistics",
+      duration: "8 Weeks",
+      department: "Agriculture Courses",
+      highlight: "Commercial farm models, direct export trade & hedging",
+      badge: "High ROI",
+      color: "border-emerald-600/30 text-emerald-800 bg-emerald-50"
     }
   ];
 

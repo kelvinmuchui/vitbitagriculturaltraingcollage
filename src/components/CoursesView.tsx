@@ -129,6 +129,7 @@ export default function CoursesView({ setView, selectedCourseId, setSelectedCour
   
   // 1. Program Catalog state
   const [searchQuery, setSearchQuery] = useState('');
+  const [activeDepartment, setActiveDepartment] = useState<'all' | 'coffee' | 'agriculture' | 'tvet'>('all');
   const [activeCategory, setActiveCategory] = useState<'all' | 'diploma' | 'certificate' | 'short' | 'professional'>('all');
   const [expandedSyllabus, setExpandedSyllabus] = useState<Record<string, boolean>>({});
 
@@ -155,22 +156,31 @@ export default function CoursesView({ setView, selectedCourseId, setSelectedCour
     }
   }, [selectedCourseId]);
 
+  const departments = [
+    { id: 'all', label: 'All Departments', icon: BookOpen, count: courses.length },
+    { id: 'coffee', label: '☕ Coffee Courses', icon: Coffee, count: courses.filter(c => c.department === 'coffee').length },
+    { id: 'agriculture', label: '🌱 Agriculture Courses', icon: Leaf, count: courses.filter(c => c.department === 'agriculture').length },
+    { id: 'tvet', label: '📜 TVET Programmes', icon: Award, count: courses.filter(c => c.department === 'tvet').length },
+  ];
+
   const categories = [
-    { id: 'all', label: 'All Programs' },
+    { id: 'all', label: 'All Levels' },
     { id: 'diploma', label: 'Diplomas' },
     { id: 'certificate', label: 'Certificates' },
-    { id: 'short', label: 'Short Courses' },
+    { id: 'short', label: 'Short / Modular' },
     { id: 'professional', label: 'Executive' },
   ];
 
   const selectedCourseObj = courses.find(c => c.id === selectedCourseId);
 
   const filteredCourses = courses.filter((course) => {
+    const matchesDept = activeDepartment === 'all' || course.department === activeDepartment;
     const matchesCategory = activeCategory === 'all' || course.category === activeCategory;
     const matchesSearch = course.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
                           course.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                          course.certification.toLowerCase().includes(searchQuery.toLowerCase());
-    return matchesCategory && matchesSearch;
+                          course.certification.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                          (course.subCategory && course.subCategory.toLowerCase().includes(searchQuery.toLowerCase()));
+    return matchesDept && matchesCategory && matchesSearch;
   });
 
   const toggleSyllabus = (courseId: string) => {
@@ -345,16 +355,53 @@ export default function CoursesView({ setView, selectedCourseId, setSelectedCour
             >
               {/* Dynamic Filter / Search Bar */}
               <motion.div 
-                className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+                className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 0.5 }}
               >
-                <div className="bg-white border border-[#2E221C]/10 rounded-2xl p-6 sm:p-8 shadow-md flex flex-col md:flex-row items-center justify-between gap-6">
+                {/* 1. Main Department Switcher */}
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+                  {departments.map((dept) => {
+                    const isSelected = activeDepartment === dept.id;
+                    const Icon = dept.icon;
+                    return (
+                      <button
+                        key={dept.id}
+                        id={`dept-tab-${dept.id}`}
+                        onClick={() => {
+                          setActiveDepartment(dept.id as any);
+                          setSelectedCourseId(null);
+                        }}
+                        className={`p-4 rounded-2xl border text-left transition-all cursor-pointer flex flex-col justify-between space-y-2 ${
+                          isSelected
+                            ? 'bg-[#2E221C] text-white border-[#2E221C] shadow-md'
+                            : 'bg-white text-[#2E221C] border-[#2E221C]/10 hover:border-[#C28A4E]/40 hover:bg-[#FAF6F0]/50'
+                        }`}
+                      >
+                        <div className="flex items-center justify-between w-full">
+                          <Icon className={`h-5 w-5 ${isSelected ? 'text-[#C28A4E]' : 'text-[#8E7C74]'}`} />
+                          <span className={`text-[11px] font-mono font-bold px-2 py-0.5 rounded-full ${
+                            isSelected ? 'bg-white/20 text-white' : 'bg-[#FAF6F0] text-[#8E7C74]'
+                          }`}>
+                            {dept.count} {dept.count === 1 ? 'course' : 'courses'}
+                          </span>
+                        </div>
+                        <div className="font-serif font-bold text-sm sm:text-base">
+                          {dept.label}
+                        </div>
+                      </button>
+                    );
+                  })}
+                </div>
+
+                {/* 2. Secondary Filter Bar: Level Pills & Search */}
+                <div className="bg-white border border-[#2E221C]/10 rounded-2xl p-4 sm:p-6 shadow-xs flex flex-col md:flex-row items-center justify-between gap-4">
                   
-                  {/* Category Filter Pills */}
-                  <div className="flex flex-wrap items-center gap-2 w-full md:w-auto">
+                  {/* Category / Level Filter Pills */}
+                  <div className="flex flex-wrap items-center gap-1.5 w-full md:w-auto">
+                    <span className="text-[11px] font-bold uppercase tracking-wider text-[#8E7C74] mr-2">Level:</span>
                     {categories.map((cat) => (
                       <button
                         key={cat.id}
@@ -363,9 +410,9 @@ export default function CoursesView({ setView, selectedCourseId, setSelectedCour
                           setActiveCategory(cat.id as any);
                           setSelectedCourseId(null);
                         }}
-                        className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                        className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                           activeCategory === cat.id
-                            ? 'bg-[#2E221C] text-[#FAF6F0] shadow-sm'
+                            ? 'bg-[#C28A4E] text-white shadow-xs'
                             : 'bg-[#FAF6F0] text-[#2E221C]/80 hover:bg-[#2E221C]/5 border border-[#2E221C]/10'
                         }`}
                       >
@@ -379,16 +426,16 @@ export default function CoursesView({ setView, selectedCourseId, setSelectedCour
                     <input
                       type="text"
                       id="courses-search"
-                      placeholder="Search syllabus or programs..."
+                      placeholder="Search courses, barista, agronomy..."
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
-                      className="w-full bg-[#FAF6F0] border border-[#2E221C]/15 rounded-xl pl-11 pr-4 py-3 text-xs text-[#2E221C] placeholder-[#8E7C74]/60 focus:border-[#C28A4E] focus:bg-white transition-all shadow-inner"
+                      className="w-full bg-[#FAF6F0] border border-[#2E221C]/15 rounded-xl pl-11 pr-4 py-2.5 text-xs text-[#2E221C] placeholder-[#8E7C74]/60 focus:border-[#C28A4E] focus:bg-white transition-all shadow-inner"
                     />
-                    <Search className="h-4.5 w-4.5 text-[#8E7C74] absolute left-3.5 top-3.5" />
+                    <Search className="h-4 w-4 text-[#8E7C74] absolute left-3.5 top-3" />
                     {searchQuery && (
                       <button 
                         onClick={() => setSearchQuery('')}
-                        className="absolute right-3 top-3.5 p-0.5 hover:bg-[#2E221C]/10 rounded-full cursor-pointer"
+                        className="absolute right-3 top-3 p-0.5 hover:bg-[#2E221C]/10 rounded-full cursor-pointer"
                       >
                         <X className="h-3 w-3 text-[#8E7C74]" />
                       </button>
@@ -504,10 +551,15 @@ export default function CoursesView({ setView, selectedCourseId, setSelectedCour
                               className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
                               referrerPolicy="no-referrer"
                             />
-                            <div className="absolute top-3 left-3 flex gap-2">
-                              <span className={`text-[10px] uppercase font-extrabold tracking-wider px-3 py-1 rounded-full border shadow-sm ${getCategoryBadgeColor(course.category)}`}>
+                            <div className="absolute top-3 left-3 flex flex-wrap gap-1.5 max-w-[85%]">
+                              <span className={`text-[10px] uppercase font-extrabold tracking-wider px-2.5 py-0.5 rounded-full border shadow-sm ${getCategoryBadgeColor(course.category)}`}>
                                 {course.category}
                               </span>
+                              {course.subCategory && (
+                                <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-[#2E221C]/85 text-white backdrop-blur-xs shadow-xs">
+                                  {course.subCategory}
+                                </span>
+                              )}
                             </div>
                           </div>
 

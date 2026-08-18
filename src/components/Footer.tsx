@@ -87,11 +87,12 @@ export default function Footer({ setView }: FooterProps) {
             </h4>
             <ul className="space-y-3.5">
               {[
-                { id: 'home', label: 'Welcome Portal' },
-                { id: 'about', label: 'Our Standards & Labs' },
-                { id: 'courses', label: 'Program Catalog' },
-                { id: 'admissions', label: 'Enrollment Portal' },
-                { id: 'resources', label: 'Agricultural Guides & Resources' },
+                { id: 'home', label: 'Home' },
+                { id: 'about', label: 'About VIBIT' },
+                { id: 'courses', label: 'All Courses & Tracks' },
+                { id: 'admissions', label: 'Admissions & Intake' },
+                { id: 'student-life', label: 'Student Life & Campus' },
+                { id: 'resources', label: 'News & Agricultural Blog' },
                 { id: 'contact', label: 'Contact Registrar' }
               ].map((link) => (
                 <li key={link.id}>

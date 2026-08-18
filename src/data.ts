@@ -10,11 +10,13 @@ import courseMixology from './assets/images/course_mixology_1784976493584.jpg';
 import aiCoffeeAgtech from './assets/images/ai_coffee_agtech_1784706447375.jpg';
 import courseCoopCert from './assets/images/course_coop_cert_1784976507855.jpg';
 import courseCoopDiploma from './assets/images/course_coop_diploma_1784976521899.jpg';
+import coffeeCherriesDrying from './assets/images/coffee_cherries_drying_1783338132429.jpg';
+import sortingBeans from './assets/images/sorting_beans_1783338143134.jpg';
+import facilitySoilAnalytics from './assets/images/facility_soil_analytics_1784976581491.jpg';
 
 import facilityEspressoLab from './assets/images/facility_espresso_lab_1784976539403.jpg';
 import facilityRoasteryQc from './assets/images/facility_roastery_qc_1784976554142.jpg';
 import facilityCoffeeNursery from './assets/images/facility_coffee_nursery_1784976568320.jpg';
-import facilitySoilAnalytics from './assets/images/facility_soil_analytics_1784976581491.jpg';
 
 import testimonialMercy from './assets/images/testimonial_mercy_1784976594167.jpg';
 import testimonialSamuel from './assets/images/testimonial_samuel_1784976608625.jpg';
@@ -23,100 +25,66 @@ import testimonialDavid from './assets/images/testimonial_david_1784976621584.jp
 export const LOGO_URL = ""; // Empty string or placeholder since we are using the new React <Logo /> component!
 
 export const COURSES: Course[] = [
+  /* =========================================================================
+     1. COFFEE COURSES (6 Specialized Pillars)
+     ========================================================================= */
   {
-    id: "barista-skills",
-    title: "Coffee Barista Skills",
-    category: "certificate",
+    id: "coffee-technology",
+    title: "Coffee Technology & Quality Science",
+    category: "diploma",
+    department: "coffee",
+    subCategory: "Coffee Technology",
     duration: "12 Weeks",
-    level: "Level 3 Certificate",
-    certification: "TVET Approved Certificate in Coffee Barista Skills",
-    description: "Master espresso extraction mechanics, milk chemistry, high-fidelity latte art, sensory profiling, and high-efficiency café workflow operations.",
+    level: "Advanced Certificate / Diploma",
+    certification: "TVET Certificate in Coffee Technology, Quality Control & Processing",
+    description: "Deep dive into coffee biochemistry, moisture testing metrics, water activity science, green bean defect grading, dry milling yield math, and export lot validation.",
     syllabus: [
-      "Espresso Extraction Science & Grind Calibration",
-      "Milk Chemistry, Micro-Foam Texturing & Latte Art Pours",
-      "Manual Brewing Methods (V60, Chemex, Aeropress)",
-      "Sensory Analysis Foundations & Tasting Protocols",
-      "Café Workflow Optimization & Equipment Maintenance"
+      "Physical & Chemical Properties of Green Coffee Beans",
+      "Green Coffee Grading & ISO / SCA Physical Defect Count Protocols",
+      "Moisture Content, Water Activity & Bean Density Measurement",
+      "Dry Milling Machinery: Destoners, Hullers, Graders & Color Sorters",
+      "Warehouse Storage, GrainPro Bag Preservation & Export Standards"
     ],
-    image: courseBaristaSkills,
+    image: sortingBeans,
     fees: {
-      tuition: 50000,
-      labFee: 10000,
+      tuition: 85000,
+      labFee: 30000,
       deposit: 0
     },
-    schedule: "Full-Time (Mon - Fri) or Evening Sessions",
+    schedule: "Full-Time (Mon - Fri) or Modular Weekend",
     requirements: [
-      "Open to high school leavers and coffee enthusiasts",
-      "KCSE certificate or equivalent prior learning",
-      "Passion for culinary hospitality and specialty coffee"
+      "Secondary school certificate (KCSE D+ or equivalent)",
+      "Basic interest in coffee quality assurance and laboratory testing"
     ],
     careers: [
-      "Head Barista & Café Shift Supervisor",
-      "Specialty Coffee Barista (Local & International Hospitality)",
-      "Cruise Ship / Overseas Barista Specialist (Gulf & Europe)",
-      "Café Entrepreneur / Independent Coffee Bar Owner"
+      "Coffee Quality Assurance (QA) Lab Manager",
+      "Green Coffee Sourcing & Export Quality Controller",
+      "Dry Mill Quality Supervisor",
+      "Coffee Board / Trade Standard Inspector"
     ],
-    targetAudience: "Aspiring professional baristas, hospitality workers, café founders, and youth seeking international job mobility.",
-    intakes: ["January", "May", "September", "First Monday of Every Month (Modular)"],
-    practicalHoursRatio: "85% Hands-on Machine Labs • 15% Theory",
-    seoTitle: "Barista Course in Nairobi Kenya | Professional Barista Training & Fees | VIBIT",
-    metaDescription: "Enroll in accredited Coffee Barista Skills training in Nairobi at VIBIT. Master espresso calibration, milk latte art, brewing & café operations. Apply today.",
-    primaryKeyword: "barista training Nairobi"
+    targetAudience: "Coffee mill technicians, quality analysts, exporters, warehouse managers, and coffee cooperative officers.",
+    intakes: ["January", "May", "September", "Monthly Modular"],
+    practicalHoursRatio: "80% Lab Diagnostics • 20% Theory",
+    seoTitle: "Coffee Technology Course in Kenya | Quality Control & Processing | VIBIT",
+    metaDescription: "Master coffee technology, green bean grading, moisture analytics, and dry milling quality control in Nairobi at VIBIT Agricultural Training College.",
+    primaryKeyword: "coffee technology course Kenya"
   },
   {
-    id: "agripreneurship",
-    title: "Agripreneurship",
-    category: "professional",
-    duration: "8 Weeks",
-    level: "Certificate & Practical Modules",
-    certification: "TVET Approved Certificate in Agripreneurship",
-    description: "Build scalable agribusiness models. Master global supply chain systems, direct trade strategies, pricing hedging on futures markets, and regional export compliance.",
-    syllabus: [
-      "Business Model Generation for Commercial Farms",
-      "Global Coffee Supply Chains, Logistics, & Trade Agreements",
-      "The Futures Market: Price Hedging & Risk Management",
-      "Agribusiness Bookkeeping, Taxation, & Financial Audit Standards",
-      "Strategic Branding, E-Commerce, & Pitching to Global Investors"
-    ],
-    image: courseAgripreneurship,
-    fees: {
-      tuition: 40000,
-      labFee: 20000,
-      deposit: 0
-    },
-    schedule: "Weekend and Evening Hybrid",
-    requirements: [
-      "Interest in agricultural entrepreneurship and commodity trade",
-      "Basic business arithmetic and secondary education background",
-      "Existing farmers and agro-investors highly welcomed"
-    ],
-    careers: [
-      "Agribusiness Founder & Commercial Farm Manager",
-      "Agricultural Export Procurement & Logistics Officer",
-      "Commodity Trading & Sourcing Specialist",
-      "Agri-Fintech & Agricultural Loan Consultant"
-    ],
-    targetAudience: "Commercial farmers, agricultural entrepreneurs, cooperative committee members, and youth investing in modern agro-enterprises.",
-    intakes: ["January", "May", "September", "Modular Weekend Cohorts"],
-    practicalHoursRatio: "70% Case Studies & Field Analysis • 30% Strategy Labs",
-    seoTitle: "Agribusiness Course in Kenya | Agripreneurship & Export Training | VIBIT",
-    metaDescription: "Learn commercial agribusiness, commodity export logistics, and farm financial management at VIBIT Agricultural Training College Nairobi.",
-    primaryKeyword: "agribusiness course in Kenya"
-  },
-  {
-    id: "coffee-agronomy",
-    title: "Coffee Agronomy",
+    id: "coffee-production",
+    title: "Coffee Production & Agronomy",
     category: "certificate",
+    department: "coffee",
+    subCategory: "Coffee Production",
     duration: "8 Weeks",
     level: "Level 3 Certificate",
-    certification: "TVET Approved Certificate in Coffee Agronomy",
-    description: "A comprehensive grounding in coffee botany, soil health science, climate-resilient nursery management, and organic crop nutrition.",
+    certification: "TVET Approved Certificate in Coffee Production & Agronomy",
+    description: "A comprehensive practical grounding in Coffea Arabica botany, seedling nursery propagation, soil chemistry, climate-smart agroforestry, and organic farm nutrition.",
     syllabus: [
-      "Introduction to Coffee Botany & Cultivar Selection",
-      "Nursery Setup, Shading Dynamics & Propagation Techniques",
-      "Soil Chemistry, Nutrition Management & Composting Methods",
-      "Climate-Smart Agroforestry & Shaded Plot Design",
-      "Pest, Weed & Disease Management Protocols"
+      "Coffee Botany, Taxonomy & Kenyan Cultivars (SL28, SL34, Ruiru 11, Batian)",
+      "Commercial Nursery Setup, Seedling Propagation & Grafting",
+      "Soil Fertility Management, pH Balancing & Organic Composting",
+      "Canopy Management, Pruning Systems & Shade Tree Integration",
+      "Integrated Pest & Disease Management (CBD, CLR, Stem Borer)"
     ],
     image: courseAgronomy,
     fees: {
@@ -126,36 +94,79 @@ export const COURSES: Course[] = [
     },
     schedule: "Full-Time or Block Release",
     requirements: [
-      "KCSE D+ or Certificate in General Agriculture",
-      "Passion for sustainable crop science and coffee estate management"
+      "KCSE D (Plain) or prior farming experience",
+      "Passion for sustainable coffee cultivation and estate productivity"
     ],
     careers: [
-      "Coffee Estate Agronomist & Field Extension Officer",
+      "Coffee Farm Agronomist & Field Extension Officer",
       "Certified Coffee Seedling Nursery Operator",
-      "Sustainable Soil & Crop Protection Consultant",
-      "Cooperative Agricultural Field Advisor"
+      "Crop Nutrition & Sustainable Farm Consultant",
+      "Estate Supervisor & Cooperative Field Officer"
     ],
-    targetAudience: "Coffee estate managers, agricultural extension agents, nursery owners, and crop science students.",
-    intakes: ["January", "May", "September"],
+    targetAudience: "Coffee estate managers, smallholder farmers, nursery operators, and agricultural extension agents.",
+    intakes: ["January", "May", "September", "Monthly Cohorts"],
     practicalHoursRatio: "80% Greenhouse & Field Trials • 20% Lecture",
-    seoTitle: "Coffee Agronomy Course in Kenya | Sustainable Crop Science | VIBIT",
-    metaDescription: "Master coffee agronomy, soil chemistry, nursery propagation, and climate-smart farm management at VIBIT Agricultural Training College.",
-    primaryKeyword: "coffee agronomy course Kenya"
+    seoTitle: "Coffee Production & Agronomy Course Kenya | Sustainable Farming | VIBIT",
+    metaDescription: "Study coffee production, nursery management, soil nutrition, and climate-smart agronomy in Nairobi with VIBIT Agricultural Training College.",
+    primaryKeyword: "coffee production course Kenya"
+  },
+  {
+    id: "coffee-processing",
+    title: "Coffee Processing & Post-Harvest Technology",
+    category: "short",
+    department: "coffee",
+    subCategory: "Coffee Processing",
+    duration: "6 Weeks",
+    level: "Certificate Level",
+    certification: "VIBIT Certificate in Coffee Processing & Mill Operations",
+    description: "Master wet and dry processing methodologies, Brix sugar cherry sorting, controlled fermentation (anaerobic, carbonic maceration, honey, natural), and raised bed solar drying.",
+    syllabus: [
+      "Cherry Harvesting Criteria & Refractometer Brix Sugar Testing",
+      "Wet Processing Mechanics: Eco-Pulping, Demucilaging & Washing Channels",
+      "Experimental Fermentation: Anaerobic, Carbonic Maceration & Extended Yeast",
+      "Natural & Honey Processing Protocols for Micro-Lots",
+      "Solar Raised Bed Drying Kinetics & Parchment Moisture Stabilization"
+    ],
+    image: coffeeCherriesDrying,
+    fees: {
+      tuition: 55000,
+      labFee: 20000,
+      deposit: 0
+    },
+    schedule: "Full-Time Intensive or Harvest-Season Block",
+    requirements: [
+      "Open to coffee farmers, wet mill managers, and processing enthusiasts",
+      "Basic understanding of agricultural handling"
+    ],
+    careers: [
+      "Wet Mill (Factory) Operations Manager",
+      "Specialty Micro-Lot Processing Specialist",
+      "Post-Harvest Quality Consultant",
+      "Cooperative Factory Processing Supervisor"
+    ],
+    targetAudience: "Wet mill managers, farm owners seeking specialty price premiums, cooperative factory managers, and processing innovators.",
+    intakes: ["January", "May", "September", "Harvest Intake"],
+    practicalHoursRatio: "85% Mill & Solar Bed Practicals • 15% Theory",
+    seoTitle: "Coffee Processing Course Kenya | Wet & Dry Milling Technology | VIBIT",
+    metaDescription: "Learn professional coffee processing, experimental anaerobic fermentations, and solar bed drying protocols at VIBIT Agricultural Training College.",
+    primaryKeyword: "coffee processing course Kenya"
   },
   {
     id: "cupping-technology",
-    title: "Coffee Cupping & Technology",
+    title: "Coffee Cupping & Sensory Grading",
     category: "diploma",
+    department: "coffee",
+    subCategory: "Coffee Cupping",
     duration: "12 Weeks",
     level: "Advanced Diploma / Certificate",
-    certification: "TVET Certificate in Coffee Cupping, Grading & Processing Technology",
-    description: "Advanced sensory analysis, specialty grading, moisture validation, dry milling loss calculation, and wet mill operations.",
+    certification: "TVET Certificate in Coffee Cupping, Sensory Grading & QA",
+    description: "Advanced sensory analysis, SCA cupping protocols, triangulation drills, olfactory Le Nez du Café calibration, acid profiling, and commercial defect scoring.",
     syllabus: [
-      "SCA Sensory Evaluation Protocols & Olfactory Training",
-      "Triangulation Drills & Identifying Bean Defect Classes",
-      "Parchment Moisture Analysis & Milling Loss Math",
-      "Biochemistry of Fermentation & Processing Technology",
-      "Export Board Phytosanitary Requirements & Lot Sealing Protocols"
+      "SCA Sensory Evaluation Protocols & Sensory Booth Setup",
+      "Olfactory Discrimination & Flavor Wheel Mapping (Fragrance/Aroma)",
+      "Taste Triangulation Drills & Acidity/Body/Cleanliness Scoring",
+      "Identifying & Penalizing Commercial Defects (Stinker, Sour, Mould, Phenol)",
+      "Cupping for Green Coffee Procurement, Auction Bidding & Export Contracts"
     ],
     image: cuppingLabSetup,
     fees: {
@@ -166,16 +177,16 @@ export const COURSES: Course[] = [
     schedule: "Full-Time or Alternate Weekends",
     requirements: [
       "Secondary school certificate or prior barista / roasting experience",
-      "Sensory aptitude and commitment to rigorous quality control standards"
+      "Sensory aptitude and keen palate for flavor differentiation"
     ],
     careers: [
       "Licensed Coffee Cupper & Quality Assurance (QA) Director",
       "Green Coffee Buyer & Export Grader",
-      "Wet & Dry Mill Operations Quality Manager",
-      "Coffee Auction Sensory Representative"
+      "Auction Sensory Representative & Sample Room Manager",
+      "Specialty Coffee Roastery Green Buyer"
     ],
     targetAudience: "Quality control technicians, coffee exporters, mill managers, and advanced sensory professionals.",
-    intakes: ["January", "May", "September"],
+    intakes: ["January", "May", "September", "Monthly Cohorts"],
     practicalHoursRatio: "90% Sensory Lab Cupping • 10% Industry Standards",
     seoTitle: "Coffee Cupping & Grading Course Kenya | Sensory Technology | VIBIT",
     metaDescription: "Become a certified coffee cupper and sensory quality specialist at VIBIT. Master SCA grading, defect classification, and export lot evaluation in Nairobi.",
@@ -183,18 +194,20 @@ export const COURSES: Course[] = [
   },
   {
     id: "coffee-roasting",
-    title: "Coffee Roasting",
+    title: "Coffee Roasting & Profile Analytics",
     category: "short",
+    department: "coffee",
+    subCategory: "Coffee Roasting",
     duration: "8 Weeks",
     level: "Intermediate to Advanced",
     certification: "VIBIT Certificate in Coffee Roasting Technology",
-    description: "Operate commercial roasters, manage heat profiles, trace roast curves, log first crack, and detect common roasting defects.",
+    description: "Operate commercial drum roasters (Probat, Diedrich), manage heat and air thermodynamics, trace roast curves, log Rate of Rise (RoR), and prevent roast defects.",
     syllabus: [
-      "Commercial Roaster Hardware Setup & Pre-Start Safety",
-      "Thermodynamics, Conduction, and Convection Profiles",
-      "Artisan & Cropster Software Profile Logging Integration",
-      "Density and Moisture Testing of Green & Roasted Coffee",
-      "Identifying Roast Defects: Under-Roasting, Scorching, & Baking"
+      "Commercial Drum Roaster Hardware Setup & Safe Operation",
+      "Thermodynamics: Conduction, Convection, & Radiation Profiles",
+      "Artisan & Cropster Software Integration and Curve Diagnostics",
+      "Rate of Rise (RoR), Yellowing, Maillard Reaction & First Crack Dynamics",
+      "Detecting Roast Defects: Under-Roasting, Scorching, Baking & Chipping"
     ],
     image: coffeeRoastingMachine,
     fees: {
@@ -205,7 +218,7 @@ export const COURSES: Course[] = [
     schedule: "Intensive Day or Evening Sessions",
     requirements: [
       "Open to baristas, roastery operators, and coffee entrepreneurs",
-      "Basic chemistry / thermodynamics comprehension"
+      "Basic chemistry and thermodynamics comprehension"
     ],
     careers: [
       "Commercial Head Roaster",
@@ -221,58 +234,109 @@ export const COURSES: Course[] = [
     primaryKeyword: "coffee roasting course Kenya"
   },
   {
-    id: "mixology",
-    title: "Mixology",
+    id: "barista-skills",
+    title: "Barista Training & Coffee Arts",
     category: "certificate",
+    department: "coffee",
+    subCategory: "Barista Training",
     duration: "12 Weeks",
     level: "Level 3 Certificate",
-    certification: "TVET Approved Certificate in Mixology",
-    description: "Designed for premium bar environments. Focuses on flavor mapping, cold-brew infusions, non-alcoholic cocktail design, syrups, and craft botanical formulations.",
+    certification: "TVET Approved Certificate in Coffee Barista Skills",
+    description: "Master commercial multi-boiler espresso machines, grind calibration, milk micro-foam texturing, free-pour latte art, manual brewing methods, and café workflow speed.",
     syllabus: [
-      "Foundations of Flavor Pairing & Structural Taste Science",
-      "Cold-Brew Infusions & Nitro-Draft Implementations",
-      "Craft Syrups, Shrubs, and Botanical Bitters Production",
-      "Creative Presentation, Garnish Artistry & Glassware Pairing",
-      "Inventory Management, Bar Setup, & Safety Standards"
+      "Espresso Extraction Science, Dose/Yield Ratios & Grind Calibration",
+      "Milk Chemistry, Micro-Foam Texturing & Symmetrical Latte Art Pours",
+      "Manual Brewing Methods: V60, Chemex, Aeropress, French Press & Syphon",
+      "Sensory Analysis Foundations & Dial-In Diagnostics",
+      "High-Volume Café Workflow Optimization, Machine Backflushing & Maintenance"
     ],
-    image: courseMixology,
+    image: courseBaristaSkills,
     fees: {
       tuition: 50000,
       labFee: 10000,
       deposit: 0
     },
-    schedule: "Full-Time or Evening Intensive",
+    schedule: "Full-Time (Mon - Fri) or Evening Sessions",
     requirements: [
-      "Minimum age: 18 years",
-      "Passion for culinary flavor pairing, craft beverages, and bar hospitality"
+      "Open to school leavers, hospitality workers, and coffee enthusiasts",
+      "KCSE certificate or equivalent prior learning",
+      "Passion for culinary hospitality and specialty beverage preparation"
     ],
     careers: [
-      "Professional Mixologist & Bar Captain",
-      "Craft Beverage & Mocktail Menu Developer",
-      "Luxury Resort / Cruise Line Bartender",
-      "Mobile Bar & Events Beverage Caterer"
+      "Head Barista & Café Shift Supervisor",
+      "Specialty Coffee Barista (Local & International Hospitality)",
+      "Cruise Ship / Overseas Barista Specialist (Gulf, Europe, Australia)",
+      "Café Entrepreneur / Independent Coffee Bar Founder"
     ],
-    targetAudience: "Hospitality professionals, beverage developers, resort staff, and creative bartenders.",
-    intakes: ["January", "May", "September", "Monthly Cohorts"],
-    practicalHoursRatio: "85% Bar Practical • 15% Flavor Science",
-    seoTitle: "Mixology Course in Nairobi Kenya | Craft Beverage & Bar Training | VIBIT",
-    metaDescription: "Study professional mixology, craft botanical beverage creation, and bar operations at VIBIT Agricultural Training College in Nairobi.",
-    primaryKeyword: "mixology course Nairobi"
+    targetAudience: "Aspiring professional baristas, hospitality workers, café founders, and youth seeking high-paying global employment.",
+    intakes: ["January", "May", "September", "First Monday of Every Month (Modular)"],
+    practicalHoursRatio: "85% Hands-on Machine Labs • 15% Theory",
+    seoTitle: "Barista Course in Nairobi Kenya | Professional Barista Training & Fees | VIBIT",
+    metaDescription: "Enroll in accredited Coffee Barista Skills training in Nairobi at VIBIT. Master espresso calibration, milk latte art, brewing & café operations. Apply today.",
+    primaryKeyword: "barista training Nairobi"
+  },
+
+  /* =========================================================================
+     2. AGRICULTURE COURSES (Commercial, AgTech & Crop Science)
+     ========================================================================= */
+  {
+    id: "agripreneurship",
+    title: "Agripreneurship & Commodity Export Logistics",
+    category: "professional",
+    department: "agriculture",
+    subCategory: "Agribusiness & Trade",
+    duration: "8 Weeks",
+    level: "Certificate & Practical Modules",
+    certification: "TVET Approved Certificate in Agripreneurship",
+    description: "Build scalable agribusiness ventures. Master global commodity supply chains, direct export trade protocols, farm financial bookkeeping, hedging on commodity exchanges, and agricultural investment pitch decks.",
+    syllabus: [
+      "Business Model Generation for Commercial & Contract Farms",
+      "Global Coffee & Agricultural Supply Chains, Shipping & Trade Compliance",
+      "Commodity Exchange Markets: Price Hedging & Risk Management",
+      "Agribusiness Bookkeeping, Farm Audits & Taxation Standards",
+      "Strategic Branding, Traceable E-Commerce & Pitching to Venture Capitalists"
+    ],
+    image: courseAgripreneurship,
+    fees: {
+      tuition: 40000,
+      labFee: 20000,
+      deposit: 0
+    },
+    schedule: "Weekend and Evening Hybrid",
+    requirements: [
+      "Interest in commercial agriculture, commodity export, and farm investments",
+      "Basic business arithmetic and secondary education background",
+      "Commercial farmers, exporters, and agro-investors highly welcomed"
+    ],
+    careers: [
+      "Agribusiness Founder & Commercial Farm General Manager",
+      "Agricultural Export Procurement & Logistics Officer",
+      "Commodity Trading & International Sourcing Specialist",
+      "Agri-Fintech & Agricultural Loan Portfolio Officer"
+    ],
+    targetAudience: "Commercial farmers, agricultural entrepreneurs, cooperative board members, and professionals launching agricultural enterprises.",
+    intakes: ["January", "May", "September", "Modular Weekend Cohorts"],
+    practicalHoursRatio: "70% Case Studies & Field Analysis • 30% Strategy Labs",
+    seoTitle: "Agribusiness Course in Kenya | Agripreneurship & Export Training | VIBIT",
+    metaDescription: "Learn commercial agribusiness, commodity export logistics, and farm financial management at VIBIT Agricultural Training College Nairobi.",
+    primaryKeyword: "agribusiness course in Kenya"
   },
   {
     id: "ai-coffee-industry",
-    title: "Certificate in AI in Coffee Industry",
+    title: "AI in Agriculture & Smart AgTech",
     category: "short",
+    department: "agriculture",
+    subCategory: "AgTech & Automation",
     duration: "12 Weeks",
     level: "Certificate in AgTech & AI",
-    certification: "VIBIT Certificate in AI Applications for Coffee Agronomy & Supply Chain",
-    description: "Learn to apply Artificial Intelligence, predictive yield modeling, computer vision bean defect sorting, and automated climate monitoring in the coffee value chain.",
+    certification: "VIBIT Certificate in AI Applications for Agriculture & Supply Chain",
+    description: "Learn to apply Artificial Intelligence, satellite remote sensing, computer vision bean defect sorting, smart IoT soil probes, and automated climate models in modern agriculture.",
     syllabus: [
-      "Introduction to AI, IoT Sensors & Machine Learning in Agriculture",
-      "Computer Vision & Automated Coffee Bean Defect Detection",
-      "AI-Powered Weather, Soil Sensor & Yield Prediction Models",
-      "Smart Supply Chain Tracking, Direct Settlement Systems & Digital Ledger",
-      "AI in Roasting Profile Optimization & Quality Control Automation"
+      "Introduction to AI, IoT Probes & Machine Learning in Crop Science",
+      "Computer Vision & Automated Optical Defect Sorting Systems",
+      "AI-Powered Weather Forecasting, Microclimate Sensors & Yield Modeling",
+      "Smart Supply Chain Blockchain Ledgers & Direct Digital Settlement",
+      "AI in Precision Roasting Optimization & Cold-Chain Monitoring"
     ],
     image: aiCoffeeAgtech,
     fees: {
@@ -280,18 +344,18 @@ export const COURSES: Course[] = [
       labFee: 10000,
       deposit: 0
     },
-    schedule: "Weekend Hybrid (Online + Practical Lab)",
+    schedule: "Weekend Hybrid (Online Lectures + On-Campus Machine Lab)",
     requirements: [
       "Basic computer literacy and secondary school qualification",
-      "Interest in modern agricultural technology and automation"
+      "Interest in agricultural technology, data analysis, and automation"
     ],
     careers: [
-      "AgTech Project Specialist & Digital Farm Integrator",
+      "AgTech Systems Specialist & Digital Farm Integrator",
       "Smart Agriculture Data Analyst",
       "Automated Processing Mill Quality Supervisor",
       "Digital Traceability & Supply Chain Specialist"
     ],
-    targetAudience: "Agronomists, tech innovators, supply chain specialists, and agricultural cooperative planners.",
+    targetAudience: "Agronomists, tech innovators, agricultural researchers, and cooperative planners.",
     intakes: ["January", "May", "September", "Weekend Hybrid Sessions"],
     practicalHoursRatio: "60% Software & Lab Practical • 40% Conceptual Foundations",
     seoTitle: "AI in Agriculture Course Kenya | AgTech & Smart Coffee Farming | VIBIT",
@@ -299,19 +363,107 @@ export const COURSES: Course[] = [
     primaryKeyword: "AI in agriculture Kenya"
   },
   {
+    id: "sustainable-agriculture",
+    title: "Sustainable Agriculture & Crop Production",
+    category: "certificate",
+    department: "agriculture",
+    subCategory: "Crop Science & Farm Management",
+    duration: "12 Weeks",
+    level: "Certificate Level",
+    certification: "TVET Certificate in Sustainable Crop Production & Farm Management",
+    description: "Comprehensive hands-on training in commercial horticulture, drip irrigation systems, soil fertility restoration, integrated pest management, and greenhouse management.",
+    syllabus: [
+      "Principles of Agroecology & Sustainable Soil Biology",
+      "Commercial Greenhouse Design, Humidity & Temperature Automation",
+      "Drip Irrigation Setup, Fertigation & Water Harvesting Systems",
+      "Integrated Biological Pest & Disease Management",
+      "Post-Harvest Handling, Cold Chain Logistics & Market Linkages"
+    ],
+    image: facilitySoilAnalytics,
+    fees: {
+      tuition: 55000,
+      labFee: 15000,
+      deposit: 0
+    },
+    schedule: "Full-Time (Mon - Fri) or Practical Saturday Intensive",
+    requirements: [
+      "KCSE D+ or prior practical experience in farm management",
+      "Passion for sustainable food security and high-value horticulture"
+    ],
+    careers: [
+      "Commercial Greenhouse & Horticultural Farm Manager",
+      "Sustainable Agriculture Field Consultant",
+      "Irrigation & Farm Infrastructure Specialist",
+      "Agri-Extension Trainer & Organic Inspector"
+    ],
+    targetAudience: "Horticultural farmers, greenhouse managers, agricultural extension workers, and youth entering high-value crop production.",
+    intakes: ["January", "May", "September", "Monthly Cohorts"],
+    practicalHoursRatio: "75% Practical Farm Work • 25% Agricultural Science",
+    seoTitle: "Sustainable Agriculture Course in Kenya | Crop Science & Farming | VIBIT",
+    metaDescription: "Enroll in Sustainable Agriculture and Crop Production training in Nairobi at VIBIT. Master greenhouse management, drip irrigation, and soil science.",
+    primaryKeyword: "sustainable agriculture course Kenya"
+  },
+
+  /* =========================================================================
+     3. TVET PROGRAMMES (CDACC Accreditations & Hospitality)
+     ========================================================================= */
+  {
+    id: "cooperative-management-diploma",
+    title: "Diploma in Co-operative Management",
+    category: "diploma",
+    department: "tvet",
+    subCategory: "TVET CDACC Level 6",
+    duration: "Two Years",
+    level: "Diploma Level (TVET CDACC Level 6)",
+    certification: "TVET National Diploma in Co-operative Governance & Management",
+    description: "Advanced 2-year leadership program for cooperative executives, covering administrative law, fiduciary audit standards, SACCO regulation, and international commodity trading.",
+    syllabus: [
+      "Advanced Cooperative Law & Administrative Statutory Compliance",
+      "Strategic Financial Management, Portfolio Risk & Auditing Standards",
+      "Direct Settlement Systems (DSS) & Macro Commodity Trading",
+      "International Trade Logistics & Cooperative Direct Exporting",
+      "Executive Leadership, Board Governance Dynamics & Member Equity"
+    ],
+    image: courseCoopDiploma,
+    fees: {
+      tuition: 270000,
+      labFee: 0,
+      deposit: 0
+    },
+    schedule: "Full-Time / Executive Modular Seminars (KSh 45,000 / semester)",
+    requirements: [
+      "KCSE C- (Minus) or Certificate in Co-operative Management / Business Administration",
+      "Passionate about agricultural cooperative leadership and governance"
+    ],
+    careers: [
+      "Chief Executive Officer (CEO) / General Manager of Cooperative Union",
+      "Senior SACCO Financial Controller & Risk Manager",
+      "Government Cooperative Auditor / Ministry Inspector",
+      "International Commodity & Direct Export Trade Director"
+    ],
+    targetAudience: "Cooperative directors, SACCO managers, finance graduates, and senior agricultural leaders.",
+    intakes: ["January", "May", "September"],
+    practicalHoursRatio: "50% Executive Case Studies • 50% Regulatory & Financial Seminars",
+    seoTitle: "Diploma in Cooperative Management in Kenya | TVET Diploma | VIBIT",
+    metaDescription: "Advance your leadership with a TVET National Diploma in Co-operative Management at VIBIT Agricultural Training College in Nairobi, Kenya.",
+    primaryKeyword: "diploma in cooperative management Kenya"
+  },
+  {
     id: "cooperative-management-cert",
     title: "Certificate in Co-operative Management",
     category: "certificate",
+    department: "tvet",
+    subCategory: "TVET CDACC Level 5",
     duration: "One Year",
-    level: "Certificate Level",
-    certification: "TVET Certificate in Co-operative Governance & Management",
-    description: "Comprehensive grounding in cooperative governance, financial accounting, DSS payment systems, and agricultural member extension services.",
+    level: "Certificate Level (TVET CDACC Level 5)",
+    certification: "TVET Certificate in Co-operative Governance & Operations",
+    description: "Comprehensive grounding in cooperative bookkeeping, financial accounting, Direct Settlement System (DSS) payments, and member agricultural extension services.",
     syllabus: [
-      "Cooperative Governance Legal Frameworks & Compliance",
-      "Financial Accounting, Fiduciary Bookkeeping, & Annual Audits",
+      "Cooperative Governance Legal Frameworks & Bylaws",
+      "Financial Accounting, Fiduciary Bookkeeping & Annual Audit Prep",
       "Direct Settlement Systems (DSS) Operations & Mobile Integration",
       "Member Engagement, Dispute Resolution & Extension Coordination",
-      "Strategic Management & Agricultural Investment Planning"
+      "Agricultural Marketing & Cooperative Value Addition"
     ],
     image: courseCoopCert,
     fees: {
@@ -338,43 +490,45 @@ export const COURSES: Course[] = [
     primaryKeyword: "cooperative management course Kenya"
   },
   {
-    id: "cooperative-management-diploma",
-    title: "Diploma in Co-operative Management",
-    category: "diploma",
-    duration: "Two Years",
-    level: "Diploma Level",
-    certification: "TVET National Diploma in Co-operative Governance & Management",
-    description: "Advanced 2-year leadership program for cooperative executives, covering administrative law, fiduciary audit standards, regional trade, and corporate governance.",
+    id: "mixology",
+    title: "Professional Mixology & Beverage Technology",
+    category: "certificate",
+    department: "tvet",
+    subCategory: "Hospitality & Beverage Arts",
+    duration: "12 Weeks",
+    level: "Level 3 Certificate",
+    certification: "TVET Approved Certificate in Mixology & Beverage Technology",
+    description: "Designed for world-class hospitality venues. Master flavor chemistry, cold-brew infusions, mocktails, botanical bitters formulation, and bar speed workflow.",
     syllabus: [
-      "Advanced Cooperative Law & Administrative Regulations",
-      "Strategic Financial Management & Auditing Standards",
-      "Direct Settlement Systems & Macro Commodity Trading",
-      "International Trade Logistics & Cooperative Direct Exporting",
-      "Executive Leadership & Board Governance Dynamics"
+      "Foundations of Flavor Pairing & Structural Taste Science",
+      "Cold-Brew Infusions & Nitro-Draft Implementations",
+      "Craft Syrups, Shrubs, and Botanical Bitters Production",
+      "Creative Presentation, Garnish Artistry & Glassware Pairing",
+      "Inventory Management, Bar Ergonomics, Safety & Responsible Service"
     ],
-    image: courseCoopDiploma,
+    image: courseMixology,
     fees: {
-      tuition: 270000,
-      labFee: 0,
+      tuition: 50000,
+      labFee: 10000,
       deposit: 0
     },
-    schedule: "Full-Time / Executive Seminars (KSh 45,000 / semester)",
+    schedule: "Full-Time or Evening Intensive",
     requirements: [
-      "KCSE C- (Minus) or Certificate in Co-operative Management / Business Administration",
-      "Passionate about agricultural cooperative leadership and governance"
+      "Minimum age: 18 years",
+      "Passion for culinary flavor pairing, craft beverages, and bar hospitality"
     ],
     careers: [
-      "Chief Executive Officer (CEO) / General Manager of Cooperative Union",
-      "Senior SACCO Financial Controller & Risk Manager",
-      "Government Cooperative Auditor / Ministry Inspector",
-      "International Commodity & Direct Export Trade Director"
+      "Professional Mixologist & Bar Captain",
+      "Craft Beverage & Mocktail Menu Developer",
+      "Luxury Resort / Cruise Line Bartender",
+      "Mobile Bar & Events Beverage Caterer"
     ],
-    targetAudience: "Cooperative directors, SACCO managers, finance graduates, and senior agricultural leaders.",
-    intakes: ["January", "May", "September"],
-    practicalHoursRatio: "50% Executive Case Studies • 50% Regulatory & Financial Seminars",
-    seoTitle: "Diploma in Cooperative Management in Kenya | TVET Diploma | VIBIT",
-    metaDescription: "Advance your leadership with a TVET National Diploma in Co-operative Management at VIBIT Agricultural Training College in Nairobi, Kenya.",
-    primaryKeyword: "diploma in cooperative management Kenya"
+    targetAudience: "Hospitality professionals, beverage developers, resort staff, and creative bartenders.",
+    intakes: ["January", "May", "September", "Monthly Cohorts"],
+    practicalHoursRatio: "85% Bar Practical • 15% Flavor Science",
+    seoTitle: "Mixology Course in Nairobi Kenya | Craft Beverage & Bar Training | VIBIT",
+    metaDescription: "Study professional mixology, craft botanical beverage creation, and bar operations at VIBIT Agricultural Training College in Nairobi.",
+    primaryKeyword: "mixology course Nairobi"
   }
 ];
 

@@ -180,6 +180,8 @@ export default function AdminView({ courses, onUpdateCourses, onResetCourses }: 
   const [courseFormData, setCourseFormData] = useState<Partial<Course>>({
     id: '',
     title: '',
+    department: 'coffee',
+    subCategory: 'Barista Training',
     category: 'certificate',
     duration: '',
     level: '',
@@ -301,6 +303,8 @@ export default function AdminView({ courses, onUpdateCourses, onResetCourses }: 
       const newCourse: Course = {
         id: newId,
         title: courseFormData.title,
+        department: (courseFormData.department as any) || 'coffee',
+        subCategory: courseFormData.subCategory || 'General Track',
         category: (courseFormData.category as any) || 'certificate',
         duration: courseFormData.duration,
         level: courseFormData.level || 'TVET Certified Module',
@@ -324,6 +328,8 @@ export default function AdminView({ courses, onUpdateCourses, onResetCourses }: 
           return {
             ...c,
             title: courseFormData.title || c.title,
+            department: (courseFormData.department as any) || c.department,
+            subCategory: courseFormData.subCategory || c.subCategory,
             category: (courseFormData.category as any) || c.category,
             duration: courseFormData.duration || c.duration,
             level: courseFormData.level || c.level,
@@ -357,6 +363,8 @@ export default function AdminView({ courses, onUpdateCourses, onResetCourses }: 
     setCourseFormData({
       id: course.id,
       title: course.title,
+      department: course.department,
+      subCategory: course.subCategory,
       category: course.category,
       duration: course.duration,
       level: course.level,
@@ -375,6 +383,8 @@ export default function AdminView({ courses, onUpdateCourses, onResetCourses }: 
     setCourseFormData({
       id: '',
       title: '',
+      department: 'coffee',
+      subCategory: 'Barista Training',
       category: 'certificate',
       duration: '',
       level: '',
@@ -803,7 +813,31 @@ export default function AdminView({ courses, onUpdateCourses, onResetCourses }: 
                       </div>
 
                       <div className="space-y-1">
-                        <label className="text-[10px] font-bold text-gray-500 uppercase tracking-wider block">Category *</label>
+                        <label className="text-[10px] font-bold text-gray-500 uppercase tracking-wider block">Department *</label>
+                        <select
+                          value={courseFormData.department || 'coffee'}
+                          onChange={(e) => setCourseFormData(prev => ({ ...prev, department: e.target.value as any }))}
+                          className="w-full bg-white border border-gray-200 rounded-xl px-3 py-2 text-xs text-[#2E221C] font-semibold focus:border-[#C28A4E] shadow-sm"
+                        >
+                          <option value="coffee">☕ Coffee Courses</option>
+                          <option value="agriculture">🌱 Agriculture Courses</option>
+                          <option value="tvet">📜 TVET Programmes</option>
+                        </select>
+                      </div>
+
+                      <div className="space-y-1">
+                        <label className="text-[10px] font-bold text-gray-500 uppercase tracking-wider block">Sub-Category / Track</label>
+                        <input
+                          type="text"
+                          value={courseFormData.subCategory || ''}
+                          onChange={(e) => setCourseFormData(prev => ({ ...prev, subCategory: e.target.value }))}
+                          placeholder="e.g. Barista Training, Coffee Roasting, Coffee Cupping"
+                          className="w-full bg-white border border-gray-200 rounded-xl px-3 py-2 text-xs text-[#2E221C] focus:border-[#C28A4E] shadow-sm"
+                        />
+                      </div>
+
+                      <div className="space-y-1">
+                        <label className="text-[10px] font-bold text-gray-500 uppercase tracking-wider block">Category Level *</label>
                         <select
                           value={courseFormData.category || 'certificate'}
                           onChange={(e) => setCourseFormData(prev => ({ ...prev, category: e.target.value as any }))}

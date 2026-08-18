@@ -6,6 +6,7 @@ import HomeView from './components/HomeView';
 import AboutView from './components/AboutView';
 import CoursesView from './components/CoursesView';
 import AdmissionsView from './components/AdmissionsView';
+import StudentLifeView from './components/StudentLifeView';
 import ContactView from './components/ContactView';
 import ResourcesView from './components/ResourcesView';
 import AdminView from './components/AdminView';
@@ -20,14 +21,16 @@ export default function App() {
     if (path === '/admin' || path === '/admin/' || hash === '#admin' || hash === '#/admin') {
       return 'admin';
     }
-    const possibleViews = ['home', 'about', 'courses', 'admissions', 'resources', 'contact'];
+    const possibleViews = ['home', 'about', 'courses', 'admissions', 'student-life', 'resources', 'news-blog', 'contact'];
     const match = possibleViews.find(v => path === `/${v}` || hash === `#${v}`);
+    if (match === 'news-blog') return 'resources';
     return match || 'home';
   });
 
   const setView = (view: string) => {
-    setRawView(view);
-    const targetPath = view === 'home' ? '/' : `/${view}`;
+    const normalized = view === 'news-blog' ? 'resources' : view;
+    setRawView(normalized);
+    const targetPath = normalized === 'home' ? '/' : `/${normalized}`;
     if (window.location.pathname !== targetPath) {
       window.history.pushState(null, '', targetPath);
     }
@@ -42,7 +45,7 @@ export default function App() {
       try {
         const parsed: Course[] = JSON.parse(saved);
         // Verify saved courses match the official fee structure IDs
-        if (parsed.some(c => c.id === 'barista-skills' || c.id === 'ai-coffee-industry')) {
+        if (parsed.some(c => c.id === 'barista-skills' || c.id === 'coffee-technology')) {
           return parsed;
         }
       } catch (e) { console.error(e); }
@@ -70,9 +73,9 @@ export default function App() {
       if (path === '/admin' || path === '/admin/' || hash === '#admin' || hash === '#/admin') {
         setRawView('admin');
       } else {
-        const possibleViews = ['home', 'about', 'courses', 'admissions', 'resources', 'contact'];
+        const possibleViews = ['home', 'about', 'courses', 'admissions', 'student-life', 'resources', 'news-blog', 'contact'];
         const match = possibleViews.find(v => path === `/${v}` || hash === `#${v}`);
-        setRawView(match || 'home');
+        setRawView(match === 'news-blog' ? 'resources' : (match || 'home'));
       }
     };
 
@@ -151,7 +154,10 @@ export default function App() {
             courses={courses}
           />
         );
+      case 'student-life':
+        return <StudentLifeView setView={setView} />;
       case 'resources':
+      case 'news-blog':
         return (
           <ResourcesView 
             setView={setView} 

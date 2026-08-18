@@ -2,6 +2,8 @@ export interface Course {
   id: string;
   title: string;
   category: 'diploma' | 'certificate' | 'short' | 'professional';
+  department: 'coffee' | 'agriculture' | 'tvet';
+  subCategory: string;
   duration: string;
   level: string;
   certification: string;
