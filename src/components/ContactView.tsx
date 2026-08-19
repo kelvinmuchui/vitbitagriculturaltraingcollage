@@ -164,7 +164,7 @@ export default function ContactView({ setView }: ContactViewProps) {
                       <span>Direct Dial Lines</span>
                       <ExternalLink className="h-3 w-3 text-[#C28A4E]" />
                     </h4>
-                    <p className="text-xs text-[#2E221C]/90 font-bold hover:underline">0708 137992 / +254 708 137992</p>
+                    <p className="text-xs text-[#2E221C]/90 font-bold hover:underline">0708 137992 / +254 759 065 090</p>
                     <p className="text-[10px] text-[#8E7C74]">Admissions desk open Mon-Fri 8am-5pm, Sat 8am-1pm</p>
                   </div>
                 </a>
