@@ -14,9 +14,9 @@ import coffeeCherriesDrying from './assets/images/coffee_cherries_drying_1783338
 import sortingBeans from './assets/images/sorting_beans_1783338143134.jpg';
 import facilitySoilAnalytics from './assets/images/facility_soil_analytics_1784976581491.jpg';
 import courseGeneralAgric from './assets/images/course_general_agric_1791444493905.jpg';
-import courseGeneralAgricLevel6 from './assets/images/course_general_agric_1791444493905b.jpg';
-import agricultureExtensionLevel6Image from './assets/images/agriculture_extension_level_6_field_practice.jpeg';
-import horticultureProductionLevel5Image from './assets/images/horticulture_production_level_5_field_practice.jpeg';
+import courseGeneralAgricLevel6 from './assets/images/general_agriculture_level_6_students.jpeg';
+import agricultureExtensionLevel6Image from './assets/images/agriculture_extension_level_6_fieldwork.jpeg';
+import horticultureProductionLevel5Image from './assets/images/horticulture_production_level_5_nursery.jpeg';
 import horticultureProductionLevel6Image from './assets/images/horticulture_production_level_6_field_practice.jpeg';
 import courseHorticultureFarm from './assets/images/course_horticulture_farm_1791444505047.jpg';
 import courseWaiterService from './assets/images/course_waiter_service_1791444518473.jpg';
