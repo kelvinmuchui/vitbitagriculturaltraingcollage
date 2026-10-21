@@ -81,7 +81,7 @@ export const COURSES: Course[] = [
   },
   {
     id: "coffee-agronomy",
-    title: "coffee Agronomy",
+    title: "Coffee Agronomy",
     category: "certificate",
     department: "coffee",
     subCategory: "Coffee Agronomy & Crop Science",
@@ -163,7 +163,7 @@ export const COURSES: Course[] = [
   },
   {
     id: "coffee-roasting",
-    title: "coffee Roasting",
+    title: "Coffee Roasting",
     category: "short",
     department: "coffee",
     subCategory: "Roasting Technology",
@@ -804,7 +804,7 @@ export const COURSES: Course[] = [
   },
   {
     id: "food-beverage-management-level-2",
-    title: "Food and Beverage management level 2 waiter module 1",
+    title: "Food and Beverage management level 3 waiter module 1",
     category: "certificate",
     department: "hospitality",
     subCategory: "Food & Beverage Management",
