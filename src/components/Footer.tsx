@@ -237,7 +237,7 @@ export default function Footer({ setView }: FooterProps) {
         {/* Bottom Section - Copyright */}
         <div className="pt-8 border-t border-[#FAF6F0]/10 text-center md:flex md:justify-between md:items-center">
           <p className="text-xs text-[#FAF6F0]/50">
-            &copy; {new Date().getFullYear()} VIBIT Agricultural Training College. All Rights Reserved. TVET Board Reg No: TVET/AGRICULTURE/2024/098
+            &copy; {new Date().getFullYear()} VIBIT Agricultural Training College. All Rights Reserved. TVET Board Reg No: TVATA/PRIVATE/TVC/0158/2026
           </p>
           <div className="mt-4 md:mt-0 flex justify-center space-x-6 text-xs text-[#FAF6F0]/50">
             <a href="#" className="hover:text-[#C28A4E] transition-colors">Academic Catalog</a>
