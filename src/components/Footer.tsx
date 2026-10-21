@@ -121,7 +121,11 @@ export default function Footer({ setView }: FooterProps) {
               </li>
               <li className="flex items-center space-x-3 text-sm text-[#FAF6F0]/70">
                 <Phone className="h-5 w-5 text-[#C28A4E] shrink-0" />
-                <a href="tel:0708137992" className="hover:text-[#C28A4E] transition-colors">0708 137992 / +254 708 137992</a>
+                <div className="flex flex-wrap items-center gap-x-1.5">
+                  <a href="tel:0708137992" className="hover:text-[#C28A4E] transition-colors">0708 137992</a>
+                  <span>/</span>
+                  <a href="tel:0759065090" className="hover:text-[#C28A4E] transition-colors">0759 065 090</a>
+                </div>
               </li>
               <li className="flex items-center space-x-3 text-sm text-[#FAF6F0]/70">
                 <a 
@@ -131,7 +135,7 @@ export default function Footer({ setView }: FooterProps) {
                   className="flex items-center space-x-3 text-emerald-400 hover:text-emerald-300 transition-colors"
                 >
                   <WhatsAppIcon className="h-5 w-5 text-emerald-500 shrink-0" />
-                  <span className="font-medium">WhatsApp: 0708 137992</span>
+                  <span className="font-medium">WhatsApp: 0708 137992 / 0759 065 090</span>
                 </a>
               </li>
               <li className="flex items-center space-x-3 text-sm text-[#FAF6F0]/70">

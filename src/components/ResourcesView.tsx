@@ -179,7 +179,7 @@ export default function ResourcesView({ setView, setSelectedCourseId }: Resource
                   className="bg-[#25D366] hover:bg-[#20ba59] text-white px-6 py-3.5 rounded-xl font-bold text-base shadow-md transition-all flex items-center space-x-2 cursor-pointer"
                 >
                   <PhoneCall className="h-5 w-5" />
-                  <span>WhatsApp 0708 137992</span>
+                  <span>WhatsApp 0708 137992 / 0759 065 090</span>
                 </a>
               </div>
             </div>

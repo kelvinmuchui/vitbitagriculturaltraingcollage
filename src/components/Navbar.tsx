@@ -13,7 +13,8 @@ import {
   ChevronDown, 
   Users, 
   Award,
-  Leaf
+  Leaf,
+  Utensils
 } from 'lucide-react';
 import Logo from './Logo';
 
@@ -58,11 +59,20 @@ export default function Navbar({ currentView, setView }: NavbarProps) {
     },
     {
       id: "agri-courses",
-      title: "Agriculture Courses",
+      title: "Agriculture & Extension",
       icon: Leaf,
-      badge: "AgTech & Trade",
-      desc: "Agripreneurship, AI in Agriculture & Sustainable Crop Production",
+      badge: "Level 5 & 6",
+      desc: "General Agriculture, Horticulture, Extension, Agripreneurship & Crop Science",
       color: "text-emerald-600",
+      directLink: "courses"
+    },
+    {
+      id: "hospitality-courses",
+      title: "Hospitality & Beverage Arts",
+      icon: Utensils,
+      badge: "Level 2, 3 & 4",
+      desc: "Professional Mixology & F&B Waiter Modules (Table Setting & Silver Service)",
+      color: "text-rose-600",
       directLink: "courses"
     },
     {
@@ -70,7 +80,7 @@ export default function Navbar({ currentView, setView }: NavbarProps) {
       title: "TVET Programmes",
       icon: Award,
       badge: "CDACC Level 5 & 6",
-      desc: "Diploma & Certificate in Co-operative Management, Professional Mixology",
+      desc: "Food & Beverage Production (Level 5), F&B Management (Level 6) & Co-operative Management",
       color: "text-amber-700",
       directLink: "courses"
     }

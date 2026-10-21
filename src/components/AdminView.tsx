@@ -821,6 +821,7 @@ export default function AdminView({ courses, onUpdateCourses, onResetCourses }: 
                         >
                           <option value="coffee">☕ Coffee Courses</option>
                           <option value="agriculture">🌱 Agriculture Courses</option>
+                          <option value="hospitality">🍽️ Hospitality & F&B</option>
                           <option value="tvet">📜 TVET Programmes</option>
                         </select>
                       </div>

@@ -99,8 +99,82 @@ export default function ContactView({ setView }: ContactViewProps) {
   };
 
   return (
-    <div className="space-y-24 pt-8 pb-20" id="contact-view">
+    <div className="space-y-24 pb-20" id="contact-view">
       
+      {/* 1. HERO SECTION */}
+      <section className="relative overflow-hidden bg-gradient-to-b from-[#2E221C] via-[#3A2C24] to-[#2E221C] text-white py-14 sm:py-20 border-b border-[#C28A4E]/20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+            
+            <motion.div 
+              className="lg:col-span-7 space-y-5"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+            >
+              <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-[#C28A4E]/20 text-[#C28A4E] border border-[#C28A4E]/30 text-xs font-bold uppercase tracking-wider">
+                <Mail className="h-4 w-4 text-[#C28A4E]" />
+                <span>Registrar & Campus Support</span>
+              </div>
+
+              <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#FAF6F0] leading-tight">
+                Connect With VIBIT Admissions & Faculty
+              </h1>
+
+              <p className="text-sm sm:text-base text-gray-300 leading-relaxed max-w-2xl">
+                Have questions about course fees, intake dates, hostel accommodation, or campus tours? Our registrar desk at Leomar Court, Westlands is ready to assist you in person, via phone, or on WhatsApp.
+              </p>
+
+              <div className="flex flex-wrap gap-4 pt-2">
+                <a
+                  href="https://wa.me/254708137992?text=Hello%20VIBIT%20Admissions%2C%20I%20would%20like%20to%20inquire%20about%20upcoming%20intakes."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-[#25D366] hover:bg-[#20ba59] text-white px-6 py-3.5 rounded-xl font-bold text-xs uppercase tracking-wider transition-all shadow-md flex items-center space-x-2 cursor-pointer"
+                >
+                  <WhatsAppIcon className="h-4 w-4" />
+                  <span>Chat on WhatsApp: 0708 137992 / 0759 065 090</span>
+                </a>
+                <a
+                  href="tel:+254708137992"
+                  className="bg-white/10 hover:bg-white/20 text-[#FAF6F0] px-6 py-3.5 rounded-xl font-bold text-xs uppercase tracking-wider transition-all border border-white/15 flex items-center space-x-2 cursor-pointer"
+                >
+                  <Phone className="h-4 w-4 text-[#C28A4E]" />
+                  <span>Call Registrar: 0708 137992 / 0759 065 090</span>
+                </a>
+              </div>
+            </motion.div>
+
+            <motion.div 
+              className="lg:col-span-5 relative"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
+              <div className="relative rounded-3xl overflow-hidden shadow-2xl border border-white/15 aspect-[4/3] group">
+                <img 
+                  src={contactCampusImage} 
+                  alt="VIBIT Agricultural Training College Westlands Office" 
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  referrerPolicy="no-referrer"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#2E221C]/80 via-transparent to-transparent"></div>
+                <div className="absolute bottom-4 left-4 right-4 bg-[#2E221C]/90 backdrop-blur-md p-4 rounded-2xl border border-white/15 text-white">
+                  <div className="flex items-center space-x-2 text-[#C28A4E] text-xs font-bold uppercase tracking-wider">
+                    <MapPin className="h-3.5 w-3.5" />
+                    <span>Westlands Campus, Nairobi</span>
+                  </div>
+                  <p className="text-xs text-gray-300 mt-1">
+                    Leomar Court, 45 Westlands Road, Nairobi, Kenya
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+
+          </div>
+        </div>
+      </section>
+
       {/* 2. CORE DETAILS & FORM GRID */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
@@ -189,7 +263,7 @@ export default function ContactView({ setView }: ContactViewProps) {
                       <span>WhatsApp Registrar Chat</span>
                       <span className="bg-emerald-500/15 text-emerald-700 text-[9px] font-extrabold uppercase px-2 py-0.5 rounded-full border border-emerald-500/30">Active</span>
                     </h4>
-                    <p className="text-xs text-[#2E221C]/90 font-bold hover:underline">+254 708 137992</p>
+                    <p className="text-xs text-[#2E221C]/90 font-bold hover:underline">+254 708 137992 / +254 759 065 090</p>
                     <div className="pt-1">
                       <span className="inline-flex items-center space-x-1.5 text-xs font-bold text-emerald-700 bg-emerald-50 group-hover:bg-emerald-100 px-3 py-1.5 rounded-lg border border-emerald-200 transition-colors">
                         <span>Chat on WhatsApp</span>
@@ -418,7 +492,7 @@ export default function ContactView({ setView }: ContactViewProps) {
                 </div>
                 <div>
                   <h3 className="font-serif text-lg font-bold text-[#2E221C]">WhatsApp Help Desk</h3>
-                  <p className="text-xs font-mono font-bold text-emerald-700 mt-1">+254 708 137992</p>
+                  <p className="text-xs font-mono font-bold text-emerald-700 mt-1">+254 708 137992 / +254 759 065 090</p>
                 </div>
                 <p className="text-xs text-[#2E221C]/70 leading-relaxed">
                   Chat directly with our student counselor desk for entry requirements, fee breakdowns, and campus visit scheduling.

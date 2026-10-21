@@ -110,13 +110,22 @@ export default function App() {
   const [selectedCourseId, setSelectedCourseId] = useState<string | null>(null);
 
   // Stateful, persistent courses catalog loaded from LocalStorage
+  const STORAGE_KEY = 'vibit_courses_v6';
   const [courses, setCourses] = useState<Course[]>(() => {
-    const saved = localStorage.getItem('vibit_courses');
+    // Clear out any older stale schema versions
+    try {
+      localStorage.removeItem('vibit_courses');
+      localStorage.removeItem('vibit_courses_v2');
+      localStorage.removeItem('vibit_courses_v3');
+      localStorage.removeItem('vibit_courses_v4');
+      localStorage.removeItem('vibit_courses_v5');
+    } catch (_) {}
+
+    const saved = localStorage.getItem(STORAGE_KEY);
     if (saved) {
       try {
         const parsed: Course[] = JSON.parse(saved);
-        // Verify saved courses match the official fee structure IDs
-        if (parsed.some(c => c.id === 'barista-skills' || c.id === 'coffee-technology')) {
+        if (Array.isArray(parsed) && parsed.length > 0) {
           return parsed;
         }
       } catch (e) { console.error(e); }
@@ -126,13 +135,13 @@ export default function App() {
 
   const handleUpdateCourses = (newCourses: Course[]) => {
     setCourses(newCourses);
-    localStorage.setItem('vibit_courses', JSON.stringify(newCourses));
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(newCourses));
   };
 
   const handleResetCourses = () => {
     if (confirm("Reset program catalog back to government TVET default standards?")) {
       setCourses(COURSES);
-      localStorage.removeItem('vibit_courses');
+      localStorage.removeItem(STORAGE_KEY);
     }
   };
 
@@ -235,6 +244,7 @@ export default function App() {
           <CoffeeSchoolNairobiView 
             setView={setView} 
             setSelectedCourseId={setSelectedCourseId} 
+            courses={courses}
           />
         );
       case 'admin':

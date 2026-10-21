@@ -32,7 +32,7 @@ export default function HomeView({ setView, setSelectedCourseId }: HomeViewProps
   const leadingPrograms = [
     {
       id: "barista-skills",
-      title: "Barista Training & Coffee Arts",
+      title: "Coffee Barista skills",
       duration: "12 Weeks",
       department: "Coffee Courses",
       highlight: "Espresso calibration, milk latte art & café workflow speed",
@@ -40,12 +40,12 @@ export default function HomeView({ setView, setSelectedCourseId }: HomeViewProps
       color: "border-amber-600/30 text-amber-800 bg-amber-50"
     },
     {
-      id: "coffee-technology",
-      title: "Coffee Technology & Quality Science",
-      duration: "12 Weeks",
+      id: "coffee-cupping-technology",
+      title: "Coffee cupping and technology",
+      duration: "8 Weeks",
       department: "Coffee Courses",
-      highlight: "Green bean grading, moisture analytics & dry milling quality",
-      badge: "Industry Standard",
+      highlight: "SCA cupping protocols, sensory grading & laboratory QC",
+      badge: "Quality Standard",
       color: "border-rose-600/30 text-rose-800 bg-rose-50"
     },
     {
@@ -86,15 +86,25 @@ export default function HomeView({ setView, setSelectedCourseId }: HomeViewProps
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
             >
-              <motion.div 
-                className="inline-flex items-center space-x-2 bg-white/70 backdrop-blur-md border border-[#b6171e]/15 px-4.5 py-2 rounded-full text-[10px] font-extrabold uppercase tracking-widest text-[#b6171e] shadow-xs"
+              <motion.button 
+                type="button"
+                id="hero-intake-badge-btn"
+                onClick={() => {
+                  setView('admissions');
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                }}
+                className="group inline-flex items-center space-x-2.5 bg-white/90 hover:bg-[#b6171e] hover:text-white backdrop-blur-md border border-[#b6171e]/25 hover:border-[#b6171e] px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider text-[#b6171e] shadow-xs hover:shadow-md transition-all duration-300 cursor-pointer text-left"
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.1, duration: 0.4 }}
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
+                title="Click to apply for admission today"
               >
-                <span className="h-1.5 w-1.5 bg-[#b6171e] rounded-full animate-pulse" />
+                <span className="h-2 w-2 bg-[#b6171e] group-hover:bg-white rounded-full animate-pulse shrink-0" />
                 <span>Admission Intake Open • Apply Today</span>
-              </motion.div>
+                <ArrowRight className="h-3.5 w-3.5 opacity-80 group-hover:translate-x-1 group-hover:opacity-100 transition-all shrink-0" />
+              </motion.button>
 
               <div className="space-y-4">
                 <span className="text-xs font-bold text-[#C28A4E] uppercase tracking-wider block">

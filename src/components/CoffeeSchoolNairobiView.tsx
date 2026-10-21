@@ -47,22 +47,23 @@ import coffeeCherriesDrying from '../assets/images/coffee_cherries_drying_178333
 import facilityRoasteryQC from '../assets/images/facility_roastery_qc_1784976554142.jpg';
 import contactCampusImage from '../assets/images/contact_campus_image_1784976397743.jpg';
 
+import { Course } from '../types';
+
 interface CoffeeSchoolNairobiViewProps {
   setView: (view: string) => void;
   setSelectedCourseId?: (id: string | null) => void;
+  courses?: Course[];
 }
 
 export default function CoffeeSchoolNairobiView({ 
   setView, 
-  setSelectedCourseId 
+  setSelectedCourseId,
+  courses
 }: CoffeeSchoolNairobiViewProps) {
   const [activeTopic, setActiveTopic] = useState<'all' | 'technology' | 'production' | 'processing' | 'quality' | 'cupping' | 'roasting' | 'barista' | 'agribusiness'>('all');
 
-  const coffeeCourses = COURSES.filter(c => 
-    c.id.includes('coffee') || 
-    c.id.includes('barista') || 
-    c.department.toLowerCase().includes('coffee')
-  );
+  const courseList = courses && courses.length > 0 ? courses : COURSES;
+  const coffeeCourses = courseList.filter(c => c.department === 'coffee');
 
   const pillars = [
     {
@@ -270,7 +271,7 @@ export default function CoffeeSchoolNairobiView({
                   className="bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-3.5 rounded-xl font-bold text-xs sm:text-sm transition-all flex items-center space-x-2 shadow-md"
                 >
                   <MessageCircle className="h-4 w-4" />
-                  <span>WhatsApp: 0708 137992</span>
+                  <span>WhatsApp: 0708 137992 / 0759 065 090</span>
                 </a>
               </div>
 
@@ -593,7 +594,7 @@ export default function CoffeeSchoolNairobiView({
                   className="bg-white/10 hover:bg-white/20 text-white px-5 py-3 rounded-xl font-bold text-xs flex items-center space-x-2 transition-all border border-white/20"
                 >
                   <PhoneCall className="h-4 w-4 text-[#C28A4E]" />
-                  <span>Call Admissions: 0708 137992</span>
+                  <span>Call Admissions: 0708 137992 / 0759 065 090</span>
                 </a>
               </div>
 
@@ -687,11 +688,15 @@ export default function CoffeeSchoolNairobiView({
                   <div className="space-y-1.5 pt-2 border-t border-[#2E221C]/10 text-xs">
                     <div className="flex items-center justify-between text-[#8E7C74]">
                       <span>Tuition Fee:</span>
-                      <span className="font-bold text-[#2E221C]">{course.fees}</span>
+                      <span className="font-bold text-[#2E221C]">
+                        KSh {course.fees?.tuition ? course.fees.tuition.toLocaleString() : (typeof course.fees === 'number' ? (course.fees as number).toLocaleString() : 'Contact Admissions')}
+                      </span>
                     </div>
                     <div className="flex items-center justify-between text-[#8E7C74]">
                       <span>Entry Criteria:</span>
-                      <span className="font-bold text-[#2E221C] text-[11px]">{course.requirements}</span>
+                      <span className="font-bold text-[#2E221C] text-[11px] truncate max-w-[160px]">
+                        {Array.isArray(course.requirements) ? course.requirements.join(', ') : (course.requirements || 'Open Entry')}
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -855,7 +860,7 @@ export default function CoffeeSchoolNairobiView({
               className="bg-[#2E221C] hover:bg-[#1E1713] text-white px-6 py-3 rounded-xl font-bold text-xs sm:text-sm transition-all flex items-center space-x-2"
             >
               <PhoneCall className="h-4 w-4 text-[#C28A4E]" />
-              <span>Call / WhatsApp 0708 137992</span>
+              <span>Call / WhatsApp 0708 137992 / 0759 065 090</span>
             </a>
           </div>
         </div>

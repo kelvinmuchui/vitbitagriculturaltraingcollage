@@ -293,7 +293,7 @@ export default function FAQSection({
                               className="inline-flex items-center space-x-1.5 text-[#8E7C74] hover:text-[#2E221C] font-semibold ml-auto"
                             >
                               <PhoneCall className="h-3 w-3 text-emerald-600" />
-                              <span>Ask on WhatsApp: 0708 137992</span>
+                              <span>Ask on WhatsApp: 0708 137992 / 0759 065 090</span>
                             </a>
                           </div>
                         </div>
@@ -338,7 +338,7 @@ export default function FAQSection({
               className="bg-white/10 hover:bg-white/20 text-white text-xs font-bold px-5 py-3 rounded-xl border border-white/20 transition-all flex items-center space-x-2"
             >
               <PhoneCall className="h-3.5 w-3.5 text-[#C28A4E]" />
-              <span>Call: 0708 137992</span>
+              <span>Call: 0708 137992 / 0759 065 090</span>
             </a>
           </div>
         </div>

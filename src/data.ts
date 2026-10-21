@@ -13,6 +13,15 @@ import courseCoopDiploma from './assets/images/course_coop_diploma_1784976521899
 import coffeeCherriesDrying from './assets/images/coffee_cherries_drying_1783338132429.jpg';
 import sortingBeans from './assets/images/sorting_beans_1783338143134.jpg';
 import facilitySoilAnalytics from './assets/images/facility_soil_analytics_1784976581491.jpg';
+import courseGeneralAgric from './assets/images/course_general_agric_1791444493905.jpg';
+import courseHorticultureFarm from './assets/images/course_horticulture_farm_1791444505047.jpg';
+import courseWaiterService from './assets/images/course_waiter_service_1791444518473.jpg';
+import courseFoodOperations from './assets/images/course_food_operations_1791444530728.jpg';
+import homeAgronomyPreview from './assets/images/home_agronomy_preview_1784976428501.jpg';
+import imageTableSettingLuxury from './assets/images/table_setting_luxury_1792575391469.jpg';
+import imageFoodProductionKitchen from './assets/images/fb_production_kitchen_1792575405827.jpg';
+import imageFoodManagementHotel from './assets/images/fb_management_hotel_1792575418080.jpg';
+import imageAiCoffeeIndustry from './assets/images/ai_coffee_industry_1792575432414.jpg';
 
 import facilityEspressoLab from './assets/images/facility_espresso_lab_1784976539403.jpg';
 import facilityRoasteryQc from './assets/images/facility_roastery_qc_1784976554142.jpg';
@@ -26,58 +35,59 @@ export const LOGO_URL = ""; // Empty string or placeholder since we are using th
 
 export const COURSES: Course[] = [
   /* =========================================================================
-     1. COFFEE COURSES (6 Specialized Pillars)
+     1. COFFEE COURSES (Exclusively 4 Dedicated Coffee Department Programs)
      ========================================================================= */
   {
-    id: "coffee-technology",
-    title: "Coffee Technology & Quality Science",
-    category: "diploma",
+    id: "barista-skills",
+    title: "Coffee Barista skills",
+    category: "certificate",
     department: "coffee",
-    subCategory: "Coffee Technology",
-    duration: "12 Weeks",
-    level: "Advanced Certificate / Diploma",
-    certification: "TVET Certificate in Coffee Technology, Quality Control & Processing",
-    description: "Deep dive into coffee biochemistry, moisture testing metrics, water activity science, green bean defect grading, dry milling yield math, and export lot validation.",
+    subCategory: "Barista Training & Coffee Arts",
+    duration: "12 weeks",
+    level: "Level 3 Certificate",
+    certification: "TVET Approved Certificate in Coffee Barista Skills",
+    description: "Master commercial multi-boiler espresso machines, grind calibration, milk micro-foam texturing, free-pour latte art, manual brewing methods, and café workflow speed.",
     syllabus: [
-      "Physical & Chemical Properties of Green Coffee Beans",
-      "Green Coffee Grading & ISO / SCA Physical Defect Count Protocols",
-      "Moisture Content, Water Activity & Bean Density Measurement",
-      "Dry Milling Machinery: Destoners, Hullers, Graders & Color Sorters",
-      "Warehouse Storage, GrainPro Bag Preservation & Export Standards"
+      "Espresso Extraction Science, Dose/Yield Ratios & Grind Calibration",
+      "Milk Chemistry, Micro-Foam Texturing & Symmetrical Latte Art Pours",
+      "Manual Brewing Methods: V60, Chemex, Aeropress, French Press & Syphon",
+      "Sensory Analysis Foundations & Dial-In Diagnostics",
+      "High-Volume Café Workflow Optimization, Machine Backflushing & Maintenance"
     ],
-    image: sortingBeans,
+    image: courseBaristaSkills,
     fees: {
-      tuition: 85000,
-      labFee: 30000,
+      tuition: 50000,
+      labFee: 0,
       deposit: 0
     },
     schedule: "Full-Time (Mon - Fri) or Modular Weekend",
     requirements: [
-      "Secondary school certificate (KCSE D+ or equivalent)",
-      "Basic interest in coffee quality assurance and laboratory testing"
+      "Open to school leavers, hospitality workers, and coffee enthusiasts",
+      "KCSE certificate or equivalent prior learning",
+      "Passion for culinary hospitality and specialty beverage preparation"
     ],
     careers: [
-      "Coffee Quality Assurance (QA) Lab Manager",
-      "Green Coffee Sourcing & Export Quality Controller",
-      "Dry Mill Quality Supervisor",
-      "Coffee Board / Trade Standard Inspector"
+      "Head Barista & Café Shift Supervisor",
+      "Specialty Coffee Barista (Local & International Hospitality)",
+      "Cruise Ship / Overseas Barista Specialist (Gulf, Europe, Australia)",
+      "Café Entrepreneur / Independent Coffee Bar Founder"
     ],
-    targetAudience: "Coffee mill technicians, quality analysts, exporters, warehouse managers, and coffee cooperative officers.",
+    targetAudience: "Aspiring professional baristas, hospitality workers, café founders, and youth seeking high-paying global employment.",
     intakes: ["January", "May", "September", "Monthly Modular"],
-    practicalHoursRatio: "80% Lab Diagnostics • 20% Theory",
-    seoTitle: "Coffee Technology Course in Kenya | Quality Control & Processing | VIBIT",
-    metaDescription: "Master coffee technology, green bean grading, moisture analytics, and dry milling quality control in Nairobi at VIBIT Agricultural Training College.",
-    primaryKeyword: "coffee technology course Kenya"
+    practicalHoursRatio: "85% Hands-on Machine Labs • 15% Theory",
+    seoTitle: "Coffee Barista Skills Course in Nairobi Kenya | Barista Training & Fees | VIBIT",
+    metaDescription: "Enroll in accredited Coffee Barista Skills training in Nairobi at VIBIT. Master espresso calibration, milk latte art, brewing & café operations. Duration 12 weeks, fees KSh 50,000.",
+    primaryKeyword: "coffee barista skills Nairobi"
   },
   {
-    id: "coffee-production",
-    title: "Coffee Production & Agronomy",
+    id: "coffee-agronomy",
+    title: "coffee Agronomy",
     category: "certificate",
     department: "coffee",
-    subCategory: "Coffee Production",
-    duration: "8 Weeks",
+    subCategory: "Coffee Agronomy & Crop Science",
+    duration: "8 weeks",
     level: "Level 3 Certificate",
-    certification: "TVET Approved Certificate in Coffee Production & Agronomy",
+    certification: "TVET Approved Certificate in Coffee Agronomy",
     description: "A comprehensive practical grounding in Coffea Arabica botany, seedling nursery propagation, soil chemistry, climate-smart agroforestry, and organic farm nutrition.",
     syllabus: [
       "Coffee Botany, Taxonomy & Kenyan Cultivars (SL28, SL34, Ruiru 11, Batian)",
@@ -88,8 +98,8 @@ export const COURSES: Course[] = [
     ],
     image: courseAgronomy,
     fees: {
-      tuition: 60000,
-      labFee: 20000,
+      tuition: 80000,
+      labFee: 0,
       deposit: 0
     },
     schedule: "Full-Time or Block Release",
@@ -106,102 +116,61 @@ export const COURSES: Course[] = [
     targetAudience: "Coffee estate managers, smallholder farmers, nursery operators, and agricultural extension agents.",
     intakes: ["January", "May", "September", "Monthly Cohorts"],
     practicalHoursRatio: "80% Greenhouse & Field Trials • 20% Lecture",
-    seoTitle: "Coffee Production & Agronomy Course Kenya | Sustainable Farming | VIBIT",
-    metaDescription: "Study coffee production, nursery management, soil nutrition, and climate-smart agronomy in Nairobi with VIBIT Agricultural Training College.",
-    primaryKeyword: "coffee production course Kenya"
+    seoTitle: "Coffee Agronomy Course Kenya | Sustainable Farming | VIBIT",
+    metaDescription: "Study coffee agronomy, nursery management, soil nutrition, and climate-smart agronomy in Nairobi with VIBIT Agricultural Training College. Duration 8 weeks, fees KSh 80,000.",
+    primaryKeyword: "coffee agronomy course Kenya"
   },
   {
-    id: "coffee-processing",
-    title: "Coffee Processing & Post-Harvest Technology",
-    category: "short",
-    department: "coffee",
-    subCategory: "Coffee Processing",
-    duration: "6 Weeks",
-    level: "Certificate Level",
-    certification: "VIBIT Certificate in Coffee Processing & Mill Operations",
-    description: "Master wet and dry processing methodologies, Brix sugar cherry sorting, controlled fermentation (anaerobic, carbonic maceration, honey, natural), and raised bed solar drying.",
-    syllabus: [
-      "Cherry Harvesting Criteria & Refractometer Brix Sugar Testing",
-      "Wet Processing Mechanics: Eco-Pulping, Demucilaging & Washing Channels",
-      "Experimental Fermentation: Anaerobic, Carbonic Maceration & Extended Yeast",
-      "Natural & Honey Processing Protocols for Micro-Lots",
-      "Solar Raised Bed Drying Kinetics & Parchment Moisture Stabilization"
-    ],
-    image: coffeeCherriesDrying,
-    fees: {
-      tuition: 55000,
-      labFee: 20000,
-      deposit: 0
-    },
-    schedule: "Full-Time Intensive or Harvest-Season Block",
-    requirements: [
-      "Open to coffee farmers, wet mill managers, and processing enthusiasts",
-      "Basic understanding of agricultural handling"
-    ],
-    careers: [
-      "Wet Mill (Factory) Operations Manager",
-      "Specialty Micro-Lot Processing Specialist",
-      "Post-Harvest Quality Consultant",
-      "Cooperative Factory Processing Supervisor"
-    ],
-    targetAudience: "Wet mill managers, farm owners seeking specialty price premiums, cooperative factory managers, and processing innovators.",
-    intakes: ["January", "May", "September", "Harvest Intake"],
-    practicalHoursRatio: "85% Mill & Solar Bed Practicals • 15% Theory",
-    seoTitle: "Coffee Processing Course Kenya | Wet & Dry Milling Technology | VIBIT",
-    metaDescription: "Learn professional coffee processing, experimental anaerobic fermentations, and solar bed drying protocols at VIBIT Agricultural Training College.",
-    primaryKeyword: "coffee processing course Kenya"
-  },
-  {
-    id: "cupping-technology",
-    title: "Coffee Cupping & Sensory Grading",
+    id: "coffee-cupping-technology",
+    title: "Coffee cupping and technology",
     category: "diploma",
     department: "coffee",
-    subCategory: "Coffee Cupping",
-    duration: "12 Weeks",
-    level: "Advanced Diploma / Certificate",
-    certification: "TVET Certificate in Coffee Cupping, Sensory Grading & QA",
-    description: "Advanced sensory analysis, SCA cupping protocols, triangulation drills, olfactory Le Nez du Café calibration, acid profiling, and commercial defect scoring.",
+    subCategory: "Sensory & Quality Technology",
+    duration: "8 weeks",
+    level: "Advanced Certificate / Diploma",
+    certification: "TVET Certificate in Coffee Cupping, Technology & Sensory Quality Control",
+    description: "Comprehensive training combining coffee cupping, SCA sensory protocols, flavor wheel analysis, green bean defect grading, moisture testing metrics, and laboratory quality control.",
     syllabus: [
-      "SCA Sensory Evaluation Protocols & Sensory Booth Setup",
-      "Olfactory Discrimination & Flavor Wheel Mapping (Fragrance/Aroma)",
-      "Taste Triangulation Drills & Acidity/Body/Cleanliness Scoring",
-      "Identifying & Penalizing Commercial Defects (Stinker, Sour, Mould, Phenol)",
-      "Cupping for Green Coffee Procurement, Auction Bidding & Export Contracts"
+      "SCA Sensory Evaluation Protocols, Calibration & Triangulation Drills",
+      "Olfactory Discrimination & Flavor Wheel Mapping (Acidity, Body, Cleanliness)",
+      "Physical Green Coffee Bean Grading & Kenya Coffee Directorate Standards",
+      "Moisture Content, Water Activity & Bean Density Measurement",
+      "Commercial Defect Scoring, Auction Lot Validation & Export Compliance"
     ],
     image: cuppingLabSetup,
     fees: {
-      tuition: 90000,
-      labFee: 40000,
+      tuition: 130000,
+      labFee: 0,
       deposit: 0
     },
-    schedule: "Full-Time or Alternate Weekends",
+    schedule: "Full-Time (Mon - Fri) or Alternate Weekends",
     requirements: [
-      "Secondary school certificate or prior barista / roasting experience",
-      "Sensory aptitude and keen palate for flavor differentiation"
+      "Secondary school certificate (KCSE D+ or equivalent)",
+      "Basic interest or background in sensory evaluation, coffee quality, or laboratory testing"
     ],
     careers: [
       "Licensed Coffee Cupper & Quality Assurance (QA) Director",
       "Green Coffee Buyer & Export Grader",
       "Auction Sensory Representative & Sample Room Manager",
-      "Specialty Coffee Roastery Green Buyer"
+      "Dry Mill Quality Supervisor & Standard Inspector"
     ],
-    targetAudience: "Quality control technicians, coffee exporters, mill managers, and advanced sensory professionals.",
-    intakes: ["January", "May", "September", "Monthly Cohorts"],
-    practicalHoursRatio: "90% Sensory Lab Cupping • 10% Industry Standards",
-    seoTitle: "Coffee Cupping & Grading Course Kenya | Sensory Technology | VIBIT",
-    metaDescription: "Become a certified coffee cupper and sensory quality specialist at VIBIT. Master SCA grading, defect classification, and export lot evaluation in Nairobi.",
-    primaryKeyword: "coffee cupping course Kenya"
+    targetAudience: "Quality control technicians, coffee exporters, mill managers, baristas advancing to sensory QA, and coffee cooperative officers.",
+    intakes: ["January", "May", "September", "Monthly Modular"],
+    practicalHoursRatio: "85% Sensory Lab Diagnostics & Cupping • 15% Theory",
+    seoTitle: "Coffee Cupping and Technology Course in Kenya | VIBIT",
+    metaDescription: "Master coffee cupping and technology at VIBIT Agricultural Training College in Nairobi. SCA sensory protocols, green bean grading, moisture analytics. Duration 8 weeks, fees KSh 130,000.",
+    primaryKeyword: "coffee cupping and technology Kenya"
   },
   {
     id: "coffee-roasting",
-    title: "Coffee Roasting & Profile Analytics",
+    title: "coffee Roasting",
     category: "short",
     department: "coffee",
-    subCategory: "Coffee Roasting",
-    duration: "8 Weeks",
-    level: "Intermediate to Advanced",
+    subCategory: "Roasting Technology",
+    duration: "8 weeks",
+    level: "Intermediate to Advanced Certificate",
     certification: "VIBIT Certificate in Coffee Roasting Technology",
-    description: "Operate commercial drum roasters (Probat, Diedrich), manage heat and air thermodynamics, trace roast curves, log Rate of Rise (RoR), and prevent roast defects.",
+    description: "Operate commercial drum roasters, manage heat and air thermodynamics, trace roast curves, log Rate of Rise (RoR), and prevent roast defects for specialty coffee.",
     syllabus: [
       "Commercial Drum Roaster Hardware Setup & Safe Operation",
       "Thermodynamics: Conduction, Convection, & Radiation Profiles",
@@ -211,14 +180,14 @@ export const COURSES: Course[] = [
     ],
     image: coffeeRoastingMachine,
     fees: {
-      tuition: 60000,
-      labFee: 20000,
+      tuition: 80000,
+      labFee: 0,
       deposit: 0
     },
     schedule: "Intensive Day or Evening Sessions",
     requirements: [
       "Open to baristas, roastery operators, and coffee entrepreneurs",
-      "Basic chemistry and thermodynamics comprehension"
+      "Basic understanding of coffee fundamentals"
     ],
     careers: [
       "Commercial Head Roaster",
@@ -230,50 +199,49 @@ export const COURSES: Course[] = [
     intakes: ["Monthly Rolling Intakes", "January", "May", "September"],
     practicalHoursRatio: "85% Roaster Hands-on • 15% Curve Analytics",
     seoTitle: "Coffee Roasting Course Nairobi Kenya | Commercial Roaster Training | VIBIT",
-    metaDescription: "Learn commercial coffee roasting in Nairobi at VIBIT. Master drum roaster thermodynamics, Cropster profile logging, and defect analysis.",
+    metaDescription: "Learn commercial coffee roasting in Nairobi at VIBIT. Master drum roaster thermodynamics, Cropster profile logging, and defect analysis. Duration 8 weeks, fees KSh 80,000.",
     primaryKeyword: "coffee roasting course Kenya"
   },
   {
-    id: "barista-skills",
-    title: "Barista Training & Coffee Arts",
+    id: "ai-coffee-industry",
+    title: "Certificate in AI in Coffee Industry",
     category: "certificate",
     department: "coffee",
-    subCategory: "Barista Training",
+    subCategory: "Coffee Technology & AI",
     duration: "12 Weeks",
-    level: "Level 3 Certificate",
-    certification: "TVET Approved Certificate in Coffee Barista Skills",
-    description: "Master commercial multi-boiler espresso machines, grind calibration, milk micro-foam texturing, free-pour latte art, manual brewing methods, and café workflow speed.",
+    level: "Certificate Level",
+    certification: "VIBIT Certificate in AI in Coffee Industry & Smart Processing",
+    description: "Master artificial intelligence applications across the modern specialty coffee value chain. Learn computer vision for green coffee bean defect grading, IoT smart moisture & microclimate probes, automated roaster profiling algorithms, and digital supply chain traceability.",
     syllabus: [
-      "Espresso Extraction Science, Dose/Yield Ratios & Grind Calibration",
-      "Milk Chemistry, Micro-Foam Texturing & Symmetrical Latte Art Pours",
-      "Manual Brewing Methods: V60, Chemex, Aeropress, French Press & Syphon",
-      "Sensory Analysis Foundations & Dial-In Diagnostics",
-      "High-Volume Café Workflow Optimization, Machine Backflushing & Maintenance"
+      "Introduction to AI, IoT Telemetry & Machine Learning in Specialty Coffee",
+      "Computer Vision & Optical Green Bean Defect Sorting Systems",
+      "AI-Powered Microclimate Telemetry, Weather Modeling & Yield Analytics",
+      "Automated Roaster Profiling, Real-Time RoR Diagnostics & Flavor Optimization",
+      "Digital Supply Chain Traceability, Smart Contracts & Direct Export Valuation"
     ],
-    image: courseBaristaSkills,
+    image: imageAiCoffeeIndustry,
     fees: {
       tuition: 50000,
       labFee: 10000,
       deposit: 0
     },
-    schedule: "Full-Time (Mon - Fri) or Evening Sessions",
+    schedule: "Weekend Hybrid (Online Lectures + On-Campus Coffee Tech Lab)",
     requirements: [
-      "Open to school leavers, hospitality workers, and coffee enthusiasts",
-      "KCSE certificate or equivalent prior learning",
-      "Passion for culinary hospitality and specialty beverage preparation"
+      "Open to coffee professionals, baristas, roasters, agronomists, and tech enthusiasts",
+      "Basic computer literacy and secondary school qualification"
     ],
     careers: [
-      "Head Barista & Café Shift Supervisor",
-      "Specialty Coffee Barista (Local & International Hospitality)",
-      "Cruise Ship / Overseas Barista Specialist (Gulf, Europe, Australia)",
-      "Café Entrepreneur / Independent Coffee Bar Founder"
+      "Smart Coffee Technology Specialist & Digital Mill Integrator",
+      "AI-Assisted Quality Assurance Inspector & Cupper",
+      "Automated Processing Mill Quality Supervisor",
+      "Coffee Supply Chain & Digital Traceability Lead"
     ],
-    targetAudience: "Aspiring professional baristas, hospitality workers, café founders, and youth seeking high-paying global employment.",
-    intakes: ["January", "May", "September", "First Monday of Every Month (Modular)"],
-    practicalHoursRatio: "85% Hands-on Machine Labs • 15% Theory",
-    seoTitle: "Barista Course in Nairobi Kenya | Professional Barista Training & Fees | VIBIT",
-    metaDescription: "Enroll in accredited Coffee Barista Skills training in Nairobi at VIBIT. Master espresso calibration, milk latte art, brewing & café operations. Apply today.",
-    primaryKeyword: "barista training Nairobi"
+    targetAudience: "Baristas, roasters, coffee cooperative officers, exporters, and technology innovators seeking to leverage AI in the specialty coffee industry.",
+    intakes: ["January", "May", "September", "Modular Weekend Cohorts"],
+    practicalHoursRatio: "70% Software & Lab Practical • 30% Sensory and Roasting Integration",
+    seoTitle: "Certificate in AI in Coffee Industry Kenya | Smart Coffee Tech | VIBIT",
+    metaDescription: "Master AI in coffee at VIBIT Nairobi. Computer vision bean defect sorting, IoT moisture telemetry, automated roast profiling, and supply chain analytics. 12 weeks, KSh 60,000.",
+    primaryKeyword: "Certificate in AI in Coffee Industry Kenya"
   },
 
   /* =========================================================================
@@ -322,47 +290,6 @@ export const COURSES: Course[] = [
     primaryKeyword: "agribusiness course in Kenya"
   },
   {
-    id: "ai-coffee-industry",
-    title: "AI in Agriculture & Smart AgTech",
-    category: "short",
-    department: "agriculture",
-    subCategory: "AgTech & Automation",
-    duration: "12 Weeks",
-    level: "Certificate in AgTech & AI",
-    certification: "VIBIT Certificate in AI Applications for Agriculture & Supply Chain",
-    description: "Learn to apply Artificial Intelligence, satellite remote sensing, computer vision bean defect sorting, smart IoT soil probes, and automated climate models in modern agriculture.",
-    syllabus: [
-      "Introduction to AI, IoT Probes & Machine Learning in Crop Science",
-      "Computer Vision & Automated Optical Defect Sorting Systems",
-      "AI-Powered Weather Forecasting, Microclimate Sensors & Yield Modeling",
-      "Smart Supply Chain Blockchain Ledgers & Direct Digital Settlement",
-      "AI in Precision Roasting Optimization & Cold-Chain Monitoring"
-    ],
-    image: aiCoffeeAgtech,
-    fees: {
-      tuition: 50000,
-      labFee: 10000,
-      deposit: 0
-    },
-    schedule: "Weekend Hybrid (Online Lectures + On-Campus Machine Lab)",
-    requirements: [
-      "Basic computer literacy and secondary school qualification",
-      "Interest in agricultural technology, data analysis, and automation"
-    ],
-    careers: [
-      "AgTech Systems Specialist & Digital Farm Integrator",
-      "Smart Agriculture Data Analyst",
-      "Automated Processing Mill Quality Supervisor",
-      "Digital Traceability & Supply Chain Specialist"
-    ],
-    targetAudience: "Agronomists, tech innovators, agricultural researchers, and cooperative planners.",
-    intakes: ["January", "May", "September", "Weekend Hybrid Sessions"],
-    practicalHoursRatio: "60% Software & Lab Practical • 40% Conceptual Foundations",
-    seoTitle: "AI in Agriculture Course Kenya | AgTech & Smart Coffee Farming | VIBIT",
-    metaDescription: "Discover how AI and IoT sensors are revolutionizing agriculture, yield prediction, and coffee quality control in Kenya with VIBIT.",
-    primaryKeyword: "AI in agriculture Kenya"
-  },
-  {
     id: "sustainable-agriculture",
     title: "Sustainable Agriculture & Crop Production",
     category: "certificate",
@@ -402,6 +329,261 @@ export const COURSES: Course[] = [
     seoTitle: "Sustainable Agriculture Course in Kenya | Crop Science & Farming | VIBIT",
     metaDescription: "Enroll in Sustainable Agriculture and Crop Production training in Nairobi at VIBIT. Master greenhouse management, drip irrigation, and soil science.",
     primaryKeyword: "sustainable agriculture course Kenya"
+  },
+  {
+    id: "general-agriculture-level-5",
+    title: "General Agriculture (Level 5 Certificate)",
+    category: "certificate",
+    department: "agriculture",
+    subCategory: "General Agriculture",
+    duration: "1 Year (3 Terms)",
+    level: "Level 5 Certificate (TVET CDACC)",
+    certification: "TVET CDACC National Certificate in General Agriculture (Level 5)",
+    description: "Hands-on competency-based training in crop husbandry, livestock management, soil fertility conservation, farm machinery operation, and farm budgeting.",
+    syllabus: [
+      "Crop Production Systems & Soil Fertility Management",
+      "Livestock Husbandry, Animal Feeds & Health Basics",
+      "Farm Structures, Implements & Machinery Operation",
+      "Agroforestry, Water Harvesting & Soil Conservation",
+      "Agricultural Economics, Record Keeping & Farm Budgeting"
+    ],
+    image: courseGeneralAgric,
+    fees: {
+      tuition: 65000,
+      labFee: 15000,
+      deposit: 0
+    },
+    schedule: "Full-Time (Mon - Fri) or Modular Block Release",
+    requirements: [
+      "KCSE mean grade D (Plain) or equivalent qualification",
+      "Or recognized TVET Level 4 Certificate in Agriculture",
+      "Passion for practical farming and agribusiness"
+    ],
+    careers: [
+      "Assistant Farm Manager / Farm Supervisor",
+      "Crop & Livestock Field Technician",
+      "Agro-Vet Sales Representative & Technical Advisor",
+      "Agricultural Demonstration Field Assistant"
+    ],
+    targetAudience: "School leavers, commercial farm technicians, family farm operators, and aspiring agricultural entrepreneurs.",
+    intakes: ["January", "May", "September"],
+    practicalHoursRatio: "75% Practical Farm Fields • 25% Theory",
+    seoTitle: "General Agriculture Certificate Level 5 Kenya | TVET CDACC | VIBIT",
+    metaDescription: "Study General Agriculture Level 5 Certificate in Nairobi at VIBIT. TVET CDACC accredited curriculum in crop production, livestock, and farm management.",
+    primaryKeyword: "general agriculture certificate Kenya level 5"
+  },
+  {
+    id: "general-agriculture-level-6",
+    title: "General Agriculture (Level 6 Diploma)",
+    category: "diploma",
+    department: "agriculture",
+    subCategory: "General Agriculture",
+    duration: "2 Years (6 Terms / Modular)",
+    level: "Level 6 Diploma (TVET CDACC)",
+    certification: "TVET CDACC National Diploma in General Agriculture (Level 6)",
+    description: "Advanced agricultural management diploma covering commercial agronomy, animal breeding technologies, farm project appraisal, irrigation engineering, and agribusiness value chains.",
+    syllabus: [
+      "Advanced Commercial Crop Husbandry & Seed Technology",
+      "Animal Nutrition, Breeding Systems & Dairy Management",
+      "Agricultural Irrigation Engineering & Soil Science",
+      "Farm Enterprise Planning, Financial Management & Auditing",
+      "Agribusiness Supply Chains, Value Addition & Commodity Trade",
+      "Agricultural Research Methods & Field Project Work"
+    ],
+    image: courseGeneralAgric,
+    fees: {
+      tuition: 130000,
+      labFee: 25000,
+      deposit: 0
+    },
+    schedule: "Full-Time or Executive Modular",
+    requirements: [
+      "KCSE mean grade C- (Minus) or equivalent",
+      "Or Level 5 Certificate in General Agriculture / Related Field",
+      "Pass in Biology / Agriculture and Mathematics"
+    ],
+    careers: [
+      "Commercial Farm General Manager",
+      "Agricultural Project Officer (NGO & Government)",
+      "Agro-Industrial Production Supervisor",
+      "Agricultural Loan Appraiser & Technical Consultant"
+    ],
+    targetAudience: "Aspiring farm directors, agribusiness managers, agriculture diploma candidates, and enterprise managers.",
+    intakes: ["January", "May", "September"],
+    practicalHoursRatio: "70% Experimental Plots & Labs • 30% Management Theory",
+    seoTitle: "General Agriculture Diploma Level 6 Kenya | TVET CDACC | VIBIT",
+    metaDescription: "Enroll in the TVET CDACC Diploma in General Agriculture Level 6 at VIBIT Nairobi. Master commercial crop farming, livestock production, and farm management.",
+    primaryKeyword: "general agriculture diploma Kenya level 6"
+  },
+  {
+    id: "agriculture-extension-level-5",
+    title: "Agriculture and Extension (Level 5 Certificate)",
+    category: "certificate",
+    department: "agriculture",
+    subCategory: "Agriculture Extension",
+    duration: "1 Year (3 Terms)",
+    level: "Level 5 Certificate (TVET CDACC)",
+    certification: "TVET CDACC National Certificate in Agriculture and Extension (Level 5)",
+    description: "Prepare for essential field extension advisory services. Learn participatory farmer training methodologies, group mobilization, modern crop demonstration trials, climate change adaptation advisory, and rural pest control support.",
+    syllabus: [
+      "Principles & Methodologies of Agricultural Extension",
+      "Farmer Group Formation, Leadership & Community Mobilization",
+      "Field Demonstration Plot Design & Farmer Field Schools (FFS)",
+      "Climate-Smart Agriculture & Soil Fertility Extension",
+      "Agricultural Communication Skills & Information Dissemination"
+    ],
+    image: homeAgronomyPreview,
+    fees: {
+      tuition: 65000,
+      labFee: 15000,
+      deposit: 0
+    },
+    schedule: "Full-Time or Block Release",
+    requirements: [
+      "KCSE mean grade D (Plain) or equivalent",
+      "Or TVET Level 4 Certificate in Agriculture",
+      "Strong passion for community development and farmer empowerment"
+    ],
+    careers: [
+      "Community Agricultural Extension Field Assistant",
+      "Farmer Field School (FFS) Facilitator",
+      "Cooperative Society Agricultural Extension Officer",
+      "Agro-Dealer Technical Field Advisor"
+    ],
+    targetAudience: "Community workers, cooperative field staff, youth champions in agriculture, and outreach officers.",
+    intakes: ["January", "May", "September"],
+    practicalHoursRatio: "75% Community Fieldwork & Demonstrations • 25% Theory",
+    seoTitle: "Agriculture and Extension Certificate Level 5 Kenya | VIBIT",
+    metaDescription: "Study Agriculture and Extension Level 5 Certificate in Nairobi at VIBIT. Become a qualified agricultural extension field agent and community trainer.",
+    primaryKeyword: "agriculture and extension certificate Kenya level 5"
+  },
+  {
+    id: "agriculture-extension-level-6",
+    title: "Agriculture and Extension (Level 6 Diploma)",
+    category: "diploma",
+    department: "agriculture",
+    subCategory: "Agriculture Extension",
+    duration: "2 Years (6 Terms / Modular)",
+    level: "Level 6 Diploma (TVET CDACC)",
+    certification: "TVET CDACC National Diploma in Agriculture and Extension (Level 6)",
+    description: "Advanced diploma in agricultural extension leadership, rural socio-economic analysis, digital extension technologies, program design, monitoring and evaluation (M&E), and participatory technology transfer.",
+    syllabus: [
+      "Advanced Extension Programme Planning, M&E and Policy",
+      "Rural Sociology, Behavioral Change & Farmer Mobilization",
+      "Digital Extension Systems, Mobile Advisory & Agri-ICT Tools",
+      "Agricultural Value Chain Analysis & Market Linkages",
+      "Sustainable Natural Resource Management & Watershed Extension",
+      "Research Methods in Extension & Field Practicum Dissertation"
+    ],
+    image: homeAgronomyPreview,
+    fees: {
+      tuition: 130000,
+      labFee: 25000,
+      deposit: 0
+    },
+    schedule: "Full-Time or Executive Modular",
+    requirements: [
+      "KCSE mean grade C- (Minus) or equivalent",
+      "Or Level 5 Certificate in Agriculture and Extension / General Agriculture",
+      "Commitment to agricultural advisory leadership"
+    ],
+    careers: [
+      "County Agricultural Extension Officer",
+      "Agricultural Project Coordinator (NGOs, USAID, FAO, AGRA)",
+      "Cooperative Agricultural Extension Director",
+      "Agricultural Extension Program Monitoring & Evaluation Specialist"
+    ],
+    targetAudience: "Agricultural extension professionals, development project officers, cooperative managers, and agriculture diploma seekers.",
+    intakes: ["January", "May", "September"],
+    practicalHoursRatio: "65% Field Practicum & Rural Outreach • 35% Academic Seminars",
+    seoTitle: "Agriculture and Extension Diploma Level 6 Kenya | VIBIT",
+    metaDescription: "TVET CDACC Diploma in Agriculture and Extension Level 6 in Nairobi at VIBIT. Master rural advisory programs, digital extension tools, and value chains.",
+    primaryKeyword: "agriculture and extension diploma Kenya level 6"
+  },
+  {
+    id: "horticulture-level-5",
+    title: "Horticulture Production (Level 5 Certificate)",
+    category: "certificate",
+    department: "agriculture",
+    subCategory: "Horticulture",
+    duration: "1 Year (3 Terms)",
+    level: "Level 5 Certificate (TVET CDACC)",
+    certification: "TVET CDACC National Certificate in Horticulture Production (Level 5)",
+    description: "Intensive commercial training in high-value vegetable farming (olericulture), fruit orchards (pomology), cut flowers (floriculture), greenhouse production, drip irrigation systems, and GlobalGAP export guidelines.",
+    syllabus: [
+      "Commercial Vegetable & Herb Production (Olericulture)",
+      "Fruit Tree Propagation, Orchard Layout & Management (Pomology)",
+      "Commercial Floriculture & Cut-Flower Production",
+      "Greenhouse Climate Control, Hydroponics & Drip Fertigation",
+      "Post-Harvest Grading, Packhouse Sorting & GlobalGAP Standards"
+    ],
+    image: courseHorticultureFarm,
+    fees: {
+      tuition: 70000,
+      labFee: 20000,
+      deposit: 0
+    },
+    schedule: "Full-Time (Mon - Fri) or Practical Saturday Track",
+    requirements: [
+      "KCSE mean grade D (Plain) or equivalent",
+      "Or TVET Level 4 Certificate in Crop Production",
+      "Passion for high-value horticultural crops and greenhouse farming"
+    ],
+    careers: [
+      "Commercial Greenhouse Supervisor",
+      "Horticultural Farm Production Assistant",
+      "Fresh Produce Packhouse Quality Inspector",
+      "Nursery & Floriculture Technician"
+    ],
+    targetAudience: "Greenhouse farmers, export horticulture workers, youth entering commercial vegetable/flower production, and estate technicians.",
+    intakes: ["January", "May", "September"],
+    practicalHoursRatio: "80% Greenhouse & Field Trials • 20% Theory",
+    seoTitle: "Horticulture Certificate Level 5 Kenya | Commercial Greenhouse | VIBIT",
+    metaDescription: "Study Horticulture Level 5 Certificate in Nairobi at VIBIT. Hands-on greenhouse management, drip fertigation, vegetable and flower production.",
+    primaryKeyword: "horticulture certificate Kenya level 5"
+  },
+  {
+    id: "horticulture-level-6",
+    title: "Horticulture Production & Management (Level 6 Diploma)",
+    category: "diploma",
+    department: "agriculture",
+    subCategory: "Horticulture",
+    duration: "2 Years (6 Terms / Modular)",
+    level: "Level 6 Diploma (TVET CDACC)",
+    certification: "TVET CDACC National Diploma in Horticulture Production & Management (Level 6)",
+    description: "Advanced horticultural enterprise diploma covering commercial export horticulture, cold chain logistics, post-harvest physiology, automated climate greenhouses, integrated pest management (IPM), and international phytosanitary compliance.",
+    syllabus: [
+      "Advanced Commercial Floriculture & Ornamental Horticulture",
+      "High-Value Vegetable & Protected Crop Production Systems",
+      "Tropical & Subtropical Pomology and Orchard Economics",
+      "Post-Harvest Physiology, Modified Atmosphere Storage & Cold Chains",
+      "Integrated Pest & Disease Management (Biological Controls & IPM)",
+      "International Fresh Produce Trade, Phytosanitary Laws & GlobalGAP/BRC Auditing"
+    ],
+    image: courseHorticultureFarm,
+    fees: {
+      tuition: 135000,
+      labFee: 30000,
+      deposit: 0
+    },
+    schedule: "Full-Time or Executive Modular",
+    requirements: [
+      "KCSE mean grade C- (Minus) or equivalent",
+      "Or Level 5 Certificate in Horticulture Production / Agriculture",
+      "Pass in Biology / Agriculture and Chemistry / Science"
+    ],
+    careers: [
+      "Horticultural Farm General Manager / Production Director",
+      "Horticultural Export Packhouse Operations Manager",
+      "Fresh Produce Quality Assurance (QA) Director",
+      "Horticultural Agronomy Consultant & GlobalGAP Auditor"
+    ],
+    targetAudience: "Horticultural estate managers, exporters, agronomists, greenhouse supervisors, and commercial farm owners.",
+    intakes: ["January", "May", "September"],
+    practicalHoursRatio: "75% Greenhouse, Field & Packhouse Practicals • 25% Management",
+    seoTitle: "Horticulture Diploma Level 6 Kenya | Commercial Production | VIBIT",
+    metaDescription: "Enroll in the TVET CDACC Diploma in Horticulture Level 6 at VIBIT Agricultural Training College Nairobi. Master export flower, vegetable, and orchard management.",
+    primaryKeyword: "horticulture diploma Kenya level 6"
   },
 
   /* =========================================================================
@@ -490,45 +672,221 @@ export const COURSES: Course[] = [
     primaryKeyword: "cooperative management course Kenya"
   },
   {
-    id: "mixology",
-    title: "Professional Mixology & Beverage Technology",
+    id: "food-beverage-production-level-5",
+    title: "Food and Beverage Production (Level 5)",
     category: "certificate",
     department: "tvet",
+    subCategory: "Food & Beverage Production (TVET CDACC)",
+    duration: "1 year",
+    level: "Level 5 Certificate (TVET CDACC)",
+    certification: "TVET CDACC National Certificate in Food and Beverage Production (Level 5)",
+    description: "1-year comprehensive commercial culinary and food production qualification. Master commercial kitchen management, hot and cold culinary production, food costing, yield analysis, HACCP food hygiene safety standards, menu engineering, and culinary presentation.",
+    syllabus: [
+      "Commercial Kitchen Organization, Hygiene & HACCP Regulatory Safety",
+      "Culinary Foundations: Stocks, Soups, Mother Sauces & Entrées",
+      "Baking & Pastry Production, Plating Artistry & Buffet Presentation",
+      "Food Costing, Recipe Standardisation & Portion Control Systems",
+      "Menu Engineering, Dietary Nutrition & Allergen Management",
+      "Food & Beverage Cold-Chain Storage & Inventory Control"
+    ],
+    image: imageFoodProductionKitchen,
+    fees: {
+      tuition: 110000,
+      labFee: 0,
+      deposit: 0
+    },
+    schedule: "Full-Time (1 Year / 3 Terms) or Modular Block Release",
+    requirements: [
+      "KCSE mean grade D+ (Plus) or C- (Minus) or equivalent",
+      "Or TVET Level 4 Certificate in Food and Beverage / Hospitality",
+      "Passion for commercial food production, culinary arts, and professional kitchen operations"
+    ],
+    careers: [
+      "Commercial Chef de Partie / Kitchen Supervisor",
+      "Food Production Lead / Commissary Kitchen Supervisor",
+      "Institutional Catering Operations Supervisor (Schools, Hospitals, Corporate)",
+      "Catering Entrepreneur & Commercial Food Producer"
+    ],
+    targetAudience: "Aspiring professional chefs, culinary supervisors, commercial kitchen operators, and students advancing in food production leadership.",
+    intakes: ["January", "May", "September"],
+    practicalHoursRatio: "80% Commercial Kitchen Culinary Labs • 20% Theory & Costing",
+    seoTitle: "Food and Beverage Production Level 5 Course Kenya | TVET CDACC | VIBIT",
+    metaDescription: "Enroll in TVET CDACC Level 5 Certificate in Food and Beverage Production at VIBIT Nairobi. 1 year comprehensive commercial culinary and kitchen management. Fees KSh 110,000.",
+    primaryKeyword: "food and beverage production level 5"
+  },
+  {
+    id: "food-beverage-management-level-6",
+    title: "Food and Beverage Management (Level 6)",
+    category: "diploma",
+    department: "tvet",
+    subCategory: "Food & Beverage Management (TVET CDACC)",
+    duration: "2 years",
+    level: "Level 6 Diploma (TVET CDACC)",
+    certification: "TVET CDACC National Diploma in Food and Beverage Management (Level 6)",
+    description: "Advanced 2-year diploma for executive hospitality managers and food & beverage directors. Master strategic hospitality finance, international culinary trends, sommelier & cellar management, facility design, labor regulations, and luxury guest experience.",
+    syllabus: [
+      "Strategic Food & Beverage Operations & Facility Layout Planning",
+      "Advanced Hospitality Financial Accounting, Budgeting & P&L Analysis",
+      "International Beverage Trade, Cellar Management & Sommelier Studies",
+      "Total Quality Management (TQM), ISO 22000 & Global Food Safety Audits",
+      "Human Resource Management, Hospitality Labor Law & Team Leadership",
+      "Hospitality Marketing, Brand Positioning & Revenue Management"
+    ],
+    image: imageFoodManagementHotel,
+    fees: {
+      tuition: 255000,
+      labFee: 0,
+      deposit: 0
+    },
+    schedule: "2 Years (6 Terms) • First Year: KSh 45,000 per term (3 terms = KSh 135,000) • Second Year: KSh 40,000 per term (3 terms = KSh 120,000)",
+    requirements: [
+      "KCSE mean grade C- (Minus) or equivalent",
+      "Or Level 5 Certificate in Food and Beverage Management / Operations",
+      "Aspirations toward senior hospitality leadership and enterprise management"
+    ],
+    careers: [
+      "Food and Beverage Director / Operations Manager",
+      "Executive Restaurant General Manager",
+      "Hotel Banquet & Catering Director",
+      "Hospitality Consultant & Culinary Business Entrepreneur"
+    ],
+    targetAudience: "Career hospitality professionals, senior supervisors, hotel managers, and entrepreneurs establishing restaurant and catering ventures.",
+    intakes: ["January", "May", "September"],
+    practicalHoursRatio: "65% Management Simulation & Practical Labs • 35% Strategic Leadership",
+    seoTitle: "Food and Beverage Management Level 6 Diploma Kenya | TVET CDACC | VIBIT",
+    metaDescription: "Enroll in the TVET CDACC Diploma in Food and Beverage Management Level 6 at VIBIT Nairobi. 2 years (Year 1: KSh 45k/term, Year 2: KSh 40k/term). Total KSh 255,000.",
+    primaryKeyword: "food and beverage management level 6"
+  },
+
+  /* =========================================================================
+     4. HOSPITALITY DEPARTMENT (TVET CDACC Certified Programs)
+     ========================================================================= */
+  {
+    id: "mixology",
+    title: "Mixology",
+    category: "certificate",
+    department: "hospitality",
     subCategory: "Hospitality & Beverage Arts",
-    duration: "12 Weeks",
+    duration: "12 weeks",
     level: "Level 3 Certificate",
-    certification: "TVET Approved Certificate in Mixology & Beverage Technology",
-    description: "Designed for world-class hospitality venues. Master flavor chemistry, cold-brew infusions, mocktails, botanical bitters formulation, and bar speed workflow.",
+    certification: "TVET Approved Certificate in Mixology",
+    description: "Designed for modern beverage lounges and luxury hospitality venues. Master flavor chemistry, craft syrups, botanical infusions, classic & contemporary mocktails and cocktails, bar ergonomics, and responsible service.",
     syllabus: [
       "Foundations of Flavor Pairing & Structural Taste Science",
-      "Cold-Brew Infusions & Nitro-Draft Implementations",
-      "Craft Syrups, Shrubs, and Botanical Bitters Production",
-      "Creative Presentation, Garnish Artistry & Glassware Pairing",
-      "Inventory Management, Bar Ergonomics, Safety & Responsible Service"
+      "Cold-Brew Infusions, Craft Syrups, Shrubs & Botanical Bitters",
+      "Classic & Contemporary Mocktails, Cocktails & Drink Styling",
+      "Bar Station Ergonomics, Speed Pouring & Glassware Pairing",
+      "Inventory Management, Bar Costing, Safety & Responsible Service"
     ],
     image: courseMixology,
     fees: {
-      tuition: 50000,
-      labFee: 10000,
+      tuition: 60000,
+      labFee: 0,
       deposit: 0
     },
-    schedule: "Full-Time or Evening Intensive",
+    schedule: "Full-Time (Mon - Fri) or Evening / Weekend Track",
     requirements: [
       "Minimum age: 18 years",
-      "Passion for culinary flavor pairing, craft beverages, and bar hospitality"
+      "Passion for beverage craftsmanship, flavor pairing, and hospitality service"
     ],
     careers: [
       "Professional Mixologist & Bar Captain",
-      "Craft Beverage & Mocktail Menu Developer",
-      "Luxury Resort / Cruise Line Bartender",
+      "Craft Beverage & Mocktail Specialist",
+      "Luxury Resort & Hotel Lounge Bartender",
       "Mobile Bar & Events Beverage Caterer"
     ],
-    targetAudience: "Hospitality professionals, beverage developers, resort staff, and creative bartenders.",
+    targetAudience: "Hospitality professionals, bartenders, beverage developers, and restaurant service staff.",
     intakes: ["January", "May", "September", "Monthly Cohorts"],
-    practicalHoursRatio: "85% Bar Practical • 15% Flavor Science",
-    seoTitle: "Mixology Course in Nairobi Kenya | Craft Beverage & Bar Training | VIBIT",
-    metaDescription: "Study professional mixology, craft botanical beverage creation, and bar operations at VIBIT Agricultural Training College in Nairobi.",
-    primaryKeyword: "mixology course Nairobi"
+    practicalHoursRatio: "85% Bar Practical Lab • 15% Flavor Science",
+    seoTitle: "Mixology Course Nairobi Kenya | 12 Weeks Bar Training | VIBIT",
+    metaDescription: "Study professional mixology in Nairobi with VIBIT. 12-week comprehensive bar training, drink styling, and customer service. Fees KSh 60,000.",
+    primaryKeyword: "mixology course Nairobi 12 weeks"
+  },
+  {
+    id: "food-beverage-management-level-2",
+    title: "Food and Beverage management level 2 waiter module 1",
+    category: "certificate",
+    department: "hospitality",
+    subCategory: "Food & Beverage Management",
+    duration: "3 months",
+    level: "Level 2 Certificate (TVET CDACC)",
+    certification: "TVET CDACC National Certificate in Food and Beverage Management (Level 2 Waiter Module 1)",
+    description: "Professional fast-track entry course for restaurant and dining service. Master exquisite table setting covers, order taking, tray balance, plate clearing, beverage service sequences, food hygiene, and dining room etiquette.",
+    syllabus: [
+      "Introduction to Food & Beverage Service Industry & Hierarchy",
+      "Restaurant Equipment, Glassware, Crockery & Silverware Handling",
+      "Table Laying, Cover Settings (A La Carte & Table D'Hôte) & Napkin Folds",
+      "Tray Service Mechanics, Plate Service & Clearance Techniques",
+      "Guest Greeting, Order Taking, Food Service Sequence & Etiquette",
+      "Hospitality Personal Hygiene, Grooming Standards & Safety"
+    ],
+    image: imageTableSettingLuxury,
+    fees: {
+      tuition: 50000,
+      labFee: 0,
+      deposit: 0
+    },
+    schedule: "Full-Time Intensive (3 Months / 1 Term) or Modular Shift Release",
+    requirements: [
+      "KCSE Certificate or open entry for passionate hospitality starters",
+      "Good interpersonal communication skills and enthusiasm for customer service",
+      "Minimum age: 18 years"
+    ],
+    careers: [
+      "Professional Restaurant Waiter / Server",
+      "Banquet & Events Catering Server",
+      "Hotel In-Room Dining Server",
+      "Café & Bistro Service Attendant"
+    ],
+    targetAudience: "School leavers, youth seeking fast-track employment in hotels, restaurants, lounges, and catering establishments.",
+    intakes: ["Monthly Intakes", "January", "May", "September"],
+    practicalHoursRatio: "85% Restaurant Simulation Lab • 15% Service Theory",
+    seoTitle: "Food and Beverage Management Level 2 Waiter Module 1 Nairobi | VIBIT",
+    metaDescription: "Train as a certified professional waiter in Nairobi with VIBIT. 3 months TVET CDACC Level 2 Waiter Module 1 course. Fees KSh 50,000.",
+    primaryKeyword: "food and beverage management level 2 waiter module 1"
+  },
+  {
+    id: "food-beverage-management-level-4",
+    title: "Food and beverage management level 4 - waiter module 1 and 2",
+    category: "certificate",
+    department: "hospitality",
+    subCategory: "Food & Beverage Management",
+    duration: "6 months",
+    level: "Level 4 Certificate (TVET CDACC)",
+    certification: "TVET CDACC National Certificate in Food and Beverage Management - Waiter Modules 1 & 2 (Level 4)",
+    description: "Comprehensive 6-month dining room and supervisory service program covering Modules 1 & 2. Master luxury table settings, silver service, guéridon trolley service, wine & beverage service etiquette, station supervision, handling guest billing and POS, upselling, and VIP protocol.",
+    syllabus: [
+      "Module 1: Professional Table Service, Covers & Restaurant Mechanics",
+      "Module 2: Advanced Silver Service, Guéridon & Flambé Service",
+      "Wine Knowledge, Wine Service Protocols & Beverage Pairing",
+      "Station Supervision, Shift Handover & Table Allocation",
+      "Point of Sale (POS) Billing, Cashiering & Guest Complaint Resolution",
+      "Banqueting, Conference Buffets & VIP Dignitary Service Protocols"
+    ],
+    image: imageTableSettingLuxury,
+    fees: {
+      tuition: 85000,
+      labFee: 0,
+      deposit: 0
+    },
+    schedule: "Full-Time (6 Months / 2 Terms) or Modular Shift Release",
+    requirements: [
+      "KCSE mean grade D (Plain) or equivalent",
+      "Or Level 2 Certificate in Food & Beverage / Prior Waiter experience",
+      "Professional demeanor and service passion"
+    ],
+    careers: [
+      "Captain Waiter / Restaurant Station Head",
+      "Fine Dining Head Server",
+      "Banquet Service Supervisor",
+      "Cruise Ship / 5-Star Hotel Dining Server"
+    ],
+    targetAudience: "Experienced waiters upgrading to supervisory level, hospitality practitioners, and career service professionals.",
+    intakes: ["January", "May", "September"],
+    practicalHoursRatio: "80% Advanced Service Lab & Banqueting • 20% Supervisory Theory",
+    seoTitle: "Food and Beverage Management Level 4 Waiter Modules 1 & 2 Nairobi | VIBIT",
+    metaDescription: "Advance your hospitality career with TVET CDACC Level 4 Food and Beverage Management (Waiter Modules 1 & 2) at VIBIT Nairobi. 6 months, KSh 85,000.",
+    primaryKeyword: "food and beverage management level 4 waiter module 1 and 2"
   }
 ];
 
@@ -673,7 +1031,7 @@ export const OFFICIAL_FAQS: FAQItem[] = [
   {
     id: "faq-how-to-apply",
     question: "How can I apply to VIBIT?",
-    answer: "Applying to VIBIT is quick and straightforward: (1) Online through our interactive Admissions Portal on this website, (2) By emailing your academic certificates and national ID copy to vbitschoolofcoffeagribusiness@gmail.com, (3) Via WhatsApp or telephone call to our Admissions Desk at +254 708 137992, or (4) In person by visiting our Westlands campus at Leomar Court, 45 Westlands Road, Nairobi.",
+    answer: "Applying to VIBIT is quick and straightforward: (1) Online through our interactive Admissions Portal on this website, (2) By emailing your academic certificates and national ID copy to vbitschoolofcoffeagribusiness@gmail.com, (3) Via WhatsApp or telephone call to our Admissions Desk at +254 708 137992 / +254 759 065 090, or (4) In person by visiting our Westlands campus at Leomar Court, 45 Westlands Road, Nairobi.",
     category: "admissions",
     badge: "Enrollment & Intake"
   },

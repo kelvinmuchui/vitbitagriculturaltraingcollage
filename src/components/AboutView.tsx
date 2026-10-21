@@ -36,8 +36,97 @@ export default function AboutView({ setView }: AboutViewProps) {
   ];
 
   return (
-    <div className="space-y-24 pt-8 pb-20" id="about-view">
+    <div className="space-y-24 pb-20" id="about-view">
       
+      {/* 1. HERO SECTION */}
+      <section className="relative overflow-hidden bg-gradient-to-b from-[#2E221C] via-[#3A2C24] to-[#2E221C] text-white py-16 sm:py-24 border-b border-[#C28A4E]/20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            
+            {/* Text Left */}
+            <motion.div 
+              className="lg:col-span-7 space-y-6"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+            >
+              <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-[#C28A4E]/20 text-[#C28A4E] border border-[#C28A4E]/30 text-xs font-bold uppercase tracking-wider">
+                <Award className="h-4 w-4 text-[#C28A4E]" />
+                <span>About VIBIT Agricultural Training College</span>
+              </div>
+
+              <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#FAF6F0] leading-tight">
+                Shaping the Next Generation of Specialty Coffee & Agribusiness Leaders
+              </h1>
+
+              <p className="text-sm sm:text-base text-gray-300 leading-relaxed max-w-2xl">
+                Located at Leomar Court in Westlands, Nairobi, VIBIT Agricultural Training College bridges the critical gap between agricultural science and commercial specialty coffee markets through 85%+ hands-on practical lab mastery and TVET-accredited curriculum.
+              </p>
+
+              {/* Quick Key Metrics */}
+              <div className="grid grid-cols-3 gap-4 pt-4 border-t border-white/10">
+                <div>
+                  <div className="font-serif text-2xl sm:text-3xl font-extrabold text-[#C28A4E]">2,500+</div>
+                  <div className="text-[11px] text-gray-400 uppercase tracking-wider mt-0.5">Alumni Trained</div>
+                </div>
+                <div>
+                  <div className="font-serif text-2xl sm:text-3xl font-extrabold text-[#C28A4E]">85%+</div>
+                  <div className="text-[11px] text-gray-400 uppercase tracking-wider mt-0.5">Practical Hours</div>
+                </div>
+                <div>
+                  <div className="font-serif text-2xl sm:text-3xl font-extrabold text-[#C28A4E]">TVET</div>
+                  <div className="text-[11px] text-gray-400 uppercase tracking-wider mt-0.5">Accredited</div>
+                </div>
+              </div>
+
+              <div className="flex flex-wrap gap-4 pt-2">
+                <button
+                  onClick={() => setView('courses')}
+                  className="bg-[#C28A4E] hover:bg-[#A9743B] text-white px-6 py-3.5 rounded-xl font-bold text-xs uppercase tracking-wider transition-all shadow-md cursor-pointer flex items-center space-x-2"
+                >
+                  <span>Explore Academic Programs</span>
+                  <ArrowRight className="h-4 w-4" />
+                </button>
+                <button
+                  onClick={() => setView('coffee-school-nairobi')}
+                  className="bg-white/10 hover:bg-white/20 text-[#FAF6F0] px-6 py-3.5 rounded-xl font-bold text-xs uppercase tracking-wider transition-all border border-white/15 cursor-pointer"
+                >
+                  <span>Coffee School Nairobi</span>
+                </button>
+              </div>
+            </motion.div>
+
+            {/* Visual Right */}
+            <motion.div 
+              className="lg:col-span-5 relative"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
+              <div className="relative rounded-3xl overflow-hidden shadow-2xl border border-white/10 aspect-[4/3] group">
+                <img 
+                  src={aboutHeroBanner} 
+                  alt="VIBIT Agricultural Training College Campus & Students" 
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  referrerPolicy="no-referrer"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#2E221C]/80 via-transparent to-transparent"></div>
+                <div className="absolute bottom-4 left-4 right-4 bg-[#2E221C]/90 backdrop-blur-md p-4 rounded-2xl border border-white/15 text-white">
+                  <div className="flex items-center space-x-2 text-[#C28A4E] text-xs font-bold uppercase tracking-wider">
+                    <MapPin className="h-3.5 w-3.5" />
+                    <span>Westlands Campus, Nairobi</span>
+                  </div>
+                  <p className="text-xs text-gray-300 mt-1">
+                    45 Westlands Road, Leomar Court, Nairobi, Kenya
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+
+          </div>
+        </div>
+      </section>
+
       {/* 2. VISION, MISSION & STANDARDS */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">

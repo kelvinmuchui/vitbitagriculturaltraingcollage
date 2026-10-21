@@ -4,7 +4,7 @@ import {
   Search, Clock, Award, BookOpen, Calculator, CheckSquare, 
   ArrowRight, X, ChevronDown, ChevronUp, Sparkles, Sliders, 
   Flame, Droplets, Leaf, Coffee, Play, ArrowLeft, RefreshCw, 
-  HelpCircle, Check, Compass, Eye, Heart, Printer 
+  HelpCircle, Check, Compass, Eye, Heart, Printer, Utensils 
 } from 'lucide-react';
 import { Course } from '../types';
 
@@ -52,8 +52,8 @@ const FLAVOR_GROUPS: FlavorGroup[] = [
     compounds: "Citric & Malic organic acids",
     roastFit: "Light Roast, Wet/Washed processing",
     origins: "Kenya (Nyeri, Kirinyaga), Ethiopia (Yirgacheffe)",
-    matchingCourseId: "cupping-technology",
-    matchingCourseTitle: "Coffee Cupping & Technology",
+    matchingCourseId: "coffee-cupping-technology",
+    matchingCourseTitle: "Coffee cupping and technology",
     category: "Enzymatic / Organic Acids",
     sliders: { acidity: 92, body: 48, sweetness: 78 }
   },
@@ -129,7 +129,7 @@ export default function CoursesView({ setView, selectedCourseId, setSelectedCour
   
   // 1. Program Catalog state
   const [searchQuery, setSearchQuery] = useState('');
-  const [activeDepartment, setActiveDepartment] = useState<'all' | 'coffee' | 'agriculture' | 'tvet'>('all');
+  const [activeDepartment, setActiveDepartment] = useState<'all' | 'coffee' | 'agriculture' | 'hospitality' | 'tvet'>('all');
   const [activeCategory, setActiveCategory] = useState<'all' | 'diploma' | 'certificate' | 'short' | 'professional'>('all');
   const [expandedSyllabus, setExpandedSyllabus] = useState<Record<string, boolean>>({});
 
@@ -158,8 +158,9 @@ export default function CoursesView({ setView, selectedCourseId, setSelectedCour
 
   const departments = [
     { id: 'all', label: 'All Departments', icon: BookOpen, count: courses.length },
-    { id: 'coffee', label: '☕ Coffee Courses', icon: Coffee, count: courses.filter(c => c.department === 'coffee').length },
-    { id: 'agriculture', label: '🌱 Agriculture Courses', icon: Leaf, count: courses.filter(c => c.department === 'agriculture').length },
+    { id: 'coffee', label: '☕ Coffee Academy', icon: Coffee, count: courses.filter(c => c.department === 'coffee').length },
+    { id: 'agriculture', label: '🌱 Agriculture & Extension', icon: Leaf, count: courses.filter(c => c.department === 'agriculture').length },
+    { id: 'hospitality', label: '🍽️ Hospitality & F&B', icon: Utensils, count: courses.filter(c => c.department === 'hospitality').length },
     { id: 'tvet', label: '📜 TVET Programmes', icon: Award, count: courses.filter(c => c.department === 'tvet').length },
   ];
 
@@ -231,7 +232,7 @@ export default function CoursesView({ setView, selectedCourseId, setSelectedCour
       } else if (q2 === 'medium') {
         courseId = 'coffee-agronomy';
       } else {
-        courseId = 'cupping-technology';
+        courseId = 'coffee-cupping-technology';
       }
     } else if (q1 === 'business') {
       if (q2 === 'short' || q2 === 'medium') {
@@ -290,8 +291,72 @@ export default function CoursesView({ setView, selectedCourseId, setSelectedCour
   const activeFlavor = FLAVOR_GROUPS[activeFlavorIdx];
 
   return (
-    <div className="space-y-12 pt-8 pb-20 animate-fade-in" id="courses-view">
+    <div className="space-y-12 pb-20 animate-fade-in" id="courses-view">
       
+      {/* 1. HERO HEADER */}
+      <section className="relative overflow-hidden bg-gradient-to-b from-[#2E221C] via-[#3A2C24] to-[#2E221C] text-white py-14 sm:py-20 border-b border-[#C28A4E]/20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+            
+            <motion.div 
+              className="lg:col-span-8 space-y-5"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+            >
+              <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-[#C28A4E]/20 text-[#C28A4E] border border-[#C28A4E]/30 text-xs font-bold uppercase tracking-wider">
+                <BookOpen className="h-4 w-4 text-[#C28A4E]" />
+                <span>Academic Catalog & Professional Certifications</span>
+              </div>
+
+              <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#FAF6F0] leading-tight">
+                Accredited Coffee, Agriculture & TVET Diploma Courses
+              </h1>
+
+              <p className="text-sm sm:text-base text-gray-300 leading-relaxed max-w-2xl">
+                Explore our full syllabus across Specialty Coffee Technology, Commercial Roasting, Barista Science, Horticulture, Agripreneurship, and CDACC TVET programs. 85%+ practical laboratory instruction at our Westlands campus.
+              </p>
+
+              <div className="flex flex-wrap items-center gap-3 pt-2">
+                <span className="px-3 py-1 rounded-lg bg-white/10 text-xs text-white/90 border border-white/15 flex items-center space-x-1.5">
+                  <Check className="h-3.5 w-3.5 text-[#C28A4E]" />
+                  <span>TVET CDACC Certified</span>
+                </span>
+                <span className="px-3 py-1 rounded-lg bg-white/10 text-xs text-white/90 border border-white/15 flex items-center space-x-1.5">
+                  <Check className="h-3.5 w-3.5 text-[#C28A4E]" />
+                  <span>SCA Protocol Aligned</span>
+                </span>
+                <span className="px-3 py-1 rounded-lg bg-white/10 text-xs text-white/90 border border-white/15 flex items-center space-x-1.5">
+                  <Check className="h-3.5 w-3.5 text-[#C28A4E]" />
+                  <span>Transparent Fee Structures</span>
+                </span>
+              </div>
+            </motion.div>
+
+            <motion.div 
+              className="lg:col-span-4 hidden lg:block"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
+              <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-white/15 aspect-[4/3]">
+                <img 
+                  src={coursesHeroBanner} 
+                  alt="VIBIT Academic Practical Course Laboratory" 
+                  className="w-full h-full object-cover"
+                  referrerPolicy="no-referrer"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#2E221C]/90 via-transparent to-transparent"></div>
+                <div className="absolute bottom-3 left-3 right-3 text-center bg-[#2E221C]/80 backdrop-blur-sm py-2 px-3 rounded-xl border border-white/10">
+                  <span className="text-[11px] text-gray-300 font-medium">Over 12 Accredited Industry Tracks</span>
+                </div>
+              </div>
+            </motion.div>
+
+          </div>
+        </div>
+      </section>
+
       {/* 2. TAB NAVIGATION (Option 2 & 3 Integration) */}
       <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
         <motion.div 
@@ -396,7 +461,7 @@ export default function CoursesView({ setView, selectedCourseId, setSelectedCour
                 </div>
 
                 {/* 1. Main Department Switcher */}
-                <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
                   {departments.map((dept) => {
                     const isSelected = activeDepartment === dept.id;
                     const Icon = dept.icon;
@@ -706,6 +771,12 @@ export default function CoursesView({ setView, selectedCourseId, setSelectedCour
                                     KSh {(course.fees.tuition + course.fees.labFee).toLocaleString()}
                                   </span>
                                 </div>
+                                {course.schedule && (course.schedule.includes('term') || course.schedule.includes('Term') || course.schedule.includes('semester')) && (
+                                  <div className="text-[10px] text-[#8E7C74] font-medium pt-1.5 border-t border-[#2E221C]/5">
+                                    <span className="text-[#C28A4E] font-semibold">Installment Plan: </span>
+                                    <span>{course.schedule}</span>
+                                  </div>
+                                )}
                               </div>
 
                               {/* Actions */}
@@ -1058,7 +1129,7 @@ export default function CoursesView({ setView, selectedCourseId, setSelectedCour
                 <div className="bg-gray-50 border-t border-gray-100 p-5 flex items-center justify-between">
                   <div className="flex items-center space-x-1 text-[10px] text-gray-400">
                     <HelpCircle className="h-4.5 w-4.5 text-gray-300" />
-                    <span>Need counseling? Call us at +254 708 137992</span>
+                    <span>Need counseling? Call us at +254 708 137992 / +254 759 065 090</span>
                   </div>
                   
                   {quizStep > 0 && (
