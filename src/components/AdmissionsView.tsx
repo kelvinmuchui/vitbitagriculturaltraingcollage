@@ -54,11 +54,20 @@ export default function AdmissionsView({ setView, selectedCourseId, setSelectedC
                 <span>Apply on WhatsApp</span>
               </a>
               <a
-                href="tel:+254708137992"
-                className="flex-1 sm:flex-initial flex items-center justify-center space-x-2 bg-[#2E221C] hover:bg-[#110E0C] text-white font-bold text-xs px-5 py-3.5 rounded-xl shadow-md transition-all cursor-pointer"
+                href="tel:0708137992"
+                className="flex-1 sm:flex-initial flex items-center justify-center space-x-1.5 bg-[#2E221C] hover:bg-[#110E0C] text-white font-bold text-xs px-3.5 py-3.5 rounded-xl shadow-md transition-all cursor-pointer"
+                title="Call Admissions line 1"
               >
                 <Phone className="h-4 w-4 text-[#C28A4E]" />
-                <span>Call Helpline</span>
+                <span>0708 137992</span>
+              </a>
+              <a
+                href="tel:0759065090"
+                className="flex-1 sm:flex-initial flex items-center justify-center space-x-1.5 bg-[#C28A4E] hover:bg-[#A9743B] text-white font-bold text-xs px-3.5 py-3.5 rounded-xl shadow-md transition-all cursor-pointer"
+                title="Call Admissions line 2"
+              >
+                <Phone className="h-4 w-4 text-white" />
+                <span>0759 065 090</span>
               </a>
             </div>
           </div>

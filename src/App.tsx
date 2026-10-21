@@ -110,7 +110,7 @@ export default function App() {
   const [selectedCourseId, setSelectedCourseId] = useState<string | null>(null);
 
   // Stateful, persistent courses catalog loaded from LocalStorage
-  const STORAGE_KEY = 'vibit_courses_v6';
+  const STORAGE_KEY = 'vibit_courses_v7';
   const [courses, setCourses] = useState<Course[]>(() => {
     // Clear out any older stale schema versions
     try {
@@ -119,6 +119,7 @@ export default function App() {
       localStorage.removeItem('vibit_courses_v3');
       localStorage.removeItem('vibit_courses_v4');
       localStorage.removeItem('vibit_courses_v5');
+      localStorage.removeItem('vibit_courses_v6');
     } catch (_) {}
 
     const saved = localStorage.getItem(STORAGE_KEY);

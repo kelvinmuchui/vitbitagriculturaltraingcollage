@@ -18,10 +18,10 @@ import courseHorticultureFarm from './assets/images/course_horticulture_farm_179
 import courseWaiterService from './assets/images/course_waiter_service_1791444518473.jpg';
 import courseFoodOperations from './assets/images/course_food_operations_1791444530728.jpg';
 import homeAgronomyPreview from './assets/images/home_agronomy_preview_1784976428501.jpg';
-import imageTableSettingLuxury from './assets/images/table_setting_luxury_1792575391469.jpg';
-import imageFoodProductionKitchen from './assets/images/fb_production_kitchen_1792575405827.jpg';
-import imageFoodManagementHotel from './assets/images/fb_management_hotel_1792575418080.jpg';
-import imageAiCoffeeIndustry from './assets/images/ai_coffee_industry_1792575432414.jpg';
+import imageTableSettingLuxury from './assets/images/african_table_setting_service_1792576339961.jpg';
+import imageFoodProductionKitchen from './assets/images/african_fb_level5_student_1792576309190.jpg';
+import imageFoodManagementHotel from './assets/images/african_fb_level6_student_1792576323998.jpg';
+import imageAiCoffeeIndustry from './assets/images/african_coffee_ai_student_1792576357049.jpg';
 
 import facilityEspressoLab from './assets/images/facility_espresso_lab_1784976539403.jpg';
 import facilityRoasteryQc from './assets/images/facility_roastery_qc_1784976554142.jpg';

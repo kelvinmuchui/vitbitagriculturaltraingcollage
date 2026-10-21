@@ -891,6 +891,12 @@ export default function ApplicationForm({
                 <MessageSquare className="h-4 w-4" />
                 <span>Chat on WhatsApp (+254 708 137 992)</span>
               </a>
+              <div className="flex items-center justify-center gap-2 pt-1 text-[11px] text-emerald-900 font-semibold">
+                <span>Or Call:</span>
+                <a href="tel:0708137992" className="underline hover:text-emerald-700 font-bold">0708 137992</a>
+                <span>/</span>
+                <a href="tel:0759065090" className="underline hover:text-emerald-700 font-bold">0759 065 090</a>
+              </div>
             </div>
 
             {/* Interview Scheduler Block */}
