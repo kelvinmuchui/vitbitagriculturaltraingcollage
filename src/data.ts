@@ -17,7 +17,7 @@ import courseGeneralAgric from './assets/images/course_general_agric_17914444939
 import courseGeneralAgricLevel6 from './assets/images/general_agriculture_level_6_students.jpeg';
 import agricultureExtensionLevel6Image from './assets/images/agriculture_extension_level_6_fieldwork.jpeg';
 import horticultureProductionLevel5Image from './assets/images/horticulture_production_level_5_nursery.jpeg';
-import horticultureProductionLevel6Image from './assets/images/horticulture_production_level_6_field_practice.jpeg';
+import horticultureProductionLevel6Image from './assets/images/horticulture_production_level_6_nursery_practice.jpeg';
 import courseHorticultureFarm from './assets/images/course_horticulture_farm_1791444505047.jpg';
 import courseWaiterService from './assets/images/course_waiter_service_1791444518473.jpg';
 import courseFoodOperations from './assets/images/course_food_operations_1791444530728.jpg';
