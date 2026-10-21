@@ -289,47 +289,47 @@ export const COURSES: Course[] = [
     metaDescription: "Learn commercial agribusiness, commodity export logistics, and farm financial management at VIBIT Agricultural Training College Nairobi.",
     primaryKeyword: "agribusiness course in Kenya"
   },
-  {
-    id: "sustainable-agriculture",
-    title: "Sustainable Agriculture & Crop Production",
-    category: "certificate",
-    department: "agriculture",
-    subCategory: "Crop Science & Farm Management",
-    duration: "12 Weeks",
-    level: "Certificate Level",
-    certification: "TVET Certificate in Sustainable Crop Production & Farm Management",
-    description: "Comprehensive hands-on training in commercial horticulture, drip irrigation systems, soil fertility restoration, integrated pest management, and greenhouse management.",
-    syllabus: [
-      "Principles of Agroecology & Sustainable Soil Biology",
-      "Commercial Greenhouse Design, Humidity & Temperature Automation",
-      "Drip Irrigation Setup, Fertigation & Water Harvesting Systems",
-      "Integrated Biological Pest & Disease Management",
-      "Post-Harvest Handling, Cold Chain Logistics & Market Linkages"
-    ],
-    image: facilitySoilAnalytics,
-    fees: {
-      tuition: 55000,
-      labFee: 15000,
-      deposit: 0
-    },
-    schedule: "Full-Time (Mon - Fri) or Practical Saturday Intensive",
-    requirements: [
-      "KCSE D+ or prior practical experience in farm management",
-      "Passion for sustainable food security and high-value horticulture"
-    ],
-    careers: [
-      "Commercial Greenhouse & Horticultural Farm Manager",
-      "Sustainable Agriculture Field Consultant",
-      "Irrigation & Farm Infrastructure Specialist",
-      "Agri-Extension Trainer & Organic Inspector"
-    ],
-    targetAudience: "Horticultural farmers, greenhouse managers, agricultural extension workers, and youth entering high-value crop production.",
-    intakes: ["January", "May", "September", "Monthly Cohorts"],
-    practicalHoursRatio: "75% Practical Farm Work • 25% Agricultural Science",
-    seoTitle: "Sustainable Agriculture Course in Kenya | Crop Science & Farming | VIBIT",
-    metaDescription: "Enroll in Sustainable Agriculture and Crop Production training in Nairobi at VIBIT. Master greenhouse management, drip irrigation, and soil science.",
-    primaryKeyword: "sustainable agriculture course Kenya"
-  },
+  // {
+  //   id: "sustainable-agriculture",
+  //   title: "Sustainable Agriculture & Crop Production",
+  //   category: "certificate",
+  //   department: "agriculture",
+  //   subCategory: "Crop Science & Farm Management",
+  //   duration: "12 Weeks",
+  //   level: "Certificate Level",
+  //   certification: "TVET Certificate in Sustainable Crop Production & Farm Management",
+  //   description: "Comprehensive hands-on training in commercial horticulture, drip irrigation systems, soil fertility restoration, integrated pest management, and greenhouse management.",
+  //   syllabus: [
+  //     "Principles of Agroecology & Sustainable Soil Biology",
+  //     "Commercial Greenhouse Design, Humidity & Temperature Automation",
+  //     "Drip Irrigation Setup, Fertigation & Water Harvesting Systems",
+  //     "Integrated Biological Pest & Disease Management",
+  //     "Post-Harvest Handling, Cold Chain Logistics & Market Linkages"
+  //   ],
+  //   image: facilitySoilAnalytics,
+  //   fees: {
+  //     tuition: 55000,
+  //     labFee: 15000,
+  //     deposit: 0
+  //   },
+  //   schedule: "Full-Time (Mon - Fri) or Practical Saturday Intensive",
+  //   requirements: [
+  //     "KCSE D+ or prior practical experience in farm management",
+  //     "Passion for sustainable food security and high-value horticulture"
+  //   ],
+  //   careers: [
+  //     "Commercial Greenhouse & Horticultural Farm Manager",
+  //     "Sustainable Agriculture Field Consultant",
+  //     "Irrigation & Farm Infrastructure Specialist",
+  //     "Agri-Extension Trainer & Organic Inspector"
+  //   ],
+  //   targetAudience: "Horticultural farmers, greenhouse managers, agricultural extension workers, and youth entering high-value crop production.",
+  //   intakes: ["January", "May", "September", "Monthly Cohorts"],
+  //   practicalHoursRatio: "75% Practical Farm Work • 25% Agricultural Science",
+  //   seoTitle: "Sustainable Agriculture Course in Kenya | Crop Science & Farming | VIBIT",
+  //   metaDescription: "Enroll in Sustainable Agriculture and Crop Production training in Nairobi at VIBIT. Master greenhouse management, drip irrigation, and soil science.",
+  //   primaryKeyword: "sustainable agriculture course Kenya"
+  // },
   {
     id: "general-agriculture-level-5",
     title: "General Agriculture (Level 5 Certificate)",
@@ -349,7 +349,7 @@ export const COURSES: Course[] = [
     ],
     image: courseGeneralAgric,
     fees: {
-      tuition: 65000,
+      tuition: 120000,
       labFee: 15000,
       deposit: 0
     },
