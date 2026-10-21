@@ -15,6 +15,9 @@ import sortingBeans from './assets/images/sorting_beans_1783338143134.jpg';
 import facilitySoilAnalytics from './assets/images/facility_soil_analytics_1784976581491.jpg';
 import courseGeneralAgric from './assets/images/course_general_agric_1791444493905.jpg';
 import courseGeneralAgricLevel6 from './assets/images/course_general_agric_1791444493905b.jpg';
+import agricultureExtensionLevel6Image from './assets/images/agriculture_extension_level_6_field_practice.jpeg';
+import horticultureProductionLevel5Image from './assets/images/horticulture_production_level_5_field_practice.jpeg';
+import horticultureProductionLevel6Image from './assets/images/horticulture_production_level_6_field_practice.jpeg';
 import courseHorticultureFarm from './assets/images/course_horticulture_farm_1791444505047.jpg';
 import courseWaiterService from './assets/images/course_waiter_service_1791444518473.jpg';
 import courseFoodOperations from './assets/images/course_food_operations_1791444530728.jpg';
@@ -476,7 +479,7 @@ export const COURSES: Course[] = [
       "Sustainable Natural Resource Management & Watershed Extension",
       "Research Methods in Extension & Field Practicum Dissertation"
     ],
-    image: homeAgronomyPreview,
+    image: agricultureExtensionLevel6Image,
     fees: {
       tuition: 130000,
       labFee: 25000,
@@ -518,7 +521,7 @@ export const COURSES: Course[] = [
       "Greenhouse Climate Control, Hydroponics & Drip Fertigation",
       "Post-Harvest Grading, Packhouse Sorting & GlobalGAP Standards"
     ],
-    image: courseHorticultureFarm,
+    image: horticultureProductionLevel5Image,
     fees: {
       tuition: 70000,
       labFee: 20000,
@@ -561,7 +564,7 @@ export const COURSES: Course[] = [
       "Integrated Pest & Disease Management (Biological Controls & IPM)",
       "International Fresh Produce Trade, Phytosanitary Laws & GlobalGAP/BRC Auditing"
     ],
-    image: courseHorticultureFarm,
+    image: horticultureProductionLevel6Image,
     fees: {
       tuition: 135000,
       labFee: 30000,
@@ -1032,7 +1035,7 @@ export const OFFICIAL_FAQS: FAQItem[] = [
   {
     id: "faq-how-to-apply",
     question: "How can I apply to VIBIT?",
-    answer: "Applying to VIBIT is quick and straightforward: (1) Online through our interactive Admissions Portal on this website, (2) By emailing your academic certificates and national ID copy to vbitschoolofcoffeagribusiness@gmail.com, (3) Via WhatsApp or telephone call to our Admissions Desk at +254 708 137992 / +254 759 065 090, or (4) In person by visiting our Westlands campus at Leomar Court, 45 Westlands Road, Nairobi.",
+    answer: "Applying to VIBIT is quick and straightforward: (1) Online through our interactive Admissions Portal on this website, (2) By emailing your academic certificates and national ID copy to vbitschoolofcoffeeagribusiness@gmail.com, (3) Via WhatsApp or telephone call to our Admissions Desk at +254 708 137992 / +254 759 065 090, or (4) In person by visiting our Westlands campus at Leomar Court, 45 Westlands Road, Nairobi.",
     category: "admissions",
     badge: "Enrollment & Intake"
   },

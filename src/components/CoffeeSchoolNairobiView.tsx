@@ -623,7 +623,7 @@ export default function CoffeeSchoolNairobiView({
                 </div>
                 <div>
                   <span className="font-bold text-[#8E7C74] uppercase text-[10px] block">Email Admissions:</span>
-                  <p className="font-medium text-[#C28A4E]">vbitschoolofcoffeagribusiness@gmail.com</p>
+                  <p className="font-medium text-[#C28A4E]">vbitschoolofcoffeeagribusiness@gmail.com</p>
                 </div>
               </div>
 
@@ -779,7 +779,7 @@ export default function CoffeeSchoolNairobiView({
             {
               step: "02",
               title: "Submit Application",
-              desc: "Fill our online application form or send your ID & KCSE results slip via WhatsApp / email to vbitschoolofcoffeagribusiness@gmail.com."
+              desc: "Fill our online application form or send your ID & KCSE results slip via WhatsApp / email to vbitschoolofcoffeeagribusiness@gmail.com."
             },
             {
               step: "03",

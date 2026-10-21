@@ -32,7 +32,7 @@ export default function AdmissionsView({ setView, selectedCourseId, setSelectedC
             <div className="space-y-2 text-center lg:text-left">
               <div className="inline-flex items-center space-x-2 bg-emerald-600 text-white text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-xs">
                 <Sparkles className="h-3.5 w-3.5 text-white" />
-                <span>Easiest Way to Apply • Rahisi Kabisa</span>
+                <span>Easiest Way to Apply</span>
               </div>
               <h2 className="font-serif text-2xl sm:text-3xl font-extrabold text-[#2E221C]">
                 Apply in 1 Minute — No Papers Needed Today!
@@ -200,7 +200,7 @@ export default function AdmissionsView({ setView, selectedCourseId, setSelectedC
                     <span>/</span>
                     <a href="tel:0759065090" className="hover:underline">0759 065 090</a>
                   </div>
-                  <div className="text-[10px] text-[#8E7C74]">vbitschoolofcoffeagribusiness@gmail.com</div>
+                  <div className="text-[10px] text-[#8E7C74]">vbitschoolofcoffeeagribusiness@gmail.com</div>
                 </div>
               </div>
             </motion.div>

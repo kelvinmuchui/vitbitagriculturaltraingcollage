@@ -280,7 +280,7 @@ export default function ContactView({ setView }: ContactViewProps) {
                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
               >
                 <a 
-                  href="mailto:vbitschoolofcoffeagribusiness@gmail.com"
+                  href="mailto:vbitschoolofcoffeeagribusiness@gmail.com"
                   className="flex items-start space-x-4 group cursor-pointer"
                 >
                   <div className="bg-[#C28A4E]/10 group-hover:bg-[#C28A4E] group-hover:text-white p-3.5 rounded-xl text-[#C28A4E] shrink-0 transition-colors">
@@ -291,7 +291,7 @@ export default function ContactView({ setView }: ContactViewProps) {
                       <span>Registrar Registry Email</span>
                       <ExternalLink className="h-3 w-3 text-[#C28A4E]" />
                     </h4>
-                    <p className="text-xs text-[#2E221C]/90 font-semibold hover:underline">vbitschoolofcoffeagribusiness@gmail.com</p>
+                    <p className="text-xs text-[#2E221C]/90 font-semibold hover:underline">vbitschoolofcoffeeagribusiness@gmail.com</p>
                     <p className="text-[10px] text-[#8E7C74]">Average reply timeline: 24 working hours</p>
                   </div>
                 </a>
@@ -785,7 +785,7 @@ export default function ContactView({ setView }: ContactViewProps) {
             </p>
             <div className="pt-2">
               <a
-                href="mailto:vbitschoolofcoffeagribusiness@gmail.com?subject=Campus%20Tour%20Request"
+                href="mailto:vbitschoolofcoffeeagribusiness@gmail.com?subject=Campus%20Tour%20Request"
                 className="inline-flex items-center space-x-2 bg-[#2E221C] hover:bg-[#110E0C] text-white px-5 py-3 rounded-xl text-xs font-bold transition-all shadow-sm cursor-pointer"
               >
                 <span>Request Tour Invitation</span>

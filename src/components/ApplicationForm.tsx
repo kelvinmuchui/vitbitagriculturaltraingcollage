@@ -15,6 +15,84 @@ interface ApplicationFormProps {
   setView: (view: string) => void;
 }
 
+const TARGET_EMAIL = 'vbitschoolofcoffeeagribusiness@gmail.com';
+
+const formatApplicationEmailBody = (app: Record<string, any>) => {
+  const lines = [
+    'New VIBIT Admission Application',
+    `Applicant: ${app.fullName}`,
+    `Email: ${app.email}`,
+    `Phone: ${app.phone}`,
+    `National ID: ${app.nationalId}`,
+    `Date of Birth: ${app.dateOfBirth}`,
+    `Address: ${app.address}`,
+    `Parent / Guardian: ${app.parentName}`,
+    `Parent Phone: ${app.parentPhone}`,
+    `Parent Relationship: ${app.parentRelationship}`,
+    `Course: ${app.courseName}`,
+    `Course ID: ${app.courseId}`,
+    `Prior Experience: ${app.priorExperience}`,
+    `Academic Grade: ${app.academicGrade}`,
+    `Motivation: ${app.motivation}`,
+    `Application Code: ${app.generatedCode}`,
+    `Submission Time: ${app.timestamp}`,
+    `Documents Uploaded: ${app.filesCount ?? 0}`,
+    `Enrollment Form: ${app.documentsUploaded?.enrollmentForm ?? 'Not submitted'}`,
+    `ID / Passport: ${app.documentsUploaded?.idPassport ?? 'Not submitted'}`,
+    `KCSE Certificate: ${app.documentsUploaded?.kcseCert ?? 'Not submitted'}`,
+    '',
+    'Please review the applicant details and contact them for next steps.'
+  ];
+
+  return lines.join('\n');
+};
+
+const sendApplicationEmail = async (newApp: Record<string, any>) => {
+  const subject = `New VIBIT Admission Application: ${newApp.fullName} (${newApp.generatedCode})`;
+  const emailBody = {
+    fullName: newApp.fullName,
+    email: newApp.email,
+    phone: newApp.phone,
+    nationalId: newApp.nationalId,
+    dateOfBirth: newApp.dateOfBirth,
+    address: newApp.address,
+    parentName: newApp.parentName,
+    parentPhone: newApp.parentPhone,
+    parentRelationship: newApp.parentRelationship,
+    courseId: newApp.courseId,
+    courseName: newApp.courseName,
+    priorExperience: newApp.priorExperience,
+    academicGrade: newApp.academicGrade,
+    motivation: newApp.motivation,
+    generatedCode: newApp.generatedCode,
+    submissionTime: new Date(newApp.timestamp).toLocaleString(),
+    filesCount: newApp.filesCount,
+    documentsUploaded: newApp.documentsUploaded,
+  };
+
+  try {
+    const response = await fetch('/api/application', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify(emailBody)
+    });
+
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok || data.ok === false) {
+      throw new Error(data.error || `HTTP ${response.status}`);
+    }
+
+    return true;
+  } catch (error) {
+    const mailtoLink = `mailto:${TARGET_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(formatApplicationEmailBody(newApp))}`;
+    window.open(mailtoLink, '_blank', 'noopener,noreferrer');
+    return false;
+  }
+};
+
 export default function ApplicationForm({
   courses,
   selectedCourseId,
@@ -150,55 +228,23 @@ export default function ApplicationForm({
     todayEntry.submissions += 1;
     localStorage.setItem('vibit_analytics', JSON.stringify(analyticsData));
 
-    // 3. Dispatch actual email notification via FormSubmit.co
-    const targetEmail = "vbitschoolofcoffeagribusiness@gmail.com";
-    const endpoint = `https://formsubmit.co/ajax/${targetEmail}`;
-    const emailBody = {
-      _subject: `New VIBIT Admission Application: ${newApp.fullName} (${newApp.generatedCode})`,
-      _template: "table",
-      fullName: newApp.fullName,
-      email: newApp.email,
-      phone: newApp.phone,
-      nationalId: newApp.nationalId,
-      dateOfBirth: newApp.dateOfBirth,
-      parentName: newApp.parentName,
-      parentPhone: newApp.parentPhone,
-      parentRelationship: newApp.parentRelationship,
-      courseId: newApp.courseId,
-      courseName: newApp.courseName,
-      priorExperience: newApp.priorExperience,
-      academicGrade: newApp.academicGrade,
-      motivation: newApp.motivation,
-      applicationCode: newApp.generatedCode,
-      submissionTime: new Date(newApp.timestamp).toLocaleString(),
-    };
-
-    fetch(endpoint, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Accept": "application/json"
-      },
-      body: JSON.stringify(emailBody)
-    })
-    .then(res => res.json())
-    .then(data => {
-      const isSuccess = data.success === "true" || data.success === true;
+    // 3. Dispatch actual email notification to the admissions inbox.
+    // Prefer FormSubmit for direct delivery and fall back to a mailto link for local email clients.
+    sendApplicationEmail(newApp).then((sent) => {
       const freshAnalytics = localStorage.getItem('vibit_analytics');
       let freshData = freshAnalytics ? JSON.parse(freshAnalytics) : {};
       freshData.emailLog = freshData.emailLog || [];
       freshData.emailLog.push({
         id: `email-${Date.now()}`,
-        to: targetEmail,
-        subject: emailBody._subject,
+        to: TARGET_EMAIL,
+        subject: `New VIBIT Admission Application: ${newApp.fullName} (${newApp.generatedCode})`,
         body: `Applicant ${newApp.fullName} registered for ${newApp.courseName}. Application code: ${newApp.generatedCode}.`,
         timestamp: new Date().toISOString(),
-        status: isSuccess ? 'Sent' : 'Failed'
+        status: sent ? 'Sent' : 'Fallback Mailto'
       });
       localStorage.setItem('vibit_analytics', JSON.stringify(freshData));
-    })
-    .catch(err => {
-      console.error("Email notification failed", err);
+    }).catch((err) => {
+      console.error('Email notification failed', err);
     });
 
     setTimeout(() => {
@@ -282,7 +328,7 @@ export default function ApplicationForm({
                   }`}
                 >
                   <Zap className="h-4 w-4 text-emerald-600" />
-                  <span>⚡ 1-Minute Quick Apply (Rahisi Kabisa)</span>
+                  <span>⚡ 1-Minute Quick Apply</span>
                 </button>
                 <button
                   type="button"
@@ -858,7 +904,7 @@ export default function ApplicationForm({
             <div className="space-y-3">
               <h3 className="font-serif text-2xl sm:text-3xl font-extrabold text-[#2E221C]">Hongera! Application Received</h3>
               <p className="text-sm text-[#2E221C]/80 max-w-md mx-auto leading-relaxed">
-                Your application for <strong>{currentCourse?.title || 'your chosen course'}</strong> has been received by our central registry. Our admissions registrar will contact you via phone or WhatsApp at <strong>{formData.phone}</strong>.
+                Your application for <strong>{currentCourse?.title || 'your chosen course'}</strong> has been received by our central registry and the details have been sent to <strong>vbitschoolofcoffeeagribusiness@gmail.com</strong>. Our admissions registrar will contact you via phone or WhatsApp at <strong>{formData.phone}</strong>.
               </p>
             </div>
 
