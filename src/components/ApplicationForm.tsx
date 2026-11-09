@@ -17,38 +17,7 @@ interface ApplicationFormProps {
 
 const TARGET_EMAIL = 'vbitschoolofcoffeeagribusiness@gmail.com';
 
-const formatApplicationEmailBody = (app: Record<string, any>) => {
-  const lines = [
-    'New VIBIT Admission Application',
-    `Applicant: ${app.fullName}`,
-    `Email: ${app.email}`,
-    `Phone: ${app.phone}`,
-    `National ID: ${app.nationalId}`,
-    `Date of Birth: ${app.dateOfBirth}`,
-    `Address: ${app.address}`,
-    `Parent / Guardian: ${app.parentName}`,
-    `Parent Phone: ${app.parentPhone}`,
-    `Parent Relationship: ${app.parentRelationship}`,
-    `Course: ${app.courseName}`,
-    `Course ID: ${app.courseId}`,
-    `Prior Experience: ${app.priorExperience}`,
-    `Academic Grade: ${app.academicGrade}`,
-    `Motivation: ${app.motivation}`,
-    `Application Code: ${app.generatedCode}`,
-    `Submission Time: ${app.timestamp}`,
-    `Documents Uploaded: ${app.filesCount ?? 0}`,
-    `Enrollment Form: ${app.documentsUploaded?.enrollmentForm ?? 'Not submitted'}`,
-    `ID / Passport: ${app.documentsUploaded?.idPassport ?? 'Not submitted'}`,
-    `KCSE Certificate: ${app.documentsUploaded?.kcseCert ?? 'Not submitted'}`,
-    '',
-    'Please review the applicant details and contact them for next steps.'
-  ];
-
-  return lines.join('\n');
-};
-
 const sendApplicationEmail = async (newApp: Record<string, any>) => {
-  const subject = `New VIBIT Admission Application: ${newApp.fullName} (${newApp.generatedCode})`;
   const emailBody = {
     fullName: newApp.fullName,
     email: newApp.email,
@@ -70,26 +39,18 @@ const sendApplicationEmail = async (newApp: Record<string, any>) => {
     documentsUploaded: newApp.documentsUploaded,
   };
 
-  try {
-    const response = await fetch('/api/application', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      },
-      body: JSON.stringify(emailBody)
-    });
+  const response = await fetch('/api/application', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    },
+    body: JSON.stringify(emailBody)
+  });
 
-    const data = await response.json().catch(() => ({}));
-    if (!response.ok || data.ok === false) {
-      throw new Error(data.error || `HTTP ${response.status}`);
-    }
-
-    return true;
-  } catch (error) {
-    const mailtoLink = `mailto:${TARGET_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(formatApplicationEmailBody(newApp))}`;
-    window.open(mailtoLink, '_blank', 'noopener,noreferrer');
-    return false;
+  const data = await response.json().catch(() => null);
+  if (!response.ok || !data?.ok) {
+    throw new Error(data?.error || `Email service returned HTTP ${response.status}`);
   }
 };
 
@@ -127,6 +88,7 @@ export default function ApplicationForm({
   // Submission and Interview states
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submissionSuccess, setSubmissionSuccess] = useState(false);
+  const [submissionError, setSubmissionError] = useState('');
   const [generatedCode, setGeneratedCode] = useState('');
   const [interviewDate, setInterviewDate] = useState('');
   const [interviewTime, setInterviewTime] = useState('');
@@ -150,12 +112,13 @@ export default function ApplicationForm({
     }
   };
 
-  const handleFormSubmit = (e: React.FormEvent) => {
+  const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.fullName.trim() || !formData.phone.trim()) {
       return;
     }
     setIsSubmitting(true);
+    setSubmissionError('');
 
     const randomNum = Math.floor(10000 + Math.random() * 90000);
     const code = `VIBIT-2026-${randomNum}`;
@@ -192,6 +155,16 @@ export default function ApplicationForm({
       }
     };
 
+    try {
+      await sendApplicationEmail(newApp);
+    } catch (error) {
+      console.error('Email notification failed:', error);
+      const detail = error instanceof Error ? error.message : 'Unknown email error';
+      setSubmissionError(`We couldn't send your application to ${TARGET_EMAIL}. ${detail} Please try again.`);
+      setIsSubmitting(false);
+      return;
+    }
+
     // 1. Persist to localStorage
     const currentAppsLocal = localStorage.getItem('vibit_applications');
     let appList = [];
@@ -226,32 +199,20 @@ export default function ApplicationForm({
       analyticsData.timeline.push(todayEntry);
     }
     todayEntry.submissions += 1;
+    analyticsData.emailLog = analyticsData.emailLog || [];
+    analyticsData.emailLog.push({
+      id: `email-${Date.now()}`,
+      to: TARGET_EMAIL,
+      subject: `New VIBIT Admission Application: ${newApp.fullName} (${newApp.generatedCode})`,
+      body: `Applicant ${newApp.fullName} registered for ${newApp.courseName}. Application code: ${newApp.generatedCode}.`,
+      timestamp: new Date().toISOString(),
+      status: 'Sent'
+    });
     localStorage.setItem('vibit_analytics', JSON.stringify(analyticsData));
 
-    // 3. Dispatch actual email notification to the admissions inbox.
-    // Prefer FormSubmit for direct delivery and fall back to a mailto link for local email clients.
-    sendApplicationEmail(newApp).then((sent) => {
-      const freshAnalytics = localStorage.getItem('vibit_analytics');
-      let freshData = freshAnalytics ? JSON.parse(freshAnalytics) : {};
-      freshData.emailLog = freshData.emailLog || [];
-      freshData.emailLog.push({
-        id: `email-${Date.now()}`,
-        to: TARGET_EMAIL,
-        subject: `New VIBIT Admission Application: ${newApp.fullName} (${newApp.generatedCode})`,
-        body: `Applicant ${newApp.fullName} registered for ${newApp.courseName}. Application code: ${newApp.generatedCode}.`,
-        timestamp: new Date().toISOString(),
-        status: sent ? 'Sent' : 'Fallback Mailto'
-      });
-      localStorage.setItem('vibit_analytics', JSON.stringify(freshData));
-    }).catch((err) => {
-      console.error('Email notification failed', err);
-    });
-
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setSubmissionSuccess(true);
-      setGeneratedCode(code);
-    }, 1100);
+    setIsSubmitting(false);
+    setSubmissionSuccess(true);
+    setGeneratedCode(code);
   };
 
   const handleBookInterview = (e: React.FormEvent) => {
@@ -281,6 +242,7 @@ export default function ApplicationForm({
     setIdPassportFile(null);
     setKcseCertFile(null);
     setSubmissionSuccess(false);
+    setSubmissionError('');
     setGeneratedCode('');
     setInterviewDate('');
     setInterviewTime('');
@@ -302,6 +264,12 @@ export default function ApplicationForm({
             exit={{ opacity: 0, x: 15 }}
             transition={{ duration: 0.35 }}
           >
+            {submissionError && (
+              <div role="alert" className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800">
+                {submissionError}
+              </div>
+            )}
+
             {/* Form Mode Selector: Quick 1-Minute Apply vs Detailed Form */}
             <div className="space-y-3 pb-2 border-b border-gray-100">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">

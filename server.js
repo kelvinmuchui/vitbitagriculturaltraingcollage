@@ -11,6 +11,14 @@ const __dirname = path.dirname(__filename);
 
 app.use(express.json({ limit: '10mb' }));
 
+const escapeHtml = (value) => String(value).replace(/[&<>"']/g, (character) => ({
+  '&': '&amp;',
+  '<': '&lt;',
+  '>': '&gt;',
+  '"': '&quot;',
+  "'": '&#39;'
+}[character]));
+
 app.post('/api/application', async (req, res) => {
   try {
     const payload = req.body || {};
@@ -57,22 +65,22 @@ app.post('/api/application', async (req, res) => {
     const html = `
       <h2>New VIBIT Admission Application</h2>
       <table border="1" cellpadding="8" cellspacing="0" style="border-collapse: collapse; width: 100%;">
-        <tr><td><strong>Applicant</strong></td><td>${appData.fullName}</td></tr>
-        <tr><td><strong>Email</strong></td><td>${appData.email}</td></tr>
-        <tr><td><strong>Phone</strong></td><td>${appData.phone}</td></tr>
-        <tr><td><strong>National ID</strong></td><td>${appData.nationalId}</td></tr>
-        <tr><td><strong>Date of Birth</strong></td><td>${appData.dateOfBirth}</td></tr>
-        <tr><td><strong>Address</strong></td><td>${appData.address}</td></tr>
-        <tr><td><strong>Parent / Guardian</strong></td><td>${appData.parentName}</td></tr>
-        <tr><td><strong>Parent Phone</strong></td><td>${appData.parentPhone}</td></tr>
-        <tr><td><strong>Relationship</strong></td><td>${appData.parentRelationship}</td></tr>
-        <tr><td><strong>Course</strong></td><td>${appData.courseName}</td></tr>
-        <tr><td><strong>Course ID</strong></td><td>${appData.courseId}</td></tr>
-        <tr><td><strong>Prior Experience</strong></td><td>${appData.priorExperience}</td></tr>
-        <tr><td><strong>Academic Grade</strong></td><td>${appData.academicGrade}</td></tr>
-        <tr><td><strong>Motivation</strong></td><td>${appData.motivation}</td></tr>
-        <tr><td><strong>Application Code</strong></td><td>${appData.generatedCode}</td></tr>
-        <tr><td><strong>Submission Time</strong></td><td>${appData.submissionTime}</td></tr>
+        <tr><td><strong>Applicant</strong></td><td>${escapeHtml(appData.fullName)}</td></tr>
+        <tr><td><strong>Email</strong></td><td>${escapeHtml(appData.email)}</td></tr>
+        <tr><td><strong>Phone</strong></td><td>${escapeHtml(appData.phone)}</td></tr>
+        <tr><td><strong>National ID</strong></td><td>${escapeHtml(appData.nationalId)}</td></tr>
+        <tr><td><strong>Date of Birth</strong></td><td>${escapeHtml(appData.dateOfBirth)}</td></tr>
+        <tr><td><strong>Address</strong></td><td>${escapeHtml(appData.address)}</td></tr>
+        <tr><td><strong>Parent / Guardian</strong></td><td>${escapeHtml(appData.parentName)}</td></tr>
+        <tr><td><strong>Parent Phone</strong></td><td>${escapeHtml(appData.parentPhone)}</td></tr>
+        <tr><td><strong>Relationship</strong></td><td>${escapeHtml(appData.parentRelationship)}</td></tr>
+        <tr><td><strong>Course</strong></td><td>${escapeHtml(appData.courseName)}</td></tr>
+        <tr><td><strong>Course ID</strong></td><td>${escapeHtml(appData.courseId)}</td></tr>
+        <tr><td><strong>Prior Experience</strong></td><td>${escapeHtml(appData.priorExperience)}</td></tr>
+        <tr><td><strong>Academic Grade</strong></td><td>${escapeHtml(appData.academicGrade)}</td></tr>
+        <tr><td><strong>Motivation</strong></td><td>${escapeHtml(appData.motivation)}</td></tr>
+        <tr><td><strong>Application Code</strong></td><td>${escapeHtml(appData.generatedCode)}</td></tr>
+        <tr><td><strong>Submission Time</strong></td><td>${escapeHtml(appData.submissionTime)}</td></tr>
       </table>
     `;
 
