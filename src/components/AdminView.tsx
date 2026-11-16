@@ -3,10 +3,11 @@ import { motion, AnimatePresence } from 'motion/react';
 import { 
   Users, Mail, ArrowUpRight, Check, X, Calendar, Search, 
   Trash2, Plus, Edit3, Settings, Eye, RefreshCw, Sparkles, 
-  Award, Clock, DollarSign, Send, Filter, CheckCircle2, AlertCircle,
+  Award, Clock, DollarSign, Send, Filter, CheckCircle2, AlertCircle, FileText,
   TrendingUp, BarChart2, BookOpen, Layers, Laptop
 } from 'lucide-react';
 import { Course } from '../types';
+import { sendApplicationEmails } from '../utils/emailDelivery';
 
 interface Application {
   id: string;
@@ -24,6 +25,16 @@ interface Application {
   interviewDate?: string;
   interviewTime?: string;
   filesCount: number;
+  nationalId: string;
+  dateOfBirth: string;
+  address: string;
+  parentName: string;
+  parentPhone: string;
+  parentRelationship: string;
+  adminEmailStatus: 'sent' | 'failed' | 'not_configured' | 'pending';
+  studentEmailStatus: 'sent' | 'failed' | 'not_configured' | 'pending';
+  emailError: string;
+  documentsUploaded: { id: string; fieldName: string; fileName: string; mimeType: string; size: number }[];
 }
 
 interface AnalyticsData {
@@ -38,7 +49,7 @@ interface AnalyticsData {
     subject: string;
     body: string;
     timestamp: string;
-    status: 'Sent' | 'Failed';
+    status: 'sent' | 'failed' | 'not_configured' | 'pending';
   }[];
 }
 
@@ -48,56 +59,7 @@ interface AdminViewProps {
   onResetCourses: () => void;
 }
 
-// Default Seed Data for Applications
-const SEED_APPLICATIONS: Application[] = [
-  {
-    id: "app-1",
-    fullName: "Jane Wanjiku Mwangi",
-    email: "jane.mwangi@gmail.com",
-    phone: "+254 712 345678",
-    courseId: "barista-skills",
-    courseName: "Coffee Barista Skills",
-    priorExperience: "one_year",
-    academicGrade: "B+",
-    motivation: "I have been working as a service attendant in a small cafe in Nyeri and want to elevate my credentials with an official TVET certificate, mastering advanced espresso chemistry and high-fidelity latte art to seek high-paying barista positions in Nairobi.",
-    status: "Interview Scheduled",
-    generatedCode: "VIBIT-2026-84321",
-    timestamp: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString(), // 3 days ago
-    interviewDate: "2026-07-20",
-    interviewTime: "10:30",
-    filesCount: 2
-  },
-  {
-    id: "app-2",
-    fullName: "Emmanuel Kiprop",
-    email: "kiprop.emmanuel@yahoo.com",
-    phone: "+254 722 987654",
-    courseId: "coffee-agronomy",
-    courseName: "Coffee Agronomy",
-    priorExperience: "none",
-    academicGrade: "B-",
-    motivation: "My family owns a 2-acre shaded coffee block in Kericho. I wish to learn professional climate-smart soil agronomy and pruning systems so I can double our cooperative cherry yields and transition us to organic production.",
-    status: "Pending",
-    generatedCode: "VIBIT-2026-19283",
-    timestamp: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(), // 1 day ago
-    filesCount: 1
-  },
-  {
-    id: "app-3",
-    fullName: "Mercy Chepkorir",
-    email: "chepkorir.m@hotmail.com",
-    phone: "+254 703 555111",
-    courseId: "agripreneurship",
-    courseName: "Agripreneurship",
-    priorExperience: "three_years",
-    academicGrade: "A-",
-    motivation: "As a cooperative auditor in Eldoret, I see local farms struggling with price volatility. I want to study trade hedging, Direct Settlement Systems, and marketing branding to construct a regional export business directly connected to micro-lot buyers in Europe.",
-    status: "Approved",
-    generatedCode: "VIBIT-2026-40291",
-    timestamp: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(), // 5 days ago
-    filesCount: 3
-  }
-];
+const SCHOOL_EMAIL = 'vbitschoolofcoffeeagribusiness@gmail.com';
 
 // Default Seed Data for Analytics
 const SEED_ANALYTICS: AnalyticsData = {
@@ -133,36 +95,17 @@ const SEED_ANALYTICS: AnalyticsData = {
     { date: "Jul 12", views: 125, submissions: 1 }, // Emmanuel
     { date: "Jul 13", views: 142, submissions: 0 }
   ],
-  emailLog: [
-    {
-      id: "seed-mail-1",
-      to: "vbitschoolofcoffeeagribusiness@gmail.com",
-      subject: "New VIBIT Admission Application: Mercy Chepkorir (VIBIT-2026-40291)",
-      body: "Applicant Mercy Chepkorir submitted a formal application for Agripreneurship Level 5 & 6. Credentials successfully compiled and routed via FormSubmit Gateway.",
-      timestamp: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(),
-      status: "Sent"
-    },
-    {
-      id: "seed-mail-2",
-      to: "vbitschoolofcoffeeagribusiness@gmail.com",
-      subject: "New VIBIT Admission Application: Jane Wanjiku Mwangi (VIBIT-2026-84321)",
-      body: "Applicant Jane Wanjiku Mwangi submitted a formal application for Barista Level 3. Credentials successfully compiled and routed via FormSubmit Gateway.",
-      timestamp: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString(),
-      status: "Sent"
-    },
-    {
-      id: "seed-mail-3",
-      to: "vbitschoolofcoffeeagribusiness@gmail.com",
-      subject: "New VIBIT Admission Application: Emmanuel Kiprop (VIBIT-2026-19283)",
-      body: "Applicant Emmanuel Kiprop submitted a formal application for Coffee Agronomy Level 3. Credentials successfully compiled and routed via FormSubmit Gateway.",
-      timestamp: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(),
-      status: "Sent"
-    }
-  ]
+  emailLog: []
 };
 
 export default function AdminView({ courses, onUpdateCourses, onResetCourses }: AdminViewProps) {
   const [activeTab, setActiveTab] = useState<'applications' | 'content' | 'analytics'>('applications');
+  const [authStatus, setAuthStatus] = useState<'checking' | 'required' | 'authenticated' | 'unconfigured' | 'unavailable'>('checking');
+  const [loginPassword, setLoginPassword] = useState('');
+  const [authError, setAuthError] = useState('');
+  const [applicationsError, setApplicationsError] = useState('');
+  const [isLoadingApplications, setIsLoadingApplications] = useState(true);
+  const [isResendingEmails, setIsResendingEmails] = useState(false);
   
   // Applications list state
   const [applications, setApplications] = useState<Application[]>([]);
@@ -193,22 +136,8 @@ export default function AdminView({ courses, onUpdateCourses, onResetCourses }: 
     schedule: ''
   });
 
-  // Load and sync local state
+  // Load public analytics and check the server-managed admin session.
   useEffect(() => {
-    // 1. Applications
-    const savedApps = localStorage.getItem('vibit_applications');
-    if (savedApps) {
-      try {
-        setApplications(JSON.parse(savedApps));
-      } catch (e) {
-        setApplications(SEED_APPLICATIONS);
-      }
-    } else {
-      setApplications(SEED_APPLICATIONS);
-      localStorage.setItem('vibit_applications', JSON.stringify(SEED_APPLICATIONS));
-    }
-
-    // 2. Analytics
     const savedAnalytics = localStorage.getItem('vibit_analytics');
     if (savedAnalytics) {
       try {
@@ -220,6 +149,23 @@ export default function AdminView({ courses, onUpdateCourses, onResetCourses }: 
       setAnalytics(SEED_ANALYTICS);
       localStorage.setItem('vibit_analytics', JSON.stringify(SEED_ANALYTICS));
     }
+
+    fetch('/api/admin/session')
+      .then(async (response) => {
+        const result = await response.json();
+        if (response.status !== 401 && !response.ok) {
+          throw new Error(result.error || 'Could not check the registrar session.');
+        }
+        if (!result.configured) {
+          setAuthStatus('unconfigured');
+        } else {
+          setAuthStatus(result.authenticated ? 'authenticated' : 'required');
+        }
+      })
+      .catch((error) => {
+        setAuthError(error instanceof Error ? error.message : 'Could not connect to the registrar service.');
+        setAuthStatus('unavailable');
+      });
 
     // Simulated fluctuating traffic
     const interval = setInterval(() => {
@@ -233,32 +179,166 @@ export default function AdminView({ courses, onUpdateCourses, onResetCourses }: 
     return () => clearInterval(interval);
   }, []);
 
-  // Update applications in local storage
-  const updateApplicationsList = (newList: Application[]) => {
-    setApplications(newList);
-    localStorage.setItem('vibit_applications', JSON.stringify(newList));
+  useEffect(() => {
+    if (authStatus !== 'authenticated') return;
+
+    let active = true;
+    setIsLoadingApplications(true);
+    fetch('/api/admin/applications')
+      .then(async (response) => {
+        const result = await response.json();
+        if (!response.ok || !result.ok) {
+          if (response.status === 401) setAuthStatus('required');
+          throw new Error(result.error || 'Could not load applications.');
+        }
+        if (active) {
+          const submissionsByCourse = result.applications.reduce((counts: Record<string, number>, application: Application) => {
+            counts[application.courseId] = (counts[application.courseId] || 0) + 1;
+            return counts;
+          }, {});
+          setApplications(result.applications);
+          setApplicationsError('');
+          setAnalytics((previous) => ({
+            ...previous,
+            submissions: result.applications.length,
+            submissionsByCourse,
+            emailLog: result.applications.flatMap((application: Application) => [
+              {
+                id: `${application.id}-school`,
+                to: SCHOOL_EMAIL,
+                subject: `New VIBIT application: ${application.generatedCode}`,
+                body: `School notification for ${application.fullName}`,
+                timestamp: application.timestamp,
+                status: application.adminEmailStatus,
+              },
+              {
+                id: `${application.id}-student`,
+                to: application.email,
+                subject: `Applicant confirmation: ${application.generatedCode}`,
+                body: `Confirmation email for ${application.fullName}`,
+                timestamp: application.timestamp,
+                status: application.studentEmailStatus,
+              },
+            ]),
+          }));
+        }
+      })
+      .catch((error) => {
+        if (active) setApplicationsError(error instanceof Error ? error.message : 'Could not load applications.');
+      })
+      .finally(() => {
+        if (active) setIsLoadingApplications(false);
+      });
+
+    return () => {
+      active = false;
+    };
+  }, [authStatus]);
+
+  const handleAdminLogin = async (event: React.FormEvent) => {
+    event.preventDefault();
+    setAuthError('');
+    try {
+      const response = await fetch('/api/admin/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password: loginPassword }),
+      });
+      const result = await response.json();
+      if (!response.ok || !result.ok) throw new Error(result.error || 'Admin sign-in failed.');
+      setLoginPassword('');
+      setAuthStatus('authenticated');
+    } catch (error) {
+      setAuthError(error instanceof Error ? error.message : 'Admin sign-in failed.');
+    }
+  };
+
+  const handleAdminLogout = async () => {
+    try {
+      const response = await fetch('/api/admin/logout', { method: 'POST' });
+      if (!response.ok) throw new Error('Could not sign out. Please try again.');
+      setApplications([]);
+      setSelectedApp(null);
+      setAuthStatus('required');
+    } catch (error) {
+      setAuthError(error instanceof Error ? error.message : 'Could not sign out.');
+    }
   };
 
   // Status changer for applicants
-  const handleUpdateAppStatus = (appId: string, newStatus: Application['status']) => {
-    const updated = applications.map(app => {
-      if (app.id === appId) {
-        return { ...app, status: newStatus };
-      }
-      return app;
-    });
-    updateApplicationsList(updated);
-    if (selectedApp && selectedApp.id === appId) {
-      setSelectedApp({ ...selectedApp, status: newStatus });
+  const handleUpdateAppStatus = async (
+    appId: string,
+    newStatus: Application['status'],
+    interviewDate?: string,
+    interviewTime?: string,
+  ) => {
+    try {
+      const response = await fetch(`/api/admin/applications/${encodeURIComponent(appId)}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status: newStatus, interviewDate, interviewTime }),
+      });
+      const result = await response.json();
+      if (!response.ok || !result.ok) throw new Error(result.error || 'Could not update application status.');
+      const updated = result.application as Application;
+      setApplications((current) => current.map((application) => application.id === appId ? updated : application));
+      setSelectedApp(updated);
+    } catch (error) {
+      setApplicationsError(error instanceof Error ? error.message : 'Could not update application status.');
     }
   };
 
   // Delete/Archive applicant
-  const handleDeleteApplicant = (appId: string) => {
+  const handleDeleteApplicant = async (appId: string) => {
     if (confirm("Are you sure you want to permanently delete this application?")) {
-      const filtered = applications.filter(app => app.id !== appId);
-      updateApplicationsList(filtered);
-      setSelectedApp(null);
+      try {
+        const response = await fetch(`/api/admin/applications/${encodeURIComponent(appId)}`, { method: 'DELETE' });
+        const result = await response.json();
+        if (!response.ok || !result.ok) throw new Error(result.error || 'Could not delete application.');
+        setApplications((current) => current.filter((application) => application.id !== appId));
+        setAnalytics((previous) => ({
+          ...previous,
+          emailLog: previous.emailLog.filter((email) => !email.id.startsWith(`${appId}-`)),
+        }));
+        setSelectedApp(null);
+      } catch (error) {
+        setApplicationsError(error instanceof Error ? error.message : 'Could not delete application.');
+      }
+    }
+  };
+
+  const handleResendEmails = async (application: Application) => {
+    setIsResendingEmails(true);
+    setApplicationsError('');
+    try {
+      const delivery = await sendApplicationEmails({
+        ...application,
+        documentNames: application.documentsUploaded.map((document) => document.fileName),
+      });
+      const response = await fetch(`/api/admin/applications/${encodeURIComponent(application.id)}/email-status`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify(delivery),
+      });
+      const result = await response.json();
+      if (!response.ok || !result.ok) throw new Error(result.error || 'Could not retry application emails.');
+      const updated = result.application as Application;
+      setApplications((current) => current.map((item) => item.id === updated.id ? updated : item));
+      setSelectedApp(updated);
+      setAnalytics((previous) => ({
+        ...previous,
+        emailLog: previous.emailLog.map((email) => (
+          email.id === `${updated.id}-school`
+            ? { ...email, status: updated.adminEmailStatus }
+            : email.id === `${updated.id}-student`
+              ? { ...email, status: updated.studentEmailStatus }
+              : email
+        )),
+      }));
+    } catch (error) {
+      setApplicationsError(error instanceof Error ? error.message : 'Could not retry application emails.');
+    } finally {
+      setIsResendingEmails(false);
     }
   };
 
@@ -457,6 +537,52 @@ export default function AdminView({ courses, onUpdateCourses, onResetCourses }: 
   const chartHeight = 120;
   const chartWidth = 500;
 
+  if (authStatus !== 'authenticated') {
+    return (
+      <div className="max-w-lg mx-auto px-4 py-20">
+        <div className="rounded-3xl border border-[#2E221C]/10 bg-white p-8 shadow-xl">
+          <div className="mb-6 text-center">
+            <Settings className="mx-auto h-10 w-10 text-[#C28A4E]" />
+            <h1 className="mt-4 font-serif text-2xl font-extrabold text-[#2E221C]">Registrar Sign In</h1>
+            <p className="mt-2 text-sm text-gray-600">Sign in to securely manage applications and applicant documents.</p>
+          </div>
+          {authStatus === 'checking' ? (
+            <p role="status" className="text-center text-sm text-gray-600">Checking registrar access…</p>
+          ) : authStatus === 'unconfigured' ? (
+            <div role="alert" className="rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
+              Admin access is not configured. Set <code>ADMIN_PASSWORD</code> (12+ characters) and <code>ADMIN_SESSION_SECRET</code> (32+ characters) in the server environment, then restart it.
+            </div>
+          ) : authStatus === 'unavailable' ? (
+            <div role="alert" className="rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-800">
+              {authError || 'The registrar service is unavailable.'}
+            </div>
+          ) : (
+            <form onSubmit={handleAdminLogin} className="space-y-4">
+              {authError && (
+                <p role="alert" className="rounded-xl border border-red-200 bg-red-50 p-3 text-sm text-red-800">{authError}</p>
+              )}
+              <label className="block space-y-1.5 text-sm font-semibold text-gray-800" htmlFor="adminPassword">
+                <span>Admin password</span>
+                <input
+                  autoComplete="current-password"
+                  id="adminPassword"
+                  type="password"
+                  value={loginPassword}
+                  onChange={(event) => setLoginPassword(event.target.value)}
+                  className="w-full rounded-xl border border-gray-300 px-4 py-3"
+                  required
+                />
+              </label>
+              <button type="submit" className="w-full rounded-xl bg-[#2E221C] px-4 py-3 font-bold text-white hover:bg-[#110E0C]">
+                Sign in to registrar portal
+              </button>
+            </form>
+          )}
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-10" id="admin-view-root">
       
@@ -471,11 +597,15 @@ export default function AdminView({ courses, onUpdateCourses, onResetCourses }: 
             Registrar & Content Administration
           </h1>
           <p className="text-xs text-[#8E7C74] mt-0.5">
-            Admin: <span className="font-semibold text-[#2E221C]">muchuikelvin423@gmail.com</span> • Live and persistent controls.
+            Applications and uploaded documents are stored securely on the server.
           </p>
         </div>
 
         {/* Tab switchers */}
+        <div className="flex flex-col items-end gap-2">
+        <button onClick={handleAdminLogout} className="rounded-lg border border-gray-300 bg-white px-3 py-2 text-xs font-bold text-gray-700 hover:bg-gray-50">
+          Sign out
+        </button>
         <div className="bg-[#FAF6F0] border border-[#2E221C]/15 rounded-2xl p-1.5 flex gap-1 self-start md:self-auto shadow-inner">
           <button
             onClick={() => setActiveTab('applications')}
@@ -511,7 +641,14 @@ export default function AdminView({ courses, onUpdateCourses, onResetCourses }: 
             <span>Performance & Outbox</span>
           </button>
         </div>
+        </div>
       </div>
+
+      {applicationsError && (
+        <div role="alert" className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800">
+          {applicationsError}
+        </div>
+      )}
 
       {/* KPI METRICS ROW */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -524,7 +661,7 @@ export default function AdminView({ courses, onUpdateCourses, onResetCourses }: 
           <div className="mt-2.5">
             <div className="text-2xl font-serif font-black text-[#2E221C]">{totalApplications}</div>
             <span className="text-[9px] text-[#059669] font-bold flex items-center mt-1">
-              <ArrowUpRight className="h-3 w-3 shrink-0 mr-0.5" /> +100% cloud validated
+              {isLoadingApplications ? 'Loading saved records…' : 'Saved in application database'}
             </span>
           </div>
         </div>
@@ -547,13 +684,15 @@ export default function AdminView({ courses, onUpdateCourses, onResetCourses }: 
 
         <div className="bg-white border border-[#2E221C]/10 rounded-2xl p-4.5 shadow-sm flex flex-col justify-between">
           <div className="flex items-center justify-between text-gray-400">
-            <span className="text-[10px] uppercase font-bold tracking-wider text-[#8E7C74]">Email Forwarding</span>
+            <span className="text-[10px] uppercase font-bold tracking-wider text-[#8E7C74]">EmailJS Notifications</span>
             <Mail className="h-4.5 w-4.5 text-blue-500" />
           </div>
           <div className="mt-2.5">
-            <div className="text-xs font-bold text-[#2E221C] truncate" title="muchuikelvin423@gmail.com">muchuikelvin423@gm...</div>
-            <span className="text-[9px] text-emerald-600 font-bold flex items-center mt-1.5">
-              <Check className="h-3 w-3 shrink-0 mr-0.5" /> FormSubmit.co Active
+            <div className="text-xs font-bold text-[#2E221C]">
+              {analytics.emailLog.filter((email) => email.status === 'sent').length} emails sent
+            </div>
+            <span className="text-[9px] text-gray-600 font-bold flex items-center mt-1.5">
+              School notices and applicant confirmations
             </span>
           </div>
         </div>
@@ -621,8 +760,12 @@ export default function AdminView({ courses, onUpdateCourses, onResetCourses }: 
               {filteredApps.length === 0 ? (
                 <div className="text-center py-20 space-y-3">
                   <AlertCircle className="h-10 w-10 text-gray-300 mx-auto" />
-                  <h3 className="font-serif text-lg font-bold text-[#2E221C]">No Applications Found</h3>
-                  <p className="text-xs text-gray-400 max-w-sm mx-auto">We couldn't find any student applications matching your keywords or status filters.</p>
+                  <h3 className="font-serif text-lg font-bold text-[#2E221C]">{isLoadingApplications ? 'Loading Applications' : 'No Applications Found'}</h3>
+                  <p className="text-xs text-gray-400 max-w-sm mx-auto">
+                    {isLoadingApplications
+                      ? 'Loading application records from the server database.'
+                      : 'No student applications match your keywords or status filters.'}
+                  </p>
                 </div>
               ) : (
                 <table className="w-full text-left text-xs border-collapse">
@@ -1184,15 +1327,15 @@ export default function AdminView({ courses, onUpdateCourses, onResetCourses }: 
 
             </div>
 
-            {/* LIVE OUTGOING EMAIL NOTIFICATION OUTBOX */}
+            {/* APPLICATION EMAIL DELIVERY RECORDS */}
             <div className="border border-[#2E221C]/10 rounded-2xl overflow-hidden shadow-sm">
               <div className="bg-[#2E221C] text-[#FAF6F0] p-4 flex items-center justify-between">
                 <div className="flex items-center space-x-2">
                   <Mail className="h-4.5 w-4.5 text-[#C28A4E]" />
-                  <h4 className="text-xs font-bold uppercase tracking-wider">FormSubmit.co Outbox Records</h4>
+                  <h4 className="text-xs font-bold uppercase tracking-wider">Application Email Delivery</h4>
                 </div>
                 <span className="text-[10px] bg-emerald-950/80 text-emerald-300 border border-emerald-500/20 px-2 py-0.5 rounded-full font-mono">
-                  Forward Target: vbitschoolofcoffeeagribusiness@gmail.com
+                  School: vbitschoolofcoffeeagribusiness@gmail.com
                 </span>
               </div>
 
@@ -1200,15 +1343,19 @@ export default function AdminView({ courses, onUpdateCourses, onResetCourses }: 
                 {analytics.emailLog.length === 0 ? (
                   <div className="p-10 text-center space-y-2">
                     <Mail className="h-8 w-8 text-gray-300 mx-auto" />
-                    <p className="text-xs text-gray-400">No emails have been dispatched yet. When a new student registers, it logs here.</p>
+                    <p className="text-xs text-gray-400">No application notifications have been sent yet.</p>
                   </div>
                 ) : (
                   [...analytics.emailLog].reverse().map((log) => (
                     <div key={log.id} className="p-4.5 hover:bg-gray-50/50 transition-colors flex flex-col sm:flex-row justify-between items-start gap-4 text-xs">
                       <div className="space-y-1.5 flex-grow">
                         <div className="flex items-center space-x-2">
-                          <span className="bg-emerald-100 text-emerald-800 text-[9px] font-extrabold px-1.5 py-0.5 rounded uppercase">
-                            {log.status}
+                          <span className={`text-[9px] font-extrabold px-1.5 py-0.5 rounded uppercase ${
+                            log.status === 'sent' ? 'bg-emerald-100 text-emerald-800' :
+                            log.status === 'not_configured' ? 'bg-amber-100 text-amber-800' :
+                            'bg-rose-100 text-rose-800'
+                          }`}>
+                            {log.status.replace('_', ' ')}
                           </span>
                           <span className="font-mono text-gray-400 text-[10px]">
                             {new Date(log.timestamp).toLocaleString()}
@@ -1219,8 +1366,8 @@ export default function AdminView({ courses, onUpdateCourses, onResetCourses }: 
                       </div>
 
                       <div className="text-right text-[10px] shrink-0">
-                        <span className="text-gray-400 block font-medium">Gateway Endpoint</span>
-                        <strong className="text-gray-700">api.web3forms.com/ajax/..</strong>
+                        <span className="text-gray-400 block font-medium">Delivery method</span>
+                        <strong className="text-gray-700">EmailJS</strong>
                       </div>
                     </div>
                   ))
@@ -1322,6 +1469,49 @@ export default function AdminView({ courses, onUpdateCourses, onResetCourses }: 
                   </div>
                 </div>
 
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                  <div className="rounded-xl border border-gray-200 bg-gray-50 p-3">
+                    <span className="block text-[9px] font-bold uppercase text-gray-500">National ID</span>
+                    <strong>{selectedApp.nationalId || 'Not provided'}</strong>
+                  </div>
+                  <div className="rounded-xl border border-gray-200 bg-gray-50 p-3">
+                    <span className="block text-[9px] font-bold uppercase text-gray-500">Date of birth</span>
+                    <strong>{selectedApp.dateOfBirth || 'Not specified'}</strong>
+                  </div>
+                  <div className="rounded-xl border border-gray-200 bg-gray-50 p-3">
+                    <span className="block text-[9px] font-bold uppercase text-gray-500">Address</span>
+                    <strong>{selectedApp.address || 'Not provided'}</strong>
+                  </div>
+                  <div className="rounded-xl border border-gray-200 bg-gray-50 p-3">
+                    <span className="block text-[9px] font-bold uppercase text-gray-500">Parent / guardian</span>
+                    <strong>{selectedApp.parentName || 'Not provided'} · {selectedApp.parentPhone || 'No phone'}</strong>
+                  </div>
+                </div>
+
+                <div className="space-y-3 rounded-2xl border border-blue-100 bg-blue-50/60 p-4">
+                  <div>
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-gray-500">School notification</span>
+                    <p className="text-xs font-semibold">{selectedApp.adminEmailStatus.replace('_', ' ')}</p>
+                  </div>
+                  <div>
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-gray-500">Applicant confirmation</span>
+                    <p className="text-xs font-semibold">{selectedApp.studentEmailStatus.replace('_', ' ')}</p>
+                  </div>
+                  {selectedApp.emailError && (
+                    <p className="text-[11px] text-rose-700">{selectedApp.emailError}</p>
+                  )}
+                  {(selectedApp.adminEmailStatus !== 'sent' || selectedApp.studentEmailStatus !== 'sent') && (
+                    <button
+                      type="button"
+                      onClick={() => handleResendEmails(selectedApp)}
+                      disabled={isResendingEmails}
+                      className="rounded-lg bg-[#2E221C] px-3 py-2 text-xs font-bold text-white disabled:opacity-50"
+                    >
+                      {isResendingEmails ? 'Retrying email delivery…' : 'Retry failed emails'}
+                    </button>
+                  )}
+                </div>
+
                 {/* Motivation statement */}
                 <div className="space-y-2">
                   <span className="text-[10px] font-bold text-gray-500 uppercase tracking-wider block">Motivation Letter / Statement of Purpose</span>
@@ -1334,21 +1524,21 @@ export default function AdminView({ courses, onUpdateCourses, onResetCourses }: 
                 <div className="space-y-2">
                   <span className="text-[10px] font-bold text-gray-500 uppercase tracking-wider block">Submitted Attachments ({selectedApp.filesCount})</span>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                    <div className="p-3 bg-white border border-gray-200 rounded-xl flex items-center space-x-2.5 shadow-xs">
-                      <div className="h-8 w-8 bg-amber-50 text-[#C28A4E] rounded-lg flex items-center justify-center shrink-0 border border-[#C28A4E]/10 font-bold text-xs">PDF</div>
-                      <div className="truncate">
-                        <strong className="block font-semibold text-xs truncate">Academic_Transcripts_KCSE.pdf</strong>
-                        <span className="text-[9px] text-gray-400 block">1.4 MB • Verification Approved</span>
-                      </div>
-                    </div>
-                    {selectedApp.filesCount > 1 && (
-                      <div className="p-3 bg-white border border-gray-200 rounded-xl flex items-center space-x-2.5 shadow-xs">
-                        <div className="h-8 w-8 bg-blue-50 text-blue-500 rounded-lg flex items-center justify-center shrink-0 border border-blue-100 font-bold text-xs">IMG</div>
-                        <div className="truncate">
-                          <strong className="block font-semibold text-xs truncate">National_ID_Passport.jpg</strong>
-                          <span className="text-[9px] text-gray-400 block">680 KB • ID Scanned</span>
-                        </div>
-                      </div>
+                    {selectedApp.documentsUploaded.map((document) => (
+                      <a
+                        key={document.id}
+                        href={`/api/admin/applications/${encodeURIComponent(selectedApp.id)}/documents/${encodeURIComponent(document.id)}`}
+                        className="flex items-center space-x-2.5 rounded-xl border border-gray-200 bg-white p-3 shadow-xs hover:border-[#C28A4E]"
+                      >
+                        <FileText className="h-5 w-5 shrink-0 text-[#C28A4E]" />
+                        <span className="min-w-0">
+                          <strong className="block truncate text-xs">{document.fileName}</strong>
+                          <span className="text-[9px] text-gray-500">{(document.size / 1024 / 1024).toFixed(2)} MB · Download</span>
+                        </span>
+                      </a>
+                    ))}
+                    {selectedApp.documentsUploaded.length === 0 && (
+                      <p className="text-xs text-gray-500">No documents were attached to this application.</p>
                     )}
                   </div>
                 </div>
@@ -1384,24 +1574,7 @@ export default function AdminView({ courses, onUpdateCourses, onResetCourses }: 
                       const d = prompt("Enter interview date (YYYY-MM-DD):", "2026-07-22");
                       const t = prompt("Enter interview time (HH:MM):", "09:30");
                       if (d && t) {
-                        const updated = applications.map(app => {
-                          if (app.id === selectedApp.id) {
-                            return { 
-                              ...app, 
-                              status: 'Interview Scheduled' as const,
-                              interviewDate: d,
-                              interviewTime: t
-                            };
-                          }
-                          return app;
-                        });
-                        updateApplicationsList(updated);
-                        setSelectedApp({ 
-                          ...selectedApp, 
-                          status: 'Interview Scheduled' as const,
-                          interviewDate: d,
-                          interviewTime: t
-                        });
+                        void handleUpdateAppStatus(selectedApp.id, 'Interview Scheduled', d, t);
                       }
                     }}
                     className="px-4 py-2 bg-white hover:bg-blue-50 text-blue-700 border border-blue-200 rounded-xl text-xs font-bold transition-all cursor-pointer"

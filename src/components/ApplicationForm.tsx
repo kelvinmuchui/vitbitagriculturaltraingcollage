@@ -3,10 +3,11 @@ import { motion, AnimatePresence } from 'motion/react';
 import { 
   Upload, X, Check, ArrowRight, BookOpen, CheckCircle2, 
   Calendar, AlertCircle, FileText, Phone, MessageSquare, 
-  Sparkles, Zap, ShieldCheck, HelpCircle 
+  Sparkles, Zap, ShieldCheck, HelpCircle
 } from 'lucide-react';
 import { Course } from '../types';
 import { downloadEnrollmentConfirmationForm } from '../utils/downloadForm';
+import { sendApplicationEmails } from '../utils/emailDelivery';
 
 interface ApplicationFormProps {
   courses: Course[];
@@ -14,45 +15,6 @@ interface ApplicationFormProps {
   setSelectedCourseId: (id: string | null) => void;
   setView: (view: string) => void;
 }
-
-const TARGET_EMAIL = 'vbitschoolofcoffeeagribusiness@gmail.com';
-
-const sendApplicationEmail = async (newApp: Record<string, any>) => {
-  const emailBody = {
-    fullName: newApp.fullName,
-    email: newApp.email,
-    phone: newApp.phone,
-    nationalId: newApp.nationalId,
-    dateOfBirth: newApp.dateOfBirth,
-    address: newApp.address,
-    parentName: newApp.parentName,
-    parentPhone: newApp.parentPhone,
-    parentRelationship: newApp.parentRelationship,
-    courseId: newApp.courseId,
-    courseName: newApp.courseName,
-    priorExperience: newApp.priorExperience,
-    academicGrade: newApp.academicGrade,
-    motivation: newApp.motivation,
-    generatedCode: newApp.generatedCode,
-    submissionTime: new Date(newApp.timestamp).toLocaleString(),
-    filesCount: newApp.filesCount,
-    documentsUploaded: newApp.documentsUploaded,
-  };
-
-  const response = await fetch('/api/application', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'
-    },
-    body: JSON.stringify(emailBody)
-  });
-
-  const data = await response.json().catch(() => null);
-  if (!response.ok || !data?.ok) {
-    throw new Error(data?.error || `Email service returned HTTP ${response.status}`);
-  }
-};
 
 export default function ApplicationForm({
   courses,
@@ -90,6 +52,7 @@ export default function ApplicationForm({
   const [submissionSuccess, setSubmissionSuccess] = useState(false);
   const [submissionError, setSubmissionError] = useState('');
   const [generatedCode, setGeneratedCode] = useState('');
+  const [emailStatuses, setEmailStatuses] = useState({ admin: 'pending', student: 'pending' });
   const [interviewDate, setInterviewDate] = useState('');
   const [interviewTime, setInterviewTime] = useState('');
   const [interviewBooked, setInterviewBooked] = useState(false);
@@ -114,67 +77,73 @@ export default function ApplicationForm({
 
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.fullName.trim() || !formData.phone.trim()) {
+    if (!formData.fullName.trim() || !formData.phone.trim() || !formData.email.trim()) {
       return;
     }
     setIsSubmitting(true);
     setSubmissionError('');
 
-    const randomNum = Math.floor(10000 + Math.random() * 90000);
-    const code = `VIBIT-2026-${randomNum}`;
-
-    const totalUploadedCount = (enrollmentFormFile ? 1 : 0) + (idPassportFile ? 1 : 0) + (kcseCertFile ? 1 : 0);
-
     const selCourse = courses.find(c => c.id === formData.courseId) || courses[0];
-
-    // Create the new application object (safe with optional inputs)
-    const newApp = {
-      id: `app-${Date.now()}`,
-      fullName: formData.fullName.trim(),
-      email: formData.email.trim() || 'Not provided (Contact via Phone/WhatsApp)',
-      phone: formData.phone.trim(),
-      nationalId: formData.nationalId.trim() || 'To provide on campus',
-      dateOfBirth: formData.dateOfBirth || 'Not specified',
-      address: formData.address.trim() || 'Kenya',
-      parentName: formData.parentName.trim() || 'Not specified',
-      parentPhone: formData.parentPhone.trim() || 'Not specified',
-      parentRelationship: formData.parentRelationship || 'Not specified',
-      courseId: formData.courseId,
-      courseName: selCourse?.title || formData.courseId,
-      priorExperience: formData.priorExperience || 'none',
-      academicGrade: formData.academicGrade || 'Open Practical',
-      motivation: formData.motivation.trim() || 'Direct enrollment applicant',
-      status: 'Pending' as const,
-      generatedCode: code,
-      timestamp: new Date().toISOString(),
-      filesCount: totalUploadedCount,
-      documentsUploaded: {
-        enrollmentForm: enrollmentFormFile ? enrollmentFormFile.name : 'Physical copy on orientation',
-        idPassport: idPassportFile ? idPassportFile.name : 'Physical copy on orientation',
-        kcseCert: kcseCertFile ? kcseCertFile.name : 'Physical copy on orientation'
-      }
-    };
+    const requestBody = new FormData();
+    const applicationFields = [
+      'fullName', 'email', 'phone', 'nationalId', 'dateOfBirth', 'address',
+      'courseId', 'priorExperience', 'academicGrade', 'parentName',
+      'parentPhone', 'parentRelationship', 'motivation',
+    ] as const;
+    applicationFields.forEach((key) => requestBody.append(key, formData[key]));
+    requestBody.set('fullName', formData.fullName.trim());
+    requestBody.set('email', formData.email.trim());
+    requestBody.set('phone', formData.phone.trim());
+    requestBody.set('courseName', selCourse?.title || formData.courseId);
+    if (enrollmentFormFile) requestBody.append('enrollmentFormFile', enrollmentFormFile);
+    if (idPassportFile) requestBody.append('idPassportFile', idPassportFile);
+    if (kcseCertFile) requestBody.append('kcseCertFile', kcseCertFile);
 
     try {
-      await sendApplicationEmail(newApp);
+      const response = await fetch('/api/applications', {
+        method: 'POST',
+        headers: { Accept: 'application/json' },
+        body: requestBody,
+      });
+      const result = await response.json().catch(() => null);
+      if (!response.ok || !result?.ok || !result.application) {
+        throw new Error(result?.error || `Application service returned HTTP ${response.status}.`);
+      }
+
+      setGeneratedCode(result.application.generatedCode);
+      const emailResult = await sendApplicationEmails({
+        ...formData,
+        fullName: formData.fullName.trim(),
+        email: formData.email.trim(),
+        courseName: selCourse?.title || formData.courseId,
+        generatedCode: result.application.generatedCode,
+        timestamp: result.application.timestamp,
+        documentNames: [enrollmentFormFile, idPassportFile, kcseCertFile]
+          .filter((file): file is File => Boolean(file))
+          .map((file) => file.name),
+      });
+      setEmailStatuses({ admin: emailResult.admin, student: emailResult.student });
+
+      try {
+        const statusResponse = await fetch(`/api/applications/${encodeURIComponent(result.application.id)}/email-status`, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify(emailResult),
+        });
+        if (!statusResponse.ok) {
+          console.error('Email delivery status could not be saved:', statusResponse.status);
+        }
+      } catch (error) {
+        console.error('Email delivery status could not be saved:', error);
+      }
     } catch (error) {
-      console.error('Email notification failed:', error);
-      const detail = error instanceof Error ? error.message : 'Unknown email error';
-      setSubmissionError(`We couldn't send your application to ${TARGET_EMAIL}. ${detail} Please try again.`);
+      console.error('Application submission failed:', error);
+      setSubmissionError(error instanceof Error ? error.message : 'Application submission failed. Please try again.');
       setIsSubmitting(false);
       return;
     }
 
-    // 1. Persist to localStorage
-    const currentAppsLocal = localStorage.getItem('vibit_applications');
-    let appList = [];
-    if (currentAppsLocal) {
-      try { appList = JSON.parse(currentAppsLocal); } catch (err) {}
-    }
-    appList.push(newApp);
-    localStorage.setItem('vibit_applications', JSON.stringify(appList));
-
-    // 2. Log submission event to analytics
+    // Keep anonymous page analytics in this browser; application records are stored server-side.
     const currentAnalyticsLocal = localStorage.getItem('vibit_analytics');
     let analyticsData = {
       pageViews: {},
@@ -200,19 +169,10 @@ export default function ApplicationForm({
     }
     todayEntry.submissions += 1;
     analyticsData.emailLog = analyticsData.emailLog || [];
-    analyticsData.emailLog.push({
-      id: `email-${Date.now()}`,
-      to: TARGET_EMAIL,
-      subject: `New VIBIT Admission Application: ${newApp.fullName} (${newApp.generatedCode})`,
-      body: `Applicant ${newApp.fullName} registered for ${newApp.courseName}. Application code: ${newApp.generatedCode}.`,
-      timestamp: new Date().toISOString(),
-      status: 'Sent'
-    });
     localStorage.setItem('vibit_analytics', JSON.stringify(analyticsData));
 
     setIsSubmitting(false);
     setSubmissionSuccess(true);
-    setGeneratedCode(code);
   };
 
   const handleBookInterview = (e: React.FormEvent) => {
@@ -244,6 +204,7 @@ export default function ApplicationForm({
     setSubmissionSuccess(false);
     setSubmissionError('');
     setGeneratedCode('');
+    setEmailStatuses({ admin: 'pending', student: 'pending' });
     setInterviewDate('');
     setInterviewTime('');
     setInterviewBooked(false);
@@ -363,10 +324,27 @@ export default function ApplicationForm({
                   />
                 </div>
 
+                <div className="space-y-1.5">
+                  <label className="text-xs font-bold text-gray-800 uppercase tracking-wider flex items-center justify-between" htmlFor="quickEmail">
+                    <span>3. Email Address (Barua Pepe) *</span>
+                    <span className="text-[10px] text-emerald-700 font-bold uppercase">Required for confirmation</span>
+                  </label>
+                  <input
+                    type="email"
+                    name="email"
+                    id="quickEmail"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    placeholder="e.g. samuel@gmail.com"
+                    className="w-full bg-gray-50 border-2 border-gray-200 focus:border-emerald-600 focus:bg-white rounded-xl px-4 py-3.5 text-base text-gray-900 transition-all font-medium"
+                    required
+                  />
+                </div>
+
                 {/* 3. Program Selection */}
                 <div className="space-y-1.5">
                   <label className="text-xs font-bold text-gray-800 uppercase tracking-wider flex items-center justify-between" htmlFor="quickCourseId">
-                    <span>3. Choose Your Program (Chagua Kozi Unayotaka) *</span>
+                    <span>4. Choose Your Program (Chagua Kozi Unayotaka) *</span>
                     <span className="text-[10px] text-emerald-700 font-bold uppercase">Required</span>
                   </label>
                   <select
@@ -427,9 +405,9 @@ export default function ApplicationForm({
                   <button
                     type="submit"
                     id="submit-quick-application"
-                    disabled={isSubmitting || !formData.fullName.trim() || !formData.phone.trim()}
+                    disabled={isSubmitting || !formData.fullName.trim() || !formData.phone.trim() || !formData.email.trim()}
                     className={`w-full py-4 rounded-xl font-black text-base tracking-wide shadow-md transition-all flex items-center justify-center space-x-2 cursor-pointer ${
-                      (!formData.fullName.trim() || !formData.phone.trim())
+                      (!formData.fullName.trim() || !formData.phone.trim() || !formData.email.trim())
                         ? 'bg-gray-200 text-gray-400 cursor-not-allowed shadow-none'
                         : 'bg-emerald-600 hover:bg-emerald-700 text-white shadow-emerald-600/30'
                     }`}
@@ -442,7 +420,7 @@ export default function ApplicationForm({
                     ) : (
                       <>
                         <CheckCircle2 className="h-5 w-5" />
-                        <span>Submit My Application (Tuma Maombi)</span>
+                        <span>Submit Application</span>
                         <ArrowRight className="h-5 w-5 ml-1" />
                       </>
                     )}
@@ -564,7 +542,7 @@ export default function ApplicationForm({
 
                     {/* Email */}
                     <div className="space-y-1.5">
-                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-wider" htmlFor="email">Email Address (Optional)</label>
+                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-wider" htmlFor="email">Email Address (Required for confirmation) *</label>
                       <input
                         type="email"
                         name="email"
@@ -573,6 +551,7 @@ export default function ApplicationForm({
                         onChange={handleInputChange}
                         placeholder="e.g. samuel@gmail.com"
                         className="w-full bg-gray-50 border border-gray-200 focus:border-gray-900 focus:bg-white rounded-xl px-4 py-3 text-sm text-gray-900 transition-all shadow-xs"
+                        required
                       />
                     </div>
 
@@ -728,7 +707,7 @@ export default function ApplicationForm({
                   </div>
 
                   <p className="text-xs text-gray-500 leading-relaxed">
-                    Have your documents ready on your phone? You can attach them below. If not, don't worry! You can submit now and bring physical copies when starting classes.
+                    Attach PDF, JPG, or PNG documents up to 5 MB each.                     Documents are stored securely with your application for registrar review. If you do not have them now, you can bring physical copies to campus.
                   </p>
 
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -751,7 +730,7 @@ export default function ApplicationForm({
                           Attach Form
                           <input
                             type="file"
-                            accept="image/*,application/pdf"
+                            accept="image/jpeg,image/png,application/pdf"
                             onChange={(e) => {
                               if (e.target.files && e.target.files[0]) {
                                 setEnrollmentFormFile(e.target.files[0]);
@@ -782,7 +761,7 @@ export default function ApplicationForm({
                           Attach ID Photo
                           <input
                             type="file"
-                            accept="image/*,application/pdf"
+                            accept="image/jpeg,image/png,application/pdf"
                             onChange={(e) => {
                               if (e.target.files && e.target.files[0]) {
                                 setIdPassportFile(e.target.files[0]);
@@ -813,7 +792,7 @@ export default function ApplicationForm({
                           Attach Result Slip
                           <input
                             type="file"
-                            accept="image/*,application/pdf"
+                            accept="image/jpeg,image/png,application/pdf"
                             onChange={(e) => {
                               if (e.target.files && e.target.files[0]) {
                                 setKcseCertFile(e.target.files[0]);
@@ -832,9 +811,9 @@ export default function ApplicationForm({
                   <button
                     type="submit"
                     id="submit-full-admissions-form"
-                    disabled={isSubmitting || !formData.fullName.trim() || !formData.phone.trim()}
+                    disabled={isSubmitting || !formData.fullName.trim() || !formData.phone.trim() || !formData.email.trim()}
                     className={`w-full py-4 rounded-xl font-bold text-base tracking-wide shadow-md transition-all flex items-center justify-center space-x-2 cursor-pointer ${
-                      (!formData.fullName.trim() || !formData.phone.trim())
+                      (!formData.fullName.trim() || !formData.phone.trim() || !formData.email.trim())
                         ? 'bg-gray-200 text-gray-400 cursor-not-allowed shadow-none'
                         : 'bg-[#2E221C] hover:bg-[#110E0C] text-white shadow-md'
                     }`}
@@ -846,7 +825,7 @@ export default function ApplicationForm({
                       </>
                     ) : (
                       <>
-                        <span>Submit Application Dossier</span>
+                        <span>Submit Application</span>
                         <ArrowRight className="h-5 w-5" />
                       </>
                     )}
@@ -870,10 +849,25 @@ export default function ApplicationForm({
             </div>
             
             <div className="space-y-3">
-              <h3 className="font-serif text-2xl sm:text-3xl font-extrabold text-[#2E221C]">Hongera! Application Received</h3>
+              <h3 className="font-serif text-2xl sm:text-3xl font-extrabold text-[#2E221C]">Application Received</h3>
               <p className="text-sm text-[#2E221C]/80 max-w-md mx-auto leading-relaxed">
-                Your application for <strong>{currentCourse?.title || 'your chosen course'}</strong> has been received by our central registry and the details have been sent to <strong>vbitschoolofcoffeeagribusiness@gmail.com</strong>. Our admissions registrar will contact you via phone or WhatsApp at <strong>{formData.phone}</strong>.
+                Your application for <strong>{currentCourse?.title || 'your chosen course'}</strong> has been saved. Your application code is <strong>{generatedCode}</strong>.
               </p>
+            </div>
+
+            <div className="max-w-md mx-auto rounded-2xl border border-gray-200 bg-gray-50 p-4 text-left space-y-2">
+              <h4 className="text-sm font-bold text-[#2E221C]">Email delivery status</h4>
+              <p className="text-xs text-gray-700">
+                School notification: <strong>{emailStatuses.admin === 'sent' ? 'Sent' : emailStatuses.admin === 'failed' ? 'Not sent - registrar can retry' : emailStatuses.admin === 'not_configured' ? 'EmailJS setup required' : 'Pending'}</strong>
+              </p>
+              <p className="text-xs text-gray-700">
+                Your confirmation: <strong>{emailStatuses.student === 'sent' ? 'Sent to your email' : emailStatuses.student === 'failed' ? 'Not sent - contact admissions if needed' : emailStatuses.student === 'not_configured' ? 'EmailJS setup required' : 'Pending'}</strong>
+              </p>
+              {emailStatuses.admin !== 'sent' || emailStatuses.student !== 'sent' ? (
+                <p className="text-[11px] text-amber-800">
+                  Your application is safely saved. For help, call 0708 137992 or WhatsApp the admissions team and provide your application code.
+                </p>
+              ) : null}
             </div>
 
             {/* Code Card */}
