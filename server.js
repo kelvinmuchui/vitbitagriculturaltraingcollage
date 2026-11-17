@@ -218,7 +218,7 @@ app.post('/api/admin/login', (req, res) => {
       error: 'Admin access is not configured. Set a 12-character ADMIN_PASSWORD and 32-character ADMIN_SESSION_SECRET on the server.',
     });
   }
-  if (isRateLimited(loginAttempts, req.ip, 8, 15 * 60 * 1000)) {
+  if (isRateLimited(loginAttempts, req.ip || 'unknown', 8, 15 * 60 * 1000)) {
     return res.status(429).json({ ok: false, error: 'Too many sign-in attempts. Try again in 15 minutes.' });
   }
 
@@ -251,7 +251,7 @@ app.post('/api/admin/logout', requireAdmin, (req, res) => {
 app.post(
   '/api/applications',
   (req, res, next) => {
-    if (isRateLimited(submissionAttempts, req.ip, 10, 60 * 60 * 1000)) {
+    if (isRateLimited(submissionAttempts, req.ip || 'unknown', 10, 60 * 60 * 1000)) {
       return res.status(429).json({ ok: false, error: 'Too many applications were submitted from this connection. Please contact admissions.' });
     }
     return next();
@@ -349,10 +349,11 @@ app.get('*', (req, res) => {
 });
 
 app.use((error, _req, res, _next) => {
-  if (error.type === 'entity.parse.failed') {
+  const errorMessage = typeof error?.message === 'string' ? error.message : '';
+  if (error?.type === 'entity.parse.failed') {
     return res.status(400).json({ ok: false, error: 'The request contains invalid JSON.' });
   }
-  if (error.type === 'entity.too.large') {
+  if (error?.type === 'entity.too.large') {
     return res.status(413).json({ ok: false, error: 'The request body is too large.' });
   }
   if (error instanceof multer.MulterError) {
@@ -364,11 +365,11 @@ app.use((error, _req, res, _next) => {
         : 'The uploaded documents exceeded the allowed upload limits.',
     });
   }
-  if (error.message === 'Only PDF, JPG, or PNG files are allowed.') {
-    return res.status(400).json({ ok: false, error: error.message });
+  if (errorMessage === 'Only PDF, JPG, or PNG files are allowed.') {
+    return res.status(400).json({ ok: false, error: errorMessage });
   }
-  if (error.message.startsWith('The file "') || error.message.startsWith('Documents must be')) {
-    return res.status(400).json({ ok: false, error: error.message });
+  if (errorMessage.startsWith('The file "') || errorMessage.startsWith('Documents must be')) {
+    return res.status(400).json({ ok: false, error: errorMessage });
   }
   console.error('Unhandled application API error:', error);
   return res.status(500).json({ ok: false, error: 'The application could not be processed. Please try again or contact admissions.' });

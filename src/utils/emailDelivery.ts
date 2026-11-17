@@ -30,12 +30,49 @@ export interface EmailDeliveryResult {
   needsActivation?: boolean;
 }
 
-const getErrorMessage = (error: unknown) => {
-  if (error instanceof Error) return error.message;
-  if (typeof error === 'object' && error !== null && 'text' in error && typeof error.text === 'string') {
-    return error.text;
+export const extractErrorMessage = (
+  error: unknown,
+  fallback = 'An unexpected error occurred.',
+  depth = 0,
+): string => {
+  if (depth > 3 || error === null || error === undefined) return fallback;
+  if (typeof error === 'string') {
+    const trimmed = error.trim();
+    return trimmed && trimmed !== '[object Object]' ? trimmed : fallback;
   }
-  return 'Email send failed.';
+  if (typeof error === 'number' || typeof error === 'boolean') {
+    return String(error);
+  }
+  if (error instanceof Error) {
+    const msg = error.message?.trim();
+    if (msg && msg !== '[object Object]') return msg;
+    if ('cause' in error && error.cause !== undefined) {
+      return extractErrorMessage(error.cause, fallback, depth + 1);
+    }
+    return fallback;
+  }
+  if (Array.isArray(error)) {
+    const parts = error
+      .map((item) => extractErrorMessage(item, '', depth + 1))
+      .filter(Boolean);
+    return parts.length ? parts.join(' ') : fallback;
+  }
+  if (typeof error === 'object') {
+    const record = error as Record<string, unknown>;
+    for (const key of ['message', 'error', 'text', 'detail', 'details', 'reason', 'statusText']) {
+      if (record[key] !== undefined) {
+        const extracted = extractErrorMessage(record[key], '', depth + 1);
+        if (extracted) return extracted;
+      }
+    }
+    try {
+      const serialized = JSON.stringify(record);
+      if (serialized && serialized !== '{}') return serialized;
+    } catch {
+      // Ignore circular reference errors
+    }
+  }
+  return fallback;
 };
 
 export const buildApplicationMailtoHref = (application: ApplicationEmailData): string => {
@@ -142,9 +179,10 @@ export const sendApplicationEmails = async (
       };
     }
 
-    const message = typeof data?.message === 'string'
-      ? data.message
-      : `Email gateway returned HTTP ${response.status}.`;
+    const message = extractErrorMessage(
+      data,
+      `Email gateway returned HTTP ${response.status}.`,
+    );
     const needsActivation = /activat/i.test(message);
 
     return {
@@ -159,7 +197,7 @@ export const sendApplicationEmails = async (
     return {
       admin: 'failed',
       student: 'failed',
-      error: `Could not reach email gateway: ${getErrorMessage(error)}`,
+      error: `Could not reach email gateway: ${extractErrorMessage(error, 'Email send failed.')}`,
     };
   }
 };

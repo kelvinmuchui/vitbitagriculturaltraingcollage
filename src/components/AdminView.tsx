@@ -7,7 +7,7 @@ import {
   TrendingUp, BarChart2, BookOpen, Layers, Laptop
 } from 'lucide-react';
 import { Course } from '../types';
-import { buildApplicationMailtoHref, sendApplicationEmails } from '../utils/emailDelivery';
+import { buildApplicationMailtoHref, extractErrorMessage, sendApplicationEmails } from '../utils/emailDelivery';
 
 interface Application {
   id: string;
@@ -152,9 +152,12 @@ export default function AdminView({ courses, onUpdateCourses, onResetCourses }: 
 
     fetch('/api/admin/session')
       .then(async (response) => {
-        const result = await response.json();
+        const result = await response.json().catch(() => null);
         if (response.status !== 401 && !response.ok) {
-          throw new Error(result.error || 'Could not check the registrar session.');
+          throw new Error(extractErrorMessage(result?.error ?? result, 'Could not check the registrar session.'));
+        }
+        if (!result || typeof result !== 'object') {
+          throw new Error('Could not check the registrar session.');
         }
         if (!result.configured) {
           setAuthStatus('unconfigured');
@@ -163,7 +166,7 @@ export default function AdminView({ courses, onUpdateCourses, onResetCourses }: 
         }
       })
       .catch((error) => {
-        setAuthError(error instanceof Error ? error.message : 'Could not connect to the registrar service.');
+        setAuthError(extractErrorMessage(error, 'Could not connect to the registrar service.'));
         setAuthStatus('unavailable');
       });
 
@@ -186,10 +189,10 @@ export default function AdminView({ courses, onUpdateCourses, onResetCourses }: 
     setIsLoadingApplications(true);
     fetch('/api/admin/applications')
       .then(async (response) => {
-        const result = await response.json();
-        if (!response.ok || !result.ok) {
+        const result = await response.json().catch(() => null);
+        if (!response.ok || !result?.ok) {
           if (response.status === 401) setAuthStatus('required');
-          throw new Error(result.error || 'Could not load applications.');
+          throw new Error(extractErrorMessage(result?.error ?? result, 'Could not load applications.'));
         }
         if (active) {
           const submissionsByCourse = result.applications.reduce((counts: Record<string, number>, application: Application) => {
@@ -224,7 +227,7 @@ export default function AdminView({ courses, onUpdateCourses, onResetCourses }: 
         }
       })
       .catch((error) => {
-        if (active) setApplicationsError(error instanceof Error ? error.message : 'Could not load applications.');
+        if (active) setApplicationsError(extractErrorMessage(error, 'Could not load applications.'));
       })
       .finally(() => {
         if (active) setIsLoadingApplications(false);
@@ -244,12 +247,12 @@ export default function AdminView({ courses, onUpdateCourses, onResetCourses }: 
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ password: loginPassword }),
       });
-      const result = await response.json();
-      if (!response.ok || !result.ok) throw new Error(result.error || 'Admin sign-in failed.');
+      const result = await response.json().catch(() => null);
+      if (!response.ok || !result?.ok) throw new Error(extractErrorMessage(result?.error ?? result, 'Admin sign-in failed.'));
       setLoginPassword('');
       setAuthStatus('authenticated');
     } catch (error) {
-      setAuthError(error instanceof Error ? error.message : 'Admin sign-in failed.');
+      setAuthError(extractErrorMessage(error, 'Admin sign-in failed.'));
     }
   };
 
@@ -261,7 +264,7 @@ export default function AdminView({ courses, onUpdateCourses, onResetCourses }: 
       setSelectedApp(null);
       setAuthStatus('required');
     } catch (error) {
-      setAuthError(error instanceof Error ? error.message : 'Could not sign out.');
+      setAuthError(extractErrorMessage(error, 'Could not sign out.'));
     }
   };
 
@@ -278,13 +281,13 @@ export default function AdminView({ courses, onUpdateCourses, onResetCourses }: 
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ status: newStatus, interviewDate, interviewTime }),
       });
-      const result = await response.json();
-      if (!response.ok || !result.ok) throw new Error(result.error || 'Could not update application status.');
+      const result = await response.json().catch(() => null);
+      if (!response.ok || !result?.ok) throw new Error(extractErrorMessage(result?.error ?? result, 'Could not update application status.'));
       const updated = result.application as Application;
       setApplications((current) => current.map((application) => application.id === appId ? updated : application));
       setSelectedApp(updated);
     } catch (error) {
-      setApplicationsError(error instanceof Error ? error.message : 'Could not update application status.');
+      setApplicationsError(extractErrorMessage(error, 'Could not update application status.'));
     }
   };
 
@@ -293,8 +296,8 @@ export default function AdminView({ courses, onUpdateCourses, onResetCourses }: 
     if (confirm("Are you sure you want to permanently delete this application?")) {
       try {
         const response = await fetch(`/api/admin/applications/${encodeURIComponent(appId)}`, { method: 'DELETE' });
-        const result = await response.json();
-        if (!response.ok || !result.ok) throw new Error(result.error || 'Could not delete application.');
+        const result = await response.json().catch(() => null);
+        if (!response.ok || !result?.ok) throw new Error(extractErrorMessage(result?.error ?? result, 'Could not delete application.'));
         setApplications((current) => current.filter((application) => application.id !== appId));
         setAnalytics((previous) => ({
           ...previous,
@@ -302,7 +305,7 @@ export default function AdminView({ courses, onUpdateCourses, onResetCourses }: 
         }));
         setSelectedApp(null);
       } catch (error) {
-        setApplicationsError(error instanceof Error ? error.message : 'Could not delete application.');
+        setApplicationsError(extractErrorMessage(error, 'Could not delete application.'));
       }
     }
   };
@@ -324,8 +327,8 @@ export default function AdminView({ courses, onUpdateCourses, onResetCourses }: 
           error: delivery.error,
         }),
       });
-      const result = await response.json();
-      if (!response.ok || !result.ok) throw new Error(result.error || 'Could not retry application emails.');
+      const result = await response.json().catch(() => null);
+      if (!response.ok || !result?.ok) throw new Error(extractErrorMessage(result?.error ?? result, 'Could not retry application emails.'));
       const updated = result.application as Application;
       setApplications((current) => current.map((item) => item.id === updated.id ? updated : item));
       setSelectedApp(updated);
@@ -340,7 +343,7 @@ export default function AdminView({ courses, onUpdateCourses, onResetCourses }: 
         )),
       }));
     } catch (error) {
-      setApplicationsError(error instanceof Error ? error.message : 'Could not retry application emails.');
+      setApplicationsError(extractErrorMessage(error, 'Could not retry application emails.'));
     } finally {
       setIsResendingEmails(false);
     }
@@ -532,12 +535,15 @@ export default function AdminView({ courses, onUpdateCourses, onResetCourses }: 
   const interviewApplications = applications.filter(a => a.status === 'Interview Scheduled').length;
   
   // Overall conversion rate (Admissions submissions / Admissions page views)
-  const admissionsPageViews = analytics.pageViews.admissions || 1;
+  const admissionsPageViews = analytics.pageViews?.admissions || 1;
   const rawConversionRate = (totalApplications / admissionsPageViews) * 100;
   const conversionRate = isNaN(rawConversionRate) ? 0 : rawConversionRate.toFixed(1);
 
   // SVG Chart data preparations
-  const maxViews = Math.max(...analytics.timeline.map(t => t.views), 1);
+  const timelineEntries = Array.isArray(analytics.timeline) && analytics.timeline.length > 0
+    ? analytics.timeline
+    : SEED_ANALYTICS.timeline;
+  const maxViews = Math.max(...timelineEntries.map(t => t.views || 0), 1);
   const chartHeight = 120;
   const chartWidth = 500;
 

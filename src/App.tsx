@@ -14,6 +14,49 @@ import CoffeeSchoolNairobiView from './components/CoffeeSchoolNairobiView';
 import SEOHead from './components/SEOHead';
 import { COURSES } from './data';
 import { Course } from './types';
+import { extractErrorMessage } from './utils/emailDelivery';
+
+interface ErrorBoundaryState {
+  hasError: boolean;
+  message: string;
+}
+
+class AppErrorBoundary extends React.Component<{ children: React.ReactNode }, ErrorBoundaryState> {
+  declare props: { children: React.ReactNode };
+  state: ErrorBoundaryState = { hasError: false, message: '' };
+
+  static getDerivedStateFromError(error: unknown): ErrorBoundaryState {
+    return {
+      hasError: true,
+      message: extractErrorMessage(error, 'An unexpected page error occurred. Please reload the page.'),
+    };
+  }
+
+  componentDidCatch(error: unknown, info: React.ErrorInfo) {
+    console.error('Application render error:', error, info);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="min-h-screen bg-[#FAF6F0] flex items-center justify-center p-6">
+          <div className="max-w-md w-full bg-white rounded-3xl border border-[#2E221C]/15 p-8 text-center space-y-4 shadow-lg">
+            <h1 className="font-serif text-2xl font-bold text-[#2E221C]">Something went wrong</h1>
+            <p className="text-sm text-[#2E221C]/75">{this.state.message}</p>
+            <button
+              type="button"
+              onClick={() => window.location.reload()}
+              className="px-6 py-3 rounded-xl bg-[#2E221C] text-white text-xs font-bold hover:bg-[#110E0C] cursor-pointer"
+            >
+              Reload Page
+            </button>
+          </div>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
 
 function parseViewFromLocation(): string {
   try {
@@ -262,28 +305,30 @@ export default function App() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#FAF6F0]" id="app-root-container">
-      <SEOHead currentView={currentView} />
-      {/* Interactive Navigation */}
-      <Navbar currentView={currentView} setView={setView} />
-      
-      {/* Main Viewport */}
-      <main className="flex-grow overflow-hidden">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={currentView}
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -15 }}
-            transition={{ duration: 0.35, ease: 'easeInOut' }}
-          >
-            {renderActiveView()}
-          </motion.div>
-        </AnimatePresence>
-      </main>
+    <AppErrorBoundary>
+      <div className="flex flex-col min-h-screen bg-[#FAF6F0]" id="app-root-container">
+        <SEOHead currentView={currentView} />
+        {/* Interactive Navigation */}
+        <Navbar currentView={currentView} setView={setView} />
+        
+        {/* Main Viewport */}
+        <main className="flex-grow overflow-hidden">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentView}
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -15 }}
+              transition={{ duration: 0.35, ease: 'easeInOut' }}
+            >
+              {renderActiveView()}
+            </motion.div>
+          </AnimatePresence>
+        </main>
 
-      {/* Footer */}
-      <Footer setView={setView} />
-    </div>
+        {/* Footer */}
+        <Footer setView={setView} />
+      </div>
+    </AppErrorBoundary>
   );
 }

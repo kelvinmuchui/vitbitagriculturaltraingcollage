@@ -9,6 +9,7 @@ import { Course } from '../types';
 import { downloadEnrollmentConfirmationForm } from '../utils/downloadForm';
 import {
   buildApplicationMailtoHref,
+  extractErrorMessage,
   SCHOOL_EMAIL,
   sendApplicationEmails,
   TVET_REG_NUMBER,
@@ -121,18 +122,25 @@ export default function ApplicationForm({
         body: requestBody,
       });
       const result = await response.json().catch(() => null);
-      if (response.status >= 400 && response.status < 500) {
-        throw new Error(result?.error || `Application service returned HTTP ${response.status}.`);
+      if (response.status === 400 || response.status === 413 || response.status === 429) {
+        const apiError = extractErrorMessage(
+          result?.error ?? result,
+          `Application service returned HTTP ${response.status}.`,
+        );
+        throw new Error(apiError);
       }
       if (response.ok && result?.ok && result.application) {
         savedAppId = result.application.id;
         appCode = result.application.generatedCode;
         appTimestamp = result.application.timestamp;
+      } else if (!response.ok) {
+        console.warn('Application API returned non-OK status, continuing with direct email delivery:', response.status, result);
       }
     } catch (error) {
-      if (error instanceof Error && !/Failed to fetch|NetworkError|Load failed/i.test(error.message)) {
+      const message = extractErrorMessage(error, '');
+      if (message && !/Failed to fetch|NetworkError|Load failed/i.test(message)) {
         console.error('Application validation failed:', error);
-        setSubmissionError(error.message);
+        setSubmissionError(message);
         setIsSubmitting(false);
         return;
       }
