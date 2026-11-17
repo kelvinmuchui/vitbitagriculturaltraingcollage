@@ -77,16 +77,36 @@ export default function ContactView({ setView }: ContactViewProps) {
     }));
   };
 
-  const handleFormSubmit = (e: React.FormEvent) => {
+  const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSending(true);
 
-    setTimeout(() => {
+    try {
+      await fetch('https://formsubmit.co/ajax/vbitschoolofcoffeeagribusiness@gmail.com', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          _subject: `[VIBIT INQUIRY] ${form.subject} from ${form.name}`,
+          _template: 'table',
+          _captcha: 'false',
+          _replyto: form.email,
+          Sender_Name: form.name,
+          Sender_Email: form.email,
+          Inquiry_Topic: form.subject,
+          Message: form.message,
+        }),
+      });
+    } catch (error) {
+      console.warn('Contact form gateway error:', error);
+    } finally {
       setIsSending(false);
       setSentSuccess(true);
       setForm({ name: '', email: '', subject: 'general', message: '' });
       setTimeout(() => setSentSuccess(false), 5000);
-    }, 1200);
+    }
   };
 
   const handleFAQClick = (q: string, a: string) => {

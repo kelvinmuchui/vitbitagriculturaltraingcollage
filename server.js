@@ -14,7 +14,12 @@ import {
 } from './server/database.js';
 
 const app = express();
-const port = Number(process.env.PORT || 3001);
+const port = Number(
+  process.env.API_PORT ||
+  (process.env.PORT && process.env.PORT !== process.env.NGINX_PORT
+    ? process.env.PORT
+    : process.env.DEFAULT_APP_PORT || 3000),
+);
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const MAX_UPLOAD_BYTES = 5 * 1024 * 1024;

@@ -7,7 +7,7 @@ import {
   TrendingUp, BarChart2, BookOpen, Layers, Laptop
 } from 'lucide-react';
 import { Course } from '../types';
-import { sendApplicationEmails } from '../utils/emailDelivery';
+import { buildApplicationMailtoHref, sendApplicationEmails } from '../utils/emailDelivery';
 
 interface Application {
   id: string;
@@ -318,7 +318,11 @@ export default function AdminView({ courses, onUpdateCourses, onResetCourses }: 
       const response = await fetch(`/api/admin/applications/${encodeURIComponent(application.id)}/email-status`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify(delivery),
+        body: JSON.stringify({
+          admin: delivery.admin,
+          student: delivery.student,
+          error: delivery.error,
+        }),
       });
       const result = await response.json();
       if (!response.ok || !result.ok) throw new Error(result.error || 'Could not retry application emails.');
@@ -684,7 +688,7 @@ export default function AdminView({ courses, onUpdateCourses, onResetCourses }: 
 
         <div className="bg-white border border-[#2E221C]/10 rounded-2xl p-4.5 shadow-sm flex flex-col justify-between">
           <div className="flex items-center justify-between text-gray-400">
-            <span className="text-[10px] uppercase font-bold tracking-wider text-[#8E7C74]">EmailJS Notifications</span>
+            <span className="text-[10px] uppercase font-bold tracking-wider text-[#8E7C74]">Email Notifications</span>
             <Mail className="h-4.5 w-4.5 text-blue-500" />
           </div>
           <div className="mt-2.5">
@@ -1367,7 +1371,7 @@ export default function AdminView({ courses, onUpdateCourses, onResetCourses }: 
 
                       <div className="text-right text-[10px] shrink-0">
                         <span className="text-gray-400 block font-medium">Delivery method</span>
-                        <strong className="text-gray-700">EmailJS</strong>
+                        <strong className="text-gray-700">FormSubmit Gateway</strong>
                       </div>
                     </div>
                   ))
@@ -1500,16 +1504,28 @@ export default function AdminView({ courses, onUpdateCourses, onResetCourses }: 
                   {selectedApp.emailError && (
                     <p className="text-[11px] text-rose-700">{selectedApp.emailError}</p>
                   )}
-                  {(selectedApp.adminEmailStatus !== 'sent' || selectedApp.studentEmailStatus !== 'sent') && (
-                    <button
-                      type="button"
-                      onClick={() => handleResendEmails(selectedApp)}
-                      disabled={isResendingEmails}
-                      className="rounded-lg bg-[#2E221C] px-3 py-2 text-xs font-bold text-white disabled:opacity-50"
+                  <div className="flex flex-wrap gap-2">
+                    {(selectedApp.adminEmailStatus !== 'sent' || selectedApp.studentEmailStatus !== 'sent') && (
+                      <button
+                        type="button"
+                        onClick={() => handleResendEmails(selectedApp)}
+                        disabled={isResendingEmails}
+                        className="rounded-lg bg-[#2E221C] px-3 py-2 text-xs font-bold text-white disabled:opacity-50 cursor-pointer"
+                      >
+                        {isResendingEmails ? 'Retrying email delivery…' : 'Retry failed emails'}
+                      </button>
+                    )}
+                    <a
+                      href={buildApplicationMailtoHref({
+                        ...selectedApp,
+                        documentNames: selectedApp.documentsUploaded.map((doc) => doc.fileName),
+                      })}
+                      className="inline-flex items-center space-x-1.5 rounded-lg border border-[#2E221C]/20 bg-white px-3 py-2 text-xs font-bold text-[#2E221C] hover:bg-[#FAF6F0]"
                     >
-                      {isResendingEmails ? 'Retrying email delivery…' : 'Retry failed emails'}
-                    </button>
-                  )}
+                      <Mail className="h-3.5 w-3.5 text-[#C28A4E]" />
+                      <span>Open in Email App</span>
+                    </a>
+                  </div>
                 </div>
 
                 {/* Motivation statement */}

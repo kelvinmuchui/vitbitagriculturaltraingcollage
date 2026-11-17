@@ -16,8 +16,12 @@ const stop = (exitCode) => {
   });
 };
 
-const start = (name, args) => {
-  const child = spawn(process.execPath, args, { cwd: projectRoot, stdio: 'inherit' });
+const start = (name, args, extraEnv = {}) => {
+  const child = spawn(process.execPath, args, {
+    cwd: projectRoot,
+    stdio: 'inherit',
+    env: { ...process.env, ...extraEnv },
+  });
   children.push(child);
   child.on('error', (error) => {
     console.error(`Could not start ${name}:`, error);
@@ -34,5 +38,5 @@ const start = (name, args) => {
 process.on('SIGINT', () => stop(0));
 process.on('SIGTERM', () => stop(0));
 
-start('Application API', ['server.js']);
+start('Application API', ['server.js'], { PORT: '3001', API_PORT: '3001' });
 start('Vite development server', [viteCli, '--port=3000', '--host=0.0.0.0', '--strictPort']);

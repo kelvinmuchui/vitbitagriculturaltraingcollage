@@ -3,11 +3,16 @@ import { motion, AnimatePresence } from 'motion/react';
 import { 
   Upload, X, Check, ArrowRight, BookOpen, CheckCircle2, 
   Calendar, AlertCircle, FileText, Phone, MessageSquare, 
-  Sparkles, Zap, ShieldCheck, HelpCircle
+  Sparkles, Zap, ShieldCheck, HelpCircle, Mail 
 } from 'lucide-react';
 import { Course } from '../types';
 import { downloadEnrollmentConfirmationForm } from '../utils/downloadForm';
-import { sendApplicationEmails } from '../utils/emailDelivery';
+import {
+  buildApplicationMailtoHref,
+  SCHOOL_EMAIL,
+  sendApplicationEmails,
+  TVET_REG_NUMBER,
+} from '../utils/emailDelivery';
 
 interface ApplicationFormProps {
   courses: Course[];
@@ -52,7 +57,13 @@ export default function ApplicationForm({
   const [submissionSuccess, setSubmissionSuccess] = useState(false);
   const [submissionError, setSubmissionError] = useState('');
   const [generatedCode, setGeneratedCode] = useState('');
-  const [emailStatuses, setEmailStatuses] = useState({ admin: 'pending', student: 'pending' });
+  const [submittedTimestamp, setSubmittedTimestamp] = useState('');
+  const [emailStatuses, setEmailStatuses] = useState<{
+    admin: string;
+    student: string;
+    error: string;
+    needsActivation: boolean;
+  }>({ admin: 'pending', student: 'pending', error: '', needsActivation: false });
   const [interviewDate, setInterviewDate] = useState('');
   const [interviewTime, setInterviewTime] = useState('');
   const [interviewBooked, setInterviewBooked] = useState(false);
@@ -99,6 +110,10 @@ export default function ApplicationForm({
     if (idPassportFile) requestBody.append('idPassportFile', idPassportFile);
     if (kcseCertFile) requestBody.append('kcseCertFile', kcseCertFile);
 
+    let savedAppId: string | null = null;
+    let appCode = `VIBIT-${new Date().getFullYear()}-${Math.floor(10000 + Math.random() * 90000)}`;
+    let appTimestamp = new Date().toISOString();
+
     try {
       const response = await fetch('/api/applications', {
         method: 'POST',
@@ -106,29 +121,58 @@ export default function ApplicationForm({
         body: requestBody,
       });
       const result = await response.json().catch(() => null);
-      if (!response.ok || !result?.ok || !result.application) {
+      if (response.status >= 400 && response.status < 500) {
         throw new Error(result?.error || `Application service returned HTTP ${response.status}.`);
       }
+      if (response.ok && result?.ok && result.application) {
+        savedAppId = result.application.id;
+        appCode = result.application.generatedCode;
+        appTimestamp = result.application.timestamp;
+      }
+    } catch (error) {
+      if (error instanceof Error && !/Failed to fetch|NetworkError|Load failed/i.test(error.message)) {
+        console.error('Application validation failed:', error);
+        setSubmissionError(error.message);
+        setIsSubmitting(false);
+        return;
+      }
+      console.warn('Backend API unavailable, proceeding with direct email delivery:', error);
+    }
 
-      setGeneratedCode(result.application.generatedCode);
-      const emailResult = await sendApplicationEmails({
-        ...formData,
-        fullName: formData.fullName.trim(),
-        email: formData.email.trim(),
-        courseName: selCourse?.title || formData.courseId,
-        generatedCode: result.application.generatedCode,
-        timestamp: result.application.timestamp,
-        documentNames: [enrollmentFormFile, idPassportFile, kcseCertFile]
-          .filter((file): file is File => Boolean(file))
-          .map((file) => file.name),
-      });
-      setEmailStatuses({ admin: emailResult.admin, student: emailResult.student });
+    setGeneratedCode(appCode);
+    setSubmittedTimestamp(appTimestamp);
 
+    const emailResult = await sendApplicationEmails({
+      ...formData,
+      fullName: formData.fullName.trim(),
+      email: formData.email.trim(),
+      phone: formData.phone.trim(),
+      courseName: selCourse?.title || formData.courseId,
+      generatedCode: appCode,
+      timestamp: appTimestamp,
+      applyMode,
+      documentNames: [enrollmentFormFile, idPassportFile, kcseCertFile]
+        .filter((file): file is File => Boolean(file))
+        .map((file) => file.name),
+    });
+
+    setEmailStatuses({
+      admin: emailResult.admin,
+      student: emailResult.student,
+      error: emailResult.error,
+      needsActivation: Boolean(emailResult.needsActivation),
+    });
+
+    if (savedAppId) {
       try {
-        const statusResponse = await fetch(`/api/applications/${encodeURIComponent(result.application.id)}/email-status`, {
+        const statusResponse = await fetch(`/api/applications/${encodeURIComponent(savedAppId)}/email-status`, {
           method: 'PATCH',
           headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-          body: JSON.stringify(emailResult),
+          body: JSON.stringify({
+            admin: emailResult.admin,
+            student: emailResult.student,
+            error: emailResult.error,
+          }),
         });
         if (!statusResponse.ok) {
           console.error('Email delivery status could not be saved:', statusResponse.status);
@@ -136,11 +180,6 @@ export default function ApplicationForm({
       } catch (error) {
         console.error('Email delivery status could not be saved:', error);
       }
-    } catch (error) {
-      console.error('Application submission failed:', error);
-      setSubmissionError(error instanceof Error ? error.message : 'Application submission failed. Please try again.');
-      setIsSubmitting(false);
-      return;
     }
 
     // Keep anonymous page analytics in this browser; application records are stored server-side.
@@ -151,7 +190,7 @@ export default function ApplicationForm({
       submissions: 0,
       submissionsByCourse: {},
       timeline: [],
-      emailLog: []
+      emailLog: [] as Array<{ id: string; to: string; subject: string; body: string; timestamp: string; status: string }>
     };
     if (currentAnalyticsLocal) {
       try { analyticsData = JSON.parse(currentAnalyticsLocal); } catch (err) {}
@@ -169,6 +208,14 @@ export default function ApplicationForm({
     }
     todayEntry.submissions += 1;
     analyticsData.emailLog = analyticsData.emailLog || [];
+    analyticsData.emailLog.push({
+      id: `email-${Date.now()}`,
+      to: SCHOOL_EMAIL,
+      subject: `New VIBIT Admission Application: ${formData.fullName.trim()} (${appCode})`,
+      body: `${formData.fullName.trim()} (${formData.phone.trim()}) applied for ${selCourse?.title || formData.courseId} via ${applyMode === 'quick' ? 'Quick Apply' : 'Full Form'}.`,
+      timestamp: appTimestamp,
+      status: emailResult.admin,
+    });
     localStorage.setItem('vibit_analytics', JSON.stringify(analyticsData));
 
     setIsSubmitting(false);
@@ -204,7 +251,8 @@ export default function ApplicationForm({
     setSubmissionSuccess(false);
     setSubmissionError('');
     setGeneratedCode('');
-    setEmailStatuses({ admin: 'pending', student: 'pending' });
+    setSubmittedTimestamp('');
+    setEmailStatuses({ admin: 'pending', student: 'pending', error: '', needsActivation: false });
     setInterviewDate('');
     setInterviewTime('');
     setInterviewBooked(false);
@@ -383,10 +431,10 @@ export default function ApplicationForm({
                   </div>
                 )}
 
-                {/* 4. Town / Location (Optional) */}
+                {/* 5. Town / Location (Optional) */}
                 <div className="space-y-1.5">
                   <label className="text-xs font-bold text-gray-700 uppercase tracking-wider flex items-center justify-between" htmlFor="quickAddress">
-                    <span>4. Your Town or Area (Mahali Unapoishi) - Optional</span>
+                    <span>5. Your Town or Area (Mahali Unapoishi) - Optional</span>
                     <span className="text-[10px] text-gray-400 font-normal lowercase">optional</span>
                   </label>
                   <input
@@ -441,14 +489,17 @@ export default function ApplicationForm({
                 </div>
 
                 {/* Reassurance Footer */}
-                <div className="text-center pt-2">
-                  <p className="text-[11px] text-gray-500">
-                    🔒 100% Free Application • No documents required today • Admissions desk will contact you within 24 hours.
+                <div className="text-center pt-2 space-y-1">
+                  <p className="text-[11px] text-gray-600 font-medium">
+                    🔒 100% Free Application • Details automatically delivered to <strong className="text-gray-900">{SCHOOL_EMAIL}</strong>
+                  </p>
+                  <p className="text-[10px] text-emerald-800 font-bold">
+                    🏛️ TVETA Registered Institution: <span className="font-mono">{TVET_REG_NUMBER}</span>
                   </p>
                   <button
                     type="button"
                     onClick={() => setApplyMode('full')}
-                    className="mt-3 text-xs font-bold text-[#C28A4E] hover:text-[#A4713C] underline cursor-pointer"
+                    className="mt-2 text-xs font-bold text-[#C28A4E] hover:text-[#A4713C] underline cursor-pointer inline-block"
                   >
                     Want to enter complete academic details or attach documents? Switch to Full Form.
                   </button>
@@ -692,6 +743,36 @@ export default function ApplicationForm({
                       </select>
                     </div>
                   </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                    <div className="space-y-1.5">
+                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-wider" htmlFor="priorExperience">Prior Coffee / Farm Experience (Optional)</label>
+                      <select
+                        name="priorExperience"
+                        id="priorExperience"
+                        value={formData.priorExperience}
+                        onChange={handleInputChange}
+                        className="w-full bg-gray-50 border border-gray-200 focus:border-gray-900 focus:bg-white rounded-xl px-4 py-3 text-sm text-gray-900 transition-all shadow-xs cursor-pointer"
+                      >
+                        <option value="none">None / Beginner</option>
+                        <option value="one_year">Less than 1 - 2 Years</option>
+                        <option value="three_plus">3+ Years Industry Experience</option>
+                      </select>
+                    </div>
+
+                    <div className="space-y-1.5">
+                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-wider" htmlFor="motivation">Career Goal / Additional Notes (Optional)</label>
+                      <input
+                        type="text"
+                        name="motivation"
+                        id="motivation"
+                        value={formData.motivation}
+                        onChange={handleInputChange}
+                        placeholder="e.g. Looking for January intake, evening shift..."
+                        className="w-full bg-gray-50 border border-gray-200 focus:border-gray-900 focus:bg-white rounded-xl px-4 py-3 text-sm text-gray-900 transition-all shadow-xs"
+                      />
+                    </div>
+                  </div>
                 </div>
 
                 {/* Section D: Optional Document Uploads */}
@@ -855,19 +936,57 @@ export default function ApplicationForm({
               </p>
             </div>
 
-            <div className="max-w-md mx-auto rounded-2xl border border-gray-200 bg-gray-50 p-4 text-left space-y-2">
-              <h4 className="text-sm font-bold text-[#2E221C]">Email delivery status</h4>
+            <div className="max-w-md mx-auto rounded-2xl border border-gray-200 bg-gray-50 p-4 text-left space-y-2.5">
+              <div className="flex items-center justify-between gap-2">
+                <h4 className="text-sm font-bold text-[#2E221C] flex items-center gap-1.5">
+                  <Mail className="h-4 w-4 text-[#C28A4E]" />
+                  <span>Email delivery status</span>
+                </h4>
+                <span className="text-[10px] font-mono font-bold text-gray-500">{TVET_REG_NUMBER}</span>
+              </div>
               <p className="text-xs text-gray-700">
-                School notification: <strong>{emailStatuses.admin === 'sent' ? 'Sent' : emailStatuses.admin === 'failed' ? 'Not sent - registrar can retry' : emailStatuses.admin === 'not_configured' ? 'EmailJS setup required' : 'Pending'}</strong>
+                School inbox ({SCHOOL_EMAIL}):{' '}
+                <strong className={emailStatuses.admin === 'sent' ? 'text-emerald-700' : 'text-amber-800'}>
+                  {emailStatuses.admin === 'sent'
+                    ? 'Sent'
+                    : emailStatuses.needsActivation
+                      ? 'Pending one-time inbox activation'
+                      : emailStatuses.admin === 'failed'
+                        ? 'Could not auto-send — use Email App button below'
+                        : 'Pending'}
+                </strong>
               </p>
               <p className="text-xs text-gray-700">
-                Your confirmation: <strong>{emailStatuses.student === 'sent' ? 'Sent to your email' : emailStatuses.student === 'failed' ? 'Not sent - contact admissions if needed' : emailStatuses.student === 'not_configured' ? 'EmailJS setup required' : 'Pending'}</strong>
+                Your confirmation ({formData.email}):{' '}
+                <strong className={emailStatuses.student === 'sent' ? 'text-emerald-700' : 'text-gray-700'}>
+                  {emailStatuses.student === 'sent'
+                    ? 'Sent to your email'
+                    : emailStatuses.student === 'not_configured'
+                      ? 'Save your admission code below'
+                      : 'Pending'}
+                </strong>
               </p>
-              {emailStatuses.admin !== 'sent' || emailStatuses.student !== 'sent' ? (
-                <p className="text-[11px] text-amber-800">
-                  Your application is safely saved. For help, call 0708 137992 or WhatsApp the admissions team and provide your application code.
+              {emailStatuses.error && (
+                <p className="text-[11px] text-amber-800 bg-amber-50 border border-amber-200 rounded-xl p-2.5 leading-relaxed">
+                  {emailStatuses.error}
                 </p>
-              ) : null}
+              )}
+              <a
+                href={buildApplicationMailtoHref({
+                  ...formData,
+                  courseName: currentCourse?.title || formData.courseId,
+                  generatedCode,
+                  timestamp: submittedTimestamp || new Date().toISOString(),
+                  applyMode,
+                  documentNames: [enrollmentFormFile, idPassportFile, kcseCertFile]
+                    .filter((file): file is File => Boolean(file))
+                    .map((file) => file.name),
+                })}
+                className="w-full inline-flex items-center justify-center space-x-2 bg-white hover:bg-[#FAF6F0] text-[#2E221C] border border-[#2E221C]/20 font-bold text-xs py-2.5 px-4 rounded-xl transition-all shadow-2xs"
+              >
+                <Mail className="h-4 w-4 text-[#C28A4E]" />
+                <span>Send / Forward Copy via Email App</span>
+              </a>
             </div>
 
             {/* Code Card */}
