@@ -7,7 +7,7 @@ import {
   TrendingUp, BarChart2, BookOpen, Layers, Laptop
 } from 'lucide-react';
 import { Course } from '../types';
-import { buildApplicationMailtoHref, extractErrorMessage, sendApplicationEmails } from '../utils/emailDelivery';
+import { buildApplicationMailtoHref, extractErrorMessage } from '../utils/emailDelivery';
 
 interface Application {
   id: string;
@@ -314,18 +314,9 @@ export default function AdminView({ courses, onUpdateCourses, onResetCourses }: 
     setIsResendingEmails(true);
     setApplicationsError('');
     try {
-      const delivery = await sendApplicationEmails({
-        ...application,
-        documentNames: application.documentsUploaded.map((document) => document.fileName),
-      });
-      const response = await fetch(`/api/admin/applications/${encodeURIComponent(application.id)}/email-status`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify({
-          admin: delivery.admin,
-          student: delivery.student,
-          error: delivery.error,
-        }),
+      const response = await fetch(`/api/admin/applications/${encodeURIComponent(application.id)}/resend-emails`, {
+        method: 'POST',
+        headers: { Accept: 'application/json' },
       });
       const result = await response.json().catch(() => null);
       if (!response.ok || !result?.ok) throw new Error(extractErrorMessage(result?.error ?? result, 'Could not retry application emails.'));
@@ -1377,7 +1368,7 @@ export default function AdminView({ courses, onUpdateCourses, onResetCourses }: 
 
                       <div className="text-right text-[10px] shrink-0">
                         <span className="text-gray-400 block font-medium">Delivery method</span>
-                        <strong className="text-gray-700">FormSubmit Gateway</strong>
+                        <strong className="text-gray-700">Nodemailer (Gmail SMTP)</strong>
                       </div>
                     </div>
                   ))

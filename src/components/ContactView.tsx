@@ -30,6 +30,7 @@ const TikTokIcon = ({ className = "h-5 w-5" }: { className?: string }) => (
 // Import our real student and campus photos
 import contactCampusImage from '../assets/images/contact_campus_image_1784976397743.jpg';
 import FAQSection from './FAQSection';
+import { buildContactMailtoHref, extractErrorMessage } from '../utils/emailDelivery';
 
 interface ContactViewProps {
   setView?: (view: string) => void;
@@ -45,6 +46,8 @@ export default function ContactView({ setView }: ContactViewProps) {
   });
   const [isSending, setIsSending] = useState(false);
   const [sentSuccess, setSentSuccess] = useState(false);
+  const [contactError, setContactError] = useState('');
+  const [lastInquiryMailto, setLastInquiryMailto] = useState('');
 
   // Chatbot State
   const [chatHistory, setChatHistory] = useState<Array<{ sender: 'user' | 'bot'; text: string }>>([
@@ -80,32 +83,48 @@ export default function ContactView({ setView }: ContactViewProps) {
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSending(true);
+    setSentSuccess(false);
+    setContactError('');
+    setLastInquiryMailto('');
+
+    const payload = {
+      name: form.name.trim(),
+      email: form.email.trim(),
+      subject: form.subject,
+      message: form.message.trim(),
+    };
 
     try {
-      await fetch('https://formsubmit.co/ajax/vbitschoolofcoffeeagribusiness@gmail.com', {
+      const response = await fetch('/api/contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           Accept: 'application/json',
         },
-        body: JSON.stringify({
-          _subject: `[VIBIT INQUIRY] ${form.subject} from ${form.name}`,
-          _template: 'table',
-          _captcha: 'false',
-          _replyto: form.email,
-          Sender_Name: form.name,
-          Sender_Email: form.email,
-          Inquiry_Topic: form.subject,
-          Message: form.message,
-        }),
+        body: JSON.stringify(payload),
       });
+      const result = await response.json().catch(() => null);
+      if (!response.ok || !result?.ok) {
+        throw new Error(extractErrorMessage(result?.error ?? result, 'Could not send your inquiry.'));
+      }
+      if (result.status === 'sent') {
+        setSentSuccess(true);
+        setForm({ name: '', email: '', subject: 'general', message: '' });
+        setTimeout(() => setSentSuccess(false), 6000);
+      } else {
+        setLastInquiryMailto(buildContactMailtoHref(payload));
+        setContactError(
+          extractErrorMessage(
+            result.error,
+            'Automatic Gmail delivery is not configured yet. Use the Email App button below to send directly.',
+          ),
+        );
+      }
     } catch (error) {
-      console.warn('Contact form gateway error:', error);
+      setLastInquiryMailto(buildContactMailtoHref(payload));
+      setContactError(extractErrorMessage(error, 'Could not send your inquiry automatically.'));
     } finally {
       setIsSending(false);
-      setSentSuccess(true);
-      setForm({ name: '', email: '', subject: 'general', message: '' });
-      setTimeout(() => setSentSuccess(false), 5000);
     }
   };
 
@@ -464,6 +483,21 @@ export default function ContactView({ setView }: ContactViewProps) {
                 <div className="flex items-center space-x-2 text-xs text-green-800 bg-green-500/10 p-3 rounded-xl border border-green-500/20">
                   <CheckCircle2 className="h-4.5 w-4.5 text-green-800 shrink-0" />
                   <span>Success! Your inquiry has been delivered safely to our registrar registry.</span>
+                </div>
+              )}
+
+              {contactError && (
+                <div role="alert" className="space-y-2 text-xs text-amber-900 bg-amber-50 p-3.5 rounded-xl border border-amber-200">
+                  <p>{contactError}</p>
+                  {lastInquiryMailto && (
+                    <a
+                      href={lastInquiryMailto}
+                      className="inline-flex items-center space-x-1.5 font-bold text-[#2E221C] underline"
+                    >
+                      <Mail className="h-3.5 w-3.5 text-[#C28A4E]" />
+                      <span>Open in Email App instead</span>
+                    </a>
+                  )}
                 </div>
               )}
 

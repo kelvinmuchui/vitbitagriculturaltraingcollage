@@ -182,6 +182,13 @@ export const updateEmailStatuses = (id, adminStatus, studentStatus, error) => {
   return getApplication(id);
 };
 
+export const getApplicationDocumentsWithContent = (id) => database.prepare(`
+  SELECT id, field_name AS fieldName, file_name AS fileName, mime_type AS mimeType, size, content
+  FROM application_documents
+  WHERE application_id = ?
+  ORDER BY rowid
+`).all(id);
+
 export const getApplicationDocument = (id, documentId) => database.prepare(`
   SELECT file_name AS fileName, mime_type AS mimeType, content
   FROM application_documents

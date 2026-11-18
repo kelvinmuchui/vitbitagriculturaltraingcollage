@@ -7,11 +7,18 @@ import { fileURLToPath } from 'node:url';
 import {
   createApplication,
   deleteApplication,
+  getApplication,
   getApplicationDocument,
+  getApplicationDocumentsWithContent,
   listApplications,
   updateApplicationStatus,
   updateEmailStatuses,
 } from './server/database.js';
+import {
+  getGmailConfig,
+  sendApplicationEmailsViaGmail,
+  sendContactInquiryViaGmail,
+} from './server/mailer.js';
 
 const app = express();
 const port = Number(
@@ -270,17 +277,28 @@ app.post(
 
       const uploadedFiles = Object.values(req.files || {}).flat();
       const documents = verifyUploadedFiles(uploadedFiles);
+      const applyMode = req.body?.applyMode === 'full' ? 'full' : 'quick';
       const savedApplication = createApplication(application, documents);
-      const savedWithPendingEmail = updateEmailStatuses(savedApplication.id, 'pending', 'pending', '');
+      const emailDelivery = await sendApplicationEmailsViaGmail(
+        { ...savedApplication, applyMode },
+        documents,
+      );
+      const savedWithEmailStatus = updateEmailStatuses(
+        savedApplication.id,
+        emailDelivery.admin,
+        emailDelivery.student,
+        (emailDelivery.error || '').slice(0, 1000),
+      );
 
       return res.status(201).json({
         ok: true,
         application: {
-          id: savedWithPendingEmail.id,
-          generatedCode: savedWithPendingEmail.generatedCode,
-          timestamp: savedWithPendingEmail.timestamp,
-          adminEmailStatus: savedWithPendingEmail.adminEmailStatus,
-          studentEmailStatus: savedWithPendingEmail.studentEmailStatus,
+          id: savedWithEmailStatus.id,
+          generatedCode: savedWithEmailStatus.generatedCode,
+          timestamp: savedWithEmailStatus.timestamp,
+          adminEmailStatus: savedWithEmailStatus.adminEmailStatus,
+          studentEmailStatus: savedWithEmailStatus.studentEmailStatus,
+          emailError: savedWithEmailStatus.emailError,
         },
       });
     } catch (error) {
@@ -288,6 +306,27 @@ app.post(
     }
   },
 );
+
+app.post('/api/contact', async (req, res) => {
+  if (isRateLimited(submissionAttempts, req.ip || 'unknown', 10, 60 * 60 * 1000)) {
+    return res.status(429).json({ ok: false, error: 'Too many inquiries were submitted from this connection. Please call or WhatsApp admissions.' });
+  }
+  const name = String(req.body?.name || '').trim().slice(0, 120);
+  const email = String(req.body?.email || '').trim().toLowerCase();
+  const subject = String(req.body?.subject || 'general').trim().slice(0, 120);
+  const message = String(req.body?.message || '').trim().slice(0, 5000);
+
+  if (name.length < 2 || !validEmail(email) || message.length < 3) {
+    return res.status(400).json({ ok: false, error: 'Please enter your name, a valid email address, and your inquiry message.' });
+  }
+
+  const delivery = await sendContactInquiryViaGmail({ name, email, subject, message });
+  return res.json({
+    ok: true,
+    status: delivery.status,
+    error: delivery.error,
+  });
+});
 
 const saveEmailStatuses = (id, body, res) => {
   const { admin, student, error = '' } = body || {};
@@ -330,6 +369,20 @@ app.delete('/api/admin/applications/:id', requireAdmin, (req, res) => {
 app.patch('/api/admin/applications/:id/email-status', requireAdmin, (req, res) => (
   saveEmailStatuses(req.params.id, req.body, res)
 ));
+
+app.post('/api/admin/applications/:id/resend-emails', requireAdmin, async (req, res) => {
+  const application = getApplication(req.params.id);
+  if (!application) return res.status(404).json({ ok: false, error: 'Application not found.' });
+  const documents = getApplicationDocumentsWithContent(application.id);
+  const emailDelivery = await sendApplicationEmailsViaGmail(application, documents);
+  const updated = updateEmailStatuses(
+    application.id,
+    emailDelivery.admin,
+    emailDelivery.student,
+    (emailDelivery.error || '').slice(0, 1000),
+  );
+  return res.json({ ok: true, application: updated });
+});
 
 app.get('/api/admin/applications/:id/documents/:documentId', requireAdmin, (req, res) => {
   const document = getApplicationDocument(req.params.id, req.params.documentId);
@@ -378,4 +431,5 @@ app.use((error, _req, res, _next) => {
 app.listen(port, '0.0.0.0', () => {
   console.log(`VIBIT server listening on port ${port}`);
   if (!isAdminConfigured()) console.warn('Admin portal is locked until ADMIN_PASSWORD and ADMIN_SESSION_SECRET are configured.');
+  if (!getGmailConfig().isConfigured) console.warn('Nodemailer Gmail SMTP is not configured yet. Set GMAIL_USER and GMAIL_APP_PASSWORD to enable automatic emails.');
 });

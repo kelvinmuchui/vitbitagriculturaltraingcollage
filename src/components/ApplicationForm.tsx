@@ -11,7 +11,6 @@ import {
   buildApplicationMailtoHref,
   extractErrorMessage,
   SCHOOL_EMAIL,
-  sendApplicationEmails,
   TVET_REG_NUMBER,
 } from '../utils/emailDelivery';
 
@@ -63,8 +62,7 @@ export default function ApplicationForm({
     admin: string;
     student: string;
     error: string;
-    needsActivation: boolean;
-  }>({ admin: 'pending', student: 'pending', error: '', needsActivation: false });
+  }>({ admin: 'pending', student: 'pending', error: '' });
   const [interviewDate, setInterviewDate] = useState('');
   const [interviewTime, setInterviewTime] = useState('');
   const [interviewBooked, setInterviewBooked] = useState(false);
@@ -107,13 +105,16 @@ export default function ApplicationForm({
     requestBody.set('email', formData.email.trim());
     requestBody.set('phone', formData.phone.trim());
     requestBody.set('courseName', selCourse?.title || formData.courseId);
+    requestBody.set('applyMode', applyMode);
     if (enrollmentFormFile) requestBody.append('enrollmentFormFile', enrollmentFormFile);
     if (idPassportFile) requestBody.append('idPassportFile', idPassportFile);
     if (kcseCertFile) requestBody.append('kcseCertFile', kcseCertFile);
 
-    let savedAppId: string | null = null;
-    let appCode = `VIBIT-${new Date().getFullYear()}-${Math.floor(10000 + Math.random() * 90000)}`;
+    let appCode = '';
     let appTimestamp = new Date().toISOString();
+    let adminStatus = 'not_configured';
+    let studentStatus = 'not_configured';
+    let emailError = '';
 
     try {
       const response = await fetch('/api/applications', {
@@ -122,73 +123,38 @@ export default function ApplicationForm({
         body: requestBody,
       });
       const result = await response.json().catch(() => null);
-      if (response.status === 400 || response.status === 413 || response.status === 429) {
+      if (!response.ok || !result?.ok || !result.application) {
         const apiError = extractErrorMessage(
           result?.error ?? result,
           `Application service returned HTTP ${response.status}.`,
         );
         throw new Error(apiError);
       }
-      if (response.ok && result?.ok && result.application) {
-        savedAppId = result.application.id;
-        appCode = result.application.generatedCode;
-        appTimestamp = result.application.timestamp;
-      } else if (!response.ok) {
-        console.warn('Application API returned non-OK status, continuing with direct email delivery:', response.status, result);
-      }
+
+      appCode = result.application.generatedCode;
+      appTimestamp = result.application.timestamp;
+      adminStatus = result.application.adminEmailStatus || 'not_configured';
+      studentStatus = result.application.studentEmailStatus || 'not_configured';
+      emailError = result.application.emailError || '';
     } catch (error) {
-      const message = extractErrorMessage(error, '');
-      if (message && !/Failed to fetch|NetworkError|Load failed/i.test(message)) {
-        console.error('Application validation failed:', error);
-        setSubmissionError(message);
-        setIsSubmitting(false);
-        return;
-      }
-      console.warn('Backend API unavailable, proceeding with direct email delivery:', error);
+      console.error('Application submission failed:', error);
+      setSubmissionError(
+        extractErrorMessage(
+          error,
+          'Could not submit your application right now. Please try again or contact admissions via WhatsApp.',
+        ),
+      );
+      setIsSubmitting(false);
+      return;
     }
 
     setGeneratedCode(appCode);
     setSubmittedTimestamp(appTimestamp);
-
-    const emailResult = await sendApplicationEmails({
-      ...formData,
-      fullName: formData.fullName.trim(),
-      email: formData.email.trim(),
-      phone: formData.phone.trim(),
-      courseName: selCourse?.title || formData.courseId,
-      generatedCode: appCode,
-      timestamp: appTimestamp,
-      applyMode,
-      documentNames: [enrollmentFormFile, idPassportFile, kcseCertFile]
-        .filter((file): file is File => Boolean(file))
-        .map((file) => file.name),
-    });
-
     setEmailStatuses({
-      admin: emailResult.admin,
-      student: emailResult.student,
-      error: emailResult.error,
-      needsActivation: Boolean(emailResult.needsActivation),
+      admin: adminStatus,
+      student: studentStatus,
+      error: emailError,
     });
-
-    if (savedAppId) {
-      try {
-        const statusResponse = await fetch(`/api/applications/${encodeURIComponent(savedAppId)}/email-status`, {
-          method: 'PATCH',
-          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-          body: JSON.stringify({
-            admin: emailResult.admin,
-            student: emailResult.student,
-            error: emailResult.error,
-          }),
-        });
-        if (!statusResponse.ok) {
-          console.error('Email delivery status could not be saved:', statusResponse.status);
-        }
-      } catch (error) {
-        console.error('Email delivery status could not be saved:', error);
-      }
-    }
 
     // Keep anonymous page analytics in this browser; application records are stored server-side.
     const currentAnalyticsLocal = localStorage.getItem('vibit_analytics');
@@ -222,7 +188,7 @@ export default function ApplicationForm({
       subject: `New VIBIT Admission Application: ${formData.fullName.trim()} (${appCode})`,
       body: `${formData.fullName.trim()} (${formData.phone.trim()}) applied for ${selCourse?.title || formData.courseId} via ${applyMode === 'quick' ? 'Quick Apply' : 'Full Form'}.`,
       timestamp: appTimestamp,
-      status: emailResult.admin,
+      status: adminStatus,
     });
     localStorage.setItem('vibit_analytics', JSON.stringify(analyticsData));
 
@@ -260,7 +226,7 @@ export default function ApplicationForm({
     setSubmissionError('');
     setGeneratedCode('');
     setSubmittedTimestamp('');
-    setEmailStatuses({ admin: 'pending', student: 'pending', error: '', needsActivation: false });
+    setEmailStatuses({ admin: 'pending', student: 'pending', error: '' });
     setInterviewDate('');
     setInterviewTime('');
     setInterviewBooked(false);
@@ -956,9 +922,9 @@ export default function ApplicationForm({
                 School inbox ({SCHOOL_EMAIL}):{' '}
                 <strong className={emailStatuses.admin === 'sent' ? 'text-emerald-700' : 'text-amber-800'}>
                   {emailStatuses.admin === 'sent'
-                    ? 'Sent'
-                    : emailStatuses.needsActivation
-                      ? 'Pending one-time inbox activation'
+                    ? 'Sent via Gmail SMTP'
+                    : emailStatuses.admin === 'not_configured'
+                      ? 'Pending Gmail App Password setup on server'
                       : emailStatuses.admin === 'failed'
                         ? 'Could not auto-send — use Email App button below'
                         : 'Pending'}
@@ -971,7 +937,9 @@ export default function ApplicationForm({
                     ? 'Sent to your email'
                     : emailStatuses.student === 'not_configured'
                       ? 'Save your admission code below'
-                      : 'Pending'}
+                      : emailStatuses.student === 'failed'
+                        ? 'Save your admission code below'
+                        : 'Pending'}
                 </strong>
               </p>
               {emailStatuses.error && (
