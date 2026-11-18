@@ -22,12 +22,10 @@ import {
 } from './server/mailer.js';
 
 const app = express();
-const port = Number(
-  process.env.API_PORT ||
-  (process.env.PORT && process.env.PORT !== process.env.NGINX_PORT
-    ? process.env.PORT
-    : process.env.DEFAULT_APP_PORT || 3000),
+const primaryPort = Number(
+  process.env.API_PORT || process.env.PORT || process.env.DEFAULT_APP_PORT || 3000,
 );
+const fallbackPort = Number(process.env.DEFAULT_APP_PORT || 3000);
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const MAX_UPLOAD_BYTES = 5 * 1024 * 1024;
@@ -414,13 +412,25 @@ app.get('/api/admin/applications/:id/documents/:documentId', requireAdmin, (req,
   return res.send(document.content);
 });
 
+app.get('/api/health', (_req, res) => {
+  res.json({ ok: true });
+});
+
 const distDirectory = path.join(__dirname, 'dist');
 app.use(express.static(distDirectory));
-app.get('*', (req, res) => {
+app.get('*', (req, res, next) => {
   if (req.path.startsWith('/api/')) {
     return res.status(404).json({ ok: false, error: 'Not found' });
   }
-  return res.sendFile(path.join(distDirectory, 'index.html'));
+  return res.sendFile(path.join(distDirectory, 'index.html'), (err) => {
+    if (err) {
+      if (err.code === 'ENOENT') {
+        res.status(503).send('Application build not found. Run npm run build before starting the server.');
+        return;
+      }
+      next(err);
+    }
+  });
 });
 
 app.use((error, _req, res, _next) => {
@@ -450,8 +460,21 @@ app.use((error, _req, res, _next) => {
   return res.status(500).json({ ok: false, error: 'The application could not be processed. Please try again or contact admissions.' });
 });
 
-app.listen(port, '0.0.0.0', () => {
-  console.log(`VIBIT server listening on port ${port}`);
-  if (!isAdminConfigured()) console.warn('Admin portal is locked until ADMIN_PASSWORD and ADMIN_SESSION_SECRET are configured.');
-  if (!getGmailConfig().isConfigured) console.warn('Nodemailer Gmail SMTP is not configured yet. Set GMAIL_USER and GMAIL_APP_PASSWORD to enable automatic emails.');
-});
+const listenOnPort = (targetPort, allowFallback) => {
+  const server = app.listen(targetPort, '0.0.0.0', () => {
+    console.log(`VIBIT server listening on port ${targetPort}`);
+    if (!isAdminConfigured()) console.warn('Admin portal is locked until ADMIN_PASSWORD and ADMIN_SESSION_SECRET are configured.');
+    if (!getGmailConfig().isConfigured) console.warn('Nodemailer Gmail SMTP is not configured yet. Set GMAIL_USER and GMAIL_APP_PASSWORD to enable automatic emails.');
+  });
+
+  server.on('error', (error) => {
+    if (error?.code === 'EADDRINUSE' && allowFallback && fallbackPort !== targetPort) {
+      console.warn(`Port ${targetPort} is already in use; falling back to port ${fallbackPort}.`);
+      listenOnPort(fallbackPort, false);
+      return;
+    }
+    throw error;
+  });
+};
+
+listenOnPort(primaryPort, !process.env.API_PORT);
