@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Mail, Phone, MapPin, Send, CheckCircle2, Award } from 'lucide-react';
 import Logo from './Logo';
+import { CoffeeResearchEmblem, WorldVisionEmblem } from './PartnershipsSection';
 
 // Custom SVG Icons for WhatsApp, Facebook, Instagram
 const WhatsAppIcon = ({ className = "h-4 w-4" }: { className?: string }) => (
@@ -238,6 +239,59 @@ export default function Footer({ setView }: FooterProps) {
             )}
           </div>
 
+        </div>
+
+        {/* Strategic Partners Bar */}
+        <div
+          id="footer-partners"
+          className="my-8 py-6 px-6 bg-[#FAF6F0]/[0.04] rounded-2xl border border-[#FAF6F0]/10"
+        >
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+            <div className="space-y-1 max-w-xs shrink-0">
+              <h4 className="font-serif text-sm font-bold text-[#C28A4E] uppercase tracking-wider">
+                Strategic Partners
+              </h4>
+              <p className="text-xs text-[#FAF6F0]/65 leading-relaxed">
+                Research &amp; community empowerment alliances supporting practical training.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 flex-1">
+              <button
+                type="button"
+                id="footer-partner-cri"
+                onClick={() => handleLinkClick('about')}
+                className="flex items-center gap-3.5 text-left p-3.5 rounded-xl bg-[#FAF6F0]/[0.04] hover:bg-[#FAF6F0]/[0.08] border border-[#FAF6F0]/10 transition-colors cursor-pointer"
+              >
+                <CoffeeResearchEmblem className="h-11 w-11" />
+                <div className="min-w-0">
+                  <span className="block font-serif text-sm font-bold text-[#FAF6F0] truncate">
+                    Coffee Research Institute (CRI)
+                  </span>
+                  <span className="block text-[11px] text-[#FAF6F0]/65 truncate">
+                    Coffee Agronomy · Genetics &amp; Quality Research
+                  </span>
+                </div>
+              </button>
+
+              <button
+                type="button"
+                id="footer-partner-world-vision"
+                onClick={() => handleLinkClick('about')}
+                className="flex items-center gap-3.5 text-left p-3.5 rounded-xl bg-[#FAF6F0]/[0.04] hover:bg-[#FAF6F0]/[0.08] border border-[#FAF6F0]/10 transition-colors cursor-pointer"
+              >
+                <WorldVisionEmblem className="h-11 w-11" />
+                <div className="min-w-0">
+                  <span className="block font-serif text-sm font-bold text-[#FAF6F0] truncate">
+                    World Vision
+                  </span>
+                  <span className="block text-[11px] text-[#FAF6F0]/65 truncate">
+                    Youth Empowerment · Climate-Smart Livelihoods
+                  </span>
+                </div>
+              </button>
+            </div>
+          </div>
         </div>
 
         {/* Local SEO Keyword Hub for Search Engines */}

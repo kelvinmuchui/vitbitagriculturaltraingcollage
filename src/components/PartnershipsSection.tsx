@@ -9,35 +9,49 @@ interface PartnershipsSectionProps {
   variant?: 'home' | 'about';
 }
 
-const CoffeeResearchEmblem = () => (
+export const CoffeeResearchEmblem = ({ className = 'h-10 w-10' }: { className?: string }) => (
   <svg
-    viewBox="0 0 40 40"
+    viewBox="0 0 44 44"
     fill="none"
     aria-hidden="true"
-    className="h-9 w-9 shrink-0"
+    className={`${className} shrink-0`}
   >
-    <rect x="1" y="1" width="38" height="38" rx="9" fill="#FAF6F0" stroke="#C28A4E" strokeWidth="1.5" />
+    <rect x="1.5" y="1.5" width="41" height="41" rx="10" fill="#FAF6F0" stroke="#C28A4E" strokeWidth="1.5" />
+    <circle cx="22" cy="22" r="13.5" stroke="#2E221C" strokeWidth="1.2" strokeDasharray="2.5 2" opacity="0.45" />
     <path
-      d="M20 9v22M20 15c-4.5 0-7 2.2-7 5.2 0 3 2.5 5 7 5M20 13c4.5 0 7 2.2 7 5.2 0 3-2.5 5-7 5"
+      d="M22 10.5v23"
       stroke="#2E221C"
+      strokeWidth="1.7"
+      strokeLinecap="round"
+    />
+    <path
+      d="M22 17c-4.8 0-7.5 2.4-7.5 5.4 0 2.9 2.7 5.1 7.5 5.1M22 14.5c4.8 0 7.5 2.4 7.5 5.4 0 2.9-2.7 5.1-7.5 5.1"
+      stroke="#14532D"
       strokeWidth="1.8"
       strokeLinecap="round"
     />
-    <circle cx="20" cy="9" r="2.2" fill="#C28A4E" />
+    <circle cx="22" cy="10.5" r="2.4" fill="#C28A4E" />
   </svg>
 );
 
-const WorldVisionEmblem = () => (
+export const WorldVisionEmblem = ({ className = 'h-10 w-10' }: { className?: string }) => (
   <svg
-    viewBox="0 0 40 40"
+    viewBox="0 0 44 44"
     fill="none"
     aria-hidden="true"
-    className="h-9 w-9 shrink-0"
+    className={`${className} shrink-0`}
   >
-    <rect x="1" y="1" width="38" height="38" rx="9" fill="#FFF7ED" stroke="#C28A4E" strokeWidth="1.5" />
-    <circle cx="20" cy="20" r="10.5" stroke="#2E221C" strokeWidth="1.7" />
-    <ellipse cx="20" cy="20" rx="5.2" ry="10.5" stroke="#C28A4E" strokeWidth="1.5" />
-    <path d="M9.8 20h20.4M12 14.5h16M12 25.5h16" stroke="#2E221C" strokeWidth="1.3" strokeLinecap="round" />
+    <rect x="1.5" y="1.5" width="41" height="41" rx="10" fill="#FFF7ED" stroke="#EA580C" strokeWidth="1.5" />
+    <circle cx="22" cy="22" r="12.5" stroke="#2E221C" strokeWidth="1.4" />
+    <ellipse cx="22" cy="22" rx="6" ry="12.5" stroke="#C28A4E" strokeWidth="1.3" />
+    <path d="M9.8 22h24.4" stroke="#2E221C" strokeWidth="1.2" strokeLinecap="round" />
+    <path
+      d="M22 13.5l2.2 5.3 5.7.5-4.3 3.7 1.3 5.5-4.9-3-4.9 3 1.3-5.5-4.3-3.7 5.7-.5L22 13.5z"
+      fill="#EA580C"
+      stroke="#FFF7ED"
+      strokeWidth="0.9"
+      strokeLinejoin="round"
+    />
   </svg>
 );
 
