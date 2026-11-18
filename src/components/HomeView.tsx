@@ -6,6 +6,7 @@ import PhotoGallery from './PhotoGallery';
 import CoffeeLabs from './CoffeeLabs';
 import HeroParallaxImage from './HeroParallaxImage';
 import FAQSection from './FAQSection';
+import PartnershipsSection from './PartnershipsSection';
 
 // Import our real student and campus photos
 import homeHeroCampus from '../assets/images/home_hero_campus_1784976413691.jpg';
@@ -439,6 +440,9 @@ export default function HomeView({ setView, setSelectedCourseId }: HomeViewProps
           </div>
         </div>
       </section>
+
+      {/* STRATEGIC & RESEARCH PARTNERSHIPS */}
+      <PartnershipsSection setView={setView} variant="home" />
 
       {/* 5. LEADING PROGRAMS */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">

@@ -7,6 +7,7 @@ import { FACILITIES } from '../data';
 import aboutHeroBanner from '../assets/images/about_hero_banner_1784976365779.jpg';
 import coffeeCherriesDrying from '../assets/images/coffee_cherries_drying_1783338132429.jpg';
 import FAQSection from './FAQSection';
+import PartnershipsSection from './PartnershipsSection';
 
 interface AboutViewProps {
   setView: (view: string) => void;
@@ -376,6 +377,9 @@ export default function AboutView({ setView }: AboutViewProps) {
 
         </div>
       </section>
+
+      {/* 4.5 STRATEGIC PARTNERSHIPS */}
+      <PartnershipsSection setView={setView} variant="about" />
 
       {/* 5. PROFESSIONAL CAREER PATHS */}
       <section className="bg-gradient-to-b from-white to-[#FAF6F0]/40 py-20 border-t border-[#2E221C]/5">
