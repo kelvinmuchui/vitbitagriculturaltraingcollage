@@ -35,11 +35,17 @@ const activeAdminSessions = new Map();
 const loginAttempts = new Map();
 const submissionAttempts = new Map();
 
-if (process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === 'production' || process.env.VERCEL) {
   app.set('trust proxy', 1);
 }
 
-app.use(express.json({ limit: '100kb' }));
+const jsonParser = express.json({ limit: '100kb' });
+app.use((req, res, next) => {
+  if (req.readableEnded && req.body !== undefined) {
+    return next();
+  }
+  return jsonParser(req, res, next);
+});
 app.use((req, res, next) => {
   res.setHeader('X-Content-Type-Options', 'nosniff');
   res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
@@ -477,4 +483,8 @@ const listenOnPort = (targetPort, allowFallback) => {
   });
 };
 
-listenOnPort(primaryPort, !process.env.API_PORT);
+if (!process.env.VERCEL) {
+  listenOnPort(primaryPort, !process.env.API_PORT);
+}
+
+export default app;

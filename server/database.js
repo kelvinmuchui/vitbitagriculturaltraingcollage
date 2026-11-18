@@ -1,11 +1,16 @@
 import Database from 'better-sqlite3';
 import fs from 'node:fs';
+import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { randomBytes, randomUUID } from 'node:crypto';
 
 const serverDirectory = path.dirname(fileURLToPath(import.meta.url));
-const databasePath = path.resolve(process.env.DB_PATH || path.join(serverDirectory, '..', 'data', 'applications.sqlite'));
+const isServerlessEnv = Boolean(process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME);
+const defaultDatabasePath = isServerlessEnv
+  ? path.join(os.tmpdir(), 'vibit-applications.sqlite')
+  : path.join(serverDirectory, '..', 'data', 'applications.sqlite');
+const databasePath = path.resolve(process.env.DB_PATH || defaultDatabasePath);
 fs.mkdirSync(path.dirname(databasePath), { recursive: true });
 
 export const database = new Database(databasePath);
