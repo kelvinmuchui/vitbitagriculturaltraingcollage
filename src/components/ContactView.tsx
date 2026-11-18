@@ -46,6 +46,8 @@ export default function ContactView({ setView }: ContactViewProps) {
   });
   const [isSending, setIsSending] = useState(false);
   const [sentSuccess, setSentSuccess] = useState(false);
+  const [confirmedEmail, setConfirmedEmail] = useState('');
+  const [senderConfirmStatus, setSenderConfirmStatus] = useState<string>('pending');
   const [contactError, setContactError] = useState('');
   const [lastInquiryMailto, setLastInquiryMailto] = useState('');
 
@@ -84,6 +86,8 @@ export default function ContactView({ setView }: ContactViewProps) {
     e.preventDefault();
     setIsSending(true);
     setSentSuccess(false);
+    setConfirmedEmail('');
+    setSenderConfirmStatus('pending');
     setContactError('');
     setLastInquiryMailto('');
 
@@ -108,9 +112,11 @@ export default function ContactView({ setView }: ContactViewProps) {
         throw new Error(extractErrorMessage(result?.error ?? result, 'Could not send your inquiry.'));
       }
       if (result.status === 'sent') {
+        setConfirmedEmail(result.email || payload.email);
+        setSenderConfirmStatus(result.senderStatus || 'sent');
         setSentSuccess(true);
         setForm({ name: '', email: '', subject: 'general', message: '' });
-        setTimeout(() => setSentSuccess(false), 6000);
+        setTimeout(() => setSentSuccess(false), 8000);
       } else {
         setLastInquiryMailto(buildContactMailtoHref(payload));
         setContactError(
@@ -385,7 +391,7 @@ export default function ContactView({ setView }: ContactViewProps) {
 
             {/* Accreditations badge */}
             <div className="bg-[#2E221C]/5 p-5 rounded-2xl border-l-4 border-[#C28A4E] text-xs text-[#2E221C]/80 leading-relaxed">
-              <strong>Approved TVET Institution:</strong> Licensed by the Ministry of Education, State Department for Vocational and Technical Training. Registration Number: TVET/COFFEE/2024/098.
+              <strong>Approved TVET Institution:</strong> Licensed by the Ministry of Education, State Department for Vocational and Technical Training. Registration Number: TVATA/PRIVATE/TVC/0158/2026.
             </div>
           </motion.div>
 
@@ -482,7 +488,11 @@ export default function ContactView({ setView }: ContactViewProps) {
               {sentSuccess && (
                 <div className="flex items-center space-x-2 text-xs text-green-800 bg-green-500/10 p-3 rounded-xl border border-green-500/20">
                   <CheckCircle2 className="h-4.5 w-4.5 text-green-800 shrink-0" />
-                  <span>Success! Your inquiry has been delivered safely to our registrar registry.</span>
+                  <span>
+                    {senderConfirmStatus === 'sent' && confirmedEmail
+                      ? `Success! Your inquiry has been delivered to our registrar, and a confirmation was sent to ${confirmedEmail}.`
+                      : 'Success! Your inquiry has been delivered safely to our registrar registry.'}
+                  </span>
                 </div>
               )}
 

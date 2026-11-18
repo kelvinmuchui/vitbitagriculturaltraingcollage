@@ -57,6 +57,7 @@ export default function ApplicationForm({
   const [submissionSuccess, setSubmissionSuccess] = useState(false);
   const [submissionError, setSubmissionError] = useState('');
   const [generatedCode, setGeneratedCode] = useState('');
+  const [submittedEmail, setSubmittedEmail] = useState('');
   const [submittedTimestamp, setSubmittedTimestamp] = useState('');
   const [emailStatuses, setEmailStatuses] = useState<{
     admin: string;
@@ -111,6 +112,7 @@ export default function ApplicationForm({
     if (kcseCertFile) requestBody.append('kcseCertFile', kcseCertFile);
 
     let appCode = '';
+    let appEmail = formData.email.trim();
     let appTimestamp = new Date().toISOString();
     let adminStatus = 'not_configured';
     let studentStatus = 'not_configured';
@@ -132,6 +134,7 @@ export default function ApplicationForm({
       }
 
       appCode = result.application.generatedCode;
+      appEmail = result.application.email || appEmail;
       appTimestamp = result.application.timestamp;
       adminStatus = result.application.adminEmailStatus || 'not_configured';
       studentStatus = result.application.studentEmailStatus || 'not_configured';
@@ -149,6 +152,7 @@ export default function ApplicationForm({
     }
 
     setGeneratedCode(appCode);
+    setSubmittedEmail(appEmail);
     setSubmittedTimestamp(appTimestamp);
     setEmailStatuses({
       admin: adminStatus,
@@ -182,14 +186,24 @@ export default function ApplicationForm({
     }
     todayEntry.submissions += 1;
     analyticsData.emailLog = analyticsData.emailLog || [];
-    analyticsData.emailLog.push({
-      id: `email-${Date.now()}`,
-      to: SCHOOL_EMAIL,
-      subject: `New VIBIT Admission Application: ${formData.fullName.trim()} (${appCode})`,
-      body: `${formData.fullName.trim()} (${formData.phone.trim()}) applied for ${selCourse?.title || formData.courseId} via ${applyMode === 'quick' ? 'Quick Apply' : 'Full Form'}.`,
-      timestamp: appTimestamp,
-      status: adminStatus,
-    });
+    analyticsData.emailLog.push(
+      {
+        id: `email-${Date.now()}-school`,
+        to: SCHOOL_EMAIL,
+        subject: `New VIBIT Admission Application: ${formData.fullName.trim()} (${appCode})`,
+        body: `${formData.fullName.trim()} (${formData.phone.trim()}) applied for ${selCourse?.title || formData.courseId} via ${applyMode === 'quick' ? 'Quick Apply' : 'Full Form'}.`,
+        timestamp: appTimestamp,
+        status: adminStatus,
+      },
+      {
+        id: `email-${Date.now()}-student`,
+        to: appEmail,
+        subject: `VIBIT Admission Confirmation — ${appCode}`,
+        body: `Applicant confirmation sent to ${appEmail} for ${selCourse?.title || formData.courseId}.`,
+        timestamp: appTimestamp,
+        status: studentStatus,
+      },
+    );
     localStorage.setItem('vibit_analytics', JSON.stringify(analyticsData));
 
     setIsSubmitting(false);
@@ -225,6 +239,7 @@ export default function ApplicationForm({
     setSubmissionSuccess(false);
     setSubmissionError('');
     setGeneratedCode('');
+    setSubmittedEmail('');
     setSubmittedTimestamp('');
     setEmailStatuses({ admin: 'pending', student: 'pending', error: '' });
     setInterviewDate('');
@@ -465,7 +480,7 @@ export default function ApplicationForm({
                 {/* Reassurance Footer */}
                 <div className="text-center pt-2 space-y-1">
                   <p className="text-[11px] text-gray-600 font-medium">
-                    🔒 100% Free Application • Details automatically delivered to <strong className="text-gray-900">{SCHOOL_EMAIL}</strong>
+                    🔒 100% Free Application • Sent to <strong className="text-gray-900">{SCHOOL_EMAIL}</strong> &amp; confirmation sent to your entered email
                   </p>
                   <p className="text-[10px] text-emerald-800 font-bold">
                     🏛️ TVETA Registered Institution: <span className="font-mono">{TVET_REG_NUMBER}</span>
@@ -931,14 +946,14 @@ export default function ApplicationForm({
                 </strong>
               </p>
               <p className="text-xs text-gray-700">
-                Your confirmation ({formData.email}):{' '}
-                <strong className={emailStatuses.student === 'sent' ? 'text-emerald-700' : 'text-gray-700'}>
+                Your confirmation ({submittedEmail || formData.email}):{' '}
+                <strong className={emailStatuses.student === 'sent' ? 'text-emerald-700' : 'text-amber-800'}>
                   {emailStatuses.student === 'sent'
-                    ? 'Sent to your email'
+                    ? `Sent to ${submittedEmail || formData.email}`
                     : emailStatuses.student === 'not_configured'
-                      ? 'Save your admission code below'
+                      ? `Pending Gmail App Password on server — save your admission code below`
                       : emailStatuses.student === 'failed'
-                        ? 'Save your admission code below'
+                        ? `Could not send to ${submittedEmail || formData.email} — save your admission code below`
                         : 'Pending'}
                 </strong>
               </p>
@@ -950,6 +965,7 @@ export default function ApplicationForm({
               <a
                 href={buildApplicationMailtoHref({
                   ...formData,
+                  email: submittedEmail || formData.email,
                   courseName: currentCourse?.title || formData.courseId,
                   generatedCode,
                   timestamp: submittedTimestamp || new Date().toISOString(),
@@ -961,7 +977,7 @@ export default function ApplicationForm({
                 className="w-full inline-flex items-center justify-center space-x-2 bg-white hover:bg-[#FAF6F0] text-[#2E221C] border border-[#2E221C]/20 font-bold text-xs py-2.5 px-4 rounded-xl transition-all shadow-2xs"
               >
                 <Mail className="h-4 w-4 text-[#C28A4E]" />
-                <span>Send / Forward Copy via Email App</span>
+                <span>Forward Copy to Admissions via Email App</span>
               </a>
             </div>
 

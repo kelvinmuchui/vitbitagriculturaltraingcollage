@@ -18,6 +18,7 @@ import {
   getGmailConfig,
   sendApplicationEmailsViaGmail,
   sendContactInquiryViaGmail,
+  sendNewsletterConfirmationViaGmail,
 } from './server/mailer.js';
 
 const app = express();
@@ -294,6 +295,7 @@ app.post(
         ok: true,
         application: {
           id: savedWithEmailStatus.id,
+          email: savedWithEmailStatus.email,
           generatedCode: savedWithEmailStatus.generatedCode,
           timestamp: savedWithEmailStatus.timestamp,
           adminEmailStatus: savedWithEmailStatus.adminEmailStatus,
@@ -324,6 +326,26 @@ app.post('/api/contact', async (req, res) => {
   return res.json({
     ok: true,
     status: delivery.status,
+    adminStatus: delivery.admin,
+    senderStatus: delivery.sender,
+    email: delivery.email,
+    error: delivery.error,
+  });
+});
+
+app.post('/api/newsletter', async (req, res) => {
+  if (isRateLimited(submissionAttempts, req.ip || 'unknown', 10, 60 * 60 * 1000)) {
+    return res.status(429).json({ ok: false, error: 'Too many subscription requests. Please try again later.' });
+  }
+  const email = String(req.body?.email || '').trim().toLowerCase();
+  if (!validEmail(email)) {
+    return res.status(400).json({ ok: false, error: 'Please enter a valid email address.' });
+  }
+  const delivery = await sendNewsletterConfirmationViaGmail(email);
+  return res.json({
+    ok: true,
+    status: delivery.status,
+    email: delivery.email,
     error: delivery.error,
   });
 });

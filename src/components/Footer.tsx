@@ -33,14 +33,33 @@ interface FooterProps {
 
 export default function Footer({ setView }: FooterProps) {
   const [email, setEmail] = useState('');
-  const [subscribed, setSubscribed] = useState(false);
+  const [isSubscribing, setIsSubscribing] = useState(false);
+  const [subscribedEmail, setSubscribedEmail] = useState('');
+  const [subscribeError, setSubscribeError] = useState('');
 
-  const handleSubscribe = (e: React.FormEvent) => {
+  const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (email.trim()) {
-      setSubscribed(true);
+    const trimmed = email.trim();
+    if (!trimmed) return;
+    setIsSubscribing(true);
+    setSubscribeError('');
+    try {
+      const response = await fetch('/api/newsletter', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({ email: trimmed }),
+      });
+      const result = await response.json().catch(() => null);
+      if (!response.ok || !result?.ok) {
+        throw new Error(typeof result?.error === 'string' ? result.error : 'Could not subscribe right now.');
+      }
+      setSubscribedEmail(result.email || trimmed);
       setEmail('');
-      setTimeout(() => setSubscribed(false), 5000);
+      setTimeout(() => setSubscribedEmail(''), 6000);
+    } catch (error) {
+      setSubscribeError(error instanceof Error ? error.message : 'Could not subscribe right now.');
+    } finally {
+      setIsSubscribing(false);
     }
   };
 
@@ -200,18 +219,22 @@ export default function Footer({ setView }: FooterProps) {
                 <button
                   type="submit"
                   id="newsletter-submit"
-                  className="absolute right-2 top-2 bg-[#C28A4E] hover:bg-[#A4713C] text-white p-1.5 rounded-lg transition-all cursor-pointer"
+                  disabled={isSubscribing}
+                  className="absolute right-2 top-2 bg-[#C28A4E] hover:bg-[#A4713C] text-white p-1.5 rounded-lg transition-all cursor-pointer disabled:opacity-50"
                 >
                   <Send className="h-4 w-4" />
                 </button>
               </div>
             </form>
 
-            {subscribed && (
+            {subscribedEmail && (
               <div className="mt-3 flex items-center space-x-2 text-xs text-green-400 bg-green-500/10 p-2.5 rounded-lg border border-green-500/20">
                 <CheckCircle2 className="h-4 w-4 shrink-0" />
-                <span>Subscribed! Check your inbox for VIBIT Welcome Kit.</span>
+                <span>Subscribed ({subscribedEmail})! Check your inbox for VIBIT Welcome Kit.</span>
               </div>
+            )}
+            {subscribeError && (
+              <p className="mt-2 text-xs text-amber-300">{subscribeError}</p>
             )}
           </div>
 
